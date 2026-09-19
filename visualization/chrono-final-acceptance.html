@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono/HAMS Final Acceptance Audit</title>
+  <script src="chrono-final-acceptance-data.js?v=20260815-final2"></script>
+  <style>
+    :root { --ink:#17211d; --muted:#63716b; --line:#d9e1dd; --wash:#f5f7f6; --ok:#237653; --partial:#9a6a12; --check:#b94d36; --missing:#7f3f98; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--wash); color:var(--ink); font-family:Inter,"Segoe UI","Microsoft YaHei",Arial,sans-serif; }
+    header { padding:20px 28px 12px; border-bottom:1px solid var(--line); background:#fbfcfb; }
+    h1,h2 { margin:0; letter-spacing:0; }
+    h1 { font-size:23px; }
+    h2 { font-size:16px; margin-bottom:12px; }
+    nav { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+    nav a { color:var(--muted); text-decoration:none; font-size:13px; padding:6px 9px; border:1px solid var(--line); background:#fff; border-radius:6px; }
+    nav a[aria-current="page"] { color:var(--ink); border-color:#9eb5ad; }
+    main { padding:18px; display:grid; grid-template-columns:1fr; gap:18px; }
+    section { background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px; min-width:0; }
+    .summary { display:grid; grid-template-columns:repeat(5,minmax(120px,1fr)); gap:12px; }
+    .metric { border:1px solid var(--line); border-radius:8px; padding:12px; background:#fff; }
+    .metric strong { display:block; font-size:24px; margin-top:4px; }
+    .note { color:var(--muted); font-size:13px; line-height:1.55; margin:8px 0 0; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th,td { padding:8px 7px; border-bottom:1px solid #e5ece8; text-align:left; vertical-align:top; }
+    th { color:var(--muted); font-weight:600; }
+    .status { font-weight:800; white-space:nowrap; }
+    .PASS { color:var(--ok); }
+    .PARTIAL { color:var(--partial); }
+    .CHECK { color:var(--check); }
+    .MISSING { color:var(--missing); }
+    .mono { font-family:Consolas,"SFMono-Regular",monospace; }
+    .filters { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+    select { min-height:34px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); padding:6px 9px; font:inherit; }
+    @media (max-width:900px) { .summary { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Chrono/HAMS 最终验收审计</h1>
+    <p class="note">逐项检查当前开源复现链路是否满足“水动力 -> Cummins -> Chrono 四腿 -> 双向反馈 -> HTML”的目标，明确不完整项。</p>
+    <nav>
+      <a href="chrono-final-acceptance.html" aria-current="page">最终审计</a>
+      <a href="model-realism-audit.html">真实性审计</a>
+      <a href="literature-comparison-registry.html">文献注册表</a>
+      <a href="chrono-stage3-lock-two-way.html">锁紧双向</a>
+      <a href="chrono-stage3-lock.html">Stage 3 锁紧</a>
+      <a href="chrono-stage3-two-way.html">Stage 3A 双向</a>
+      <a href="chrono-stage3-thies-buffer.html">Thies Buffer</a>
+      <a href="chrono-stage3c-rigid-body-link.html">Stage 3C 诊断</a>
+      <a href="leg-mechanism-contract.html">机构数据合同</a>
+      <a href="leg-mechanism-import.html">机构数据导入</a>
+      <a href="leg-mechanism-import-selftest.html">导入自测</a>
+      <a href="leg-mechanism-validation.html">机构数据校验</a>
+      <a href="leg-mechanism-gap-tracker.html">数据缺口</a>
+      <a href="leg-mechanism-data-request-pack.html">数据补齐包</a>
+      <a href="leg-mechanism-data-request-lint.html">补齐包检查</a>
+      <a href="real-leg-mechanism-builder.html">真实机构 Gate</a>
+      <a href="chrono-real-leg-backend-selftest.html">后端自测</a>
+      <a href="chrono-real-leg-mechanism.html">真实机构运行</a>
+      <a href="chrono-two-way.html">Chrono 双向</a>
+      <a href="nargolkar-2025.html">Nargolkar 2025</a>
+      <a href="wang-2023.html">Wang 2023</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>总览</h2>
+      <div class="summary" id="summary"></div>
+      <p class="note" id="generated"></p>
+    </section>
+    <section>
+      <h2>验收项</h2>
+      <div class="filters">
+        <label>状态 <select id="statusFilter"><option value="">全部</option><option>PASS</option><option>PARTIAL</option><option>CHECK</option><option>MISSING</option></select></label>
+        <label>分组 <select id="groupFilter"><option value="">全部</option></select></label>
+      </div>
+      <table>
+        <thead><tr><th>Group</th><th>ID</th><th>Status</th><th>Requirement</th><th>Evidence</th><th>Note</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+    <section>
+      <h2>剩余缺口</h2>
+      <table>
+        <thead><tr><th>Status</th><th>ID</th><th>Requirement</th><th>Next meaning</th></tr></thead>
+        <tbody id="gaps"></tbody>
+      </table>
+    </section>
+    <section>
+      <h2>下一步硬化</h2>
+      <table><tbody id="steps"></tbody></table>
+    </section>
+  </main>
+  <script>
+    const audit = window.CHRONO_FINAL_ACCEPTANCE_AUDIT;
+    function esc(value){ return String(value ?? "").replace(/[&<>"']/g, s => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[s])); }
+    function render(){
+      if(!audit){ document.body.innerHTML = "<main><section><h1>缺少 chrono-final-acceptance-data.js</h1><p>请先运行 final_acceptance_audit.py report。</p></section></main>"; return; }
+      const summary = audit.summary || {};
+      document.getElementById("summary").innerHTML = [
+        ["Overall", audit.overall_status],
+        ["PASS", summary.PASS || 0],
+        ["PARTIAL", summary.PARTIAL || 0],
+        ["CHECK", summary.CHECK || 0],
+        ["MISSING", summary.MISSING || 0],
+      ].map(([k,v]) => `<div class="metric"><span>${esc(k)}</span><strong class="${esc(v)}">${esc(v)}</strong></div>`).join("");
+      document.getElementById("generated").textContent = `generated ${audit.generated_utc}`;
+      const groups = [...new Set(audit.requirements.map(row => row.group))];
+      document.getElementById("groupFilter").innerHTML += groups.map(group => `<option>${esc(group)}</option>`).join("");
+      document.getElementById("statusFilter").addEventListener("change", renderRows);
+      document.getElementById("groupFilter").addEventListener("change", renderRows);
+      renderRows();
+      document.getElementById("gaps").innerHTML = audit.gaps.map(row => `<tr><td class="status ${esc(row.status)}">${esc(row.status)}</td><td class="mono">${esc(row.id)}</td><td>${esc(row.requirement)}</td><td>${esc(row.note)}</td></tr>`).join("");
+      document.getElementById("steps").innerHTML = audit.next_hardening_steps.map((step, i) => `<tr><td class="mono">${i+1}</td><td>${esc(step)}</td></tr>`).join("");
+    }
+    function renderRows(){
+      const status = document.getElementById("statusFilter").value;
+      const group = document.getElementById("groupFilter").value;
+      const rows = audit.requirements.filter(row => (!status || row.status === status) && (!group || row.group === group));
+      document.getElementById("rows").innerHTML = rows.map(row => `<tr><td>${esc(row.group)}</td><td class="mono">${esc(row.id)}</td><td class="status ${esc(row.status)}">${esc(row.status)}</td><td>${esc(row.requirement)}</td><td>${esc(row.evidence)}</td><td>${esc(row.note)}</td></tr>`).join("");
+    }
+    render();
+  </script>
+</body>
+</html>

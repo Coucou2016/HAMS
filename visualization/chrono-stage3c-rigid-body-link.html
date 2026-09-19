@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono Stage 3C Rigid-Body Link Diagnostic</title>
+  <script src="chrono-stage3c-rigid-body-link-data.js"></script>
+  <style>
+    :root { --ink:#17211d; --muted:#63716b; --line:#d9e1dd; --wash:#f5f7f6; --ok:#237653; --bad:#b94d36; --warn:#9a6a12; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--wash); color:var(--ink); font-family:Inter,"Segoe UI","Microsoft YaHei",Arial,sans-serif; }
+    header { padding:20px 28px 12px; border-bottom:1px solid var(--line); background:#fbfcfb; }
+    h1,h2 { margin:0; letter-spacing:0; }
+    h1 { font-size:23px; }
+    h2 { font-size:16px; margin-bottom:12px; }
+    nav { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+    nav a { color:var(--muted); text-decoration:none; font-size:13px; padding:6px 9px; border:1px solid var(--line); background:#fff; border-radius:6px; }
+    nav a[aria-current="page"] { color:var(--ink); border-color:#9eb5ad; }
+    main { padding:18px; display:grid; grid-template-columns:1fr; gap:18px; }
+    section { background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px; min-width:0; }
+    .summary { display:grid; grid-template-columns:repeat(4,minmax(120px,1fr)); gap:12px; }
+    .metric { border:1px solid var(--line); border-radius:8px; padding:12px; background:#fff; }
+    .metric strong { display:block; font-size:22px; margin-top:4px; overflow-wrap:anywhere; }
+    .note { color:var(--muted); font-size:13px; line-height:1.55; margin:8px 0 0; }
+    .banner { border-color:#e6c7b7; background:#fff7f2; }
+    .ok { color:var(--ok); font-weight:800; }
+    .bad { color:var(--bad); font-weight:800; }
+    .warn { color:var(--warn); font-weight:800; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th,td { padding:8px 7px; border-bottom:1px solid #e5ece8; text-align:left; vertical-align:top; }
+    th { color:var(--muted); font-weight:600; }
+    .mono { font-family:Consolas,"SFMono-Regular",monospace; }
+    @media (max-width:900px) { .summary { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Chrono Stage 3C 刚体杆件诊断</h1>
+    <p class="note">有限质量圆柱杆件 + 球铰 + Thies 数字化缓冲器。该页记录诊断结果，不把失败分支作为回收仿真结论。</p>
+    <nav>
+      <a href="chrono-final-acceptance.html">最终审计</a>
+      <a href="chrono-stage3-thies-buffer.html">Thies Buffer</a>
+      <a href="chrono-stage3c-rigid-body-link.html" aria-current="page">Stage 3C 诊断</a>
+      <a href="leg-mechanism-contract.html">机构数据合同</a>
+      <a href="leg-mechanism-import.html">机构数据导入</a>
+      <a href="leg-mechanism-import-selftest.html">导入自测</a>
+      <a href="leg-mechanism-validation.html">机构数据校验</a>
+      <a href="real-leg-mechanism-builder.html">真实机构 Gate</a>
+      <a href="chrono-real-leg-mechanism.html">真实机构运行</a>
+      <a href="literature-comparison-registry.html">文献注册表</a>
+    </nav>
+  </header>
+  <main>
+    <section class="banner">
+      <h2>结论</h2>
+      <p class="note" id="conclusion"></p>
+    </section>
+    <section>
+      <h2>总览</h2>
+      <div class="summary" id="summary"></div>
+    </section>
+    <section>
+      <h2>验证项</h2>
+      <table id="validation"></table>
+    </section>
+    <section>
+      <h2>工况摘要</h2>
+      <table id="cases"></table>
+    </section>
+    <section>
+      <h2>不声明内容</h2>
+      <table id="notClaimed"></table>
+    </section>
+  </main>
+  <script>
+    const report = window.CHRONO_STAGE3C_RIGID_BODY_LINK_DATA;
+    function esc(value){ return String(value ?? "").replace(/[&<>"']/g, s => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[s])); }
+    function fmt(value, digits=3){
+      if (!Number.isFinite(Number(value))) return "-";
+      const n = Number(value);
+      if (Math.abs(n) >= 1e6) return n.toExponential(3);
+      return n.toFixed(digits);
+    }
+    function passText(value){ return value ? "<span class='ok'>PASS</span>" : "<span class='bad'>NOT PASS</span>"; }
+    if(!report){
+      document.body.innerHTML = "<main><section><h1>缺少 Stage 3C 数据</h1><p>请先运行 chrono_stage3c_rigid_body_link_recovery.py report --case calm_center。</p></section></main>";
+      throw new Error("missing CHRONO_STAGE3C_RIGID_BODY_LINK_DATA");
+    }
+    const validations = report.validation || {};
+    const physical = validations.case_physical_diagnostics?.pass === true;
+    const contact = validations.contact_state_machine?.pass === true;
+    document.getElementById("conclusion").innerHTML = physical && contact
+      ? "Stage 3C 诊断分支通过当前物理检查。仍不能声明 Adams/CAD 等价，因为杆件半径、质量、惯量和铰点细节不是论文原始数据。"
+      : "Stage 3C 诊断分支未通过当前物理检查。有限质量杆件和球铰本身可以在 Chrono 中搭建，但在缺少真实铰点、伸缩缓冲器拓扑和锁定机构数据时，简单闭合模型会产生不可接受的接触/稳定结果。";
+    const cases = report.simulations || {};
+    const firstCase = Object.keys(cases)[0];
+    const firstSummary = firstCase ? cases[firstCase].summary || {} : {};
+    const summaryRows = [
+      ["Status", report.status || "-"],
+      ["Cases", Object.keys(cases).length],
+      ["Contact State", contact ? "PASS" : "NOT PASS"],
+      ["Physical Diagnostics", physical ? "PASS" : "NOT PASS"],
+      ["Max Contact", `${fmt(firstSummary.max_leg_contact_force_kn, 2)} kN`],
+      ["Max Slip", `${fmt((firstSummary.max_footpad_slip_m || 0), 3)} m`],
+      ["Final Contact", firstSummary.final_contact_count ?? "-"],
+      ["Final Nozzle", `${fmt(firstSummary.final_nozzle_clearance_m, 3)} m`],
+    ];
+    document.getElementById("summary").innerHTML = summaryRows.map(([label,value]) =>
+      `<div class="metric"><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join("");
+    const validationRows = Object.entries(validations).map(([key, value]) =>
+      `<tr><th class="mono">${esc(key)}</th><td>${passText(value?.pass === true)}</td><td>${esc(value?.note || value?.status || "")}</td></tr>`);
+    document.getElementById("validation").innerHTML = "<tr><th>ID</th><th>状态</th><th>说明</th></tr>" + validationRows.join("");
+    document.getElementById("cases").innerHTML = "<tr><th>Case</th><th>Max Contact kN</th><th>Max Slip m</th><th>Brace Error m</th><th>Final Nozzle m</th><th>Final Contact</th></tr>" +
+      Object.entries(cases).map(([id, sim]) => {
+        const s = sim.summary || {};
+        return `<tr><td class="mono">${esc(id)}</td><td>${fmt(s.max_leg_contact_force_kn,2)}</td><td>${fmt(s.max_footpad_slip_m,3)}</td><td>${fmt(s.max_brace_length_error_m,3)}</td><td>${fmt(s.final_nozzle_clearance_m,3)}</td><td>${esc(s.final_contact_count)}</td></tr>`;
+      }).join("");
+    const notClaimed = report.acceptance_scope?.not_claimed || [];
+    document.getElementById("notClaimed").innerHTML = notClaimed.map(item => `<tr><td>${esc(item)}</td></tr>`).join("");
+  </script>
+</body>
+</html>

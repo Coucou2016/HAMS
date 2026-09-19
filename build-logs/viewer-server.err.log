@@ -1,0 +1,768 @@
+127.0.0.1 - - [28/Jul/2026 18:13:33] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [28/Jul/2026 18:13:33] "GET /vendor/three.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [28/Jul/2026 18:13:33] "GET /vendor/OrbitControls.js HTTP/1.1" 200 -
+127.0.0.1 - - [28/Jul/2026 18:13:33] "GET /mesh-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [28/Jul/2026 18:33:07] "HEAD /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 12:54:41] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 12:55:15] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 12:55:17] "GET /results-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 12:55:18] "GET /snapshots/cylinder-mesh.png HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 12:55:58] "GET /snapshots/deepcwind-mesh.png HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 12:57:03] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:06:48] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:06:48] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:06:48] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:07:01] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:07:02] "GET /results-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:07:03] "GET /snapshots/cylinder-mesh.png HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:07:03] code 404, message File not found
+127.0.0.1 - - [29/Jul/2026 13:07:03] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [29/Jul/2026 13:07:17] "GET /snapshots/deepcwind-mesh.png HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:07:29] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:07:29] "GET /vendor/three.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:07:29] "GET /vendor/OrbitControls.js HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:07:29] "GET /mesh-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 13:30:05] "GET /results.html HTTP/1.1" 304 -
+127.0.0.1 - - [29/Jul/2026 13:30:12] "GET /results-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [29/Jul/2026 22:49:33] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2026 22:49:33] "GET /results.html HTTP/1.1" 304 -
+127.0.0.1 - - [29/Jul/2026 22:49:34] "GET / HTTP/1.1" 200 -
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 14634)
+Exception occurred during processing of request from ('127.0.0.1', 14625)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "E:\Miniconda3\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 1342, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 1342, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 683, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 683, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 690, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 690, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 892, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 892, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "E:\Miniconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+127.0.0.1 - - [30/Jul/2026 01:20:14] "GET /rocket-recovery.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 01:20:14] "GET /vendor/three.min.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 01:20:14] "GET /rocket-recovery-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 01:20:14] "GET /vendor/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 12:55:28] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 12:55:28] "GET /nargolkar-2025-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 12:55:28] "GET /vendor/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 12:55:28] "GET /vendor/three.min.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 15:18:43] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:44] "GET /nargolkar-2025-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:48] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:48] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:48] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:51] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:51] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:59] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:18:59] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:07] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:07] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:15] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:15] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:15] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:25] "GET / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 5030)
+Traceback (most recent call last):
+  File "E:\Miniconda3\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 1342, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 683, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 690, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 892, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+127.0.0.1 - - [30/Jul/2026 15:19:28] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:28] "GET /nargolkar-2025-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 15:19:33] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:33] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:33] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:41] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:41] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:41] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:49] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:49] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:49] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:58] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:58] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:19:58] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:06] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:06] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:14] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:14] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:14] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:22] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:22] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:31] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:31] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:31] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:39] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:39] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:39] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:47] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:47] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:49] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:49] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:49] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:55] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:20:55] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:03] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:03] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:03] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:12] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:12] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:21] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:21] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:21] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:29] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:29] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:29] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:37] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:37] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:37] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:46] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:46] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:46] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:54] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:54] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:21:54] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:02] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:02] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:11] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:11] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:11] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:19] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:19] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:19] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:28] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:28] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:36] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:36] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:36] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:45] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:45] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:45] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:50] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:50] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:53] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:53] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:59] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:22:59] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:07] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:07] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:15] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:15] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:15] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:24] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:24] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:24] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:32] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:32] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:40] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:40] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:48] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:48] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:48] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:57] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:57] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:23:57] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:05] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:05] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:05] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:13] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:13] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:13] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:22] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:22] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:31] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:31] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:31] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:39] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:39] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:39] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:47] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:47] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:55] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:55] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:57] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:57] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:24:57] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:04] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:04] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:04] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:12] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:12] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:20] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:20] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:28] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:28] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:37] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:37] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:37] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:45] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:45] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:45] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:53] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:25:53] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:02] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:02] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:11] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:11] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:11] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:19] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:19] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:19] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:27] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:27] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:27] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:36] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:36] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:36] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:46] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:46] "GET /viewer.html HTTP/1.1" 200 -
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 7477)
+Exception occurred during processing of request from ('127.0.0.1', 7479)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "E:\Miniconda3\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 1342, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 1342, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 683, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 683, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 690, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 690, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 892, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 892, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "E:\Miniconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+----------------------------------------
+127.0.0.1 - - [30/Jul/2026 15:26:54] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:26:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:27:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:27:10] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:27:19] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:27:27] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:27:35] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:27:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:27:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:28:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:28:09] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:28:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:28:25] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:28:33] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:28:42] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:28:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:28:58] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:29:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:29:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:29:15] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:29:23] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:29:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:29:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:29:48] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:29:57] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:30:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:30:14] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:30:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:30:31] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:30:39] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:30:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:30:56] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:31:05] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:31:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:31:13] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:31:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:31:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:31:38] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:31:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:31:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:32:04] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:32:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:32:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:32:29] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:32:37] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:32:46] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:32:54] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:33:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:33:09] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:33:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:33:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:33:27] "GET / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 9696)
+Traceback (most recent call last):
+  File "E:\Miniconda3\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 1342, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 683, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 690, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 892, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+127.0.0.1 - - [30/Jul/2026 15:33:35] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:33:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:33:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:34:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:34:08] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:34:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:34:25] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:34:33] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:34:42] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:34:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:34:58] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:35:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:35:13] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:35:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:35:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:35:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:35:38] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:35:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:35:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:36:03] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:36:11] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:36:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:36:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:36:36] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:36:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:36:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:01] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:09] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:26] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:34] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:37:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:38:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:38:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:38:24] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:38:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:38:41] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:38:49] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:38:57] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:39:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:39:14] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:39:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:39:24] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:39:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:39:39] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:39:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:39:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:40:04] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:40:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:40:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:40:29] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:40:37] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:40:45] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:40:54] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:41:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:41:10] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:41:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:41:26] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:41:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:41:34] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:41:43] "GET / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 12216)
+Traceback (most recent call last):
+  File "E:\Miniconda3\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 1342, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 683, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 690, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 892, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+127.0.0.1 - - [30/Jul/2026 15:41:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:42:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:42:08] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:42:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:42:25] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:42:33] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:42:41] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:42:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:42:58] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:43:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:43:15] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:43:23] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:43:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:43:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:43:38] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:43:47] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:43:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:44:03] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:44:12] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:44:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:44:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:44:37] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:44:45] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:44:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:45:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:45:10] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:45:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:45:26] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:45:34] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:45:36] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:45:42] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:45:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:46:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:46:08] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:46:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:46:24] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:46:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:46:41] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:46:49] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:46:57] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:47:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:47:14] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:47:23] "GET / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 13821)
+Traceback (most recent call last):
+  File "E:\Miniconda3\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 1342, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 683, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 447, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 435, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "E:\Miniconda3\Lib\http\server.py", line 690, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\http\server.py", line 892, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "E:\Miniconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "E:\Miniconda3\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------
+127.0.0.1 - - [30/Jul/2026 15:47:31] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:47:38] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:47:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:47:46] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:47:54] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:48:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:48:11] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:48:19] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:48:27] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:48:35] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:48:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:48:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:49:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:49:09] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:49:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:49:26] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 15:49:34] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 21:40:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 21:40:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 21:46:15] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 21:46:15] "GET /vendor/three.min.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 21:46:15] "GET /vendor/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 21:46:15] "GET /nargolkar-2025-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 21:49:59] "GET /nargolkar-2025.html HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 21:50:00] "GET /nargolkar-2025-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:01:10] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:01:10] "GET /nargolkar-2025-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 22:01:40] "GET /nargolkar-2025.html HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 22:02:21] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:02:21] "GET /nargolkar-2025-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 22:13:59] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:14:07] "GET /nargolkar-2025-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:14:07] "GET /vendor/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 22:14:07] "GET /vendor/three.min.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 22:14:31] code 404, message File not found
+127.0.0.1 - - [30/Jul/2026 22:14:31] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [30/Jul/2026 22:34:37] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:34:37] "GET /nargolkar-2025-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:35:43] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:35:43] "GET /nargolkar-2025-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 22:38:09] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 22:38:09] "GET /nargolkar-2025-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [30/Jul/2026 23:42:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 23:42:17] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 23:42:17] "GET /viewer.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 23:42:17] "GET /rocket-recovery.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 23:42:17] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 23:59:44] "GET /wang-2023.html HTTP/1.1" 200 -
+127.0.0.1 - - [30/Jul/2026 23:59:44] "GET /wang-2023-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 00:13:54] "GET /landing-leg-contact.html HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 00:13:54] "GET /landing-leg-contact-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 13:00:34] "GET /landing-leg-contact.html HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 13:00:34] "GET /landing-leg-contact-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 13:01:00] "GET /nargolkar-2025.html HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 13:01:01] "GET /vendor/three.min.js HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 13:01:01] "GET /vendor/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 13:01:01] "GET /nargolkar-2025-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 13:01:02] "GET /rocket-recovery.html HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 13:01:03] "GET /rocket-recovery-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 13:01:17] "GET /results.html HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 13:01:17] "GET /results-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 13:01:17] "GET /snapshots/cylinder-mesh.png HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 14:25:38] "GET /integrated-recovery.html HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 14:25:38] "GET /integrated-recovery-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 14:25:38] "GET /wang-2023-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 14:25:38] "GET /vendor/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 14:25:38] "GET /vendor/three.min.js HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 14:33:20] "GET /integrated-recovery.html HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 14:33:20] "GET /integrated-recovery-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 14:34:47] "GET /integrated-recovery.html?verify=1785479687041 HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 14:34:47] "GET /integrated-recovery-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 14:37:41] "GET /integrated-recovery.html?verify2=1785479860978 HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 14:37:41] "GET /integrated-recovery-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [31/Jul/2026 15:02:43] "GET /integrated-recovery.html HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 15:02:50] "GET /wang-2023-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Jul/2026 15:02:50] "GET /integrated-recovery-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 01:40:03] "GET /chrono-recovery.html?verify=1785519603040 HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 01:40:03] "GET /chrono-recovery-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 02:57:43] "GET /chrono-recovery.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 02:57:43] "GET /chrono-recovery-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 04:00:28] "GET /chrono-two-way.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 04:00:28] "GET /chrono-two-way-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 04:31:12] "GET /chrono-stage3-tripod.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 04:31:13] "GET /chrono-stage3-tripod-data.js HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 04:32:06] "GET /chrono-stage3-tripod.html HTTP/1.1" 304 -
+127.0.0.1 - - [01/Aug/2026 04:32:06] "GET /chrono-stage3-tripod-data.js HTTP/1.1" 304 -
+127.0.0.1 - - [01/Aug/2026 04:49:31] "GET /chrono-stage3-tripod.html HTTP/1.1" 200 -
+127.0.0.1 - - [01/Aug/2026 04:49:31] "GET /chrono-stage3-tripod-data.js HTTP/1.1" 200 -

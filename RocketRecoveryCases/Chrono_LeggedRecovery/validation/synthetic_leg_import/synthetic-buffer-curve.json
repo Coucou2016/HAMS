@@ -1,0 +1,37 @@
+{
+  "curve_id": "synthetic_buffer_curve_for_import_selftest_only",
+  "source_category": "synthetic_test_fixture",
+  "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+  "force_stroke_points": [
+    {
+      "stroke_m": 0.0,
+      "force_n": 0.0
+    },
+    {
+      "stroke_m": 0.2,
+      "force_n": 420000.0
+    },
+    {
+      "stroke_m": 0.42,
+      "force_n": 935000.0
+    },
+    {
+      "stroke_m": 0.8,
+      "force_n": 1800000.0
+    }
+  ],
+  "force_velocity_points": [
+    {
+      "velocity_m_s": 0.0,
+      "force_n": 0.0
+    },
+    {
+      "velocity_m_s": 1.0,
+      "force_n": 110000.0
+    },
+    {
+      "velocity_m_s": 5.0,
+      "force_n": 550000.0
+    }
+  ]
+}

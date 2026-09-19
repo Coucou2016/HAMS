@@ -1,0 +1,1479 @@
+{
+  "case_id": "Chrono_LeggedRecovery_ChronoRevisionStudy",
+  "title": "Chrono revision study: current smooth contact on a 120x50x7 HAMS platform operator",
+  "status": "computed",
+  "config": {
+    "case_id": "Chrono_LeggedRecovery_ChronoRevisionStudy",
+    "platform": {
+      "source_case": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50",
+      "length_m": 120.0,
+      "beam_m": 50.0,
+      "draft_m": 7.0,
+      "operator_reference_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "deck_reference_z_m": 0.0
+    },
+    "time_domain": {
+      "start_s": 506.0,
+      "end_s": 516.0,
+      "touchdown_reference_s": 510.0,
+      "platform_dt_s": 0.01,
+      "contact_dt_s": 0.0005
+    },
+    "wave": {
+      "heading_deg": 90.0,
+      "hs_m": 1.75,
+      "tp_s": 4.5,
+      "gamma": 3.0,
+      "random_phase_seed": 2023,
+      "force_order": "HAMS first-order Excitation RAOs only"
+    },
+    "plume": {
+      "enabled": true,
+      "application_x_m": 15.0,
+      "application_y_m": 10.0,
+      "source": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Paper_WangZhi_2023\\platform_config.json",
+      "load_definition": "Wang 2023 plume_load_n waveform, including 506-510 s plateau approximation",
+      "vehicle_platform_consistency": "pre_touchdown_only",
+      "cutoff_time_s": 510.0
+    },
+    "rocket": {
+      "mass_kg": 61288.0,
+      "inertia_roll_kg_m2": 376000.0,
+      "inertia_pitch_kg_m2": 25700000.0,
+      "cog_from_base_m": 22.059,
+      "touchdown_speed_m_s": 5.0,
+      "gravity_m_s2": 9.80665,
+      "pre_contact_gravity": "off_until_detected_first_geometric_contact"
+    },
+    "legs": {
+      "count": 4,
+      "azimuths_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "footprint_radius_m": 6.7932316003579345,
+      "contact_definition": "delta > 0, with delta = deck_z - foot_z"
+    },
+    "coupling": {
+      "platform_grid": "fixed 0.01 s HAMS/Cummins operator grid",
+      "contact_grid": "requested contact dt; platform q and qd linearly interpolated to it",
+      "feedback_resampling": "conservative interval-average of fine contact wrench onto platform-grid Voronoi bins",
+      "relaxation": 1.0,
+      "iterative_max_passes": 8,
+      "iterative_tolerance": 0.0001
+    }
+  },
+  "platform_operator": {
+    "case_dir": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50",
+    "hydrodynamic_source_dir": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50\\validation\\hydrodynamic_runs\\medium_local025_high5",
+    "geometry": {
+      "length_m": 120.0,
+      "beam_m": 50.0,
+      "draft_m": 7.0,
+      "operator_reference_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "deck_reference_z_m": 0.0
+    },
+    "operator_dofs": [
+      "surge_m",
+      "sway_m",
+      "heave_m",
+      "roll_rad",
+      "pitch_rad",
+      "yaw_rad"
+    ],
+    "active_dofs": [
+      "heave_m",
+      "roll_rad",
+      "pitch_rad"
+    ],
+    "constrained_dofs": [
+      "surge_m",
+      "sway_m",
+      "yaw_rad"
+    ],
+    "frequency_count": 73,
+    "frequency_range_rad_s": [
+      0.2,
+      2.0
+    ],
+    "active_radiation_minimum_eigenvalue_kg_s": 88931.17,
+    "radiation_memory_band_policy": "The 0.2-2.0 rad/s positive-semidefinite active radiation band is used in the memory kernel; the separately computed 4-5 rad/s tail is used only for the finite-cutoff A_inf estimate.",
+    "selected_wave_heading_deg": 90.0,
+    "added_mass_infinite_definition": {
+      "method": "mean of the last five computed added-mass matrices",
+      "status": "finite_cutoff_estimate_not_mathematical_infinity",
+      "cutoff_rad_s": 5.0,
+      "tail_frequencies_rad_s": [
+        4.0,
+        4.25,
+        4.5,
+        4.75,
+        5.0
+      ],
+      "mesh_level": "medium",
+      "hull_panels": 2048,
+      "run_id": "medium_local025_high5",
+      "source": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50\\validation\\barge-hydrodynamic-convergence.json",
+      "diagonal_tail_relative_range": {
+        "surge_m": 0.06482050889289852,
+        "sway_m": 0.12770919613179973,
+        "heave_m": 0.016379999745187696,
+        "roll_rad": 0.0021994448003416615,
+        "pitch_rad": 0.006047539521382683,
+        "yaw_rad": 0.14848637648157964
+      }
+    },
+    "mass_matrix_full_6x6": [
+      [
+        44648151.6,
+        -1.947489596e-09,
+        -1.1590943399999999e-10,
+        7.3925092400000005e-09,
+        -40233746.0,
+        -3.11891184e-08
+      ],
+      [
+        -1.02549506e-09,
+        47054942.6,
+        9.786379599999998e-09,
+        63183896.0,
+        -1.19307516e-08,
+        -9.4026286e-08
+      ],
+      [
+        1.167882e-09,
+        -3.82257e-08,
+        151365020.0,
+        1.22804182e-06,
+        6.137417999999997e-08,
+        -1.065898818e-07
+      ],
+      [
+        -2.9747784e-08,
+        59867118.0,
+        1.4340042e-06,
+        19802300000.0,
+        1.92853246e-06,
+        -1.3199268000000002e-05
+      ],
+      [
+        -34243688.0,
+        -8.5280464e-08,
+        -5.633907400000001e-07,
+        -2.9528722e-06,
+        144056460000.0,
+        2.5367259999999997e-05
+      ],
+      [
+        -6.2303666e-08,
+        7.06135416e-08,
+        -1.7968871999999995e-09,
+        -1.319918e-07,
+        -7.82674734e-06,
+        65426129000.0
+      ]
+    ],
+    "restoring_matrix_full_6x6": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        60310900.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        11931500000.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        71739800000.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "active_mass_matrix": [
+      [
+        151365020.0,
+        1.22804182e-06,
+        6.137417999999997e-08
+      ],
+      [
+        1.4340042e-06,
+        19802300000.0,
+        1.92853246e-06
+      ],
+      [
+        -5.633907400000001e-07,
+        -2.9528722e-06,
+        144056460000.0
+      ]
+    ],
+    "active_restoring_matrix": [
+      [
+        60310900.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        11931500000.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        71739800000.0
+      ]
+    ],
+    "active_mass_min_eigenvalue": 151365020.0,
+    "active_mass_inverse_residual": 4.982856688738506e-32,
+    "horizontal_restoring_rows_are_zero": true,
+    "external_linear_damping_from_hydrostatic_input": "zero matrix",
+    "horizontal_dof_boundary": "surge, sway and yaw are held fixed because supplied HAMS Hydrostatic.in has no horizontal restoring or mooring stiffness; no artificial horizontal stiffness is inserted",
+    "source_files": {
+      "hydrostatic": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50\\Input\\Hydrostatic.in",
+      "added_mass": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50\\validation\\hydrodynamic_runs\\medium_local025_high5\\Output\\Hydrostar_format\\AddedMass_11.rao",
+      "radiation_damping": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50\\validation\\hydrodynamic_runs\\medium_local025_high5\\Output\\Hydrostar_format\\WaveDamping_11.rao",
+      "wave_excitation": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50\\validation\\hydrodynamic_runs\\medium_local025_high5\\Output\\Hydrostar_format\\Excitation_3.rao"
+    },
+    "hydrodynamic_grid_consistency": "A(omega), B(omega), wave excitation and the finite-cutoff A_inf estimate are selected from the same completed mesh level."
+  },
+  "wave": {
+    "definition": "deterministic JONSWAP first-order force synthesis on the Barge HAMS frequency grid",
+    "heading_deg": 90.0,
+    "frequency_rad_s": [
+      0.2,
+      0.225,
+      0.25,
+      0.275,
+      0.3,
+      0.325,
+      0.35,
+      0.375,
+      0.4,
+      0.425,
+      0.45,
+      0.475,
+      0.5,
+      0.525,
+      0.55,
+      0.575,
+      0.6,
+      0.625,
+      0.65,
+      0.675,
+      0.7,
+      0.725,
+      0.75,
+      0.775,
+      0.8,
+      0.825,
+      0.85,
+      0.875,
+      0.9,
+      0.925,
+      0.95,
+      0.975,
+      1.0,
+      1.025,
+      1.05,
+      1.075,
+      1.1,
+      1.125,
+      1.15,
+      1.175,
+      1.2,
+      1.225,
+      1.25,
+      1.275,
+      1.3,
+      1.325,
+      1.35,
+      1.375,
+      1.4,
+      1.425,
+      1.45,
+      1.475,
+      1.5,
+      1.525,
+      1.55,
+      1.575,
+      1.6,
+      1.625,
+      1.65,
+      1.675,
+      1.7,
+      1.725,
+      1.75,
+      1.775,
+      1.8,
+      1.825,
+      1.85,
+      1.875,
+      1.9,
+      1.925,
+      1.95,
+      1.975,
+      2.0
+    ],
+    "amplitudes_m": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      3.402605797662011e-127,
+      2.1858589475227043e-92,
+      9.56763715707779e-69,
+      3.0591098836103023e-52,
+      1.9280031694069333e-40,
+      7.889753805557603e-32,
+      1.9849159634978912e-25,
+      1.3548331055788177e-20,
+      6.844403219284614e-17,
+      5.115821749018278e-14,
+      9.208248123621323e-12,
+      5.654906410782233e-10,
+      1.525973445752012e-08,
+      2.1800664546868817e-07,
+      1.8947915782583186e-06,
+      1.1127172435241076e-05,
+      4.78302338597254e-05,
+      0.00016006771875210423,
+      0.00043754789452407286,
+      0.0010144149796332347,
+      0.0020549573893210897,
+      0.0037246820495987786,
+      0.006156609950664075,
+      0.009424050398010184,
+      0.013527088926007954,
+      0.018394125255713687,
+      0.023895217868711016,
+      0.029862041842984594,
+      0.03610966995758855,
+      0.0424572073666509,
+      0.048746612828901685,
+      0.054861039625081605,
+      0.060744924246142945,
+      0.06642696069400486,
+      0.07204350503088361,
+      0.07785449365382356,
+      0.08423848772755263,
+      0.091649455759501,
+      0.10051510781779295,
+      0.11105711534463898,
+      0.12303295308983665,
+      0.13546852464458858,
+      0.14657452112159017,
+      0.15410594992696947,
+      0.15624270606851903,
+      0.15377531719463358,
+      0.1479550605832997,
+      0.13973989403792408,
+      0.13027974469271497,
+      0.12062826978077269,
+      0.11156383721063633,
+      0.10354133671130401,
+      0.09673600538842049,
+      0.09112566476144625,
+      0.08657276213104813,
+      0.08288866988148538,
+      0.07987712144473112,
+      0.0773599683561403,
+      0.07518980383066474,
+      0.07325351519766948,
+      0.07147007054580361,
+      0.06978519628409212,
+      0.0681649859508104,
+      0.06658982761417172,
+      0.06504940079164531,
+      0.06353897640623142,
+      0.06205691845183351,
+      0.06060313006204075,
+      0.04184527847026926
+    ],
+    "phases_rad": [
+      0.5532624563972365,
+      1.3850656476939147,
+      0.7110715635583037,
+      2.7832427078677235,
+      4.381462542446544,
+      3.431763629427177,
+      4.786910710902986,
+      3.6750431480265493,
+      5.6330422009484105,
+      0.9475463650055231,
+      3.1676090851346936,
+      5.349420377220836,
+      1.1480474554242388,
+      3.853962700629886,
+      1.7899988132217428,
+      5.401091420369498,
+      3.3847783379947134,
+      2.7597187101722787,
+      2.042645070442112,
+      5.927656672354377,
+      4.724703252494246,
+      2.7219056426390718,
+      5.972803846357089,
+      3.1066801423453505,
+      1.3015071472939825,
+      5.9684208259952145,
+      4.880479585801014,
+      5.144675208416426,
+      0.9654964645036278,
+      5.5767553383882085,
+      5.458299520485626,
+      5.7318016919190375,
+      3.957245030490794,
+      5.409529180811965,
+      2.6413683636101193,
+      2.0374471480039786,
+      5.473797194642237,
+      5.86296042137802,
+      2.3225393745688985,
+      1.7774957452512408,
+      5.052740028663493,
+      1.6079510289657906,
+      5.388417733453729,
+      2.1524940339240635,
+      1.5237499278946125,
+      1.252935597798635,
+      0.9619955613056341,
+      5.347694291967973,
+      5.2962487794170565,
+      2.7013495573028417,
+      0.43534505333322454,
+      4.21384398541331,
+      3.5202193591838737,
+      2.8157144305884083,
+      5.241960282358452,
+      0.19848223239722776,
+      6.224478055619045,
+      3.42435724146499,
+      2.5586995411241418,
+      4.592992437246447,
+      0.03129610477595887,
+      1.93793319943601,
+      3.4976427195199733,
+      6.18249505952442,
+      1.1979677496222405,
+      2.480436958825627,
+      2.8819902472109415,
+      2.686898447961689,
+      3.1276680338777925,
+      1.4309577345232483,
+      4.433728487990721,
+      1.7362112937998957,
+      3.4165645298005747
+    ]
+  },
+  "wang_baseline_audit": {
+    "classification": "load_driven_platform_response",
+    "Wang_solver_role": "solves platform heave/roll/pitch from F_wave + F_plume through HAMS/Cummins dynamics",
+    "not_plume_only": true,
+    "not_prescribed_platform_displacement_in_Wang_solver": true,
+    "platform_displacement_in_Wang_output": "derived state response, not an independent external input",
+    "external_platform_displacement_in_existing_Chrono_replay": true,
+    "current_study_usage": "does not replay Wang displacement; it uses Wang plume_load_n waveform and a separate 120x50x7 Barge HAMS operator",
+    "computed_response_probe": {
+      "wave_no_plume_with_wave": true,
+      "wave_no_plume_with_plume": false,
+      "wave_center_with_wave": true,
+      "wave_center_with_plume": true,
+      "max_wave_heave_difference_with_vs_without_plume_m": 0.3205392459320113
+    },
+    "plume_source_config": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Paper_WangZhi_2023\\platform_config.json",
+    "plume_waveform_definition": {
+      "time_absolute_s": {
+        "ignition": 480.0,
+        "vertical_descent": 506.0,
+        "landing": 510.0,
+        "shutdown_complete": 511.0
+      },
+      "plateau_n": 20400000.0,
+      "ramp_up_slope_n_s": 788462.0,
+      "ramp_up_intercept_n": -378461538.0,
+      "ramp_down_slope_n_s": -20400000.0,
+      "ramp_down_intercept_n": 10424400000.0,
+      "vertical_descent_cfd_trace": "not_machine_readable",
+      "note": "The 506-510 s Fp segment is approximated as the paper-stated 20400 kN plateau because Figure 6 is not supplied as numeric data."
+    }
+  },
+  "smooth_contact_audit": {
+    "source": {
+      "module": "analysis/rocket_recovery/integrated_recovery_model.py",
+      "function": "contact_forces",
+      "formula_lines": "201-243 in the current worktree",
+      "delta_definition": "max(deck_z - foot_z, 0) while active",
+      "delta_dot_definition": "deck_vz - foot_vz; positive means compression"
+    },
+    "implemented_formula": "Fn=max(0,min(2*Fref,k*delta+Fref*tanh(c*deltadot/Fref)+I(delta>delta_ref)*Fref*tanh(k_stop*(delta-delta_ref)/Fref)))",
+    "parameters": {
+      "damper_stiffness_n_m": 2600000.0,
+      "damper_damping_ns_m": 1300000.0,
+      "stroke_reference_m": 0.42,
+      "force_reference_n": 935000.0,
+      "hard_stop_stiffness_n_m": 100000000.0
+    },
+    "chronosmc_parameter_that_is_not_used_by_this_formula": {
+      "normal_stiffness_n_m": 100000000.0,
+      "normal_damping_ns_m": 10000000.0,
+      "source": "Chrono Stage-1 contact material config from Li 2025 values"
+    },
+    "review_triplet_check": {
+      "delta_m": 0.148,
+      "nominal_linear_stiffness_n_m": 100000000.0,
+      "nominal_linear_force_n": 14800000.0,
+      "nominal_linear_force_mn": 14.8,
+      "reported_force_n": 2678000.0,
+      "reported_force_mn": 2.678,
+      "force_ratio_reported_to_100mn_linear": 0.18094594594594596,
+      "implied_delta_at_100mn_per_m_m": 0.02678,
+      "implied_stiffness_at_delta_0p148_n_m": 18094594.594594594,
+      "current_smooth_spring_force_at_delta_n": 384800.0,
+      "current_smooth_force_at_delta_zero_rate_n": 384800.0,
+      "current_smooth_force_at_delta_very_high_compression_rate_n": 1319800.0,
+      "current_smooth_damper_force_required_to_reach_reported_n": 2293200.0,
+      "reported_force_reachable_by_current_tanh_damper_at_delta": false,
+      "conclusion": "100 MN/m * 0.148 m = 14.8 MN, so 2.678 MN is not self-consistent with that pure linear pair. The current smooth law is a different law and gives 0.3848 MN at zero rate; even its high-rate limit at this delta is below 2.678 MN."
+    }
+  },
+  "six_component_wrench_audit": {
+    "dof_order": [
+      "surge_m",
+      "sway_m",
+      "heave_m",
+      "roll_rad",
+      "pitch_rad",
+      "yaw_rad"
+    ],
+    "platform_wrench_definition": "sum over legs of equal-and-opposite force at [offset_x+leg_x, offset_y+leg_y, deck_z]",
+    "computed_components": [
+      "Fx",
+      "Fy",
+      "Fz",
+      "Mx",
+      "My",
+      "Mz"
+    ],
+    "current_smooth_contact_nonzero_components": [
+      "Fz",
+      "Mx",
+      "My"
+    ],
+    "omitted_or_zero_by_model": {
+      "Fx": "zero because current smooth law has no tangential/contact-friction force",
+      "Fy": "zero because current smooth law has no tangential/contact-friction force",
+      "Mz": "zero because vertical point forces have no yaw moment",
+      "surge_sway_yaw_platform_feedback": "not injected; supplied 120x50x7 Hydrostatic.in has zero horizontal restoring and no mooring properties"
+    },
+    "computed_peak_abs_by_component": {
+      "surge_m": 0.0,
+      "sway_m": 0.0,
+      "heave_m": 5244723.470328435,
+      "roll_rad": 58636635.74085492,
+      "pitch_rad": 77149124.28231256,
+      "yaw_rad": 0.0
+    },
+    "computed_max_action_reaction_residual_by_component": {
+      "surge_m": 0.0,
+      "sway_m": 0.0,
+      "heave_m": 0.0,
+      "roll_rad": 0.0,
+      "pitch_rad": 0.0,
+      "yaw_rad": 0.0
+    },
+    "action_reaction_check": "platform receives -F_contact at the same application point; the reported residual is computed from the final iterative fine trace",
+    "not_claimed": [
+      "lateral friction work",
+      "yaw response",
+      "full six-DOF mooring-constrained platform response"
+    ]
+  },
+  "interpolation_and_event_detection": {
+    "platform_time_step_s": 0.01,
+    "contact_time_step_s": 0.0005,
+    "q_interpolation": "np.interp piecewise-linear interpolation of each platform q component from 0.01 s nodes to every contact substep",
+    "qd_interpolation": "np.interp piecewise-linear interpolation of platform qd nodes; no finite-difference velocity is silently substituted",
+    "feedback_to_platform": "fine wrench is interval-averaged over platform-grid Voronoi bins before the next platform solve",
+    "contact_event": "delta crosses zero; event time is linearly interpolated between adjacent contact samples",
+    "force_state": "force is evaluated on delta > 0 using the exact smooth law, so a geometric contact can have zero clipped force during rebound"
+  },
+  "baseline_platform": {
+    "summary": {
+      "heave_peak_m": 0.5875931127608144,
+      "roll_peak_deg": 1.8330136337455618,
+      "pitch_peak_deg": 0.4521869513706093,
+      "heave_rms_m": 0.34186327257192634,
+      "roll_rms_deg": 1.1883098292952612,
+      "pitch_rms_deg": 0.28317464661693276,
+      "heave_velocity_peak_m_s": 0.31464099424776626,
+      "roll_rate_peak_deg_s": 1.3538900398157536,
+      "pitch_rate_peak_deg_s": 0.29002910828423645
+    },
+    "energy": {
+      "initial_mechanical_energy_j": 0.0,
+      "final_mechanical_energy_j": 9092403.792494606,
+      "final_kinetic_energy_j": 6424305.355990461,
+      "final_hydrostatic_potential_energy_j": 2668098.4365041456,
+      "work_wave_j": -314718.19178254216,
+      "work_plume_j": 20706263.299898665,
+      "work_contact_feedback_j": 0.0,
+      "work_linear_damping_j": 0.0,
+      "work_radiation_j": -11299138.83037591,
+      "radiation_energy_proxy_absorbed_j": 11299138.83037591,
+      "platform_energy_residual_j": -2.485245607793331,
+      "platform_energy_residual_relative": -2.7333207636959503e-07,
+      "definition": "T_platform + U_hydrostatic; radiation energy is reported as negative radiation work proxy, not a hidden stored state"
+    }
+  },
+  "algorithms": {
+    "one_pass": {
+      "passes_requested": 1,
+      "passes_completed": 1,
+      "converged": false,
+      "convergence_tolerance": null,
+      "passes": [
+        {
+          "pass": 1,
+          "algorithm": "one_pass",
+          "platform_source": "previous pass platform trajectory",
+          "platform_source_summary": {
+            "heave_peak_m": 0.5875931127608144,
+            "roll_peak_deg": 1.8330136337455618,
+            "pitch_peak_deg": 0.4521869513706093,
+            "heave_rms_m": 0.34186327257192634,
+            "roll_rms_deg": 1.1883098292952612,
+            "pitch_rms_deg": 0.28317464661693276,
+            "heave_velocity_peak_m_s": 0.31464099424776626,
+            "roll_rate_peak_deg_s": 1.3538900398157536,
+            "pitch_rate_peak_deg_s": 0.29002910828423645
+          },
+          "updated_platform_summary": {
+            "heave_peak_m": 0.5882458571058807,
+            "roll_peak_deg": 1.8333918403769423,
+            "pitch_peak_deg": 0.45254174271046893,
+            "heave_rms_m": 0.33960549871776124,
+            "roll_rms_deg": 1.173785158849523,
+            "pitch_rms_deg": 0.28018581165181805,
+            "heave_velocity_peak_m_s": 0.3088703275678621,
+            "roll_rate_peak_deg_s": 1.3319597889367654,
+            "pitch_rate_peak_deg_s": 0.28520060070153375
+          },
+          "contact_summary": {
+            "max_total_contact_force_mn": 5.2470933493914105,
+            "max_leg_contact_force_mn": 1.725022694182437,
+            "max_penetration_m": 0.32035622048563117,
+            "max_penetration_mm": 320.3562204856312,
+            "max_compression_rate_m_s": 8.431072999973702,
+            "max_platform_wrench_abs": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 5247093.34939141,
+              "roll_rad": 58660156.53306399,
+              "pitch_rad": 77185014.07827307,
+              "yaw_rad": 0.0
+            },
+            "max_action_reaction_residual_by_component": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 0.0,
+              "roll_rad": 0.0,
+              "pitch_rad": 0.0,
+              "yaw_rad": 0.0
+            },
+            "first_contact_time_s": 509.9611104844609,
+            "all_legs_contact_sample_time_s": 510.0165,
+            "final_contact_count": 4,
+            "contact_dt_s": 0.0005,
+            "sample_count": 20001,
+            "gravity_on_time_s": 509.9611104844609
+          },
+          "fixed_point": {
+            "max_abs_heave_difference_m": 0.017855985675219954,
+            "max_abs_roll_difference_rad": 0.0010419944432965844,
+            "max_abs_pitch_difference_rad": 0.00024858289876818814,
+            "max_relative_q_difference": 0.032563624732126796,
+            "max_relative_qd_difference": 0.019988715093834167,
+            "fixed_point_metric": 0.032563624732126796
+          },
+          "feedback_force_change_metric": null,
+          "energy": {
+            "initial_kinetic_energy_j": 766100.0,
+            "gravity_work_j": -676394.1861649281,
+            "contact_absorbed_energy_j": 888536.5803345551,
+            "contact_dissipation_j": 871908.9250107355,
+            "contact_elastic_stored_energy_final_j": 16627.655323819563,
+            "contact_law_projection_work_j": 0.0,
+            "platform_mechanical_energy_final_j": 8576709.03361234,
+            "platform_radiation_energy_proxy_absorbed_j": 11031135.982957218,
+            "platform_wave_work_j": -306164.4629966664,
+            "platform_plume_work_j": 20706426.72714815,
+            "platform_contact_work_on_updated_trajectory_j": -792417.5040507234,
+            "platform_contact_work_on_source_trajectory_j": -804700.795833546,
+            "loose_coupling_work_mismatch_j": 12283.291782822576,
+            "ledger_left_hand_side_delta_energy_j": 7832115.442833273,
+            "ledger_right_hand_side_work_balance_j": 7833106.461801423,
+            "combined_energy_residual_j": -991.0189681500196,
+            "definition": "residual includes the explicit source-vs-updated platform contact-work mismatch; it is not silently discarded"
+          }
+        }
+      ],
+      "final_summary": {
+        "max_total_contact_force_mn": 5.2470933493914105,
+        "max_leg_contact_force_mn": 1.725022694182437,
+        "max_penetration_m": 0.32035622048563117,
+        "first_contact_time_s": 509.9611104844609,
+        "all_legs_contact_sample_time_s": 510.0165,
+        "platform_heave_peak_m": 0.5882458571058807,
+        "platform_roll_peak_deg": 1.8333918403769423,
+        "platform_pitch_peak_deg": 0.45254174271046893,
+        "rocket_final_vertical_speed_m_s": -0.3891209899731157,
+        "contact_absorbed_energy_kj": 888.5365803345551,
+        "contact_dissipation_kj": 871.9089250107355,
+        "combined_energy_residual_kj": -0.9910189681500197,
+        "max_platform_feedback_force_mn": 77.18501407827307,
+        "final_platform_energy_residual_kj": -0.0009292576648294925,
+        "final_combined_energy_residual_kj": -0.9910189681500197,
+        "max_action_reaction_residual_by_component": {
+          "surge_m": 0.0,
+          "sway_m": 0.0,
+          "heave_m": 0.0,
+          "roll_rad": 0.0,
+          "pitch_rad": 0.0,
+          "yaw_rad": 0.0
+        }
+      },
+      "final_energy": {
+        "initial_kinetic_energy_j": 766100.0,
+        "gravity_work_j": -676394.1861649281,
+        "contact_absorbed_energy_j": 888536.5803345551,
+        "contact_dissipation_j": 871908.9250107355,
+        "contact_elastic_stored_energy_final_j": 16627.655323819563,
+        "contact_law_projection_work_j": 0.0,
+        "platform_mechanical_energy_final_j": 8576709.03361234,
+        "platform_radiation_energy_proxy_absorbed_j": 11031135.982957218,
+        "platform_wave_work_j": -306164.4629966664,
+        "platform_plume_work_j": 20706426.72714815,
+        "platform_contact_work_on_updated_trajectory_j": -792417.5040507234,
+        "platform_contact_work_on_source_trajectory_j": -804700.795833546,
+        "loose_coupling_work_mismatch_j": 12283.291782822576,
+        "ledger_left_hand_side_delta_energy_j": 7832115.442833273,
+        "ledger_right_hand_side_work_balance_j": 7833106.461801423,
+        "combined_energy_residual_j": -991.0189681500196,
+        "definition": "residual includes the explicit source-vs-updated platform contact-work mismatch; it is not silently discarded"
+      }
+    },
+    "two_pass": {
+      "passes_requested": 2,
+      "passes_completed": 2,
+      "converged": false,
+      "convergence_tolerance": null,
+      "passes": [
+        {
+          "pass": 1,
+          "algorithm": "two_pass",
+          "platform_source": "previous pass platform trajectory",
+          "platform_source_summary": {
+            "heave_peak_m": 0.5875931127608144,
+            "roll_peak_deg": 1.8330136337455618,
+            "pitch_peak_deg": 0.4521869513706093,
+            "heave_rms_m": 0.34186327257192634,
+            "roll_rms_deg": 1.1883098292952612,
+            "pitch_rms_deg": 0.28317464661693276,
+            "heave_velocity_peak_m_s": 0.31464099424776626,
+            "roll_rate_peak_deg_s": 1.3538900398157536,
+            "pitch_rate_peak_deg_s": 0.29002910828423645
+          },
+          "updated_platform_summary": {
+            "heave_peak_m": 0.5882458571058807,
+            "roll_peak_deg": 1.8333918403769423,
+            "pitch_peak_deg": 0.45254174271046893,
+            "heave_rms_m": 0.33960549871776124,
+            "roll_rms_deg": 1.173785158849523,
+            "pitch_rms_deg": 0.28018581165181805,
+            "heave_velocity_peak_m_s": 0.3088703275678621,
+            "roll_rate_peak_deg_s": 1.3319597889367654,
+            "pitch_rate_peak_deg_s": 0.28520060070153375
+          },
+          "contact_summary": {
+            "max_total_contact_force_mn": 5.2470933493914105,
+            "max_leg_contact_force_mn": 1.725022694182437,
+            "max_penetration_m": 0.32035622048563117,
+            "max_penetration_mm": 320.3562204856312,
+            "max_compression_rate_m_s": 8.431072999973702,
+            "max_platform_wrench_abs": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 5247093.34939141,
+              "roll_rad": 58660156.53306399,
+              "pitch_rad": 77185014.07827307,
+              "yaw_rad": 0.0
+            },
+            "max_action_reaction_residual_by_component": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 0.0,
+              "roll_rad": 0.0,
+              "pitch_rad": 0.0,
+              "yaw_rad": 0.0
+            },
+            "first_contact_time_s": 509.9611104844609,
+            "all_legs_contact_sample_time_s": 510.0165,
+            "final_contact_count": 4,
+            "contact_dt_s": 0.0005,
+            "sample_count": 20001,
+            "gravity_on_time_s": 509.9611104844609
+          },
+          "fixed_point": {
+            "max_abs_heave_difference_m": 0.017855985675219954,
+            "max_abs_roll_difference_rad": 0.0010419944432965844,
+            "max_abs_pitch_difference_rad": 0.00024858289876818814,
+            "max_relative_q_difference": 0.032563624732126796,
+            "max_relative_qd_difference": 0.019988715093834167,
+            "fixed_point_metric": 0.032563624732126796
+          },
+          "feedback_force_change_metric": null,
+          "energy": {
+            "initial_kinetic_energy_j": 766100.0,
+            "gravity_work_j": -676394.1861649281,
+            "contact_absorbed_energy_j": 888536.5803345551,
+            "contact_dissipation_j": 871908.9250107355,
+            "contact_elastic_stored_energy_final_j": 16627.655323819563,
+            "contact_law_projection_work_j": 0.0,
+            "platform_mechanical_energy_final_j": 8576709.03361234,
+            "platform_radiation_energy_proxy_absorbed_j": 11031135.982957218,
+            "platform_wave_work_j": -306164.4629966664,
+            "platform_plume_work_j": 20706426.72714815,
+            "platform_contact_work_on_updated_trajectory_j": -792417.5040507234,
+            "platform_contact_work_on_source_trajectory_j": -804700.795833546,
+            "loose_coupling_work_mismatch_j": 12283.291782822576,
+            "ledger_left_hand_side_delta_energy_j": 7832115.442833273,
+            "ledger_right_hand_side_work_balance_j": 7833106.461801423,
+            "combined_energy_residual_j": -991.0189681500196,
+            "definition": "residual includes the explicit source-vs-updated platform contact-work mismatch; it is not silently discarded"
+          }
+        },
+        {
+          "pass": 2,
+          "algorithm": "two_pass",
+          "platform_source": "previous pass platform trajectory",
+          "platform_source_summary": {
+            "heave_peak_m": 0.5882458571058807,
+            "roll_peak_deg": 1.8333918403769423,
+            "pitch_peak_deg": 0.45254174271046893,
+            "heave_rms_m": 0.33960549871776124,
+            "roll_rms_deg": 1.173785158849523,
+            "pitch_rms_deg": 0.28018581165181805,
+            "heave_velocity_peak_m_s": 0.3088703275678621,
+            "roll_rate_peak_deg_s": 1.3319597889367654,
+            "pitch_rate_peak_deg_s": 0.28520060070153375
+          },
+          "updated_platform_summary": {
+            "heave_peak_m": 0.5882453777859924,
+            "roll_peak_deg": 1.8333917518412914,
+            "pitch_peak_deg": 0.45254146352587943,
+            "heave_rms_m": 0.3396033805920888,
+            "roll_rms_deg": 1.1737771828230819,
+            "pitch_rms_deg": 0.2801834263583023,
+            "heave_velocity_peak_m_s": 0.30887067442086336,
+            "roll_rate_peak_deg_s": 1.3319627657857178,
+            "pitch_rate_peak_deg_s": 0.2852008485802955
+          },
+          "contact_summary": {
+            "max_total_contact_force_mn": 5.244723470328435,
+            "max_leg_contact_force_mn": 1.7244873996733832,
+            "max_penetration_m": 0.320143572563262,
+            "max_penetration_mm": 320.14357256326196,
+            "max_compression_rate_m_s": 8.429924724251793,
+            "max_platform_wrench_abs": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 5244723.470328435,
+              "roll_rad": 58636635.74085492,
+              "pitch_rad": 77149124.28231256,
+              "yaw_rad": 0.0
+            },
+            "max_action_reaction_residual_by_component": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 0.0,
+              "roll_rad": 0.0,
+              "pitch_rad": 0.0,
+              "yaw_rad": 0.0
+            },
+            "first_contact_time_s": 509.96110823594137,
+            "all_legs_contact_sample_time_s": 510.0165,
+            "final_contact_count": 4,
+            "contact_dt_s": 0.0005,
+            "sample_count": 20001,
+            "gravity_on_time_s": 509.96110823594137
+          },
+          "fixed_point": {
+            "max_abs_heave_difference_m": 1.2598004729413859e-05,
+            "max_abs_roll_difference_rad": 1.026073873276745e-06,
+            "max_abs_pitch_difference_rad": 2.565657567527718e-07,
+            "max_relative_q_difference": 3.248348968090421e-05,
+            "max_relative_qd_difference": 3.155920595247729e-05,
+            "fixed_point_metric": 3.248348968090421e-05
+          },
+          "feedback_force_change_metric": 0.001814823029740436,
+          "energy": {
+            "initial_kinetic_energy_j": 766100.0,
+            "gravity_work_j": -665416.5013013531,
+            "contact_absorbed_energy_j": 887775.3162209317,
+            "contact_dissipation_j": 871143.5006760535,
+            "contact_elastic_stored_energy_final_j": 16631.815544878256,
+            "contact_law_projection_work_j": 0.0,
+            "platform_mechanical_energy_final_j": 8576435.610840786,
+            "platform_radiation_energy_proxy_absorbed_j": 11031089.947366491,
+            "platform_wave_work_j": -306170.5408470087,
+            "platform_plume_work_j": 20706426.7301976,
+            "platform_contact_work_on_updated_trajectory_j": -792730.8827702777,
+            "platform_contact_work_on_source_trajectory_j": -792745.672564707,
+            "loose_coupling_work_mismatch_j": 14.789794429321773,
+            "ledger_left_hand_side_delta_energy_j": 7831629.963747028,
+            "ledger_right_hand_side_work_balance_j": 7832621.029801123,
+            "combined_energy_residual_j": -991.0660540945828,
+            "definition": "residual includes the explicit source-vs-updated platform contact-work mismatch; it is not silently discarded"
+          }
+        }
+      ],
+      "final_summary": {
+        "max_total_contact_force_mn": 5.244723470328435,
+        "max_leg_contact_force_mn": 1.7244873996733832,
+        "max_penetration_m": 0.320143572563262,
+        "first_contact_time_s": 509.96110823594137,
+        "all_legs_contact_sample_time_s": 510.0165,
+        "platform_heave_peak_m": 0.5882453777859924,
+        "platform_roll_peak_deg": 1.8333917518412914,
+        "platform_pitch_peak_deg": 0.45254146352587943,
+        "rocket_final_vertical_speed_m_s": -0.38037732175522226,
+        "contact_absorbed_energy_kj": 887.7753162209317,
+        "contact_dissipation_kj": 871.1435006760535,
+        "combined_energy_residual_kj": -0.9910660540945828,
+        "max_platform_feedback_force_mn": 77.14912428231256,
+        "final_platform_energy_residual_kj": -0.0009286849461495876,
+        "final_combined_energy_residual_kj": -0.9910660540945828,
+        "max_action_reaction_residual_by_component": {
+          "surge_m": 0.0,
+          "sway_m": 0.0,
+          "heave_m": 0.0,
+          "roll_rad": 0.0,
+          "pitch_rad": 0.0,
+          "yaw_rad": 0.0
+        }
+      },
+      "final_energy": {
+        "initial_kinetic_energy_j": 766100.0,
+        "gravity_work_j": -665416.5013013531,
+        "contact_absorbed_energy_j": 887775.3162209317,
+        "contact_dissipation_j": 871143.5006760535,
+        "contact_elastic_stored_energy_final_j": 16631.815544878256,
+        "contact_law_projection_work_j": 0.0,
+        "platform_mechanical_energy_final_j": 8576435.610840786,
+        "platform_radiation_energy_proxy_absorbed_j": 11031089.947366491,
+        "platform_wave_work_j": -306170.5408470087,
+        "platform_plume_work_j": 20706426.7301976,
+        "platform_contact_work_on_updated_trajectory_j": -792730.8827702777,
+        "platform_contact_work_on_source_trajectory_j": -792745.672564707,
+        "loose_coupling_work_mismatch_j": 14.789794429321773,
+        "ledger_left_hand_side_delta_energy_j": 7831629.963747028,
+        "ledger_right_hand_side_work_balance_j": 7832621.029801123,
+        "combined_energy_residual_j": -991.0660540945828,
+        "definition": "residual includes the explicit source-vs-updated platform contact-work mismatch; it is not silently discarded"
+      }
+    },
+    "iterative": {
+      "passes_requested": 8,
+      "passes_completed": 2,
+      "converged": true,
+      "convergence_tolerance": 0.0001,
+      "passes": [
+        {
+          "pass": 1,
+          "algorithm": "iterative",
+          "platform_source": "previous pass platform trajectory",
+          "platform_source_summary": {
+            "heave_peak_m": 0.5875931127608144,
+            "roll_peak_deg": 1.8330136337455618,
+            "pitch_peak_deg": 0.4521869513706093,
+            "heave_rms_m": 0.34186327257192634,
+            "roll_rms_deg": 1.1883098292952612,
+            "pitch_rms_deg": 0.28317464661693276,
+            "heave_velocity_peak_m_s": 0.31464099424776626,
+            "roll_rate_peak_deg_s": 1.3538900398157536,
+            "pitch_rate_peak_deg_s": 0.29002910828423645
+          },
+          "updated_platform_summary": {
+            "heave_peak_m": 0.5882458571058807,
+            "roll_peak_deg": 1.8333918403769423,
+            "pitch_peak_deg": 0.45254174271046893,
+            "heave_rms_m": 0.33960549871776124,
+            "roll_rms_deg": 1.173785158849523,
+            "pitch_rms_deg": 0.28018581165181805,
+            "heave_velocity_peak_m_s": 0.3088703275678621,
+            "roll_rate_peak_deg_s": 1.3319597889367654,
+            "pitch_rate_peak_deg_s": 0.28520060070153375
+          },
+          "contact_summary": {
+            "max_total_contact_force_mn": 5.2470933493914105,
+            "max_leg_contact_force_mn": 1.725022694182437,
+            "max_penetration_m": 0.32035622048563117,
+            "max_penetration_mm": 320.3562204856312,
+            "max_compression_rate_m_s": 8.431072999973702,
+            "max_platform_wrench_abs": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 5247093.34939141,
+              "roll_rad": 58660156.53306399,
+              "pitch_rad": 77185014.07827307,
+              "yaw_rad": 0.0
+            },
+            "max_action_reaction_residual_by_component": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 0.0,
+              "roll_rad": 0.0,
+              "pitch_rad": 0.0,
+              "yaw_rad": 0.0
+            },
+            "first_contact_time_s": 509.9611104844609,
+            "all_legs_contact_sample_time_s": 510.0165,
+            "final_contact_count": 4,
+            "contact_dt_s": 0.0005,
+            "sample_count": 20001,
+            "gravity_on_time_s": 509.9611104844609
+          },
+          "fixed_point": {
+            "max_abs_heave_difference_m": 0.017855985675219954,
+            "max_abs_roll_difference_rad": 0.0010419944432965844,
+            "max_abs_pitch_difference_rad": 0.00024858289876818814,
+            "max_relative_q_difference": 0.032563624732126796,
+            "max_relative_qd_difference": 0.019988715093834167,
+            "fixed_point_metric": 0.032563624732126796
+          },
+          "feedback_force_change_metric": null,
+          "energy": {
+            "initial_kinetic_energy_j": 766100.0,
+            "gravity_work_j": -676394.1861649281,
+            "contact_absorbed_energy_j": 888536.5803345551,
+            "contact_dissipation_j": 871908.9250107355,
+            "contact_elastic_stored_energy_final_j": 16627.655323819563,
+            "contact_law_projection_work_j": 0.0,
+            "platform_mechanical_energy_final_j": 8576709.03361234,
+            "platform_radiation_energy_proxy_absorbed_j": 11031135.982957218,
+            "platform_wave_work_j": -306164.4629966664,
+            "platform_plume_work_j": 20706426.72714815,
+            "platform_contact_work_on_updated_trajectory_j": -792417.5040507234,
+            "platform_contact_work_on_source_trajectory_j": -804700.795833546,
+            "loose_coupling_work_mismatch_j": 12283.291782822576,
+            "ledger_left_hand_side_delta_energy_j": 7832115.442833273,
+            "ledger_right_hand_side_work_balance_j": 7833106.461801423,
+            "combined_energy_residual_j": -991.0189681500196,
+            "definition": "residual includes the explicit source-vs-updated platform contact-work mismatch; it is not silently discarded"
+          }
+        },
+        {
+          "pass": 2,
+          "algorithm": "iterative",
+          "platform_source": "previous pass platform trajectory",
+          "platform_source_summary": {
+            "heave_peak_m": 0.5882458571058807,
+            "roll_peak_deg": 1.8333918403769423,
+            "pitch_peak_deg": 0.45254174271046893,
+            "heave_rms_m": 0.33960549871776124,
+            "roll_rms_deg": 1.173785158849523,
+            "pitch_rms_deg": 0.28018581165181805,
+            "heave_velocity_peak_m_s": 0.3088703275678621,
+            "roll_rate_peak_deg_s": 1.3319597889367654,
+            "pitch_rate_peak_deg_s": 0.28520060070153375
+          },
+          "updated_platform_summary": {
+            "heave_peak_m": 0.5882453777859924,
+            "roll_peak_deg": 1.8333917518412914,
+            "pitch_peak_deg": 0.45254146352587943,
+            "heave_rms_m": 0.3396033805920888,
+            "roll_rms_deg": 1.1737771828230819,
+            "pitch_rms_deg": 0.2801834263583023,
+            "heave_velocity_peak_m_s": 0.30887067442086336,
+            "roll_rate_peak_deg_s": 1.3319627657857178,
+            "pitch_rate_peak_deg_s": 0.2852008485802955
+          },
+          "contact_summary": {
+            "max_total_contact_force_mn": 5.244723470328435,
+            "max_leg_contact_force_mn": 1.7244873996733832,
+            "max_penetration_m": 0.320143572563262,
+            "max_penetration_mm": 320.14357256326196,
+            "max_compression_rate_m_s": 8.429924724251793,
+            "max_platform_wrench_abs": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 5244723.470328435,
+              "roll_rad": 58636635.74085492,
+              "pitch_rad": 77149124.28231256,
+              "yaw_rad": 0.0
+            },
+            "max_action_reaction_residual_by_component": {
+              "surge_m": 0.0,
+              "sway_m": 0.0,
+              "heave_m": 0.0,
+              "roll_rad": 0.0,
+              "pitch_rad": 0.0,
+              "yaw_rad": 0.0
+            },
+            "first_contact_time_s": 509.96110823594137,
+            "all_legs_contact_sample_time_s": 510.0165,
+            "final_contact_count": 4,
+            "contact_dt_s": 0.0005,
+            "sample_count": 20001,
+            "gravity_on_time_s": 509.96110823594137
+          },
+          "fixed_point": {
+            "max_abs_heave_difference_m": 1.2598004729413859e-05,
+            "max_abs_roll_difference_rad": 1.026073873276745e-06,
+            "max_abs_pitch_difference_rad": 2.565657567527718e-07,
+            "max_relative_q_difference": 3.248348968090421e-05,
+            "max_relative_qd_difference": 3.155920595247729e-05,
+            "fixed_point_metric": 3.248348968090421e-05
+          },
+          "feedback_force_change_metric": 0.001814823029740436,
+          "energy": {
+            "initial_kinetic_energy_j": 766100.0,
+            "gravity_work_j": -665416.5013013531,
+            "contact_absorbed_energy_j": 887775.3162209317,
+            "contact_dissipation_j": 871143.5006760535,
+            "contact_elastic_stored_energy_final_j": 16631.815544878256,
+            "contact_law_projection_work_j": 0.0,
+            "platform_mechanical_energy_final_j": 8576435.610840786,
+            "platform_radiation_energy_proxy_absorbed_j": 11031089.947366491,
+            "platform_wave_work_j": -306170.5408470087,
+            "platform_plume_work_j": 20706426.7301976,
+            "platform_contact_work_on_updated_trajectory_j": -792730.8827702777,
+            "platform_contact_work_on_source_trajectory_j": -792745.672564707,
+            "loose_coupling_work_mismatch_j": 14.789794429321773,
+            "ledger_left_hand_side_delta_energy_j": 7831629.963747028,
+            "ledger_right_hand_side_work_balance_j": 7832621.029801123,
+            "combined_energy_residual_j": -991.0660540945828,
+            "definition": "residual includes the explicit source-vs-updated platform contact-work mismatch; it is not silently discarded"
+          }
+        }
+      ],
+      "final_summary": {
+        "max_total_contact_force_mn": 5.244723470328435,
+        "max_leg_contact_force_mn": 1.7244873996733832,
+        "max_penetration_m": 0.320143572563262,
+        "first_contact_time_s": 509.96110823594137,
+        "all_legs_contact_sample_time_s": 510.0165,
+        "platform_heave_peak_m": 0.5882453777859924,
+        "platform_roll_peak_deg": 1.8333917518412914,
+        "platform_pitch_peak_deg": 0.45254146352587943,
+        "rocket_final_vertical_speed_m_s": -0.38037732175522226,
+        "contact_absorbed_energy_kj": 887.7753162209317,
+        "contact_dissipation_kj": 871.1435006760535,
+        "combined_energy_residual_kj": -0.9910660540945828,
+        "max_platform_feedback_force_mn": 77.14912428231256,
+        "final_platform_energy_residual_kj": -0.0009286849461495876,
+        "final_combined_energy_residual_kj": -0.9910660540945828,
+        "max_action_reaction_residual_by_component": {
+          "surge_m": 0.0,
+          "sway_m": 0.0,
+          "heave_m": 0.0,
+          "roll_rad": 0.0,
+          "pitch_rad": 0.0,
+          "yaw_rad": 0.0
+        }
+      },
+      "final_energy": {
+        "initial_kinetic_energy_j": 766100.0,
+        "gravity_work_j": -665416.5013013531,
+        "contact_absorbed_energy_j": 887775.3162209317,
+        "contact_dissipation_j": 871143.5006760535,
+        "contact_elastic_stored_energy_final_j": 16631.815544878256,
+        "contact_law_projection_work_j": 0.0,
+        "platform_mechanical_energy_final_j": 8576435.610840786,
+        "platform_radiation_energy_proxy_absorbed_j": 11031089.947366491,
+        "platform_wave_work_j": -306170.5408470087,
+        "platform_plume_work_j": 20706426.7301976,
+        "platform_contact_work_on_updated_trajectory_j": -792730.8827702777,
+        "platform_contact_work_on_source_trajectory_j": -792745.672564707,
+        "loose_coupling_work_mismatch_j": 14.789794429321773,
+        "ledger_left_hand_side_delta_energy_j": 7831629.963747028,
+        "ledger_right_hand_side_work_balance_j": 7832621.029801123,
+        "combined_energy_residual_j": -991.0660540945828,
+        "definition": "residual includes the explicit source-vs-updated platform contact-work mismatch; it is not silently discarded"
+      }
+    }
+  },
+  "time_step_convergence": {
+    "algorithm": "two_pass",
+    "runs": {
+      "dt": {
+        "contact_dt_s": 0.0005,
+        "passes_completed": 2,
+        "final_summary": {
+          "max_total_contact_force_mn": 5.244723470328435,
+          "max_leg_contact_force_mn": 1.7244873996733832,
+          "max_penetration_m": 0.320143572563262,
+          "first_contact_time_s": 509.96110823594137,
+          "all_legs_contact_sample_time_s": 510.0165,
+          "platform_heave_peak_m": 0.5882453777859924,
+          "platform_roll_peak_deg": 1.8333917518412914,
+          "platform_pitch_peak_deg": 0.45254146352587943,
+          "rocket_final_vertical_speed_m_s": -0.38037732175522226,
+          "contact_absorbed_energy_kj": 887.7753162209317,
+          "contact_dissipation_kj": 871.1435006760535,
+          "combined_energy_residual_kj": -0.9910660540945828,
+          "max_platform_feedback_force_mn": 77.14912428231256,
+          "final_platform_energy_residual_kj": -0.0009286849461495876,
+          "final_combined_energy_residual_kj": -0.9910660540945828,
+          "max_action_reaction_residual_by_component": {
+            "surge_m": 0.0,
+            "sway_m": 0.0,
+            "heave_m": 0.0,
+            "roll_rad": 0.0,
+            "pitch_rad": 0.0,
+            "yaw_rad": 0.0
+          }
+        }
+      },
+      "dt_over_2": {
+        "contact_dt_s": 0.00025,
+        "passes_completed": 2,
+        "final_summary": {
+          "max_total_contact_force_mn": 5.246931031623024,
+          "max_leg_contact_force_mn": 1.7251827170508074,
+          "max_penetration_m": 0.32040394428230745,
+          "first_contact_time_s": 509.96110809622456,
+          "all_legs_contact_sample_time_s": 510.0165,
+          "platform_heave_peak_m": 0.5882456585654932,
+          "platform_roll_peak_deg": 1.8333920103557293,
+          "platform_pitch_peak_deg": 0.4525414760911958,
+          "rocket_final_vertical_speed_m_s": -0.3803769745523021,
+          "contact_absorbed_energy_kj": 888.6303049653193,
+          "contact_dissipation_kj": 871.9984920451653,
+          "combined_energy_residual_kj": -0.4952244327524677,
+          "max_platform_feedback_force_mn": 77.18489589759585,
+          "final_platform_energy_residual_kj": -0.0009287056215107441,
+          "final_combined_energy_residual_kj": -0.4952244327524677,
+          "max_action_reaction_residual_by_component": {
+            "surge_m": 0.0,
+            "sway_m": 0.0,
+            "heave_m": 0.0,
+            "roll_rad": 0.0,
+            "pitch_rad": 0.0,
+            "yaw_rad": 0.0
+          }
+        }
+      },
+      "dt_over_4": {
+        "contact_dt_s": 0.000125,
+        "passes_completed": 2,
+        "final_summary": {
+          "max_total_contact_force_mn": 5.246236338141151,
+          "max_leg_contact_force_mn": 1.724934594072012,
+          "max_penetration_m": 0.320305644794598,
+          "first_contact_time_s": 509.9611079585436,
+          "all_legs_contact_sample_time_s": 510.0165,
+          "platform_heave_peak_m": 0.5882458334949913,
+          "platform_roll_peak_deg": 1.8333921736142673,
+          "platform_pitch_peak_deg": 0.45254150241092445,
+          "rocket_final_vertical_speed_m_s": -0.3803768474611604,
+          "contact_absorbed_energy_kj": 888.8077867398556,
+          "contact_dissipation_kj": 872.1759742472641,
+          "combined_energy_residual_kj": -0.496888135955669,
+          "max_platform_feedback_force_mn": 77.1741135361121,
+          "final_platform_energy_residual_kj": -0.0009287314582616091,
+          "final_combined_energy_residual_kj": -0.496888135955669,
+          "max_action_reaction_residual_by_component": {
+            "surge_m": 0.0,
+            "sway_m": 0.0,
+            "heave_m": 0.0,
+            "roll_rad": 0.0,
+            "pitch_rad": 0.0,
+            "yaw_rad": 0.0
+          }
+        }
+      }
+    },
+    "pairwise": [
+      {
+        "fine": "dt_over_4",
+        "coarse": "dt_over_2",
+        "fine_dt_s": 0.000125,
+        "coarse_dt_s": 0.00025,
+        "event_time_difference_s": 1.3768095641353284e-07,
+        "event_time_tolerance_s": 0.00025,
+        "checks": [
+          {
+            "metric": "max_total_contact_force_mn",
+            "fine": 5.246236338141151,
+            "coarse": 5.246931031623024,
+            "relative_difference": 0.00013239996441464976,
+            "pass": true
+          },
+          {
+            "metric": "max_leg_contact_force_mn",
+            "fine": 1.724934594072012,
+            "coarse": 1.7251827170508074,
+            "relative_difference": 0.00014382417371973244,
+            "pass": true
+          },
+          {
+            "metric": "max_penetration_m",
+            "fine": 0.320305644794598,
+            "coarse": 0.32040394428230745,
+            "relative_difference": 0.0003067986192543271,
+            "pass": true
+          },
+          {
+            "metric": "platform_heave_peak_m",
+            "fine": 0.5882458334949913,
+            "coarse": 0.5882456585654932,
+            "relative_difference": 2.973748187381489e-07,
+            "pass": true
+          },
+          {
+            "metric": "platform_roll_peak_deg",
+            "fine": 1.8333921736142673,
+            "coarse": 1.8333920103557293,
+            "relative_difference": 8.904725370347396e-08,
+            "pass": true
+          },
+          {
+            "metric": "platform_pitch_peak_deg",
+            "fine": 0.45254150241092445,
+            "coarse": 0.4525414760911958,
+            "relative_difference": 5.8159811815169184e-08,
+            "pass": true
+          },
+          {
+            "metric": "contact_absorbed_energy_kj",
+            "fine": 888.8077867398556,
+            "coarse": 888.6303049653193,
+            "relative_difference": 0.00019968521561598894,
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "fine": "dt_over_2",
+        "coarse": "dt",
+        "fine_dt_s": 0.00025,
+        "coarse_dt_s": 0.0005,
+        "event_time_difference_s": 1.3971680346003268e-07,
+        "event_time_tolerance_s": 0.0005,
+        "checks": [
+          {
+            "metric": "max_total_contact_force_mn",
+            "fine": 5.246931031623024,
+            "coarse": 5.244723470328435,
+            "relative_difference": 0.0004207338120672832,
+            "pass": true
+          },
+          {
+            "metric": "max_leg_contact_force_mn",
+            "fine": 1.7251827170508074,
+            "coarse": 1.7244873996733832,
+            "relative_difference": 0.0004030398464765945,
+            "pass": true
+          },
+          {
+            "metric": "max_penetration_m",
+            "fine": 0.32040394428230745,
+            "coarse": 0.320143572563262,
+            "relative_difference": 0.0008126358108003132,
+            "pass": true
+          },
+          {
+            "metric": "platform_heave_peak_m",
+            "fine": 0.5882456585654932,
+            "coarse": 0.5882453777859924,
+            "relative_difference": 4.773167411819071e-07,
+            "pass": true
+          },
+          {
+            "metric": "platform_roll_peak_deg",
+            "fine": 1.8333920103557293,
+            "coarse": 1.8333917518412914,
+            "relative_difference": 1.4100336229034087e-07,
+            "pass": true
+          },
+          {
+            "metric": "platform_pitch_peak_deg",
+            "fine": 0.4525414760911958,
+            "coarse": 0.45254146352587943,
+            "relative_difference": 2.7766109986238594e-08,
+            "pass": true
+          },
+          {
+            "metric": "contact_absorbed_energy_kj",
+            "fine": 888.6303049653193,
+            "coarse": 887.7753162209317,
+            "relative_difference": 0.0009621422312633722,
+            "pass": true
+          }
+        ],
+        "pass": true
+      }
+    ],
+    "relative_tolerance": 0.1,
+    "pass": true,
+    "definition": "two-pass loose coupling repeated at dt, dt/2 and dt/4; peaks use each native contact grid, while event time uses the explicitly interpolated delta crossing"
+  },
+  "output_files": {
+    "full_iterative_response": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\Output\\RocketRecovery\\chrono-revision-study-response.json",
+    "algorithm_summary_csv": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\Output\\RocketRecovery\\chrono-revision-study-algorithms.csv",
+    "convergence_csv": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\Output\\RocketRecovery\\chrono-revision-study-convergence.csv"
+  },
+  "limitations": [
+    "This is a separate revision study and does not modify existing core files or paper/figure assets.",
+    "The active platform sub-operator is heave/roll/pitch; horizontal HAMS DOFs are retained for wrench audit but constrained because supplied mooring stiffness is unavailable.",
+    "The current smooth contact model has no tangential friction, explicit flexible leg bodies, or Chrono internal SMC force output in this calculation.",
+    "The Wang 506-510 s plume segment is the existing paper-text plateau approximation, not the unavailable machine-readable CFD trace.",
+    "Loose coupling is iterated replay, not a monolithic strong Chrono/Cummins integrator; the energy ledger reports the resulting work mismatch explicitly."
+  ]
+}

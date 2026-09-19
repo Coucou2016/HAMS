@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "id": "deck_rao_frequency_count",
+      "expected": 19,
+      "actual": 19,
+      "passed": true
+    },
+    {
+      "id": "deck_rao_heading_count",
+      "expected": 7,
+      "actual": 7,
+      "passed": true
+    },
+    {
+      "id": "deck_point_count",
+      "expected": 5,
+      "actual": 5,
+      "passed": true
+    },
+    {
+      "id": "sea_state_count",
+      "expected": 9,
+      "actual": 9,
+      "passed": true
+    }
+  ]
+}

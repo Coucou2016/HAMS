@@ -1,0 +1,156 @@
+{
+  "case_id": "BoxBarge_Center",
+  "mesh": {
+    "hull_nodes": 633,
+    "hull_panels": 512,
+    "waterplane_nodes": 225,
+    "waterplane_panels": 192
+  },
+  "hydrostatic": {
+    "body_mass_matrix": [
+      [
+        260800.0,
+        0.0,
+        0.0,
+        0.0,
+        -6207.040000000001,
+        -0.0
+      ],
+      [
+        0.0,
+        260800.0,
+        0.0,
+        6207.040000000001,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        260800.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        6207.040000000001,
+        0.0,
+        695614.3942186666,
+        -0.0,
+        0.0
+      ],
+      [
+        -6207.040000000001,
+        0.0,
+        -0.0,
+        -0.0,
+        42423614.39421866,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        42423466.666666664
+      ]
+    ],
+    "hydrostatic_restoring_matrix": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1769119.66,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        -1095203.0108506668,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        281963942.5891493,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "waterplane_area_m2": 176.0,
+    "geometry_displacement_volume_m3": 352.0,
+    "paper_mass_displacement_volume_m3": 254.4390243902439,
+    "heave_restoring_n_m": 1769119.66,
+    "pitch_restoring_nm_rad": 281963942.5891493
+  },
+  "mass_displacement_ratio": 0.7228381374722838,
+  "checks": [
+    {
+      "id": "hull_panel_count",
+      "expected": 512,
+      "actual": 512,
+      "passed": true
+    },
+    {
+      "id": "waterplane_panel_count",
+      "expected": 192,
+      "actual": 192,
+      "passed": true
+    },
+    {
+      "id": "hull_z_not_above_free_surface",
+      "expected": "<= 0",
+      "actual": 0.0,
+      "passed": true
+    },
+    {
+      "id": "waterplane_z_equal_zero",
+      "expected": 0.0,
+      "actual": 0.0,
+      "passed": true
+    },
+    {
+      "id": "positive_heave_restoring",
+      "expected": "> 0",
+      "actual": 1769119.66,
+      "passed": true
+    },
+    {
+      "id": "positive_pitch_restoring",
+      "expected": "> 0",
+      "actual": 281963942.5891493,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,350 @@
+{
+  "paper_id": "yang_2026",
+  "source_image": "RocketRecoveryCases/Paper_Yang_2026/reference/renders/yang-2026-page-07-160dpi.png",
+  "source_image_sha256": "52bfa0a9f4e92dcc943135680d6d2152946402e3a7d28e2b0b24cbff45c3d92e",
+  "source_image_size_px": [
+    1361,
+    1909
+  ],
+  "render": {
+    "pdf_page": 7,
+    "dpi": 160,
+    "renderer": "Poppler pdftoppm"
+  },
+  "method": "Threshold red pixels, remove the in-plot legend region, and map retained pixel centers through the printed linear axes.",
+  "curves": [
+    {
+      "id": "fig09_acceleration_test",
+      "figure": "Figure 9(a)",
+      "condition_id": "Y0_simultaneous",
+      "metric": "rocket_vertical_acceleration_mm_s2",
+      "unit": "mm/s^2",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig09_acceleration_test.csv",
+      "axis_box_px": [
+        249,
+        850,
+        502,
+        1052
+      ],
+      "x_range": [
+        0.0,
+        1.5
+      ],
+      "y_range": [
+        -20000.0,
+        40000.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 191,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.7519685039370079,
+        "digitized_peak": 26782.178217821784,
+        "published_peak": 28537.3515,
+        "peak_relative_difference": 0.06150442104545746,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    },
+    {
+      "id": "fig09_main_strut_load_test",
+      "figure": "Figure 9(b)",
+      "condition_id": "Y0_simultaneous",
+      "metric": "main_strut_load_n",
+      "unit": "N",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig09_main_strut_load_test.csv",
+      "axis_box_px": [
+        607,
+        850,
+        860,
+        1052
+      ],
+      "x_range": [
+        0.0,
+        2.0
+      ],
+      "y_range": [
+        0.0,
+        120000.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 178,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.7007874015748031,
+        "digitized_peak": 88811.88118811882,
+        "published_peak": 98800.0,
+        "peak_relative_difference": 0.10109431995831158,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    },
+    {
+      "id": "fig09_buffer_stroke_test",
+      "figure": "Figure 9(c)",
+      "condition_id": "Y0_simultaneous",
+      "metric": "buffer_stroke_mm",
+      "unit": "mm",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig09_buffer_stroke_test.csv",
+      "axis_box_px": [
+        934,
+        850,
+        1187,
+        1052
+      ],
+      "x_range": [
+        0.0,
+        2.0
+      ],
+      "y_range": [
+        0.0,
+        140.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 166,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.6535433070866141,
+        "digitized_peak": 102.57425742574257,
+        "published_peak": 99.8,
+        "peak_relative_difference": 0.027798170598623006,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    },
+    {
+      "id": "fig10_acceleration_test",
+      "figure": "Figure 10(a)",
+      "condition_id": "Y1_1-2-1",
+      "metric": "rocket_vertical_acceleration_mm_s2",
+      "unit": "mm/s^2",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig10_acceleration_test.csv",
+      "axis_box_px": [
+        249,
+        1174,
+        502,
+        1376
+      ],
+      "x_range": [
+        0.0,
+        1.5
+      ],
+      "y_range": [
+        -20000.0,
+        30000.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 196,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.7716535433070866,
+        "digitized_peak": 24183.16831683168,
+        "published_peak": 22261.0955,
+        "peak_relative_difference": 0.08634223849548113,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    },
+    {
+      "id": "fig10_main_strut_load_test",
+      "figure": "Figure 10(b)",
+      "condition_id": "Y1_1-2-1",
+      "metric": "main_strut_load_n",
+      "unit": "N",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig10_main_strut_load_test.csv",
+      "axis_box_px": [
+        607,
+        1174,
+        860,
+        1376
+      ],
+      "x_range": [
+        0.0,
+        2.0
+      ],
+      "y_range": [
+        0.0,
+        120000.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 179,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.7047244094488189,
+        "digitized_peak": 97128.71287128713,
+        "published_peak": 115000.0,
+        "peak_relative_difference": 0.1554024967714162,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    },
+    {
+      "id": "fig10_buffer_stroke_test",
+      "figure": "Figure 10(c)",
+      "condition_id": "Y1_1-2-1",
+      "metric": "buffer_stroke_mm",
+      "unit": "mm",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig10_buffer_stroke_test.csv",
+      "axis_box_px": [
+        934,
+        1174,
+        1187,
+        1376
+      ],
+      "x_range": [
+        0.0,
+        4.0
+      ],
+      "y_range": [
+        0.0,
+        140.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 118,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.4645669291338583,
+        "digitized_peak": 128.9108910891089,
+        "published_peak": 127.9,
+        "peak_relative_difference": 0.007903761447293944,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    },
+    {
+      "id": "fig11_acceleration_test",
+      "figure": "Figure 11(a)",
+      "condition_id": "Y2_2-2",
+      "metric": "rocket_vertical_acceleration_mm_s2",
+      "unit": "mm/s^2",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig11_acceleration_test.csv",
+      "axis_box_px": [
+        249,
+        1503,
+        502,
+        1705
+      ],
+      "x_range": [
+        0.0,
+        1.5
+      ],
+      "y_range": [
+        -20000.0,
+        40000.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 173,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.6811023622047244,
+        "digitized_peak": 26485.148514851484,
+        "published_peak": 28929.6175,
+        "peak_relative_difference": 0.08449710699246253,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    },
+    {
+      "id": "fig11_main_strut_load_test",
+      "figure": "Figure 11(b)",
+      "condition_id": "Y2_2-2",
+      "metric": "main_strut_load_n",
+      "unit": "N",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig11_main_strut_load_test.csv",
+      "axis_box_px": [
+        607,
+        1503,
+        860,
+        1705
+      ],
+      "x_range": [
+        0.0,
+        2.0
+      ],
+      "y_range": [
+        0.0,
+        120000.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 175,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.6889763779527559,
+        "digitized_peak": 100099.0099009901,
+        "published_peak": 114100.0,
+        "peak_relative_difference": 0.12270806397028833,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    },
+    {
+      "id": "fig11_buffer_stroke_test",
+      "figure": "Figure 11(c)",
+      "condition_id": "Y2_2-2",
+      "metric": "buffer_stroke_mm",
+      "unit": "mm",
+      "csv": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/fig11_buffer_stroke_test.csv",
+      "axis_box_px": [
+        934,
+        1503,
+        1187,
+        1705
+      ],
+      "x_range": [
+        0.0,
+        4.0
+      ],
+      "y_range": [
+        0.0,
+        140.0
+      ],
+      "curve_color": "red dashed Test curve",
+      "quality": {
+        "sampled_columns": 158,
+        "plot_columns": 254,
+        "column_coverage_fraction": 0.6220472440944882,
+        "digitized_peak": 122.67326732673267,
+        "published_peak": 119.9,
+        "peak_relative_difference": 0.02312983591937168,
+        "status": "raster_digitization_requires_visual_review"
+      },
+      "limitations": [
+        "Raster color extraction, not author-provided samples.",
+        "Dashed-curve gaps are preserved; no interpolation is written to the source CSV.",
+        "Axis boxes were calibrated on the 160 dpi PDF render and require visual review."
+      ]
+    }
+  ]
+}

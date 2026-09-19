@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono Stage 3A Thies Buffer</title>
+  <script src="chrono-stage3-thies-buffer-data.js"></script>
+  <style>
+    :root {
+      --ink:#17211d;
+      --muted:#64716b;
+      --line:#d7dfdb;
+      --wash:#f4f7f5;
+      --panel:#ffffff;
+      --green:#237653;
+      --red:#b94d36;
+      --blue:#2d70a6;
+      --amber:#af7b1d;
+      --violet:#7257a4;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      background:var(--wash);
+      color:var(--ink);
+      font-family:Inter,"Segoe UI","Microsoft YaHei",Arial,sans-serif;
+    }
+    header {
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:18px;
+      padding:18px 28px 10px;
+      background:#fbfcfb;
+      border-bottom:1px solid var(--line);
+    }
+    h1,h2 { margin:0; letter-spacing:0; }
+    h1 { font-size:22px; }
+    h2 { font-size:15px; margin-bottom:12px; }
+    nav { display:flex; flex-wrap:wrap; gap:10px; }
+    nav a {
+      color:var(--muted);
+      text-decoration:none;
+      font-size:13px;
+      padding:6px 9px;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:6px;
+    }
+    nav a[aria-current="page"] { color:var(--ink); border-color:#9eb5ad; }
+    main {
+      padding:18px;
+      display:grid;
+      grid-template-columns:minmax(560px,1.25fr) minmax(420px,.75fr);
+      gap:18px;
+    }
+    section {
+      min-width:0;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:16px;
+    }
+    .wide { grid-column:1/-1; }
+    .viewer {
+      padding:0;
+      overflow:hidden;
+      position:relative;
+      min-height:560px;
+    }
+    canvas { display:block; width:100%; background:#fff; }
+    #scene { height:560px; }
+    #chart { height:340px; border:1px solid var(--line); border-radius:8px; }
+    .hud {
+      position:absolute;
+      top:12px;
+      left:12px;
+      right:12px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      pointer-events:none;
+    }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:3px 8px;
+      border:1px solid #d7e3dd;
+      border-radius:999px;
+      background:#eef4f1;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .note { margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.55; }
+    .controls {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+    label { display:grid; gap:6px; font-size:12px; color:var(--muted); }
+    select,input,button {
+      min-height:34px;
+      border:1px solid var(--line);
+      border-radius:6px;
+      background:#fff;
+      color:var(--ink);
+      padding:6px 9px;
+      font:inherit;
+    }
+    button { cursor:pointer; background:var(--ink); color:#fff; border-color:var(--ink); }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th,td { padding:8px 7px; border-bottom:1px solid #e4ebe7; text-align:left; vertical-align:top; }
+    th { color:var(--muted); font-weight:600; }
+    td.num { font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .ok { color:var(--green); font-weight:700; }
+    .warn { color:var(--red); font-weight:700; }
+    .mono { font-family:Consolas,"SFMono-Regular",monospace; }
+    @media (max-width:1080px) {
+      header,main { display:block; }
+      nav { margin-top:12px; }
+      section { margin-bottom:14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Chrono Stage 3A Thies 数字化缓冲器</h1>
+      <p class="note">使用 Thies 2022 Figure 4/5 从 PDF 栅格图数字化得到的力-行程、力-速度表；动画和曲线均来自 Chrono 计算时历。</p>
+    </div>
+    <nav>
+      <a href="chrono-final-acceptance.html">最终审计</a>
+      <a href="literature-comparison-registry.html">文献注册表</a>
+      <a href="thies-buffer-curves.html">Thies 曲线</a>
+      <a href="chrono-stage3-tripod.html">Stage 3A Tripod</a>
+      <a href="chrono-stage3c-rigid-body-link.html">Stage 3C 诊断</a>
+      <a href="leg-mechanism-contract.html">机构数据合同</a>
+      <a href="leg-mechanism-import.html">机构数据导入</a>
+      <a href="leg-mechanism-import-selftest.html">导入自测</a>
+      <a href="leg-mechanism-validation.html">机构数据校验</a>
+      <a href="real-leg-mechanism-builder.html">真实机构 Gate</a>
+      <a href="chrono-real-leg-mechanism.html">真实机构运行</a>
+      <a href="chrono-stage3-lock-two-way.html">锁紧双向</a>
+      <a href="chrono-stage3-thies-buffer.html" aria-current="page">Thies Buffer</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="viewer">
+      <canvas id="scene" width="1180" height="680"></canvas>
+      <div class="hud" id="hud"></div>
+    </section>
+
+    <div>
+      <section>
+        <h2>控制</h2>
+        <div class="controls">
+          <label>工况<select id="caseSelect"></select></label>
+          <label>曲线<select id="metricSelect">
+            <option value="contact">四腿接触力 kN</option>
+            <option value="buffer">主缓冲器力 kN</option>
+            <option value="stroke">主缓冲器行程 mm</option>
+            <option value="attitude">火箭姿态 deg</option>
+            <option value="deck">甲板 heave/roll/pitch</option>
+          </select></label>
+          <label>时间<span class="pill" id="timeReadout">-</span></label>
+          <label>播放速度<input id="speed" type="range" min="0.1" max="5" value="1.4" step="0.1"></label>
+          <label style="grid-column:1/-1">时间轴<input id="scrub" type="range" min="0" max="1" value="0" step="1"></label>
+          <button id="play">暂停</button>
+          <button id="reset">回到开始</button>
+        </div>
+        <p class="note">循环区间为计算时历本身：从触地前约 4 s 到触地后约 16 s。页面只改变播放索引，不插值编造新的动力学轨迹。</p>
+      </section>
+
+      <section style="margin-top:18px">
+        <h2>当前工况摘要</h2>
+        <table id="summaryTable"></table>
+      </section>
+    </div>
+
+    <section class="wide">
+      <h2>时域曲线</h2>
+      <canvas id="chart" width="1180" height="360"></canvas>
+      <p class="note" id="chartNote"></p>
+    </section>
+
+    <section class="wide">
+      <h2>验收边界</h2>
+      <table id="validationTable"></table>
+      <p class="note">该页证明非线性缓冲器表格已进入 Chrono 多体计算。由于 Thies 未公开完整 Adams/CAD 铰点坐标、杆件质量惯量和原始曲线表，本页不声明完整 Adams 等价复现。</p>
+    </section>
+  </main>
+
+  <script>
+    const report = window.CHRONO_STAGE3_THIES_BUFFER_DATA;
+    const caseSelect = document.getElementById("caseSelect");
+    const metricSelect = document.getElementById("metricSelect");
+    const scrub = document.getElementById("scrub");
+    const speed = document.getElementById("speed");
+    const playButton = document.getElementById("play");
+    const resetButton = document.getElementById("reset");
+    const timeReadout = document.getElementById("timeReadout");
+    const hud = document.getElementById("hud");
+    const scene = document.getElementById("scene");
+    const chart = document.getElementById("chart");
+    const ctx = scene.getContext("2d");
+    const chartCtx = chart.getContext("2d");
+    const legs = ["leg_1", "leg_2", "leg_3", "leg_4"];
+    const legColors = {
+      leg_1:"#2d70a6",
+      leg_2:"#237653",
+      leg_3:"#af7b1d",
+      leg_4:"#7257a4"
+    };
+    let currentCase = Object.keys(report.simulations)[0];
+    let index = 0;
+    let playing = true;
+    let lastFrame = performance.now();
+
+    if (!report || !report.simulations) {
+      document.body.innerHTML = "<main><section><h1>缺少计算数据</h1><p>未找到 window.CHRONO_STAGE3_THIES_BUFFER_DATA。</p></section></main>";
+      throw new Error("missing CHRONO_STAGE3_THIES_BUFFER_DATA");
+    }
+
+    function num(value, digits=3) {
+      return Number.isFinite(value) ? value.toFixed(digits) : "-";
+    }
+
+    function deg(rad) {
+      return rad * 180 / Math.PI;
+    }
+
+    function caseData() {
+      return report.simulations[currentCase];
+    }
+
+    function arr(path) {
+      let node = caseData();
+      for (const part of path) node = node[part];
+      return node;
+    }
+
+    function sample(path, i=index) {
+      const values = arr(path);
+      return values[Math.max(0, Math.min(values.length - 1, i))] || 0;
+    }
+
+    function legSample(block, key, leg, i=index) {
+      return caseData()[block][key][leg][Math.max(0, Math.min(caseData().time_s.length - 1, i))] || 0;
+    }
+
+    function vectorAt(obj, i=index) {
+      if (Array.isArray(obj)) {
+        return { x: obj[0] || 0, y: obj[1] || 0, z: obj[2] || 0 };
+      }
+      return {
+        x: obj.x_m[Math.max(0, Math.min(obj.x_m.length - 1, i))] || 0,
+        y: obj.y_m[Math.max(0, Math.min(obj.y_m.length - 1, i))] || 0,
+        z: obj.z_m[Math.max(0, Math.min(obj.z_m.length - 1, i))] || 0
+      };
+    }
+
+    function anchor(leg, name, i=index) {
+      return vectorAt(caseData().mechanism.anchor_position_m[leg][name], i);
+    }
+
+    function foot(leg, i=index) {
+      return vectorAt(caseData().feet.position_m[leg], i);
+    }
+
+    function setupCases() {
+      for (const id of Object.keys(report.simulations)) {
+        const opt = document.createElement("option");
+        opt.value = id;
+        opt.textContent = id;
+        caseSelect.appendChild(opt);
+      }
+      caseSelect.value = currentCase;
+      scrub.max = String(caseData().time_s.length - 1);
+    }
+
+    function project(p) {
+      const w = scene.width;
+      const h = scene.height;
+      const s = 4.1;
+      return {
+        x: w * 0.5 + p.x * 2.35 + p.y * 1.0,
+        y: h * 0.86 - p.z * s + p.y * 0.42
+      };
+    }
+
+    function deckPoint(x, y) {
+      const heave = sample(["deck", "heave_m"]);
+      const roll = sample(["deck", "roll_rad"]);
+      const pitch = sample(["deck", "pitch_rad"]);
+      const surge = sample(["deck", "surge_m"]);
+      const sway = sample(["deck", "sway_m"]);
+      const yaw = sample(["deck", "yaw_rad"]);
+      return {
+        x: x + surge - yaw * y,
+        y: y + sway + yaw * x,
+        z: heave + roll * y - pitch * x
+      };
+    }
+
+    function drawPolygon(points, fill, stroke) {
+      ctx.beginPath();
+      points.forEach((p, idx) => {
+        const q = project(p);
+        if (idx === 0) ctx.moveTo(q.x, q.y);
+        else ctx.lineTo(q.x, q.y);
+      });
+      ctx.closePath();
+      ctx.fillStyle = fill;
+      ctx.fill();
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    function drawLine(a, b, color, width=2) {
+      const pa = project(a);
+      const pb = project(b);
+      ctx.beginPath();
+      ctx.moveTo(pa.x, pa.y);
+      ctx.lineTo(pb.x, pb.y);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.stroke();
+    }
+
+    function drawCircle(p, radius, fill, stroke="#17211d") {
+      const q = project(p);
+      ctx.beginPath();
+      ctx.arc(q.x, q.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = fill;
+      ctx.fill();
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    function drawScene() {
+      ctx.clearRect(0, 0, scene.width, scene.height);
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, scene.width, scene.height);
+
+      const L = 165;
+      const B = 40;
+      const deck = [
+        deckPoint(-L/2, -B/2),
+        deckPoint( L/2, -B/2),
+        deckPoint( L/2,  B/2),
+        deckPoint(-L/2,  B/2)
+      ];
+      drawPolygon(deck, "#eef4f1", "#9eb5ad");
+      drawLine(deckPoint(-L/2, 0), deckPoint(L/2, 0), "#c5d3ce", 1);
+      drawLine(deckPoint(0, -B/2), deckPoint(0, B/2), "#c5d3ce", 1);
+
+      const rocket = caseData().rocket;
+      const cg = {
+        x: rocket.cg_x_m[index] || 0,
+        y: rocket.cg_y_m[index] || 0,
+        z: rocket.cg_z_m[index] || 0
+      };
+      const roll = rocket.roll_rad[index] || 0;
+      const pitch = rocket.pitch_rad[index] || 0;
+      const axis = { x: Math.sin(pitch), y: -Math.sin(roll), z: Math.max(0.15, Math.cos(roll) * Math.cos(pitch)) };
+      const cgFromBase = report.config.rocket.cog_from_base_m;
+      const height = report.config.rocket.height_m;
+      const base = { x: cg.x - axis.x * cgFromBase, y: cg.y - axis.y * cgFromBase, z: cg.z - axis.z * cgFromBase };
+      const top = { x: base.x + axis.x * height, y: base.y + axis.y * height, z: base.z + axis.z * height };
+      drawLine(base, top, "#27352f", 10);
+      drawLine(base, top, "#f7faf8", 5);
+      drawCircle(cg, 4.5, "#27352f");
+
+      for (const leg of legs) {
+        const f = foot(leg);
+        const b = anchor(leg, "B_main");
+        const t = anchor(leg, "T_long");
+        const k = anchor(leg, "K_short");
+        const inContact = !!legSample("contact", "leg_contact", leg);
+        const color = legColors[leg];
+        drawLine(b, f, color, 4);
+        drawLine(t, f, "#8fa39b", 1.5);
+        drawLine(k, f, "#8fa39b", 1.5);
+        drawCircle(f, inContact ? 6.5 : 5, inContact ? color : "#ffffff", color);
+      }
+
+      const t = sample(["time_s"]);
+      const s = caseData().summary;
+      const stable = s.stable_standing_diagnostic?.all_flags_true;
+      hud.innerHTML = [
+        `t = ${num(t,2)} s`,
+        `elapsed = ${num(t - caseData().time_s[0],2)} s`,
+        `max buffer = ${num(s.max_leg_tsda_force_kn,1)} kN`,
+        `max stroke = ${num(s.max_leg_stroke_m * 1000,1)} mm`,
+        `stable = ${stable ? "true" : "false"}`
+      ].map(text => `<span class="pill">${text}</span>`).join("");
+      timeReadout.textContent = `${num(t,2)} s / ${caseData().time_s.length} samples`;
+    }
+
+    function metricSeries() {
+      const c = caseData();
+      const t = c.time_s;
+      const metric = metricSelect.value;
+      if (metric === "contact") {
+        return legs.map(leg => ({ name:leg, color:legColors[leg], values:c.forces.leg_contact_force_n[leg].map(v => v / 1000), unit:"kN" }));
+      }
+      if (metric === "buffer") {
+        return legs.map(leg => ({ name:leg, color:legColors[leg], values:c.forces.leg_tsda_force_n[leg].map(v => v / 1000), unit:"kN" }));
+      }
+      if (metric === "stroke") {
+        return legs.map(leg => ({ name:leg, color:legColors[leg], values:c.contact.leg_stroke_m[leg].map(v => v * 1000), unit:"mm" }));
+      }
+      if (metric === "attitude") {
+        return [
+          { name:"roll", color:"#2d70a6", values:c.rocket.roll_rad.map(deg), unit:"deg" },
+          { name:"pitch", color:"#b94d36", values:c.rocket.pitch_rad.map(deg), unit:"deg" }
+        ];
+      }
+      return [
+        { name:"heave", color:"#2d70a6", values:c.deck.heave_m, unit:"m" },
+        { name:"roll", color:"#237653", values:c.deck.roll_rad.map(deg), unit:"deg" },
+        { name:"pitch", color:"#b94d36", values:c.deck.pitch_rad.map(deg), unit:"deg" }
+      ];
+    }
+
+    function drawChart() {
+      const c = caseData();
+      const series = metricSeries();
+      const t = c.time_s;
+      const w = chart.width;
+      const h = chart.height;
+      const pad = { l:60, r:18, t:22, b:42 };
+      const values = series.flatMap(s => s.values).filter(Number.isFinite);
+      let ymin = Math.min(...values);
+      let ymax = Math.max(...values);
+      if (!Number.isFinite(ymin) || !Number.isFinite(ymax) || ymin === ymax) {
+        ymin = 0; ymax = 1;
+      }
+      const margin = (ymax - ymin) * 0.08 || 1;
+      ymin -= margin;
+      ymax += margin;
+      const xmin = t[0];
+      const xmax = t[t.length - 1];
+      const xTo = x => pad.l + (x - xmin) / (xmax - xmin) * (w - pad.l - pad.r);
+      const yTo = y => h - pad.b - (y - ymin) / (ymax - ymin) * (h - pad.t - pad.b);
+
+      chartCtx.clearRect(0, 0, w, h);
+      chartCtx.fillStyle = "#fff";
+      chartCtx.fillRect(0, 0, w, h);
+      chartCtx.strokeStyle = "#d7dfdb";
+      chartCtx.lineWidth = 1;
+      chartCtx.beginPath();
+      chartCtx.moveTo(pad.l, pad.t);
+      chartCtx.lineTo(pad.l, h - pad.b);
+      chartCtx.lineTo(w - pad.r, h - pad.b);
+      chartCtx.stroke();
+
+      chartCtx.fillStyle = "#64716b";
+      chartCtx.font = "12px Segoe UI";
+      for (let j = 0; j <= 4; j++) {
+        const y = ymin + (ymax - ymin) * j / 4;
+        const sy = yTo(y);
+        chartCtx.strokeStyle = "#eef3f0";
+        chartCtx.beginPath();
+        chartCtx.moveTo(pad.l, sy);
+        chartCtx.lineTo(w - pad.r, sy);
+        chartCtx.stroke();
+        chartCtx.fillText(num(y, 2), 8, sy + 4);
+      }
+
+      for (const s of series) {
+        chartCtx.beginPath();
+        s.values.forEach((v, i) => {
+          const x = xTo(t[i]);
+          const y = yTo(v);
+          if (i === 0) chartCtx.moveTo(x, y);
+          else chartCtx.lineTo(x, y);
+        });
+        chartCtx.strokeStyle = s.color;
+        chartCtx.lineWidth = 2;
+        chartCtx.stroke();
+      }
+
+      const cursorX = xTo(t[index]);
+      chartCtx.strokeStyle = "#17211d";
+      chartCtx.lineWidth = 1;
+      chartCtx.beginPath();
+      chartCtx.moveTo(cursorX, pad.t);
+      chartCtx.lineTo(cursorX, h - pad.b);
+      chartCtx.stroke();
+
+      let legendX = pad.l;
+      chartCtx.font = "13px Segoe UI";
+      for (const s of series) {
+        chartCtx.fillStyle = s.color;
+        chartCtx.fillRect(legendX, 8, 12, 8);
+        chartCtx.fillStyle = "#17211d";
+        chartCtx.fillText(`${s.name} (${s.unit})`, legendX + 18, 16);
+        legendX += 125;
+      }
+      document.getElementById("chartNote").textContent = `曲线来自 ${currentCase} 的 Chrono 输出，共 ${t.length} 个样本。`;
+    }
+
+    function updateSummary() {
+      const s = caseData().summary;
+      const stable = s.stable_standing_diagnostic;
+      const rows = [
+        ["首腿触地", `${num(s.first_contact_time_s,3)} s`],
+        ["四腿全触地", `${num(s.all_legs_contact_time_s,3)} s`],
+        ["最终接触腿数", `${s.final_contact_count}`],
+        ["最大主缓冲器力", `${num(s.max_leg_tsda_force_kn,2)} kN`],
+        ["最大接触力", `${num(s.max_leg_contact_force_kn,2)} kN`],
+        ["最大缓冲行程", `${num(s.max_leg_stroke_m * 1000,2)} mm`],
+        ["最大足垫滑移", `${num(s.max_footpad_slip_m * 1000,2)} mm`],
+        ["最终喷管间隙", `${num(s.final_nozzle_clearance_m,4)} m`],
+        ["最终角速度", `${num(stable?.final_angular_rate_deg_s,4)} deg/s`],
+        ["稳定诊断", stable?.all_flags_true ? "<span class='ok'>PASS</span>" : "<span class='warn'>NOT PASS</span>"]
+      ];
+      document.getElementById("summaryTable").innerHTML = rows.map(r => `<tr><th>${r[0]}</th><td class="num">${r[1]}</td></tr>`).join("");
+
+      const validationRows = [
+        ["触地动能", report.validation.thies_touchdown_energy?.pass, "Thies Table target vs computed"],
+        ["机构拓扑", report.validation.mechanism_topology?.pass, "Chrono prismatic main leg + TSDA braces"],
+        ["非线性缓冲器", report.validation.nonlinear_buffer_law?.pass, "compression_only_table"],
+        ["接触状态机", report.validation.contact_state_machine?.pass, "contact/liftoff/recontact"],
+        ["四工况物理诊断", report.validation.case_physical_diagnostics?.pass, "当前真实曲线分支稳定角速度未达阈值"],
+        ["参数溯源", report.validation.parameter_traceability?.pass, "paper/computed/assumption labels"]
+      ];
+      document.getElementById("validationTable").innerHTML = "<tr><th>检查</th><th>状态</th><th>依据</th></tr>" +
+        validationRows.map(r => `<tr><td>${r[0]}</td><td class="${r[1] ? "ok" : "warn"}">${r[1] ? "PASS" : "NOT PASS"}</td><td>${r[2]}</td></tr>`).join("");
+    }
+
+    function resizeCanvas(canvas) {
+      const rect = canvas.getBoundingClientRect();
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.max(320, Math.floor(rect.width * ratio));
+      canvas.height = Math.max(240, Math.floor(rect.height * ratio));
+      const context = canvas.getContext("2d");
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      canvas.width = Math.floor(rect.width);
+      canvas.height = Math.floor(rect.height);
+    }
+
+    function render() {
+      drawScene();
+      drawChart();
+      scrub.value = String(index);
+    }
+
+    function tick(now) {
+      if (playing) {
+        const dt = (now - lastFrame) / 1000;
+        const fpsStep = Math.max(1, Math.round(Number(speed.value) * dt / 0.01));
+        index = (index + fpsStep) % caseData().time_s.length;
+        render();
+      }
+      lastFrame = now;
+      requestAnimationFrame(tick);
+    }
+
+    caseSelect.addEventListener("change", () => {
+      currentCase = caseSelect.value;
+      index = 0;
+      scrub.max = String(caseData().time_s.length - 1);
+      updateSummary();
+      render();
+    });
+    metricSelect.addEventListener("change", render);
+    scrub.addEventListener("input", () => {
+      index = Number(scrub.value);
+      render();
+    });
+    playButton.addEventListener("click", () => {
+      playing = !playing;
+      playButton.textContent = playing ? "暂停" : "播放";
+    });
+    resetButton.addEventListener("click", () => {
+      index = 0;
+      render();
+    });
+    window.addEventListener("resize", render);
+
+    setupCases();
+    updateSummary();
+    render();
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

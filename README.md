@@ -10,6 +10,20 @@
 [![License: Apache v2](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
   <p align="center"><img src="https://github.com/YingyiLiu/HAMS/blob/master/Other/md_resources/body_mesh.png" width="70%" /></p>
+
+## Reproducible sea-landing research extension
+
+This public fork also contains a reproducible research extension for four-leg reusable launch vehicle landing on a floating barge. The repository snapshot includes the modified source and local build tools, regenerated hydrodynamic outputs, time-domain and multibody calculations, literature-comparison inputs, manuscript sources and final documents, visualizations, tests, diagnostics, and run logs.
+
+Start with:
+
+* [Research repository manifest](RESEARCH_REPOSITORY_MANIFEST.md) for the data map, inclusion policy, and known limitations.
+* [Research change log](RESEARCH_CHANGELOG.md) for the implemented milestones and verification status.
+* [Local build replay](BUILD_REPLAY.md) and [local usage guide](LOCAL_USAGE.md) for rebuilding and running the cases.
+* [Final manuscript and integrity audit](paper/yang_2026_extension/) for the paper, reviewer response, figures, and machine-readable evidence chain.
+* [Interactive reports](visualization/) for the hydrodynamic, stochastic-wave, and four-leg landing results.
+
+The original HAMS history and attribution are retained. Literature files are reference material and remain subject to their publishers' or authors' licenses; their presence does not relicense them under the HAMS Apache license.
   
 HAMS (Hydrodynamic Analysis of Marine Structures) is a free open-source software to analyse wave-structure interactions in the frequency domain. It is based on the boundary integral equation method within the framework of the potential flow theory. The code is currently written in FORTRAN 90. It has been developed by the author Yingyi Liu for nearly a decade. 
 

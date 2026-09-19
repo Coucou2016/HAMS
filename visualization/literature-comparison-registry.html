@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Literature Comparison Registry</title>
+  <script src="literature-comparison-registry-data.js"></script>
+  <style>
+    :root { --ink:#17211d; --muted:#63716b; --line:#d9e1dd; --wash:#f5f7f6; --ok:#237653; --warn:#9a6a12; --bad:#b94d36; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--wash); color:var(--ink); font-family:Inter,"Segoe UI","Microsoft YaHei",Arial,sans-serif; }
+    header { padding:20px 28px 12px; border-bottom:1px solid var(--line); background:#fbfcfb; }
+    h1,h2 { margin:0; letter-spacing:0; }
+    h1 { font-size:23px; }
+    h2 { font-size:16px; margin-bottom:12px; }
+    nav { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+    nav a { color:var(--muted); text-decoration:none; font-size:13px; padding:6px 9px; border:1px solid var(--line); background:#fff; border-radius:6px; }
+    nav a[aria-current="page"] { color:var(--ink); border-color:#9eb5ad; }
+    main { padding:18px; display:grid; grid-template-columns:1fr; gap:18px; }
+    section { background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px; min-width:0; }
+    .summary { display:grid; grid-template-columns:repeat(5,minmax(120px,1fr)); gap:12px; }
+    .metric { border:1px solid var(--line); border-radius:8px; padding:12px; background:#fff; }
+    .metric strong { display:block; font-size:23px; margin-top:4px; overflow-wrap:anywhere; }
+    .note { color:var(--muted); font-size:13px; line-height:1.55; margin:8px 0 0; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th,td { padding:8px 7px; border-bottom:1px solid #e5ece8; text-align:left; vertical-align:top; }
+    th { color:var(--muted); font-weight:600; }
+    .mono { font-family:Consolas,"SFMono-Regular",monospace; }
+    .ok { color:var(--ok); font-weight:800; }
+    .warn { color:var(--warn); font-weight:800; }
+    .bad { color:var(--bad); font-weight:800; }
+    .filters { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+    select { min-height:34px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); padding:6px 9px; font:inherit; }
+    @media (max-width:900px) { .summary { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>文献对比与曲线元数据注册表</h1>
+    <p class="note">集中列出当前所有论文曲线、正文指标、表格值、误差指标和缺失数据边界。</p>
+    <nav>
+      <a href="chrono-final-acceptance.html">最终审计</a>
+      <a href="literature-comparison-registry.html" aria-current="page">文献注册表</a>
+      <a href="thies-buffer-curves.html">Thies 曲线</a>
+      <a href="chrono-stage3-thies-buffer.html">Thies Buffer</a>
+      <a href="chrono-stage3c-rigid-body-link.html">Stage 3C 诊断</a>
+      <a href="leg-mechanism-contract.html">机构数据合同</a>
+      <a href="leg-mechanism-import.html">机构数据导入</a>
+      <a href="leg-mechanism-import-selftest.html">导入自测</a>
+      <a href="leg-mechanism-validation.html">机构数据校验</a>
+      <a href="real-leg-mechanism-builder.html">真实机构 Gate</a>
+      <a href="chrono-real-leg-mechanism.html">真实机构运行</a>
+      <a href="chrono-stage3-lock-two-way.html">锁紧双向</a>
+      <a href="nargolkar-2025.html">Nargolkar 2025</a>
+      <a href="wang-2023.html">Wang 2023</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>总览</h2>
+      <div class="summary" id="summary"></div>
+      <p class="note" id="claim"></p>
+      <p class="note" id="generated"></p>
+    </section>
+    <section>
+      <h2>对比条目</h2>
+      <div class="filters">
+        <label>论文 <select id="paperFilter"><option value="">全部</option></select></label>
+        <label>类型 <select id="categoryFilter"><option value="">全部</option></select></label>
+      </div>
+      <table>
+        <thead><tr><th>Paper</th><th>ID</th><th>Category</th><th>Level</th><th>Status</th><th>Metric</th><th>Error</th></tr></thead>
+        <tbody id="entries"></tbody>
+      </table>
+    </section>
+    <section>
+      <h2>缺失曲线</h2>
+      <table>
+        <thead><tr><th>Paper</th><th>ID</th><th>Figure</th><th>Metric</th><th>Required Action</th></tr></thead>
+        <tbody id="gaps"></tbody>
+      </table>
+    </section>
+    <section>
+      <h2>不声称内容</h2>
+      <table><tbody id="notClaimed"></tbody></table>
+    </section>
+  </main>
+  <script>
+    const registry = window.LITERATURE_COMPARISON_REGISTRY;
+    function esc(value){ return String(value ?? "").replace(/[&<>"']/g, s => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[s])); }
+    function errorText(entry){
+      const e = entry.error_metrics || {};
+      if(e.normalized_rmse_vs_paper_peak !== undefined) return `nRMSE ${Number(e.normalized_rmse_vs_paper_peak).toPrecision(4)}`;
+      if(e.relative_error !== undefined && e.relative_error !== null) return `rel ${Number(e.relative_error).toPrecision(4)}`;
+      if(e.rmse !== undefined) return `RMSE ${Number(e.rmse).toPrecision(4)}`;
+      return "";
+    }
+    function statusClass(entry){
+      if(entry.category === "missing_curve" || entry.category === "missing_artifact") return "bad";
+      if(String(entry.reproduction_status || "").includes("not_reproduced")) return "warn";
+      return "ok";
+    }
+    function render(){
+      if(!registry){ document.body.innerHTML = "<main><section><h1>缺少 literature-comparison-registry-data.js</h1><p>请先运行 literature_comparison_registry.py report。</p></section></main>"; return; }
+      const s = registry.summary || {};
+      document.getElementById("summary").innerHTML = [
+        ["Status", s.status],
+        ["Entries", s.total_entries || 0],
+        ["Pointwise", s.pointwise_digitized_curve_count || 0],
+        ["Text/Scale", (s.wang_text_indicator_count || 0) + (s.thies_table_or_scale_count || 0)],
+        ["Missing Curves", s.missing_curve_count || 0],
+      ].map(([k,v]) => `<div class="metric"><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join("");
+      document.getElementById("claim").textContent = registry.scope?.claim_boundary || "";
+      document.getElementById("generated").textContent = `generated ${registry.generated_utc}`;
+      const papers = [...new Set(registry.entries.map(row => row.paper_id))];
+      const categories = [...new Set(registry.entries.map(row => row.category))];
+      document.getElementById("paperFilter").innerHTML += papers.map(v => `<option>${esc(v)}</option>`).join("");
+      document.getElementById("categoryFilter").innerHTML += categories.map(v => `<option>${esc(v)}</option>`).join("");
+      document.getElementById("paperFilter").addEventListener("change", renderEntries);
+      document.getElementById("categoryFilter").addEventListener("change", renderEntries);
+      renderEntries();
+      document.getElementById("gaps").innerHTML = (registry.gaps || []).map(row => {
+        const src = row.paper_data_source || {};
+        return `<tr><td>${esc(row.paper_id)}</td><td class="mono">${esc(row.id)}</td><td>${esc(src.figure || src.table_or_source || "")}</td><td>${esc(row.metric)}</td><td>${esc(row.required_action || row.blocking_reason || "")}</td></tr>`;
+      }).join("");
+      document.getElementById("notClaimed").innerHTML = (registry.not_claimed || []).map((item, i) => `<tr><td class="mono">${i+1}</td><td>${esc(item)}</td></tr>`).join("");
+    }
+    function renderEntries(){
+      const paper = document.getElementById("paperFilter").value;
+      const category = document.getElementById("categoryFilter").value;
+      const rows = registry.entries.filter(row => (!paper || row.paper_id === paper) && (!category || row.category === category));
+      document.getElementById("entries").innerHTML = rows.map(row => `<tr><td>${esc(row.paper_id)}</td><td class="mono">${esc(row.id)}</td><td>${esc(row.category)}</td><td>${esc(row.comparison_level)}</td><td class="${statusClass(row)}">${esc(row.reproduction_status)}</td><td>${esc(row.metric)}<br><span class="note">${esc(row.unit)}</span></td><td>${esc(errorText(row))}</td></tr>`).join("");
+    }
+    render();
+  </script>
+</body>
+</html>

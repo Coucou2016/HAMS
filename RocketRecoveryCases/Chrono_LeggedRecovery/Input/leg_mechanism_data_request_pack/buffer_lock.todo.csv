@@ -1,0 +1,6 @@
+section,field,value_json,unit,source_category,source_detail,required_source,note
+buffer_law,stroke_limit_m,,m,,,absorber hardware specification and lock hardware data,Need physical absorber stroke limit and hard-stop definition.
+buffer_law,extension_behavior,,,,,absorber hardware specification and lock hardware data,Need whether the absorber can carry tension/extension after rebound.
+lock_hardware,mechanism_type,,,,,absorber hardware specification and lock hardware data,Current ChLinkMateFix lock is a numerical proxy only.
+lock_hardware,trigger_logic,,,,,absorber hardware specification and lock hardware data,Need real platform or leg securing logic.
+lock_hardware,constraint_stiffness,,,,,absorber hardware specification and lock hardware data,Need hardware stiffness/damping or equivalent constraint model.

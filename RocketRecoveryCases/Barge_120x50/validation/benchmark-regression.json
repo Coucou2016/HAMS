@@ -1,0 +1,554 @@
+{
+  "passed": false,
+  "cases": [
+    {
+      "case": "Cylinder",
+      "files_checked": 108,
+      "numeric_values_checked": 352499,
+      "text_values_checked": 6150,
+      "max_relative_error": 274.7467462374796,
+      "max_absolute_error": 455.58600000000115,
+      "failures": [
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 15,
+          "token": 4,
+          "truth": "-0.25378E+00",
+          "actual": "-0.22531E+00",
+          "abs_error": 0.028469999999999995,
+          "rel_error": 0.11218378122783511
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 16,
+          "token": 4,
+          "truth": "0.48064E-01",
+          "actual": "0.76655E-01",
+          "abs_error": 0.028591,
+          "rel_error": 0.5948526964047935
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 17,
+          "token": 4,
+          "truth": "0.24969E+00",
+          "actual": "0.28027E+00",
+          "abs_error": 0.030580000000000024,
+          "rel_error": 0.1224718651127399
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 18,
+          "token": 4,
+          "truth": "0.34967E+00",
+          "actual": "0.40662E+00",
+          "abs_error": 0.05695,
+          "rel_error": 0.16286784682700833
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 25,
+          "token": 3,
+          "truth": "0.27576E+03",
+          "actual": "0.22799E+03",
+          "abs_error": 47.76999999999998,
+          "rel_error": 0.1732303452277342
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 25,
+          "token": 4,
+          "truth": "0.24872E+00",
+          "actual": "0.39724E+00",
+          "abs_error": 0.14851999999999999,
+          "rel_error": 0.5971373431971695
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 32,
+          "token": 4,
+          "truth": "0.14832E+00",
+          "actual": "0.16589E+00",
+          "abs_error": 0.017570000000000002,
+          "rel_error": 0.11846008629989213
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 15,
+          "token": 3,
+          "truth": "-0.18102E+00",
+          "actual": "-0.15931E+00",
+          "abs_error": 0.02170999999999998,
+          "rel_error": 0.11993149928184721
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 16,
+          "token": 3,
+          "truth": "0.63542E-01",
+          "actual": "0.85180E-01",
+          "abs_error": 0.021638000000000004,
+          "rel_error": 0.34053067262597975
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 18,
+          "token": 3,
+          "truth": "0.30617E+00",
+          "actual": "0.34969E+00",
+          "abs_error": 0.04352,
+          "rel_error": 0.14214325374791784
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 23,
+          "token": 8,
+          "truth": "-0.99565E-07",
+          "actual": "-0.14760E-05",
+          "abs_error": 1.376435e-06,
+          "rel_error": 13.824486516346104
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 25,
+          "token": 3,
+          "truth": "0.21520E+00",
+          "actual": "0.33332E+00",
+          "abs_error": 0.11812,
+          "rel_error": 0.5488847583643123
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 25,
+          "token": 4,
+          "truth": "0.27580E+03",
+          "actual": "0.22806E+03",
+          "abs_error": 47.74000000000001,
+          "rel_error": 0.17309644670050764
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 18,
+          "token": 4,
+          "truth": "0.26261E+00",
+          "actual": "0.23363E+00",
+          "abs_error": 0.028980000000000006,
+          "rel_error": 0.1103537565210769
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 20,
+          "token": 3,
+          "truth": "0.13283E-01",
+          "actual": "0.93586E-02",
+          "abs_error": 0.0039244,
+          "rel_error": 0.29544530603026425
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 20,
+          "token": 4,
+          "truth": "0.80503E-01",
+          "actual": "0.63801E-01",
+          "abs_error": 0.01670200000000001,
+          "rel_error": 0.20747052904860697
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 21,
+          "token": 3,
+          "truth": "0.41414E-02",
+          "actual": "0.27681E-02",
+          "abs_error": 0.0013733,
+          "rel_error": 0.33160283961945236
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 21,
+          "token": 4,
+          "truth": "0.21108E-01",
+          "actual": "0.53463E-02",
+          "abs_error": 0.015761699999999997,
+          "rel_error": 0.7467168845935189
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 21,
+          "token": 8,
+          "truth": "-0.72361E-06",
+          "actual": "0.14715E-05",
+          "abs_error": 2.1951100000000002e-06,
+          "rel_error": 3.033553986263319
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 22,
+          "token": 3,
+          "truth": "-0.24462E-02",
+          "actual": "-0.37225E-02",
+          "abs_error": 0.0012763000000000002,
+          "rel_error": 0.5217480173330064
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 22,
+          "token": 4,
+          "truth": "-0.25164E-01",
+          "actual": "-0.40517E-01",
+          "abs_error": 0.015352999999999999,
+          "rel_error": 0.6101176283579717
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 23,
+          "token": 3,
+          "truth": "-0.67984E-02",
+          "actual": "-0.37892E-01",
+          "abs_error": 0.031093600000000002,
+          "rel_error": 4.573664391621558
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 23,
+          "token": 4,
+          "truth": "-0.60251E-01",
+          "actual": "-0.95372E-01",
+          "abs_error": 0.035121,
+          "rel_error": 0.5829114869462747
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 23,
+          "token": 8,
+          "truth": "-0.70962E-06",
+          "actual": "0.89992E-06",
+          "abs_error": 1.6095399999999998e-06,
+          "rel_error": 2.2681716975282544
+        },
+        {
+          "file": "Hams_format/OAMASS3.txt",
+          "line": 24,
+          "token": 3,
+          "truth": "-0.91210E-02",
+          "actual": "-0.12805E-01",
+          "abs_error": 0.0036839999999999998,
+          "rel_error": 0.4039030808025435
+        }
+      ],
+      "passed": false
+    },
+    {
+      "case": "DeepCwind",
+      "files_checked": 108,
+      "numeric_values_checked": 9684,
+      "text_values_checked": 6234,
+      "max_relative_error": 9.15221149386516,
+      "max_absolute_error": 180.0,
+      "failures": [
+        {
+          "file": "Hydrostar_format/Excitation_6.rao",
+          "line": 25,
+          "token": 11,
+          "truth": "100.9541",
+          "actual": "111.3706",
+          "abs_error": 10.4165,
+          "rel_error": 0.05786944444444444
+        },
+        {
+          "file": "Wamit_format/Buoy.3",
+          "line": 28,
+          "token": 5,
+          "truth": "-1.134986E+02",
+          "actual": "-1.518438E+02",
+          "abs_error": 38.34519999999999,
+          "rel_error": 0.3378473390861208
+        },
+        {
+          "file": "Wamit_format/Buoy.3",
+          "line": 56,
+          "token": 5,
+          "truth": "-2.444395E+01",
+          "actual": "-3.928941E+01",
+          "abs_error": 14.845459999999996,
+          "rel_error": 0.6073265572871813
+        },
+        {
+          "file": "Wamit_format/Buoy.3",
+          "line": 58,
+          "token": 5,
+          "truth": "5.019443E+01",
+          "actual": "7.156505E+01",
+          "abs_error": 21.370620000000002,
+          "rel_error": 0.4257568020993565
+        },
+        {
+          "file": "Wamit_format/Buoy.3",
+          "line": 86,
+          "token": 5,
+          "truth": "5.710593E+00",
+          "actual": "-6.934349E+00",
+          "abs_error": 12.644942,
+          "rel_error": 2.2142957832925583
+        },
+        {
+          "file": "Wamit_format/Buoy.3",
+          "line": 88,
+          "token": 5,
+          "truth": "-4.212163E+01",
+          "actual": "-8.157303E+01",
+          "abs_error": 39.4514,
+          "rel_error": 0.9366066792761818
+        }
+      ],
+      "passed": false
+    },
+    {
+      "case": "HywindSpar",
+      "files_checked": 108,
+      "numeric_values_checked": 4527,
+      "text_values_checked": 6234,
+      "max_relative_error": 6.901697952764545,
+      "max_absolute_error": 180.0,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "case": "Moonpool",
+      "files_checked": 108,
+      "numeric_values_checked": 124827,
+      "text_values_checked": 6150,
+      "max_relative_error": 1687.6799045357366,
+      "max_absolute_error": 654.7999999999993,
+      "failures": [
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 3,
+          "token": 4,
+          "truth": "-0.33882E+00",
+          "actual": "-0.26201E+00",
+          "abs_error": 0.07680999999999999,
+          "rel_error": 0.22669854199870135
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 3,
+          "token": 5,
+          "truth": "-0.77458E+00",
+          "actual": "-0.11481E+00",
+          "abs_error": 0.6597700000000001,
+          "rel_error": 0.8517777376126417
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 12,
+          "token": 5,
+          "truth": "0.97140E+00",
+          "actual": "0.11525E+01",
+          "abs_error": 0.18110000000000004,
+          "rel_error": 0.18643195388099654
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 15,
+          "token": 5,
+          "truth": "0.24860E+00",
+          "actual": "0.20206E+00",
+          "abs_error": 0.04654,
+          "rel_error": 0.18720836685438455
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 16,
+          "token": 5,
+          "truth": "0.43051E-01",
+          "actual": "0.25938E-02",
+          "abs_error": 0.0404572,
+          "rel_error": 0.9397505284430094
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 17,
+          "token": 5,
+          "truth": "-0.12959E+00",
+          "actual": "-0.15662E+00",
+          "abs_error": 0.02703,
+          "rel_error": 0.20858090902075774
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 18,
+          "token": 5,
+          "truth": "-0.18710E+00",
+          "actual": "-0.20929E+00",
+          "abs_error": 0.022190000000000015,
+          "rel_error": 0.11859967931587395
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 22,
+          "token": 4,
+          "truth": "-0.12935E+00",
+          "actual": "-0.14762E+00",
+          "abs_error": 0.01827000000000001,
+          "rel_error": 0.141244684963278
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 28,
+          "token": 5,
+          "truth": "-0.15715E+00",
+          "actual": "-0.14005E+00",
+          "abs_error": 0.017100000000000004,
+          "rel_error": 0.10881323576201084
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 29,
+          "token": 5,
+          "truth": "-0.15748E+00",
+          "actual": "-0.13780E+00",
+          "abs_error": 0.019680000000000003,
+          "rel_error": 0.12496824993649988
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 30,
+          "token": 5,
+          "truth": "-0.15784E+00",
+          "actual": "-0.13813E+00",
+          "abs_error": 0.019710000000000005,
+          "rel_error": 0.12487328940699445
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 31,
+          "token": 5,
+          "truth": "-0.15774E+00",
+          "actual": "-0.13262E+00",
+          "abs_error": 0.025120000000000003,
+          "rel_error": 0.15924939774312163
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 32,
+          "token": 5,
+          "truth": "-0.15663E+00",
+          "actual": "-0.12858E+00",
+          "abs_error": 0.02804999999999999,
+          "rel_error": 0.179084466577284
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 33,
+          "token": 5,
+          "truth": "-0.15377E+00",
+          "actual": "-0.12128E+00",
+          "abs_error": 0.03248999999999999,
+          "rel_error": 0.21128958834623135
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 34,
+          "token": 5,
+          "truth": "-0.14808E+00",
+          "actual": "-0.11032E+00",
+          "abs_error": 0.03775999999999999,
+          "rel_error": 0.2549972987574284
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 35,
+          "token": 5,
+          "truth": "-0.13767E+00",
+          "actual": "-0.92413E-01",
+          "abs_error": 0.04525699999999999,
+          "rel_error": 0.3287353817098859
+        },
+        {
+          "file": "Hams_format/OAMASS1.txt",
+          "line": 36,
+          "token": 5,
+          "truth": "-0.11873E+00",
+          "actual": "-0.62038E-01",
+          "abs_error": 0.056692,
+          "rel_error": 0.47748673460793395
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 3,
+          "token": 3,
+          "truth": "-0.39427E+00",
+          "actual": "-0.32970E+00",
+          "abs_error": 0.06457000000000002,
+          "rel_error": 0.1637710198594872
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 3,
+          "token": 5,
+          "truth": "0.12066E+00",
+          "actual": "-0.16848E+00",
+          "abs_error": 0.28914,
+          "rel_error": 2.3963202386872204
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 3,
+          "token": 7,
+          "truth": "0.22518E+00",
+          "actual": "0.19987E+00",
+          "abs_error": 0.02531,
+          "rel_error": 0.1123989697131184
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 4,
+          "token": 5,
+          "truth": "0.13428E+00",
+          "actual": "0.14953E+00",
+          "abs_error": 0.015249999999999986,
+          "rel_error": 0.11356866249627633
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 12,
+          "token": 5,
+          "truth": "-0.52181E+00",
+          "actual": "-0.60256E+00",
+          "abs_error": 0.08074999999999999,
+          "rel_error": 0.1547498131503804
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 19,
+          "token": 5,
+          "truth": "-0.70364E-01",
+          "actual": "-0.81313E-01",
+          "abs_error": 0.010949,
+          "rel_error": 0.15560513899152978
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 20,
+          "token": 5,
+          "truth": "-0.64625E-01",
+          "actual": "-0.77358E-01",
+          "abs_error": 0.012732999999999994,
+          "rel_error": 0.19702901353965174
+        },
+        {
+          "file": "Hams_format/OAMASS2.txt",
+          "line": 21,
+          "token": 5,
+          "truth": "-0.60402E-01",
+          "actual": "-0.74137E-01",
+          "abs_error": 0.013734999999999997,
+          "rel_error": 0.22739313267772587
+        }
+      ],
+      "passed": false
+    }
+  ],
+  "max_relative_error": 1687.6799045357366,
+  "max_absolute_error": 654.7999999999993
+}

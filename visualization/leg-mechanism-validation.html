@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono Leg Mechanism Data Validation</title>
+  <script src="leg-mechanism-validation-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18202a;
+      --muted: #5e6875;
+      --line: #d7dde7;
+      --panel: #f7f9fc;
+      --good: #047857;
+      --warn: #b45309;
+      --bad: #b91c1c;
+      --accent: #0f766e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: #fff;
+    }
+    header {
+      padding: 18px 24px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav a:hover { text-decoration: underline; }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 980px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 22px 24px 44px;
+    }
+    section { margin: 0 0 30px; }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel);
+      min-height: 92px;
+    }
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .metric .value {
+      margin-top: 8px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .good { color: var(--good); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--bad); }
+    .note {
+      border-left: 4px solid var(--warn);
+      padding: 10px 12px;
+      background: #fff8ed;
+      color: #573900;
+      line-height: 1.55;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    th, td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #eef3f8; }
+    tr:last-child td { border-bottom: 0; }
+    code {
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 12px;
+      background: #eef3f8;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .8fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .empty {
+      padding: 18px;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      main, header { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="chrono-final-acceptance.html">Final audit</a>
+      <a href="leg-mechanism-contract.html">Data contract</a>
+      <a href="leg-mechanism-import.html">Data import</a>
+      <a href="leg-mechanism-import-selftest.html">Import self-test</a>
+      <a href="leg-mechanism-gap-tracker.html">Gap tracker</a>
+      <a href="leg-mechanism-data-request-pack.html">Request pack</a>
+      <a href="leg-mechanism-data-request-lint.html">Request lint</a>
+      <a href="real-leg-mechanism-builder.html">Builder gate</a>
+      <a href="chrono-real-leg-mechanism.html">Real runtime</a>
+      <a href="chrono-stage3-tripod.html">Stage 3A</a>
+      <a href="chrono-stage3c-rigid-body-link.html">Stage 3C</a>
+      <a href="literature-comparison-registry.html">Literature registry</a>
+    </nav>
+    <h1>Chrono 支腿机构数据校验</h1>
+    <p class="lead">读取可填写模板，检查来源标签、必填字段、B/T/K/P 几何闭合、约束拓扑、质量惯量、缓冲器和锁紧数据。当前目标是防止把工程假设误用为 Adams 等价机构。</p>
+  </header>
+  <main id="app">
+    <div class="empty">等待 <code>leg-mechanism-validation-data.js</code> 数据。</div>
+  </main>
+  <script>
+    const data = window.LEG_MECHANISM_VALIDATION;
+    const app = document.getElementById("app");
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[ch]));
+    }
+
+    function metric(label, value, cls = "") {
+      return `<div class="metric"><div class="label">${esc(label)}</div><div class="value ${cls}">${esc(value)}</div></div>`;
+    }
+
+    function statusClass(status) {
+      if (status === "PASS") return "good";
+      if (status === "PARTIAL") return "warn";
+      return "bad";
+    }
+
+    function checkRows(rows) {
+      return (rows || []).map(row => `<tr>
+        <td><code>${esc(row.id)}</code></td>
+        <td class="${statusClass(row.status)}"><strong>${esc(row.status)}</strong></td>
+        <td>${esc(row.evidence)}</td>
+        <td>${esc((row.blockers || []).slice(0, 8).join(", "))}</td>
+      </tr>`).join("");
+    }
+
+    function fieldRows(rows) {
+      return (rows || []).slice(0, 120).map(row => `<tr>
+        <td><code>${esc(row.path)}</code></td>
+        <td>${esc(row.source_category)}</td>
+        <td>${esc(row.unit || "")}</td>
+        <td>${esc(row.source_detail)}</td>
+      </tr>`).join("");
+    }
+
+    function geometryRows(rows) {
+      return (rows || []).map(row => `<tr>
+        <td><code>${esc(row.leg_id)}</code></td>
+        <td class="${statusClass(row.status)}"><strong>${esc(row.status)}</strong></td>
+        <td>${esc(row.reason || "")}</td>
+        <td>${esc(row.azimuth_source_category || "")}</td>
+      </tr>`).join("");
+    }
+
+    if (!data) {
+      app.innerHTML = '<div class="empty">没有找到校验数据。请运行 <code>.\\.tools\\chrono-env\\python.exe .\\analysis\\rocket_recovery\\leg_mechanism_data_validator.py report</code>。</div>';
+    } else {
+      app.innerHTML = `
+        <section class="summary">
+          ${metric("Ready", data.ready ? "YES" : "NO", data.ready ? "good" : "bad")}
+          ${metric("Checks", `${data.summary.passing_check_count}/${data.summary.check_count}`, data.ready ? "good" : "warn")}
+          ${metric("Blocking fields", data.summary.blocking_field_count, data.summary.blocking_field_count ? "bad" : "good")}
+          ${metric("Input", data.input_path)}
+        </section>
+        <section>
+          <div class="note">${esc(data.gate[data.ready ? "if_true" : "if_false"])}</div>
+        </section>
+        <section class="grid">
+          <div>
+            <h2>Checks</h2>
+            <table>
+              <thead><tr><th>ID</th><th>Status</th><th>Evidence</th><th>Blockers</th></tr></thead>
+              <tbody>${checkRows(data.checks)}</tbody>
+            </table>
+          </div>
+          <div>
+            <h2>Geometry</h2>
+            <table>
+              <thead><tr><th>Leg</th><th>Status</th><th>Reason</th><th>Azimuth source</th></tr></thead>
+              <tbody>${geometryRows(data.geometry_checks)}</tbody>
+            </table>
+          </div>
+        </section>
+        <section>
+          <h2>Blocking Fields</h2>
+          <table>
+            <thead><tr><th>Path</th><th>Source</th><th>Unit</th><th>Detail</th></tr></thead>
+            <tbody>${fieldRows(data.blocking_fields)}</tbody>
+          </table>
+        </section>
+      `;
+    }
+  </script>
+</body>
+</html>

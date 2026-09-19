@@ -1,0 +1,298 @@
+{
+  "validation_id": "ChronoLegMechanismDataValidation",
+  "generated_utc": "2026-08-01T12:10:25+00:00",
+  "validation_mode": "synthetic_selftest",
+  "input_path": "RocketRecoveryCases/Chrono_LeggedRecovery/validation/synthetic_leg_import/leg_mechanism_data_synthetic.json",
+  "overall_status": "ready_for_adams_equivalent_chrono_model",
+  "ready": true,
+  "summary": {
+    "check_count": 7,
+    "passing_check_count": 7,
+    "blocking_check_count": 0,
+    "adams_required_field_count": 180,
+    "blocking_field_count": 0,
+    "source_category_counts": {
+      "synthetic_test_fixture": 133,
+      "paper": 44,
+      "computed": 4
+    }
+  },
+  "checks": [
+    {
+      "id": "required_field_sources",
+      "status": "PASS",
+      "description": "All Adams-equivalent required fields must be populated and must not be tagged as assumptions, proxies, missing, or to-verify. Synthetic fixture source tags are accepted only for importer/builder self-tests.",
+      "evidence": "required=180, missing=0, blocking_source=0",
+      "blockers": []
+    },
+    {
+      "id": "coordinate_system",
+      "status": "PASS",
+      "description": "Rocket body frame and HAMS/Cummins deck-frame transform must be defined before Chrono can build an Adams-equivalent mechanism.",
+      "evidence": "all coordinate-system records are usable",
+      "blockers": []
+    },
+    {
+      "id": "geometry_closure",
+      "status": "PASS",
+      "description": "Per-leg B/T/K/P coordinates must close against published PB/PT/PK lengths and use non-assumption azimuth data.",
+      "evidence": "all four legs close within tolerance",
+      "blockers": []
+    },
+    {
+      "id": "constraint_topology",
+      "status": "PASS",
+      "description": "Joint types, axes, slider direction, and limits must be defined from the real mechanism topology.",
+      "evidence": "topology is populated and source-tagged",
+      "blockers": []
+    },
+    {
+      "id": "body_mass_inertia",
+      "status": "PASS",
+      "description": "Each moving leg body must have positive mass, COM, and inertia tensor from CAD, Adams export, measurement, or calibrated data.",
+      "evidence": "all body properties are ready",
+      "blockers": []
+    },
+    {
+      "id": "buffer_law",
+      "status": "PASS",
+      "description": "Absorber model must include k/c or nonlinear curves, stroke limits, and rebound/extension behavior.",
+      "evidence": "table_exists=True, blockers=0",
+      "blockers": []
+    },
+    {
+      "id": "lock_hardware",
+      "status": "PASS",
+      "description": "Post-touchdown locking must be represented by real mechanism data or explicitly kept outside the Adams-equivalent leg model.",
+      "evidence": "lock hardware is populated",
+      "blockers": []
+    }
+  ],
+  "blocking_checks": [],
+  "blocking_fields": [],
+  "geometry_checks": [
+    {
+      "leg_id": "leg_1",
+      "status": "PASS",
+      "marker_coordinates_m": {
+        "B": [
+          0.848008234,
+          0.848008234,
+          4.4
+        ],
+        "T": [
+          0.94304475,
+          0.94304475,
+          9.0
+        ],
+        "K": [
+          2.319939507,
+          2.319939507,
+          5.7
+        ],
+        "P": [
+          5.656854249,
+          5.656854249,
+          0.0
+        ]
+      },
+      "length_checks": [
+        {
+          "id": "PB",
+          "actual_m": 8.099999999503874,
+          "target_m": 8.1,
+          "abs_error_m": 4.961258071034536e-10,
+          "pass": true
+        },
+        {
+          "id": "PT",
+          "actual_m": 11.199999999362735,
+          "target_m": 11.2,
+          "abs_error_m": 6.372644634211611e-10,
+          "pass": true
+        },
+        {
+          "id": "PK",
+          "actual_m": 7.39999999937526,
+          "target_m": 7.4,
+          "abs_error_m": 6.247402595249696e-10,
+          "pass": true
+        }
+      ],
+      "actual_azimuth_deg": 45.0,
+      "target_azimuth_deg": 45.0,
+      "azimuth_error_deg": 0.0,
+      "azimuth_source_category": "synthetic_test_fixture",
+      "azimuth_pass": true
+    },
+    {
+      "leg_id": "leg_2",
+      "status": "PASS",
+      "marker_coordinates_m": {
+        "B": [
+          -0.848008234,
+          0.848008234,
+          4.4
+        ],
+        "T": [
+          -0.94304475,
+          0.94304475,
+          9.0
+        ],
+        "K": [
+          -2.319939507,
+          2.319939507,
+          5.7
+        ],
+        "P": [
+          -5.656854249,
+          5.656854249,
+          0.0
+        ]
+      },
+      "length_checks": [
+        {
+          "id": "PB",
+          "actual_m": 8.099999999503874,
+          "target_m": 8.1,
+          "abs_error_m": 4.961258071034536e-10,
+          "pass": true
+        },
+        {
+          "id": "PT",
+          "actual_m": 11.199999999362735,
+          "target_m": 11.2,
+          "abs_error_m": 6.372644634211611e-10,
+          "pass": true
+        },
+        {
+          "id": "PK",
+          "actual_m": 7.39999999937526,
+          "target_m": 7.4,
+          "abs_error_m": 6.247402595249696e-10,
+          "pass": true
+        }
+      ],
+      "actual_azimuth_deg": 135.0,
+      "target_azimuth_deg": 135.0,
+      "azimuth_error_deg": 0.0,
+      "azimuth_source_category": "synthetic_test_fixture",
+      "azimuth_pass": true
+    },
+    {
+      "leg_id": "leg_3",
+      "status": "PASS",
+      "marker_coordinates_m": {
+        "B": [
+          -0.848008234,
+          -0.848008234,
+          4.4
+        ],
+        "T": [
+          -0.94304475,
+          -0.94304475,
+          9.0
+        ],
+        "K": [
+          -2.319939507,
+          -2.319939507,
+          5.7
+        ],
+        "P": [
+          -5.656854249,
+          -5.656854249,
+          0.0
+        ]
+      },
+      "length_checks": [
+        {
+          "id": "PB",
+          "actual_m": 8.099999999503874,
+          "target_m": 8.1,
+          "abs_error_m": 4.961258071034536e-10,
+          "pass": true
+        },
+        {
+          "id": "PT",
+          "actual_m": 11.199999999362735,
+          "target_m": 11.2,
+          "abs_error_m": 6.372644634211611e-10,
+          "pass": true
+        },
+        {
+          "id": "PK",
+          "actual_m": 7.39999999937526,
+          "target_m": 7.4,
+          "abs_error_m": 6.247402595249696e-10,
+          "pass": true
+        }
+      ],
+      "actual_azimuth_deg": 225.0,
+      "target_azimuth_deg": 225.0,
+      "azimuth_error_deg": 0.0,
+      "azimuth_source_category": "synthetic_test_fixture",
+      "azimuth_pass": true
+    },
+    {
+      "leg_id": "leg_4",
+      "status": "PASS",
+      "marker_coordinates_m": {
+        "B": [
+          0.848008234,
+          -0.848008234,
+          4.4
+        ],
+        "T": [
+          0.94304475,
+          -0.94304475,
+          9.0
+        ],
+        "K": [
+          2.319939507,
+          -2.319939507,
+          5.7
+        ],
+        "P": [
+          5.656854249,
+          -5.656854249,
+          0.0
+        ]
+      },
+      "length_checks": [
+        {
+          "id": "PB",
+          "actual_m": 8.099999999503874,
+          "target_m": 8.1,
+          "abs_error_m": 4.961258071034536e-10,
+          "pass": true
+        },
+        {
+          "id": "PT",
+          "actual_m": 11.199999999362735,
+          "target_m": 11.2,
+          "abs_error_m": 6.372644634211611e-10,
+          "pass": true
+        },
+        {
+          "id": "PK",
+          "actual_m": 7.39999999937526,
+          "target_m": 7.4,
+          "abs_error_m": 6.247402595249696e-10,
+          "pass": true
+        }
+      ],
+      "actual_azimuth_deg": 315.0,
+      "target_azimuth_deg": 315.0,
+      "azimuth_error_deg": 0.0,
+      "azimuth_source_category": "synthetic_test_fixture",
+      "azimuth_pass": true
+    }
+  ],
+  "gate": {
+    "name": "adams_equivalent_chrono_mechanism",
+    "pass": true,
+    "mode": "synthetic_selftest",
+    "if_false": "Keep using Stage 3A proxy/diagnostic branches; do not build or claim an Adams-equivalent Chrono mechanism from this data.",
+    "if_true": "Synthetic fixture is internally consistent for importer/builder self-tests only; do not claim Adams equivalence from synthetic data."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "case_id": "Chrono_LeggedRecovery_RealLegMechanism",
+  "title": "Chrono real landing-leg mechanism runtime gate",
+  "generated_utc": "2026-08-01T12:52:00+00:00",
+  "status": "blocked",
+  "overall_status": "blocked_missing_real_config",
+  "ready_for_chrono_runtime": false,
+  "config_path": "RocketRecoveryCases/Chrono_LeggedRecovery/Input/chrono_real_leg_mechanism_config.json",
+  "environment": {
+    "available": true,
+    "module": "pychrono",
+    "version": "unknown",
+    "adapter_policy": "Use Project Chrono as the landing-leg/contact solver."
+  },
+  "blockers": [
+    {
+      "id": "missing_real_config",
+      "status": "MISSING",
+      "evidence": "RocketRecoveryCases/Chrono_LeggedRecovery/Input/chrono_real_leg_mechanism_config.json does not exist.",
+      "next_action": "Fill real CAD/Adams/author CSV data, validate in strict mode, then run real_leg_mechanism_builder.py report."
+    }
+  ],
+  "warnings": [],
+  "assembly_plan": null,
+  "backend_smoke": null,
+  "policy": {
+    "formal_entrypoint": "chrono_real_leg_mechanism_recovery.py",
+    "accepted_config": "RocketRecoveryCases/Chrono_LeggedRecovery/Input/chrono_real_leg_mechanism_config.json",
+    "rejects_synthetic_fixture": true,
+    "rejects_proxy_fallback": true,
+    "requires_project_chrono": true,
+    "backend_adapter": "chrono_real_leg_backend.py assembles config-defined bodies, spherical mates and absorber links in PyChrono when strict real data exists.",
+    "hams_core_policy": "HAMS remains a hydrodynamic/Cummins input provider only; this runner does not modify HAMS SourceCode.",
+    "not_claimed": [
+      "Do not claim an Adams-equivalent mechanism when this report is blocked.",
+      "Do not use synthetic_leg_import outputs as production landing-leg data.",
+      "Do not fall back to old hand-written contact_forces."
+    ]
+  }
+}

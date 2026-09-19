@@ -1,0 +1,809 @@
+
+ ------------------------HAMS (Hydrodynamic Analysis of Marine Structures)---------------------
+
+                                                         Code Original Author: Yingyi Liu
+
+  HAMS is an open-source software for computing wave diffraction and radiation of 3D structures.
+
+ Please cite the following papers in your publications, reports, etc., when HAMS has been used in your work:
+
+  (1) Yingyi Liu. (2019).
+      HAMS: A Frequency-Domain Preprocessor for Wave-Structure Interactions
+      Theory, Development, and Application. Journal of Marine Science and Engineering, 7(3), 81.
+
+  (2) Yingyi Liu et al. (2018). 
+      A reliable open-source package for performance evaluation of floating renewable energy systems
+      in coastal and offshore regions. Energy Conversion and Management, 174: 516-536.
+
+  (3) Yingyi Liu et al. (2016).
+      Motion response prediction by hybrid panel-stick models for a semi-submersible with bracings.
+      Journal of Marine Science and Technology, 21: 742-757.
+
+  (4) Yingyi Liu et al. (2015).
+      A calculation method for finite depth free-surface green function.
+      International Journal of Naval Architecture and Ocean Engineering, 7: 375-389.
+
+  Paper list to be continued...
+
+ -----------------------------------------------------------------------------------------------
+
+  Number of machine processors:             40
+  Number of OpenMP threads:                 32
+  Maximum number of threads:                32
+  The No. of the current thread:             1
+
+  Calculating panel normals is finished...
+
+  Number of geometrial symmetries:           0
+  Number of panels on the hull:           2048
+  Number of panels on waterplanes:         960
+
+  Radiation-diffraction computation starts...
+
+          Wave Frequency =    0.200 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.225 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.250 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.275 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.300 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.325 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.350 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.375 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.400 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.425 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.450 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.475 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.500 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.525 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.550 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.575 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.600 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.625 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.650 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.675 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.700 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.725 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.750 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.775 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.800 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.825 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.850 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.875 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.900 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.925 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.950 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    0.975 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.000 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.025 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.050 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.075 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.100 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.125 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.150 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.175 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.200 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.225 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.250 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.275 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.300 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.325 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.350 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.375 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.400 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.425 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.450 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.475 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.500 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.525 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.550 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.575 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.600 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.625 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.650 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.675 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.700 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.725 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.750 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.775 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.800 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.825 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.850 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.875 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.900 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.925 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.950 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    1.975 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    2.000 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    2.250 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    2.500 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    2.750 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    3.000 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    3.250 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    3.500 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    3.750 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    4.000 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    4.250 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    4.500 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    4.750 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+          Wave Frequency =    5.000 rad/s
+            Wave Heading =    0.000 Degree
+            Wave Heading =   30.000 Degree
+            Wave Heading =   60.000 Degree
+            Wave Heading =   90.000 Degree
+            Wave Heading =  120.000 Degree
+            Wave Heading =  150.000 Degree
+            Wave Heading =  180.000 Degree
+
+  Congratulations! Your computation completes successfully.
+

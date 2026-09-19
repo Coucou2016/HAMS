@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integrated Rocket Recovery</title>
+  <script src="wang-2023-data.js"></script>
+  <script src="integrated-recovery-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17211d;
+      --muted: #64716b;
+      --line: #d7dfdb;
+      --panel: #ffffff;
+      --wash: #f4f7f5;
+      --green: #2b7a58;
+      --blue: #2f6fa3;
+      --red: #b94d36;
+      --amber: #b9862f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--wash);
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    header {
+      padding: 18px 28px 10px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfb;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    h1, h2 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 15px; margin-bottom: 12px; }
+
+    nav { display: flex; flex-wrap: wrap; gap: 10px; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 6px;
+    }
+    nav a[aria-current="page"] { color: var(--ink); border-color: #9eb5ad; }
+
+    main {
+      padding: 18px;
+      display: grid;
+      grid-template-columns: minmax(560px, 1.35fr) minmax(390px, 0.8fr);
+      gap: 18px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .viewer {
+      min-height: 620px;
+      position: relative;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #scene {
+      width: 100%;
+      height: 100%;
+      min-height: 620px;
+      display: block;
+    }
+
+    .hud {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef4f1;
+      color: var(--ink);
+      border: 1px solid #d7e3dd;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .side, .wide { display: grid; gap: 18px; }
+    .wide { grid-column: 1 / -1; grid-template-columns: 1.1fr 0.9fr; }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    select, input, button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 6px 9px;
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .playback {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 10px;
+      align-items: end;
+      margin-top: 12px;
+    }
+
+    .timeline { grid-column: 1 / -1; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fbfcfb;
+      min-height: 72px;
+    }
+
+    .metric .label { color: var(--muted); font-size: 12px; }
+    .metric .value { font-size: 21px; font-weight: 700; margin-top: 5px; white-space: nowrap; }
+    .unit { color: var(--muted); font-size: 12px; margin-left: 3px; }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 10px 0 0;
+    }
+
+    canvas.chart {
+      width: 100%;
+      height: 380px;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 8px 7px;
+      border-bottom: 1px solid #e4ebe7;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { color: var(--muted); font-weight: 600; }
+    td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .ok { color: var(--green); font-weight: 700; }
+    .warn { color: var(--red); font-weight: 700; }
+    .mono { font-family: Consolas, "SFMono-Regular", monospace; }
+
+    @media (max-width: 1050px) {
+      header, main, .wide { display: block; }
+      nav { margin-top: 12px; }
+      section { margin-bottom: 14px; }
+      .viewer, #scene { min-height: 440px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>海上平台火箭回收：完整耦合模型</h1>
+      <p class="note">HAMS 水动力 + Cummins 记忆力 + JONSWAP 波浪 + 王智喷流 + 火箭刚体/等效梁 + 四腿非线性接触缓冲。</p>
+    </div>
+    <nav>
+      <a href="viewer.html">3D Mesh</a>
+      <a href="results.html">HAMS Results</a>
+      <a href="rocket-recovery.html">Rocket Recovery</a>
+      <a href="nargolkar-2025.html">Nargolkar 2025</a>
+      <a href="wang-2023.html">Wang 2023</a>
+      <a href="landing-leg-contact.html">Leg Contact</a>
+      <a href="integrated-recovery.html" aria-current="page">Integrated</a>
+      <a href="chrono-recovery.html">Chrono</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="viewer">
+      <canvas id="scene"></canvas>
+      <div class="hud" id="sceneHud"></div>
+    </section>
+
+    <div class="side">
+      <section>
+        <h2>控制</h2>
+        <div class="controls">
+          <label>工况<select id="caseSelect"></select></label>
+          <label>曲线<select id="responseSelect">
+            <option value="rocket_base_z">火箭底部高度</option>
+            <option value="rocket_v">火箭垂向速度</option>
+            <option value="total_contact_mn">总接触力</option>
+            <option value="leg_force_kn">四腿接触力</option>
+            <option value="leg_stroke_m">四腿缓冲行程</option>
+            <option value="contact_count">接触腿数</option>
+            <option value="platform_heave_m">平台垂荡</option>
+            <option value="platform_roll_deg">平台横摇</option>
+            <option value="platform_pitch_deg">平台纵摇</option>
+            <option value="beam_axial_m">等效梁轴向压缩</option>
+          </select></label>
+          <label>运动放大<select id="scaleSelect">
+            <option value="1">1x</option>
+            <option value="2">2x</option>
+            <option value="5">5x</option>
+            <option value="10">10x</option>
+          </select></label>
+          <label>播放速度<select id="speedSelect">
+            <option value="0.5">0.5x</option>
+            <option value="1" selected>1x</option>
+            <option value="2">2x</option>
+            <option value="4">4x</option>
+          </select></label>
+        </div>
+        <div class="playback">
+          <button id="playButton" type="button">Play</button>
+          <label>时间<span class="pill" id="timeReadout">t = 506.00 s</span></label>
+          <label class="timeline">Timeline<input id="timeSlider" type="range" min="0" value="0"></label>
+        </div>
+        <p class="note" id="caseNote"></p>
+      </section>
+
+      <section>
+        <h2>当前工况摘要</h2>
+        <div class="metrics" id="metricGrid"></div>
+      </section>
+
+      <section>
+        <h2>接触状态</h2>
+        <table>
+          <thead><tr><th>腿</th><th>力</th><th>行程</th><th>状态</th></tr></thead>
+          <tbody id="legRows"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <div class="wide">
+      <section>
+        <h2>计算时历</h2>
+        <canvas class="chart" id="chart" width="1100" height="520"></canvas>
+        <p class="note" id="chartNote"></p>
+      </section>
+      <section>
+        <h2>文献对比</h2>
+        <table>
+          <thead><tr><th>指标</th><th>文献</th><th>本模型</th><th>说明</th></tr></thead>
+          <tbody id="comparisonRows"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <div class="wide">
+      <section>
+        <h2>已实现模块</h2>
+        <table><tbody id="implementedRows"></tbody></table>
+      </section>
+      <section>
+        <h2>未公开输入</h2>
+        <table><tbody id="limitRows"></tbody></table>
+      </section>
+    </div>
+  </main>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script>
+    const data = window.INTEGRATED_RECOVERY_DATA;
+    const wangData = window.WANG_2023_DATA;
+    if (!data) throw new Error("Missing integrated recovery data");
+
+    const state = { caseId: "wave_port_15m", frame: 0, playing: false, lastMs: performance.now() };
+    const caseSelect = document.getElementById("caseSelect");
+    const responseSelect = document.getElementById("responseSelect");
+    const scaleSelect = document.getElementById("scaleSelect");
+    const speedSelect = document.getElementById("speedSelect");
+    const slider = document.getElementById("timeSlider");
+    const chart = document.getElementById("chart");
+    const chartCtx = chart.getContext("2d");
+    let sceneState = null;
+
+    function fmt(value, digits = 3) {
+      if (!Number.isFinite(value)) return "-";
+      const abs = Math.abs(value);
+      if (abs !== 0 && abs < 0.001) return value.toExponential(2);
+      return value.toFixed(digits);
+    }
+
+    function sim() { return data.simulations[state.caseId]; }
+    function idx() { return Math.min(state.frame, sim().time_s.length - 1); }
+    function at(series) { return series[idx()]; }
+
+    function populateControls() {
+      Object.keys(data.simulations).forEach(id => {
+        const opt = document.createElement("option");
+        opt.value = id;
+        opt.textContent = id;
+        caseSelect.appendChild(opt);
+      });
+      if (!data.simulations[state.caseId]) state.caseId = Object.keys(data.simulations)[0];
+      caseSelect.value = state.caseId;
+      slider.max = String(sim().time_s.length - 1);
+    }
+
+    function metric(label, value, unit, cls = "") {
+      return `<div class="metric"><div class="label">${label}</div><div class="value ${cls}">${value}<span class="unit">${unit}</span></div></div>`;
+    }
+
+    function updateMetrics() {
+      const s = sim().summary;
+      const parking = s.parking_like_state ? "已停放" : "仍在缓冲/反弹";
+      const cls = s.parking_like_state ? "ok" : "warn";
+      document.getElementById("metricGrid").innerHTML = [
+        metric("首次触地", fmt(s.first_contact_time_s, 3), "s"),
+        metric("四腿全接触", fmt(s.all_legs_contact_time_s, 3), "s"),
+        metric("最大单腿力", fmt(s.max_leg_force_kn, 1), "kN"),
+        metric("最大行程", fmt(s.max_leg_stroke_m, 3), "m"),
+        metric("最终接触腿数", `${s.final_contact_count}/4`, ""),
+        metric("停车判据", parking, "", cls),
+      ].join("");
+      document.getElementById("caseNote").textContent =
+        `${sim().id}: ${sim().with_wave ? "JONSWAP 不规则波" : "静水"}，${sim().with_plume ? "含王智喷流载荷" : "无喷流载荷"}，落点 ${sim().offset.label}。停车判据只表示最终时刻四腿接触且垂向速度 < 0.1 m/s。`;
+    }
+
+    function populateTables() {
+      document.getElementById("comparisonRows").innerHTML = data.comparison.map(row => {
+        const computed = row.computed === null || row.computed === undefined ? "-" : `${fmt(row.computed, 3)} ${row.unit}`;
+        return `<tr><td class="mono">${row.id}</td><td class="num">${fmt(row.paper, 3)} ${row.unit}</td><td class="num">${computed}</td><td>${row.note}<br><span class="note">${row.source}</span></td></tr>`;
+      }).join("");
+      document.getElementById("implementedRows").innerHTML = data.model_audit.implemented.map(item => `<tr><td>${item}</td></tr>`).join("");
+      document.getElementById("limitRows").innerHTML = data.model_audit.not_implemented_because_not_public.map(item => `<tr><td>${item}</td></tr>`).join("");
+    }
+
+    function chartSeries() {
+      const s = sim();
+      const response = responseSelect.value;
+      if (response === "rocket_base_z") return { title: "火箭底部高度", unit: "m", rows: [{ label: "base", color: "#2f6fa3", values: s.rocket.base_center_z_m }] };
+      if (response === "rocket_v") return { title: "火箭垂向速度", unit: "m/s", rows: [{ label: "velocity", color: "#b94d36", values: s.rocket.vertical_velocity_m_s }] };
+      if (response === "total_contact_mn") return { title: "总接触力", unit: "MN", rows: [{ label: "total", color: "#2b7a58", values: s.forces.total_contact_n.map(v => v / 1e6) }] };
+      if (response === "contact_count") return { title: "接触腿数", unit: "-", rows: [{ label: "count", color: "#2f6fa3", values: s.contact.contact_count }] };
+      if (response === "platform_heave_m") return { title: "平台垂荡", unit: "m", rows: [{ label: "heave", color: "#2f6fa3", values: s.platform.heave_m }] };
+      if (response === "platform_roll_deg") return { title: "平台横摇", unit: "deg", rows: [{ label: "roll", color: "#b9862f", values: s.platform.roll_deg }] };
+      if (response === "platform_pitch_deg") return { title: "平台纵摇", unit: "deg", rows: [{ label: "pitch", color: "#b94d36", values: s.platform.pitch_deg }] };
+      if (response === "beam_axial_m") return { title: "等效梁轴向压缩", unit: "m", rows: [{ label: "axial", color: "#2b7a58", values: s.beam.axial_m }] };
+      if (response === "leg_stroke_m") {
+        return { title: "四腿缓冲行程", unit: "m", rows: Object.entries(s.contact.leg_stroke_m).map(([label, values], i) => ({ label, values, color: ["#2f6fa3", "#2b7a58", "#b9862f", "#b94d36"][i] })) };
+      }
+      return { title: "四腿接触力", unit: "kN", rows: Object.entries(s.forces.leg_force_n).map(([label, values], i) => ({ label, values: values.map(v => v / 1000), color: ["#2f6fa3", "#2b7a58", "#b9862f", "#b94d36"][i] })) };
+    }
+
+    function drawChart() {
+      const def = chartSeries();
+      const t = sim().time_s;
+      const values = def.rows.flatMap(row => row.values);
+      let ymin = Math.min(...values);
+      let ymax = Math.max(...values);
+      if (Math.abs(ymax - ymin) < 1e-9) { ymin -= 1; ymax += 1; }
+      const pad = 0.12 * (ymax - ymin);
+      ymin -= pad; ymax += pad;
+      const w = chart.width, h = chart.height;
+      const m = { left: 70, right: 26, top: 30, bottom: 52 };
+      const x0 = m.left, x1 = w - m.right, y0 = h - m.bottom, y1 = m.top;
+      const tmin = t[0], tmax = t[t.length - 1];
+      const x = v => x0 + (v - tmin) / (tmax - tmin) * (x1 - x0);
+      const y = v => y0 - (v - ymin) / (ymax - ymin) * (y0 - y1);
+      chartCtx.clearRect(0, 0, w, h);
+      chartCtx.fillStyle = "#fff";
+      chartCtx.fillRect(0, 0, w, h);
+      chartCtx.strokeStyle = "#d7dfdb";
+      chartCtx.beginPath(); chartCtx.moveTo(x0, y0); chartCtx.lineTo(x1, y0); chartCtx.moveTo(x0, y0); chartCtx.lineTo(x0, y1); chartCtx.stroke();
+      chartCtx.fillStyle = "#64716b";
+      chartCtx.font = "18px Segoe UI, Arial";
+      chartCtx.fillText(`${def.title} (${def.unit})`, x0, 21);
+      chartCtx.font = "12px Segoe UI, Arial";
+      for (let i = 0; i <= 5; i++) {
+        const tv = tmin + (tmax - tmin) * i / 5;
+        const yv = ymin + (ymax - ymin) * i / 5;
+        chartCtx.fillText(fmt(tv, 1), x(tv) - 16, y0 + 22);
+        chartCtx.fillText(fmt(yv, 3), 12, y(yv) + 4);
+        chartCtx.strokeStyle = "#eef2ef";
+        chartCtx.beginPath(); chartCtx.moveTo(x0, y(yv)); chartCtx.lineTo(x1, y(yv)); chartCtx.stroke();
+      }
+      [510, 511].forEach(tv => {
+        chartCtx.save();
+        chartCtx.strokeStyle = tv === 510 ? "#b94d36" : "#b9862f";
+        chartCtx.setLineDash([5, 5]);
+        chartCtx.beginPath(); chartCtx.moveTo(x(tv), y0); chartCtx.lineTo(x(tv), y1); chartCtx.stroke();
+        chartCtx.restore();
+        chartCtx.fillStyle = "#64716b";
+        chartCtx.fillText(String(tv), x(tv) + 4, y1 + 13);
+      });
+      def.rows.forEach(row => {
+        chartCtx.strokeStyle = row.color;
+        chartCtx.lineWidth = 2;
+        chartCtx.beginPath();
+        row.values.forEach((v, i) => {
+          if (i === 0) chartCtx.moveTo(x(t[i]), y(v));
+          else chartCtx.lineTo(x(t[i]), y(v));
+        });
+        chartCtx.stroke();
+      });
+      const cursorX = x(t[idx()]);
+      chartCtx.strokeStyle = "#17211d";
+      chartCtx.beginPath(); chartCtx.moveTo(cursorX, y0); chartCtx.lineTo(cursorX, y1); chartCtx.stroke();
+      document.getElementById("chartNote").textContent = "510 s 为触地参考时刻；511 s 为王智喷流载荷散去时刻。曲线来自 integrated-recovery-full.json 的本地计算结果。";
+    }
+
+    function initScene() {
+      const canvas = document.getElementById("scene");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xfbfcfb);
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1200);
+      const controls = new THREE.OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x7f9a99, 1.25));
+      const sun = new THREE.DirectionalLight(0xffffff, 1.05);
+      sun.position.set(80, -90, 120);
+      scene.add(sun);
+      sceneState = { canvas, renderer, scene, camera, controls, platform: new THREE.Group(), rocket: new THREE.Group(), footpads: {}, lastMs: performance.now() };
+      window.__integratedSceneState = sceneState;
+      window.__integratedSceneDiagnostics = { invalid: [], renderErrors: [] };
+      scene.add(sceneState.platform);
+      scene.add(sceneState.rocket);
+      buildPlatform();
+      buildRocket();
+      camera.position.set(160, -150, 90);
+      controls.target.set(15, 0, 15);
+      controls.update();
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        renderer.setSize(rect.width, rect.height, false);
+        camera.aspect = rect.width / rect.height;
+        camera.updateProjectionMatrix();
+      }
+      function frame(now) {
+        resize();
+        controls.update();
+        if (state.playing && now - state.lastMs > 25) {
+          const speed = Number(speedSelect.value);
+          const step = Math.max(1, Math.round(speed * 2));
+          state.frame = Math.min(sim().time_s.length - 1, state.frame + step);
+          if (state.frame >= sim().time_s.length - 1) state.playing = false;
+          state.lastMs = now;
+          syncFrame();
+        }
+        validateSceneGeometry(scene);
+        try {
+          renderer.render(scene, camera);
+        } catch (error) {
+          window.__integratedSceneDiagnostics.renderErrors.push(String(error && error.message ? error.message : error));
+        }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function validateSceneGeometry(scene) {
+      const invalid = [];
+      scene.traverse(object => {
+        const geometry = object.geometry;
+        if (!geometry) return;
+        const position = geometry.attributes && geometry.attributes.position;
+        const badPosition = !position || !Number.isFinite(position.count) || position.count <= 0;
+        const badIndex = geometry.index && !Number.isFinite(geometry.index.count);
+        if (badPosition || badIndex) {
+          object.visible = false;
+          invalid.push({ type: object.type, name: object.name || "", badPosition, badIndex });
+        }
+      });
+      window.__integratedSceneDiagnostics.invalid = invalid;
+    }
+
+    function meshObject(mesh, color, opacity) {
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute("position", new THREE.Float32BufferAttribute(mesh.vertices, 3));
+      const triangles = mesh.triangles || mesh.indices || [];
+      if (triangles.length) geom.setIndex(triangles);
+      geom.computeVertexNormals();
+      return new THREE.Mesh(geom, new THREE.MeshStandardMaterial({ color, roughness: 0.72, metalness: 0.08, side: THREE.DoubleSide, transparent: opacity < 1, opacity }));
+    }
+
+    function meshEdges(mesh) {
+      if (mesh.edges && mesh.edges.length) return mesh.edges;
+      const triangles = mesh.triangles || mesh.indices || [];
+      const edges = [];
+      for (let i = 0; i + 2 < triangles.length; i += 3) {
+        const a = triangles[i];
+        const b = triangles[i + 1];
+        const c = triangles[i + 2];
+        edges.push(a, b, b, c, c, a);
+      }
+      return edges;
+    }
+
+    function edgeObject(mesh, color) {
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute("position", new THREE.Float32BufferAttribute(mesh.vertices, 3));
+      const edges = meshEdges(mesh);
+      if (edges.length) geom.setIndex(edges);
+      return new THREE.LineSegments(geom, new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.35 }));
+    }
+
+    function buildPlatform() {
+      const group = sceneState.platform;
+      group.clear();
+      if (wangData && wangData.mesh && wangData.mesh.hull && wangData.mesh.hull.vertices) {
+        group.add(meshObject(wangData.mesh.hull, 0x6d8581, 0.82));
+      } else {
+        const p = data.config.platform || { length_m: 165, beam_m: 40, draft_m: 5 };
+        const hull = new THREE.Mesh(new THREE.BoxGeometry(p.length_m, p.beam_m, p.draft_m), new THREE.MeshStandardMaterial({ color: 0x6d8581, transparent: true, opacity: 0.82 }));
+        hull.position.z = -p.draft_m / 2;
+        group.add(hull);
+      }
+      const deck = new THREE.Mesh(new THREE.PlaneGeometry(165, 40), new THREE.MeshBasicMaterial({ color: 0xf3d28a, transparent: true, opacity: 0.28, side: THREE.DoubleSide }));
+      deck.position.z = 0.02;
+      group.add(deck);
+    }
+
+    function cylinderBetween(start, end, radius, material) {
+      const a = new THREE.Vector3(start[0], start[1], start[2]);
+      const b = new THREE.Vector3(end[0], end[1], end[2]);
+      const dir = new THREE.Vector3().subVectors(b, a);
+      const length = Math.max(dir.length(), 1e-6);
+      const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, length, 10), material);
+      mesh.position.copy(a).add(b).multiplyScalar(0.5);
+      mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
+      return mesh;
+    }
+
+    function buildRocket() {
+      const group = sceneState.rocket;
+      group.clear();
+      sceneState.footpads = {};
+      const rocket = data.config.rocket;
+      const radius = rocket.base_diameter_m / 2;
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius * 0.72, rocket.height_m, 24, 1), new THREE.MeshStandardMaterial({ color: 0x5e6a74, roughness: 0.45, metalness: 0.12, transparent: true, opacity: 0.86 }));
+      body.rotation.x = Math.PI / 2;
+      body.position.z = rocket.height_m / 2;
+      group.add(body);
+      const nose = new THREE.Mesh(new THREE.ConeGeometry(radius * 0.72, 8, 24), new THREE.MeshStandardMaterial({ color: 0xb94d36, roughness: 0.42 }));
+      nose.rotation.x = Math.PI / 2;
+      nose.position.z = rocket.height_m + 4;
+      group.add(nose);
+      data.leg_positions.forEach((leg, i) => {
+        const mat = new THREE.MeshStandardMaterial({ color: 0x333b38, roughness: 0.62, metalness: 0.05 });
+        group.add(cylinderBetween([0, 0, 4.4], [leg.x, leg.y, 0], 0.11, mat));
+        const foot = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.15, 0.25, 18), new THREE.MeshStandardMaterial({ color: 0xb94d36, roughness: 0.5 }));
+        foot.rotation.x = Math.PI / 2;
+        foot.position.set(leg.x, leg.y, -0.12);
+        foot.name = leg.id;
+        group.add(foot);
+        sceneState.footpads[leg.id] = foot;
+      });
+    }
+
+    function syncFrame() {
+      const s = sim();
+      const i = idx();
+      const scale = Number(scaleSelect.value);
+      slider.value = String(i);
+      document.getElementById("playButton").textContent = state.playing ? "Pause" : "Play";
+      document.getElementById("timeReadout").textContent = `t = ${fmt(s.time_s[i], 3)} s`;
+      sceneState.platform.position.z = s.platform.heave_m[i] * scale;
+      sceneState.platform.rotation.x = s.platform.roll_rad[i] * scale;
+      sceneState.platform.rotation.y = -s.platform.pitch_rad[i] * scale;
+      sceneState.rocket.position.set(s.offset.x, s.offset.y, s.rocket.base_center_z_m[i]);
+      sceneState.rocket.rotation.x = (s.rocket.roll_rad[i] + s.beam.flex_roll_rad[i]) * scale;
+      sceneState.rocket.rotation.y = -(s.rocket.pitch_rad[i] + s.beam.flex_pitch_rad[i]) * scale;
+      Object.entries(sceneState.footpads).forEach(([legId, foot]) => {
+        const contact = s.contact.leg_contact[legId][i] > 0;
+        foot.material.color.setHex(contact ? 0x2b7a58 : 0xb94d36);
+      });
+      document.getElementById("sceneHud").innerHTML = [
+        `<span class="pill">${s.id}</span>`,
+        `<span class="pill">contact ${s.contact.contact_count[i]}/4</span>`,
+        `<span class="pill">F ${fmt(s.forces.total_contact_n[i] / 1e6, 2)} MN</span>`,
+        `<span class="pill">v ${fmt(s.rocket.vertical_velocity_m_s[i], 2)} m/s</span>`,
+      ].join("");
+      updateLegRows();
+      drawChart();
+    }
+
+    function updateLegRows() {
+      const s = sim();
+      const i = idx();
+      document.getElementById("legRows").innerHTML = Object.keys(s.forces.leg_force_n).map(leg => {
+        const force = s.forces.leg_force_n[leg][i] / 1000;
+        const stroke = s.contact.leg_stroke_m[leg][i];
+        const contact = s.contact.leg_contact[leg][i] > 0;
+        return `<tr><td class="mono">${leg}</td><td class="num">${fmt(force, 1)} kN</td><td class="num">${fmt(stroke, 3)} m</td><td class="${contact ? "ok" : "warn"}">${contact ? "contact" : "free"}</td></tr>`;
+      }).join("");
+    }
+
+    function resetCase() {
+      state.caseId = caseSelect.value;
+      state.frame = 0;
+      slider.max = String(sim().time_s.length - 1);
+      updateMetrics();
+      syncFrame();
+    }
+
+    populateControls();
+    populateTables();
+    initScene();
+    updateMetrics();
+    syncFrame();
+
+    caseSelect.addEventListener("change", resetCase);
+    responseSelect.addEventListener("change", drawChart);
+    scaleSelect.addEventListener("change", syncFrame);
+    speedSelect.addEventListener("change", () => {});
+    slider.addEventListener("input", () => { state.frame = Number(slider.value); state.playing = false; syncFrame(); });
+    document.getElementById("playButton").addEventListener("click", () => { state.playing = !state.playing; state.lastMs = performance.now(); syncFrame(); });
+  </script>
+</body>
+</html>

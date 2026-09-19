@@ -1,0 +1,4 @@
+field,value_json,source_category,source_detail,required_source,note
+rocket_body_origin,,,,CAD/Adams frame export or author frame metadata,Use CAD/Adams exported frame origin.
+rocket_body_axes,,,,CAD/Adams frame export or author frame metadata,Use CAD/Adams exported axis convention.
+deck_frame_transform,,,,CAD/Adams frame export or author frame metadata,Rigid transform from rocket landing frame to HAMS/Cummins deck frame.

@@ -1,0 +1,96 @@
+{
+  "model_id": "ChronoLeggedRecovery_Stage1",
+  "solver": {
+    "engine": "Project Chrono / PyChrono",
+    "contact_method": "SMC",
+    "time_step_s": 0.0005,
+    "output_step_s": 0.01,
+    "start_s": 506.0,
+    "end_s": 526.0,
+    "gravity_m_s2": 9.80665,
+    "pre_contact_gravity": "off_until_first_contact_to_preserve_Thies_touchdown_velocity",
+    "deck_thickness_m": 0.35,
+    "contact_force_threshold_n": 100.0,
+    "no_fallback_policy": "If PyChrono is unavailable, stop with an environment report."
+  },
+  "rocket": {
+    "source": "Table 3 / vehicle data table",
+    "landing_mass_kg": 61288.0,
+    "height_m": 103.0,
+    "engine_length_m": 1.902,
+    "base_diameter_m": 6.0,
+    "cog_from_base_m": 22.059,
+    "inertia_kg_m2": {
+      "roll_x": 376000.0,
+      "pitch_y": 25700000.0,
+      "yaw_z": 25700000.0
+    },
+    "touchdown_vertical_velocity_m_s": 5.0,
+    "initial_lateral_velocity_m_s": 0.0,
+    "nozzle_clearance_required_m": 0.5475,
+    "reported_nozzle_clearance_m": 0.57,
+    "stage3_proxy_nozzle_reference_height_from_model_base_m": 0.57,
+    "stage3_proxy_nozzle_reference_note": "Thies reports nozzle clearance as distance from nozzle end to landing pad. The Stage 3A proxy does not include CAD nozzle coordinates, so the reported 0.570 m parking clearance is stored as a transparent reference height from the proxy lower-leg/base plane to the nozzle-end point."
+  },
+  "legs": {
+    "source": "Table 4",
+    "count": 4,
+    "configuration": "Tripod",
+    "azimuths_deg": [
+      45.0,
+      135.0,
+      225.0,
+      315.0
+    ],
+    "footprint_radius_m": 6.7932316003579345,
+    "upper_attachment_height_m": 9.0,
+    "lower_attachment_height_m": 4.4,
+    "leg_length_m": 8.1,
+    "damper_stiffness_n_m": 2600000.0,
+    "damper_damping_ns_m": 1300000.0,
+    "damper_rest_length_m": 4.2,
+    "equivalent_guidance_model": "ChLinkMatePrismatic vertical slider at each foot point; stage-1 proxy for the deployed leg linkage.",
+    "stroke_reference_m": 0.42,
+    "force_reference_n": 935000.0,
+    "footpad_radius_m": 0.2,
+    "footpad_mass_kg": 80.0,
+    "footpad_thickness_m": 0.18
+  },
+  "contact": {
+    "source": "Thies Table 6 plus Li 2025 contact/friction values where Thies has no numeric contact material table.",
+    "normal_stiffness_n_m": 100000000.0,
+    "normal_damping_ns_m": 10000000.0,
+    "young_modulus_pa": 2000000000.0,
+    "poisson_ratio": 0.3,
+    "static_friction": 0.5,
+    "dynamic_friction": 0.4,
+    "restitution": 0.0
+  },
+  "validation_targets": {
+    "thies_touchdown_energy_kj": 766.0,
+    "computed_touchdown_energy_kj": 766.1,
+    "max_incident_angle_deg": 10.0,
+    "velocity_range_m_s": [
+      1.0,
+      15.0
+    ],
+    "symmetric_force_tolerance": 0.05
+  },
+  "parameter_audit": {
+    "published_values": [
+      "rocket mass, inertia, height, base diameter, CG and touchdown velocity from Thies 2022",
+      "leg count, leg length, leg angle and attachment heights from Thies 2022",
+      "damper linear stiffness/damping and reference stroke/force from Thies 2022",
+      "reported nozzle clearance 0.570 m from Thies 2022 Table 8",
+      "contact stiffness/damping radius and dynamic friction from Li 2025"
+    ],
+    "explicit_assumptions": [
+      "four leg azimuths are symmetric at 45/135/225/315 deg because exact azimuths are not published",
+      "footpad mass is a transparent engineering placeholder until CAD or paper data is available",
+      "nozzle end location is represented by a Stage 3A proxy reference offset because CAD nozzle coordinates are not published",
+      "stage 1 uses a TSDA strut plus contact footpad model, not a full Adams-equivalent linkage",
+      "stage 1 constrains each footpad with a vertical prismatic mate instead of explicit tripod-link hinges",
+      "Chrono SMC Young modulus is set as an explicit contact-material assumption because Li reports contact stiffness/damping, not elastic modulus"
+    ]
+  }
+}

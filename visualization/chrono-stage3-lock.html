@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono Stage 3 Lock</title>
+  <script src="chrono-stage3-lock-data.js"></script>
+  <style>
+    :root { --ink:#17211d; --muted:#64716b; --line:#d7dfdb; --wash:#f4f7f5; --green:#237653; --red:#b94d36; --blue:#2d70a6; --amber:#af7b1d; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--wash); color:var(--ink); font-family:Inter,"Segoe UI","Microsoft YaHei",Arial,sans-serif; }
+    header { padding:18px 28px 10px; border-bottom:1px solid var(--line); background:#fbfcfb; display:flex; align-items:end; justify-content:space-between; gap:20px; }
+    h1,h2 { margin:0; letter-spacing:0; }
+    h1 { font-size:22px; }
+    h2 { font-size:15px; margin-bottom:12px; }
+    nav { display:flex; flex-wrap:wrap; gap:10px; }
+    nav a { color:var(--muted); text-decoration:none; font-size:13px; padding:6px 9px; border:1px solid var(--line); background:#fff; border-radius:6px; }
+    nav a[aria-current="page"] { color:var(--ink); border-color:#9eb5ad; }
+    main { padding:18px; display:grid; grid-template-columns:minmax(560px,1.2fr) minmax(420px,.8fr); gap:18px; }
+    section { background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px; min-width:0; }
+    .viewer { padding:0; overflow:hidden; position:relative; min-height:500px; }
+    .wide { grid-column:1/-1; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    canvas { width:100%; display:block; background:#fff; }
+    #scene { height:500px; }
+    #chart { height:360px; border:1px solid var(--line); border-radius:8px; }
+    .hud { position:absolute; left:12px; top:12px; display:flex; flex-wrap:wrap; gap:8px; }
+    .pill { display:inline-flex; align-items:center; min-height:24px; padding:3px 8px; border-radius:999px; background:#eef4f1; border:1px solid #d7e3dd; font-size:12px; white-space:nowrap; }
+    .note { color:var(--muted); font-size:13px; line-height:1.55; margin:10px 0 0; }
+    .controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    label { display:grid; gap:6px; font-size:12px; color:var(--muted); }
+    select,input,button { min-height:34px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); padding:6px 9px; font:inherit; }
+    button { cursor:pointer; background:var(--ink); color:#fff; border-color:var(--ink); }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th,td { padding:8px 7px; border-bottom:1px solid #e4ebe7; text-align:left; vertical-align:top; }
+    th { color:var(--muted); font-weight:600; }
+    td.num { font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .ok { color:var(--green); font-weight:700; }
+    .warn { color:var(--red); font-weight:700; }
+    .mono { font-family:Consolas,"SFMono-Regular",monospace; }
+    @media (max-width:1080px) { header,main,.grid2 { display:block; } nav { margin-top:12px; } section { margin-bottom:14px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Chrono Stage 3 锁紧代理</h1>
+      <p class="note">稳定窗口满足后，Chrono 自动添加火箭-甲板固定约束。该页只代表锁紧代理，不代表真实夹持硬件。</p>
+    </div>
+    <nav>
+      <a href="chrono-recovery.html">Chrono 单向</a>
+      <a href="chrono-two-way.html">Chrono 双向</a>
+      <a href="chrono-stage3-tripod.html">Stage 3A Tripod</a>
+      <a href="chrono-stage3-two-way.html">Stage 3A 双向</a>
+      <a href="chrono-stage3-lock.html" aria-current="page">Stage 3 锁紧</a>
+      <a href="chrono-stage3-lock-two-way.html">锁紧双向</a>
+      <a href="wang-2023.html">Wang 2023</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="viewer">
+      <canvas id="scene" width="1100" height="600"></canvas>
+      <div class="hud" id="hud"></div>
+    </section>
+    <div>
+      <section>
+        <h2>控制</h2>
+        <div class="controls">
+          <label>工况<select id="caseSelect"></select></label>
+          <label>曲线<select id="metricSelect">
+            <option value="lock">锁紧状态/接触数</option>
+            <option value="contact">四腿接触力</option>
+            <option value="buffer">主缓冲行程</option>
+            <option value="rocket">火箭姿态/速度</option>
+            <option value="support">喷管间隙/支承裕度</option>
+          </select></label>
+          <label>时间<span class="pill" id="timeReadout">-</span></label>
+          <button id="playButton" type="button">Play</button>
+          <label style="grid-column:1/-1">Timeline<input id="timeSlider" type="range" min="0" value="0"></label>
+        </div>
+        <p class="note" id="caseNote"></p>
+      </section>
+      <section>
+        <h2>脚本检查</h2>
+        <table><tbody id="validationRows"></tbody></table>
+      </section>
+    </div>
+
+    <section class="wide">
+      <h2>计算时历</h2>
+      <canvas id="chart" width="1200" height="430"></canvas>
+      <p class="note" id="chartNote"></p>
+    </section>
+
+    <section class="wide grid2">
+      <div>
+        <h2>工况摘要</h2>
+        <table><thead><tr><th>Case</th><th>锁紧</th><th>接触/稳定</th></tr></thead><tbody id="caseRows"></tbody></table>
+      </div>
+      <div>
+        <h2>范围说明</h2>
+        <table><tbody id="scopeRows"></tbody></table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const data = window.CHRONO_STAGE3_LOCK_DATA || null;
+    const state = { caseId:null, frame:0, playing:false, lastMs:performance.now() };
+    const caseSelect = document.getElementById("caseSelect");
+    const metricSelect = document.getElementById("metricSelect");
+    const timeSlider = document.getElementById("timeSlider");
+    const playButton = document.getElementById("playButton");
+    const colors = ["#2d70a6","#b94d36","#237653","#af7b1d","#7257a4","#17211d"];
+    function fmt(v,d=3){ if(v===null||v===undefined||Number.isNaN(v)) return "-"; const a=Math.abs(v); if(a>=1000) return v.toFixed(0); if(a>=100) return v.toFixed(1); return v.toFixed(d); }
+    function pass(v){ return v===true?'<span class="ok">OK</span>':v===false?'<span class="warn">CHECK</span>':'<span class="mono">N/A</span>'; }
+    function sim(){ return data.simulations[state.caseId]; }
+    function frameCount(){ return sim().time_s.length; }
+
+    function drawScene(){
+      const canvas=document.getElementById("scene"), ctx=canvas.getContext("2d"), s=sim();
+      const i=Math.max(0,Math.min(frameCount()-1,state.frame)); state.frame=i;
+      const portDominant=Math.abs(s.summary.max_rocket_roll_deg)>=Math.abs(s.summary.max_rocket_pitch_deg);
+      const coord=(p)=>portDominant?p.y_m:p.x_m;
+      const widthM=portDominant?54:180, half=widthM/2, scale=Math.min(canvas.width/(widthM*1.25), canvas.height/42);
+      const cx=canvas.width*.52, baseY=canvas.height*.72, angle=portDominant?s.deck.roll_rad[i]:-s.deck.pitch_rad[i], deckCenter=s.deck.heave_m[i];
+      const mapX=(u)=>cx+u*scale, mapY=(z)=>baseY-(z-deckCenter)*scale;
+      ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle="#f7faf8"; ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.strokeStyle="#53615c"; ctx.lineWidth=7; ctx.beginPath(); ctx.moveTo(mapX(-half),mapY(deckCenter+angle*(-half))); ctx.lineTo(mapX(half),mapY(deckCenter+angle*half)); ctx.stroke();
+      const rocketCoord=portDominant?s.rocket.cg_y_m[i]:s.rocket.cg_x_m[i];
+      ctx.save(); ctx.translate(mapX(rocketCoord),mapY(s.rocket.cg_z_m[i])); ctx.rotate(portDominant?-s.rocket.roll_rad[i]:s.rocket.pitch_rad[i]);
+      const bodyW=Math.max(8,data.config.rocket.base_diameter_m*scale), bodyH=Math.min(data.config.rocket.height_m*scale,canvas.height*.78);
+      ctx.fillStyle=s.mechanism.lock_state[i]?"#dde8df":"#e9edea"; ctx.strokeStyle=s.mechanism.lock_state[i]?"#237653":"#21322b"; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.roundRect(-bodyW/2,-bodyH+data.config.rocket.cog_from_base_m*scale,bodyW,bodyH,5); ctx.fill(); ctx.stroke(); ctx.restore();
+      let contactCount=0;
+      for(const legId of Object.keys(s.feet.position_m)){
+        const p=s.feet.position_m[legId], c=s.contact.leg_contact[legId][i]?1:0; contactCount+=c;
+        ctx.fillStyle=s.mechanism.lock_state[i]?"#237653":(c?"#b94d36":"#2d70a6");
+        ctx.beginPath(); ctx.arc(mapX(coord({x_m:p.x_m[i],y_m:p.y_m[i]})),mapY(p.z_m[i]),5,0,Math.PI*2); ctx.fill();
+      }
+      document.getElementById("timeReadout").textContent=`${fmt(s.time_s[i],3)} s`;
+      document.getElementById("hud").innerHTML=[`<span class="pill">${portDominant?"y-z view":"x-z view"}</span>`,`<span class="pill">t ${fmt(s.time_s[i],3)} s</span>`,`<span class="pill">contact ${contactCount}/4</span>`,`<span class="pill">lock ${s.mechanism.lock_state[i]?"ON":"OFF"}</span>`].join("");
+    }
+
+    function minmax(series){ let mn=Infinity,mx=-Infinity; for(const row of series){ for(const v of row.values){ if(Number.isFinite(v)){ mn=Math.min(mn,v); mx=Math.max(mx,v); } } } if(mn===mx){ mn-=1; mx+=1; } const pad=(mx-mn)*.08; return [mn-pad,mx+pad]; }
+    function drawChart(){
+      const canvas=document.getElementById("chart"), ctx=canvas.getContext("2d"), s=sim(), m=metricSelect.value, t=s.time_s;
+      let series=[], note="";
+      if(m==="lock"){ const count=t.map((_,i)=>Object.values(s.contact.leg_contact).reduce((a,row)=>a+(row[i]?1:0),0)); series=[{label:"lock state",values:s.mechanism.lock_state},{label:"contact count",values:count}]; note="锁紧状态为 Chrono 运行中实际添加固定约束后的 0/1 时历。"; }
+      if(m==="contact"){ series=Object.entries(s.forces.leg_contact_force_n).map(([k,v])=>({label:`${k} kN`,values:v.map(x=>x/1000)})); note="四足接触力来自 Chrono SMC 接触。"; }
+      if(m==="buffer"){ series=Object.entries(s.contact.leg_stroke_m).map(([k,v])=>({label:`${k} stroke m`,values:v})); note="主缓冲器行程来自 B-to-foot TSDA 长度变化。"; }
+      if(m==="rocket"){ series=[{label:"roll deg",values:s.rocket.roll_rad.map(v=>v*180/Math.PI)},{label:"pitch deg",values:s.rocket.pitch_rad.map(v=>v*180/Math.PI)},{label:"vz m/s",values:s.rocket.vertical_velocity_m_s}]; note="锁紧后火箭相对 prescribed deck 由固定约束保持。"; }
+      if(m==="support"){ series=[{label:"nozzle clearance m",values:s.rocket.nozzle_clearance_m},{label:"support margin m",values:s.mechanism.support_polygon_margin_m}]; note="喷管间隙与支承裕度为诊断指标。"; }
+      ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle="#fff"; ctx.fillRect(0,0,canvas.width,canvas.height);
+      const left=64,right=canvas.width-24,top=24,bottom=canvas.height-54,[yMin,yMax]=minmax(series),xMin=t[0],xMax=t[t.length-1];
+      const x=(v)=>left+(v-xMin)/(xMax-xMin)*(right-left), y=(v)=>bottom-(v-yMin)/(yMax-yMin)*(bottom-top);
+      ctx.strokeStyle="#d7dfdb"; ctx.lineWidth=1; for(let g=0;g<=4;g++){ const yy=top+g*(bottom-top)/4; ctx.beginPath(); ctx.moveTo(left,yy); ctx.lineTo(right,yy); ctx.stroke(); }
+      series.slice(0,8).forEach((row,idx)=>{ ctx.strokeStyle=colors[idx%colors.length]; ctx.lineWidth=2; ctx.beginPath(); row.values.forEach((v,j)=>{ const xx=x(t[j]), yy=y(v); if(j===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); }); ctx.stroke(); });
+      ctx.fillStyle="#60716a"; ctx.font="12px Segoe UI, Arial"; ctx.fillText(`${fmt(yMax)} max`,12,top+4); ctx.fillText(`${fmt(yMin)} min`,12,bottom);
+      series.slice(0,6).forEach((row,idx)=>{ const lx=left+idx*170, ly=canvas.height-22; ctx.fillStyle=colors[idx%colors.length]; ctx.fillRect(lx,ly-9,18,3); ctx.fillStyle="#17211d"; ctx.fillText(row.label,lx+24,ly-5); });
+      document.getElementById("chartNote").textContent=note;
+    }
+    function renderTables(){
+      const v=data.validation;
+      document.getElementById("validationRows").innerHTML=[
+        ["接触状态机",v.contact_state_machine.pass,"首触/全触/离地/再接触"],
+        ["锁紧执行",v.actuated_lock.pass,"实际添加 Chrono 固定约束"],
+        ["物理诊断",v.case_physical_diagnostics.pass,"穿透/滑移/最终接触/锁紧候选"],
+        ["参数追溯",v.parameter_traceability.pass,`${v.parameter_traceability.published_value_count} published, ${v.parameter_traceability.explicit_assumption_count} assumptions`],
+      ].map(r=>`<tr><td>${r[0]}</td><td>${pass(r[1])}</td><td>${r[2]}</td></tr>`).join("");
+      document.getElementById("caseRows").innerHTML=Object.entries(data.simulations).map(([id,s])=>{
+        const a=s.summary, l=a.post_touchdown_lock, c=a.contact_state;
+        return `<tr><td class="mono">${id}</td><td class="num">eligible ${fmt(l.eligible_lock_time_s,3)} s<br>actual ${fmt(l.actual_lock_actuated_time_s,3)} s<br>final ${l.actual_lock_final_state?"ON":"OFF"}</td><td class="num">span ${fmt(c.touchdown_span_s,3)} s<br>liftoff/recontact ${c.liftoff_count_total}/${c.recontact_count_total}<br>contact ${fmt(a.max_leg_contact_force_kn,1)} kN<br>final nozzle ${fmt(a.final_nozzle_clearance_m,3)} m</td></tr>`;
+      }).join("");
+      document.getElementById("scopeRows").innerHTML=[
+        ["已做",data.acceptance_scope.stage_3_lock_done.join("<br>")],
+        ["未声明",data.acceptance_scope.not_claimed.join("<br>")],
+        ["锁紧模式",data.config.solver.post_touchdown_lock_logic.mode],
+      ].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("");
+    }
+    function updateNote(){ const s=sim().summary, l=s.post_touchdown_lock; document.getElementById("caseNote").textContent=`${state.caseId}: eligible ${fmt(l.eligible_lock_time_s,3)} s, actual lock ${fmt(l.actual_lock_actuated_time_s,3)} s, final ${l.actual_lock_final_state?"ON":"OFF"}, stable ${s.stable_standing_diagnostic.all_flags_true?"OK":"CHECK"}.`; }
+    function render(){ timeSlider.max=Math.max(0,frameCount()-1); timeSlider.value=state.frame; drawScene(); drawChart(); updateNote(); }
+    function animate(ms){ if(state.playing&&ms-state.lastMs>35){ state.frame=(state.frame+1)%frameCount(); state.lastMs=ms; drawScene(); timeSlider.value=state.frame; } requestAnimationFrame(animate); }
+    if(!data||!data.simulations){ document.body.innerHTML="<main><section><h1>缺少 chrono-stage3-lock-data.js</h1><p>请先运行 chrono_stage3_lock_recovery.py report。</p></section></main>"; }
+    else {
+      Object.keys(data.simulations).forEach(id=>{ const o=document.createElement("option"); o.value=id; o.textContent=id; caseSelect.appendChild(o); });
+      state.caseId=Object.keys(data.simulations)[0]; caseSelect.value=state.caseId; renderTables(); render(); requestAnimationFrame(animate);
+      caseSelect.addEventListener("change",()=>{ state.caseId=caseSelect.value; state.frame=0; render(); });
+      metricSelect.addEventListener("change",drawChart);
+      timeSlider.addEventListener("input",()=>{ state.frame=Number(timeSlider.value); drawScene(); });
+      playButton.addEventListener("click",()=>{ state.playing=!state.playing; playButton.textContent=state.playing?"Pause":"Play"; });
+    }
+  </script>
+</body>
+</html>

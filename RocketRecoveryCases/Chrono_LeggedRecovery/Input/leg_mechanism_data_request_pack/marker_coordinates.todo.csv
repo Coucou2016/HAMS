@@ -1,0 +1,17 @@
+leg_id,marker,x_m,y_m,z_m,source_category,source_detail,current_template_x_m,current_template_y_m,current_template_z_m,required_source,note
+leg_1,B,,,,,,,,4.4,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_1,K,,,,,,,,5.7,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_1,P,,,,,,,,,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_1,T,,,,,,,,9.0,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_2,B,,,,,,,,4.4,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_2,K,,,,,,,,5.7,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_2,P,,,,,,,,,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_2,T,,,,,,,,9.0,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_3,B,,,,,,,,4.4,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_3,K,,,,,,,,5.7,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_3,P,,,,,,,,,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_3,T,,,,,,,,9.0,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_4,B,,,,,,,,4.4,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_4,K,,,,,,,,5.7,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_4,P,,,,,,,,,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.
+leg_4,T,,,,,,,,9.0,CAD/Adams marker export for B/T/K/P in a declared rocket body frame,Fill all x/y/z from the same coordinate frame. Do not reuse proxy footprint coordinates.

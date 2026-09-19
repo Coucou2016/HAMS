@@ -1,0 +1,77 @@
+{
+  "case_id": "Barge_120x50",
+  "mesh": {
+    "expected_hull_panels": 512,
+    "expected_hull_nodes": 635,
+    "expected_waterplane_panels": 240,
+    "expected_waterplane_nodes": 275
+  },
+  "hydrostatic": {
+    "displacement_volume_m3": 42000.0,
+    "waterplane_area_m2": 6000.0,
+    "mass_kg": 43050000.0,
+    "heave_restoring_n_m": 60310897.5,
+    "roll_restoring_nm_rad": 11931505888.75,
+    "pitch_restoring_nm_rad": 71739812576.25
+  },
+  "checks": [
+    {
+      "id": "hull_panel_count",
+      "expected": 512,
+      "actual": 512,
+      "passed": true
+    },
+    {
+      "id": "hull_node_count",
+      "expected": 635,
+      "actual": 635,
+      "passed": true
+    },
+    {
+      "id": "waterplane_panel_count",
+      "expected": 240,
+      "actual": 240,
+      "passed": true
+    },
+    {
+      "id": "waterplane_node_count",
+      "expected": 275,
+      "actual": 275,
+      "passed": true
+    },
+    {
+      "id": "hull_z_not_above_free_surface",
+      "expected": "<= 0",
+      "actual": 0.0,
+      "passed": true
+    },
+    {
+      "id": "waterplane_z_equal_zero",
+      "expected": 0.0,
+      "actual": 0.0,
+      "passed": true
+    },
+    {
+      "id": "displacement_volume",
+      "expected": 42000.0,
+      "actual": 42000.0,
+      "relative_error": 0.0,
+      "passed": true
+    },
+    {
+      "id": "waterplane_area",
+      "expected": 6000.0,
+      "actual": 6000.0,
+      "relative_error": 0.0,
+      "passed": true
+    },
+    {
+      "id": "heave_restoring",
+      "expected": 60310897.5,
+      "actual": 60310897.5,
+      "relative_error": 0.0,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

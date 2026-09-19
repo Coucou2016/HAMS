@@ -1,0 +1,166 @@
+{
+  "case_id": "Chrono_LeggedRecovery_TwoWayContract",
+  "status": "interface_contract",
+  "environment": {
+    "available": true,
+    "module": "pychrono",
+    "version": "unknown",
+    "adapter_policy": "Use Project Chrono as the landing-leg/contact solver."
+  },
+  "purpose": "Define the two-way Chrono <-> HAMS/Cummins force contract for the Stage 2 loose-coupling solver.",
+  "platform_equation": {
+    "dofs": [
+      "heave",
+      "roll",
+      "pitch"
+    ],
+    "coordinates": "z up; roll about +x; pitch about +y; generalized force vector [Fz, Mx, My]",
+    "equation": "(M + A_inf) qdd + C qd + K q + F_memory = F_wave + F_plume + F_leg",
+    "implemented_stage2_form": "q_total = q_Wang(F_wave + F_plume) + delta_q(F_leg), using linear superposition over the published Wang/HAMS baseline."
+  },
+  "chrono_to_platform_force": {
+    "input_from_chrono": [
+      "per-footpad contact force in global frame",
+      "per-footpad contact point in global frame",
+      "per-footpad slip velocity and contact state"
+    ],
+    "mapping": [
+      "F_contact is the force on the rocket/footpad.",
+      "F_leg_z = sum(-F_contact_z_on_rocket)",
+      "M_leg_x = sum(y_deck * -F_contact_z_on_rocket)",
+      "M_leg_y = sum(-x_deck * -F_contact_z_on_rocket)"
+    ],
+    "sign_audit": "A positive upward Chrono contact force on the rocket becomes a negative vertical generalized force on the platform."
+  },
+  "coupling_algorithm": [
+    "Use Wang 2023 HAMS/Cummins response as the F_wave + F_plume baseline.",
+    "Run Chrono on the current deck motion to obtain four-foot contact forces.",
+    "Map Chrono contact reactions to F_leg generalized platform load.",
+    "Solve a Cummins correction equation with zero initial correction and F_leg as the only new load.",
+    "Repeat the loose-coupling pass when iterations > 1."
+  ],
+  "acceptance_checks": {
+    "force_reciprocity": "sum(platform generalized deck reaction) + sum(Chrono rocket contact action) must be zero within numerical tolerance after coordinate mapping.",
+    "degeneration": "F_leg disabled must produce zero correction and therefore match Wang 2023 baseline exactly on the Stage 2 grid.",
+    "eccentric_response": "Port/bow offset cases must alter roll/pitch relative to baseline.",
+    "energy": "Rocket kinetic energy diagnostic should decay after touchdown because contact damping/friction/buffer remove energy.",
+    "time_step_convergence": "The default report reruns the selected convergence case with half Chrono dt and half Cummins dt."
+  },
+  "config": {
+    "model_id": "ChronoLeggedRecovery_Stage1",
+    "solver": {
+      "engine": "Project Chrono / PyChrono",
+      "contact_method": "SMC",
+      "time_step_s": 0.0005,
+      "output_step_s": 0.01,
+      "start_s": 506.0,
+      "end_s": 526.0,
+      "gravity_m_s2": 9.80665,
+      "pre_contact_gravity": "off_until_first_contact_to_preserve_Thies_touchdown_velocity",
+      "deck_thickness_m": 0.35,
+      "contact_force_threshold_n": 100.0,
+      "no_fallback_policy": "If PyChrono is unavailable, stop with an environment report."
+    },
+    "rocket": {
+      "source": "Table 3 / vehicle data table",
+      "landing_mass_kg": 61288.0,
+      "height_m": 103.0,
+      "engine_length_m": 1.902,
+      "base_diameter_m": 6.0,
+      "cog_from_base_m": 22.059,
+      "inertia_kg_m2": {
+        "roll_x": 376000.0,
+        "pitch_y": 25700000.0,
+        "yaw_z": 25700000.0
+      },
+      "touchdown_vertical_velocity_m_s": 5.0,
+      "initial_lateral_velocity_m_s": 0.0,
+      "nozzle_clearance_required_m": 0.5475
+    },
+    "legs": {
+      "source": "Table 4",
+      "count": 4,
+      "configuration": "Tripod",
+      "azimuths_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "footprint_radius_m": 6.7932316003579345,
+      "upper_attachment_height_m": 9.0,
+      "lower_attachment_height_m": 4.4,
+      "leg_length_m": 8.1,
+      "damper_stiffness_n_m": 2600000.0,
+      "damper_damping_ns_m": 1300000.0,
+      "damper_rest_length_m": 4.2,
+      "equivalent_guidance_model": "ChLinkMatePrismatic vertical slider at each foot point; stage-1 proxy for the deployed leg linkage.",
+      "stroke_reference_m": 0.42,
+      "force_reference_n": 935000.0,
+      "footpad_radius_m": 0.2,
+      "footpad_mass_kg": 80.0,
+      "footpad_thickness_m": 0.18
+    },
+    "contact": {
+      "source": "Thies Table 6 plus Li 2025 contact/friction values where Thies has no numeric contact material table.",
+      "normal_stiffness_n_m": 100000000.0,
+      "normal_damping_ns_m": 10000000.0,
+      "young_modulus_pa": 2000000000.0,
+      "poisson_ratio": 0.3,
+      "static_friction": 0.5,
+      "dynamic_friction": 0.4,
+      "restitution": 0.0
+    },
+    "validation_targets": {
+      "thies_touchdown_energy_kj": 766.0,
+      "computed_touchdown_energy_kj": 766.1,
+      "max_incident_angle_deg": 10.0,
+      "velocity_range_m_s": [
+        1.0,
+        15.0
+      ],
+      "symmetric_force_tolerance": 0.05
+    },
+    "parameter_audit": {
+      "published_values": [
+        "rocket mass, inertia, height, base diameter, CG and touchdown velocity from Thies 2022",
+        "leg count, leg length, leg angle and attachment heights from Thies 2022",
+        "damper linear stiffness/damping and reference stroke/force from Thies 2022",
+        "contact stiffness/damping radius and dynamic friction from Li 2025"
+      ],
+      "explicit_assumptions": [
+        "four leg azimuths are symmetric at 45/135/225/315 deg because exact azimuths are not published",
+        "footpad mass is a transparent engineering placeholder until CAD or paper data is available",
+        "stage 1 uses a TSDA strut plus contact footpad model, not a full Adams-equivalent linkage",
+        "stage 1 constrains each footpad with a vertical prismatic mate instead of explicit tripod-link hinges",
+        "Chrono SMC Young modulus is set as an explicit contact-material assumption because Li reports contact stiffness/damping, not elastic modulus"
+      ]
+    }
+  },
+  "leg_positions": [
+    {
+      "id": "leg_1",
+      "azimuth_deg": 45.0,
+      "x_m": 4.803540130783839,
+      "y_m": 4.803540130783839
+    },
+    {
+      "id": "leg_2",
+      "azimuth_deg": 135.0,
+      "x_m": -4.803540130783838,
+      "y_m": 4.803540130783839
+    },
+    {
+      "id": "leg_3",
+      "azimuth_deg": 225.0,
+      "x_m": -4.803540130783839,
+      "y_m": -4.803540130783838
+    },
+    {
+      "id": "leg_4",
+      "azimuth_deg": 315.0,
+      "x_m": 4.803540130783837,
+      "y_m": -4.803540130783839
+    }
+  ]
+}

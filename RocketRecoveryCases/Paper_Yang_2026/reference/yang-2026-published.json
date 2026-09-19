@@ -1,0 +1,230 @@
+{
+  "schema_version": "1.0",
+  "paper": {
+    "id": "yang_2026",
+    "title": "Analysis of Sea-Based Landing Dynamics of Reusable Landing Vehicle Considering Mechanism Flexibility",
+    "authors": ["YANG Shaofei", "ZHANG Ming", "RUAN Shuang", "LEI Bo"],
+    "journal": "Transactions of Nanjing University of Aeronautics and Astronautics",
+    "volume": 43,
+    "issue": 2,
+    "pages": "238-250",
+    "year": 2026,
+    "doi": "10.16356/j.1005-1120.2026.02.006",
+    "pdf": "\u65b0\u8bba\u6587\u53c2\u8003\u5199\u4f5c\u8bba\u6587/Analysis+of+Sea-Based+Landing+Dynamics+of+Reusable+Landing+Vehicle+Considering+Mechanism+Flexibility.pdf",
+    "markdown": "\u65b0\u8bba\u6587\u53c2\u8003\u5199\u4f5c\u8bba\u6587/Analysis+of+Sea-Based+Landing+Dynamics+of+Reusable+Landing+Vehicle+Considering+Mechanism+Flexibility.md"
+  },
+  "test_conditions": [
+    {
+      "id": "Y0_simultaneous",
+      "landing_form": "simultaneous",
+      "rocket_mass_kg": 5200.0,
+      "pitch_deg": 0.0,
+      "vertical_touchdown_velocity_m_s": 2.0,
+      "horizontal_touchdown_velocity_m_s": 0.0,
+      "ground": "cement floor",
+      "provenance": "Table 1, PDF page 5, journal page 242",
+      "evidence_class": "published"
+    },
+    {
+      "id": "Y1_1-2-1",
+      "landing_form": "1-2-1",
+      "rocket_mass_kg": 5200.0,
+      "pitch_deg": 3.0,
+      "vertical_touchdown_velocity_m_s": 2.0,
+      "horizontal_touchdown_velocity_m_s": 0.0,
+      "ground": "cement floor",
+      "provenance": "Table 1, PDF page 5, journal page 242",
+      "evidence_class": "published"
+    },
+    {
+      "id": "Y2_2-2",
+      "landing_form": "2-2",
+      "rocket_mass_kg": 5200.0,
+      "pitch_deg": 3.0,
+      "vertical_touchdown_velocity_m_s": 2.0,
+      "horizontal_touchdown_velocity_m_s": 0.0,
+      "ground": "cement floor",
+      "provenance": "Table 1, PDF page 5, journal page 242",
+      "evidence_class": "published"
+    }
+  ],
+  "table_2": [
+    {
+      "condition_id": "Y0_simultaneous",
+      "metric": "peak_vertical_acceleration_g",
+      "unit": "g",
+      "flexible": 3.06,
+      "flexible_error_percent_printed": 5.15,
+      "rigid": 3.26,
+      "rigid_error_percent_printed": 11.2,
+      "test": 2.91,
+      "strict_validation": true
+    },
+    {
+      "condition_id": "Y0_simultaneous",
+      "metric": "maximum_main_strut_load_n",
+      "unit": "N",
+      "flexible": 106100.0,
+      "flexible_error_percent_printed": 10.7,
+      "rigid": 112100.0,
+      "rigid_error_percent_printed": 11.3,
+      "test": 98800.0,
+      "strict_validation": false,
+      "note": "Printed values and printed percentages are mutually inconsistent."
+    },
+    {
+      "condition_id": "Y0_simultaneous",
+      "metric": "maximum_buffer_stroke_m",
+      "unit": "m",
+      "flexible": 0.0932,
+      "flexible_error_percent_printed": 6.6,
+      "rigid": 0.0933,
+      "rigid_error_percent_printed": 6.5,
+      "test": 0.0998,
+      "strict_validation": true
+    },
+    {
+      "condition_id": "Y1_1-2-1",
+      "metric": "peak_vertical_acceleration_g",
+      "unit": "g",
+      "flexible": 2.03,
+      "flexible_error_percent_printed": 10.6,
+      "rigid": 2.26,
+      "rigid_error_percent_printed": 0.5,
+      "test": 2.27,
+      "strict_validation": true
+    },
+    {
+      "condition_id": "Y1_1-2-1",
+      "metric": "maximum_main_strut_load_n",
+      "unit": "N",
+      "flexible": 114100.0,
+      "flexible_error_percent_printed": 1.0,
+      "rigid": 122600.0,
+      "rigid_error_percent_printed": 10.7,
+      "test": 11500.0,
+      "suspected_test_value_n": 115000.0,
+      "strict_validation": false,
+      "note": "The PDF prints 0.115 x 10^5 N. This is a probable decimal-place error, but 1.15 x 10^5 N still does not reproduce both printed percentages."
+    },
+    {
+      "condition_id": "Y1_1-2-1",
+      "metric": "maximum_buffer_stroke_m",
+      "unit": "m",
+      "flexible": 0.1215,
+      "flexible_error_percent_printed": 5.0,
+      "rigid": 0.1217,
+      "rigid_error_percent_printed": 4.9,
+      "test": 0.1279,
+      "strict_validation": true
+    },
+    {
+      "condition_id": "Y2_2-2",
+      "metric": "peak_vertical_acceleration_g",
+      "unit": "g",
+      "flexible": 2.75,
+      "flexible_error_percent_printed": 6.8,
+      "rigid": 3.26,
+      "rigid_error_percent_printed": 11.1,
+      "test": 2.95,
+      "strict_validation": false,
+      "note": "The flexible percentage is consistent; the rigid percentage is not."
+    },
+    {
+      "condition_id": "Y2_2-2",
+      "metric": "maximum_main_strut_load_n",
+      "unit": "N",
+      "flexible": 110600.0,
+      "flexible_error_percent_printed": 3.1,
+      "rigid": 120300.0,
+      "rigid_error_percent_printed": 10.5,
+      "test": 114100.0,
+      "strict_validation": false,
+      "note": "The flexible percentage is consistent; the rigid percentage is not."
+    },
+    {
+      "condition_id": "Y2_2-2",
+      "metric": "maximum_buffer_stroke_m",
+      "unit": "m",
+      "flexible": 0.114,
+      "flexible_error_percent_printed": 4.9,
+      "rigid": 0.1142,
+      "rigid_error_percent_printed": 4.8,
+      "test": 0.1199,
+      "strict_validation": true
+    }
+  ],
+  "sea_case": {
+    "condition_id": "Y3_sea_state_5_1-2-1",
+    "landing_form": "1-2-1",
+    "sea_state": 5,
+    "wind_speed_m_s": 10.0,
+    "peak_vertical_acceleration_g": 2.36,
+    "maximum_main_strut_load_n": 128000.0,
+    "maximum_buffer_stroke_m": 0.137,
+    "minimum_stability_margin_m": 2.4,
+    "provenance": "Section 4.4 and Figure 17, PDF page 10, journal page 247",
+    "evidence_class": "published_scalar",
+    "comparison_baseline": "Y1_1-2-1 flexible-body result",
+    "printed_change_claims_percent": {
+      "body_text_main_strut_load": 12.3,
+      "body_text_buffer_stroke": 12.8,
+      "conclusion_vertical_acceleration": 12.3,
+      "conclusion_main_strut_load": 12.8,
+      "conclusion_buffer_stroke": 12.8
+    }
+  },
+  "deck_filters": {
+    "input": "continuous unit-intensity white noise, but the paper does not define its numerical normalization or random seed",
+    "heave": {
+      "numerator_descending_s": [0.354, 0.01416, 0.0],
+      "denominator_factors": [[1.0, 0.16, 0.16], [1.0, 0.22, 0.3025]],
+      "output_unit": "m"
+    },
+    "pitch": {
+      "numerator_descending_s": [0.00583, 0.0],
+      "denominator_factors": [[1.0, 0.22, 0.3025], [1.0, 0.384, 0.4096]],
+      "output_unit": "rad"
+    },
+    "provenance": "Equation 12, PDF page 8, journal page 245",
+    "evidence_class": "published_equation"
+  },
+  "published_design_limits": {
+    "peak_vertical_acceleration_g": 4.0,
+    "main_support_strut_load_n": 180000.0,
+    "buffer_stroke_m": 0.185,
+    "provenance": "Section 1, PDF page 2, journal page 239"
+  },
+  "publication_anomalies": [
+    {
+      "id": "drop_height_equation_dimension_error",
+      "printed": "H = v_t / (2 g)",
+      "physics_consistent": "H = v_t^2 / (2 g)",
+      "provenance": "Equation 11, PDF page 5, journal page 242"
+    },
+    {
+      "id": "table_2_1-2-1_test_load_decimal_error",
+      "printed": "0.115 x 10^5 N",
+      "suspected": "1.15 x 10^5 N",
+      "provenance": "Table 2, PDF page 6, journal page 243"
+    },
+    {
+      "id": "sea_change_percent_label_mismatch",
+      "printed": "The body and conclusion interchange 12.3% and 12.8% between acceleration, load and stroke.",
+      "provenance": "Section 4.4 and Conclusions, journal pages 247-248"
+    }
+  ],
+  "required_but_unpublished_parameters": [
+    "rocket height, diameter, center of gravity and inertia tensor",
+    "four-leg hinge coordinates and deployed footprint",
+    "component masses and inertia tensors",
+    "oil density, compressed-oil area, compression and rebound orifice areas, and discharge coefficient",
+    "air chamber initial height, initial pressure, effective area and polytropic exponent",
+    "seal geometry, modulus, precompression and friction coefficient",
+    "structural stop stiffness",
+    "footpad contact stiffness, exponent, damping, penetration limit and friction transition velocities",
+    "Abaqus mesh, materials, retained modes and modal damping",
+    "white-noise normalization, realization and random seed",
+    "rocket aerodynamic geometry and Figure 14 machine-readable force/moment coefficients"
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "case_id": "Barge_120x50",
+  "platform": {
+    "length_m": 120.0,
+    "beam_m": 50.0,
+    "draft_m": 7.0,
+    "deck_z_m": 3.0,
+    "water_depth_m": -1.0,
+    "cg_m": [
+      0.0,
+      0.0,
+      -2.0
+    ],
+    "rho_kg_m3": 1025.0,
+    "gravity_m_s2": 9.80665
+  },
+  "mesh": {
+    "nx": 24,
+    "ny": 10,
+    "nz": 4
+  },
+  "reference_point_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "deck_points": [
+    {
+      "id": "landing_center",
+      "position_m": [
+        0.0,
+        0.0,
+        3.0
+      ]
+    },
+    {
+      "id": "leg_forward_port",
+      "position_m": [
+        9.0,
+        9.0,
+        3.0
+      ]
+    },
+    {
+      "id": "leg_forward_starboard",
+      "position_m": [
+        9.0,
+        -9.0,
+        3.0
+      ]
+    },
+    {
+      "id": "leg_aft_port",
+      "position_m": [
+        -9.0,
+        9.0,
+        3.0
+      ]
+    },
+    {
+      "id": "leg_aft_starboard",
+      "position_m": [
+        -9.0,
+        -9.0,
+        3.0
+      ]
+    }
+  ],
+  "frequency": {
+    "min_rad_s": 0.2,
+    "max_rad_s": 2.0,
+    "step_rad_s": 0.1
+  },
+  "headings_deg": [
+    0.0,
+    30.0,
+    60.0,
+    90.0,
+    120.0,
+    150.0,
+    180.0
+  ],
+  "sea_states": [
+    {
+      "id": "Hs1_Tp6",
+      "hs_m": 1.0,
+      "tp_s": 6.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    },
+    {
+      "id": "Hs1_Tp8",
+      "hs_m": 1.0,
+      "tp_s": 8.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    },
+    {
+      "id": "Hs1_Tp10",
+      "hs_m": 1.0,
+      "tp_s": 10.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    },
+    {
+      "id": "Hs2_Tp6",
+      "hs_m": 2.0,
+      "tp_s": 6.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    },
+    {
+      "id": "Hs2_Tp8",
+      "hs_m": 2.0,
+      "tp_s": 8.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    },
+    {
+      "id": "Hs2_Tp10",
+      "hs_m": 2.0,
+      "tp_s": 10.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    },
+    {
+      "id": "Hs3_Tp6",
+      "hs_m": 3.0,
+      "tp_s": 6.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    },
+    {
+      "id": "Hs3_Tp8",
+      "hs_m": 3.0,
+      "tp_s": 8.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    },
+    {
+      "id": "Hs3_Tp10",
+      "hs_m": 3.0,
+      "tp_s": 10.0,
+      "gamma": 3.3,
+      "duration_s": 600.0
+    }
+  ],
+  "model_notes": {
+    "scope": "Frequency-domain platform and deck-point motion prediction for landing-leg studies.",
+    "excluded": "No plume, rocket GNC, landing-leg structural loads, touchdown switching, or DP time-domain controller in v1.",
+    "angular_motion_convention": "HAMS Hydrostar Motion_4..6 values are interpreted as radians per metre despite the header text."
+  }
+}

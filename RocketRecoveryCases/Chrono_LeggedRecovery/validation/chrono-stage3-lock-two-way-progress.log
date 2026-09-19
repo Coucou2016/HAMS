@@ -1,0 +1,38 @@
+Loading Wang 2023 HAMS/Cummins baseline...
+Loading full 6x6 HAMS added-mass and radiation-damping matrices...
+Building Stage 3 lock two-way loose-coupling case: calm_center
+Running Stage 3 lock two-way source case: calm_center iteration 1/1
+Chrono completed: calm_center iteration 1/1
+6DOF reaction mapping completed: calm_center iteration 1/1
+6DOF Cummins correction completed: calm_center iteration 1/1
+Running final Chrono replay on the reported 6DOF feedback deck: calm_center
+Running Stage 3 lock two-way source case: calm_center final feedback-deck replay
+Final Chrono feedback-deck replay completed: calm_center
+Building Stage 3 lock two-way loose-coupling case: wave_center
+Running Stage 3 lock two-way source case: wave_center iteration 1/1
+Chrono completed: wave_center iteration 1/1
+6DOF reaction mapping completed: wave_center iteration 1/1
+6DOF Cummins correction completed: wave_center iteration 1/1
+Running final Chrono replay on the reported 6DOF feedback deck: wave_center
+Running Stage 3 lock two-way source case: wave_center final feedback-deck replay
+Final Chrono feedback-deck replay completed: wave_center
+Building Stage 3 lock two-way loose-coupling case: wave_bow_15m
+Running Stage 3 lock two-way source case: wave_bow_15m iteration 1/1
+Chrono completed: wave_bow_15m iteration 1/1
+6DOF reaction mapping completed: wave_bow_15m iteration 1/1
+6DOF Cummins correction completed: wave_bow_15m iteration 1/1
+Running final Chrono replay on the reported 6DOF feedback deck: wave_bow_15m
+Running Stage 3 lock two-way source case: wave_bow_15m final feedback-deck replay
+Final Chrono feedback-deck replay completed: wave_bow_15m
+Building Stage 3 lock two-way loose-coupling case: wave_port_15m
+Running Stage 3 lock two-way source case: wave_port_15m iteration 1/1
+Chrono completed: wave_port_15m iteration 1/1
+6DOF reaction mapping completed: wave_port_15m iteration 1/1
+6DOF Cummins correction completed: wave_port_15m iteration 1/1
+Running final Chrono replay on the reported 6DOF feedback deck: wave_port_15m
+Running Stage 3 lock two-way source case: wave_port_15m final feedback-deck replay
+Final Chrono feedback-deck replay completed: wave_port_15m
+Running Stage 3 lock two-way time-step convergence check: wave_port_15m
+Running Stage 3 lock two-way source case: wave_port_15m convergence iteration 1/1
+Running Stage 3 lock two-way source case: wave_port_15m convergence feedback-deck replay
+Stage 3 lock two-way report artifacts completed.

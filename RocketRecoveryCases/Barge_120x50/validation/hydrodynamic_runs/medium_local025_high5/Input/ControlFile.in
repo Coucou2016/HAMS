@@ -1,0 +1,32 @@
+   --------------HAMS Control file---------------
+   
+   Waterdepth  -1.00000000D+00
+
+   #Start Definition of Wave Frequencies
+    0_inf_frequency_limits      0                             # 0: not to include; 1: to include
+    Input_frequency_type        3
+    Output_frequency_type       3
+    Number_of_frequencies      85
+    2.00000000D-01 2.25000000D-01 2.50000000D-01 2.75000000D-01 3.00000000D-01 3.25000000D-01 3.50000000D-01 3.75000000D-01 4.00000000D-01 4.25000000D-01 4.50000000D-01 4.75000000D-01 5.00000000D-01 5.25000000D-01 5.50000000D-01 5.75000000D-01 6.00000000D-01 6.25000000D-01 6.50000000D-01 6.75000000D-01 7.00000000D-01 7.25000000D-01 7.50000000D-01 7.75000000D-01 8.00000000D-01 8.25000000D-01 8.50000000D-01 8.75000000D-01 9.00000000D-01 9.25000000D-01 9.50000000D-01 9.75000000D-01 1.00000000D+00 1.02500000D+00 1.05000000D+00 1.07500000D+00 1.10000000D+00 1.12500000D+00 1.15000000D+00 1.17500000D+00 1.20000000D+00 1.22500000D+00 1.25000000D+00 1.27500000D+00 1.30000000D+00 1.32500000D+00 1.35000000D+00 1.37500000D+00 1.40000000D+00 1.42500000D+00 1.45000000D+00 1.47500000D+00 1.50000000D+00 1.52500000D+00 1.55000000D+00 1.57500000D+00 1.60000000D+00 1.62500000D+00 1.65000000D+00 1.67500000D+00 1.70000000D+00 1.72500000D+00 1.75000000D+00 1.77500000D+00 1.80000000D+00 1.82500000D+00 1.85000000D+00 1.87500000D+00 1.90000000D+00 1.92500000D+00 1.95000000D+00 1.97500000D+00 2.00000000D+00 2.25000000D+00 2.50000000D+00 2.75000000D+00 3.00000000D+00 3.25000000D+00 3.50000000D+00 3.75000000D+00 4.00000000D+00 4.25000000D+00 4.50000000D+00 4.75000000D+00 5.00000000D+00
+   #End Definition of Wave Frequencies
+
+   #Start Definition of Wave Headings
+    Number_of_headings         7
+   0.000000 30.000000 60.000000 90.000000 120.000000 150.000000 180.000000
+   #End Definition of Wave Headings
+
+    Reference_body_center       0.000       0.000       0.000
+    Reference_body_length   1.200000D+02
+    Wave_diffrac_solution    2
+    If_remove_irr_freq       1
+    Number of threads       32
+   
+   #Start Definition of Pressure and/or Elevation (PE)
+    Number_of_field_points     0                           # number of field points where to calculate PE
+   #End Definition of Pressure and/or Elevation
+   
+   ----------End HAMS Control file---------------
+   
+   Input_frequency_type options: 
+   1--deepwater wave number; 2--finite-depth wave number; 3--wave frequency; 4--wave period; 5--wave length
+   Output_frequency_type options: same as Input_frequency_type options

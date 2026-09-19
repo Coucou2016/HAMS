@@ -1,0 +1,277 @@
+{
+  "case_id": "WangZhi_2023_RecoveryBarge",
+  "paper_id": "WangZhi_2023_ShipSciTech",
+  "title": "Wang Zhi 2023 recovery barge - HAMS/Cummins surrogate",
+  "platform": {
+    "length_m": 165.0,
+    "beam_m": 40.0,
+    "draft_m": 5.0,
+    "deadweight_t": 22000.0,
+    "mass_kg": 22000000.0,
+    "reported_cg_from_aft_m": [
+      70.5,
+      0.0,
+      -2.32
+    ],
+    "cg_m": [
+      0.0,
+      0.0,
+      -2.32
+    ],
+    "reference_point_note": "The reduced model origin is the deck point vertically above the reported CG; x/y landing offsets are measured from that point.",
+    "inertia_radius_m": {
+      "roll": 13.5,
+      "pitch": 38.8,
+      "yaw": 40.3
+    },
+    "water_depth_m": -1.0,
+    "rho_kg_m3": 1025.0,
+    "gravity_m_s2": 9.80665,
+    "deck_z_m": 0.0,
+    "bottom_beam_m": 12.03252032520325,
+    "geometry_displacement_volume_m3": 21463.414634146342,
+    "paper_mass_displacement_volume_m3": 21463.414634146342,
+    "waterplane_area_m2": 6600.0,
+    "mesh_x_min_m": -70.5,
+    "mesh_x_max_m": 94.5,
+    "deck_points": [
+      {
+        "id": "center",
+        "label": "Center",
+        "position_m": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "bow_5m",
+        "label": "Longitudinal 5 m",
+        "position_m": [
+          5.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "bow_10m",
+        "label": "Longitudinal 10 m",
+        "position_m": [
+          10.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "bow_15m",
+        "label": "Longitudinal 15 m",
+        "position_m": [
+          15.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "port_5m",
+        "label": "Transverse 5 m",
+        "position_m": [
+          0.0,
+          5.0,
+          0.0
+        ]
+      },
+      {
+        "id": "port_10m",
+        "label": "Transverse 10 m",
+        "position_m": [
+          0.0,
+          10.0,
+          0.0
+        ]
+      },
+      {
+        "id": "port_15m",
+        "label": "Transverse 15 m",
+        "position_m": [
+          0.0,
+          15.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "mesh": {
+    "nx": 48,
+    "ny": 14,
+    "nz": 5,
+    "paper_aqwa_panel_count": 13367,
+    "note": "The paper's AQWA mesh is not published. This HAMS mesh is regenerated from the published principal dimensions."
+  },
+  "frequency": {
+    "min_rad_s": 0.2,
+    "max_rad_s": 4.0,
+    "step_rad_s": 0.1
+  },
+  "headings_deg": [
+    135.0
+  ],
+  "reference_point_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "sea_state": {
+    "id": "JONSWAP_Hs1p75_Tp4p5_gamma3_heading135",
+    "hs_m": 1.75,
+    "tp_s": 4.5,
+    "gamma": 3.0,
+    "heading_deg": 135.0
+  },
+  "mooring": {
+    "line_count": 4,
+    "line_length_m": 820.0,
+    "azimuths_deg": [
+      45.0,
+      135.0,
+      225.0,
+      315.0
+    ],
+    "linear_stiffness": "disabled",
+    "reason": "The paper reports catenary layout and line length, but not line diameter, wet weight, EA, fairlead/anchor coordinates, or pre-tension."
+  },
+  "plume_load": {
+    "time_absolute_s": {
+      "ignition": 480.0,
+      "vertical_descent": 506.0,
+      "landing": 510.0,
+      "shutdown_complete": 511.0
+    },
+    "plateau_n": 20400000.0,
+    "ramp_up_slope_n_s": 788462.0,
+    "ramp_up_intercept_n": -378461538.0,
+    "ramp_down_slope_n_s": -20400000.0,
+    "ramp_down_intercept_n": 10424400000.0,
+    "vertical_descent_cfd_trace": "not_machine_readable",
+    "note": "The 506-510 s Fp segment is approximated as the paper-stated 20400 kN plateau because Figure 6 is not supplied as numeric data."
+  },
+  "landing_offsets_m": [
+    {
+      "id": "no_plume",
+      "label": "No plume",
+      "x": 0.0,
+      "y": 0.0,
+      "with_plume": false
+    },
+    {
+      "id": "center",
+      "label": "Center",
+      "x": 0.0,
+      "y": 0.0,
+      "with_plume": true
+    },
+    {
+      "id": "bow_5m",
+      "label": "Longitudinal 5 m",
+      "x": 5.0,
+      "y": 0.0,
+      "with_plume": true
+    },
+    {
+      "id": "bow_10m",
+      "label": "Longitudinal 10 m",
+      "x": 10.0,
+      "y": 0.0,
+      "with_plume": true
+    },
+    {
+      "id": "bow_15m",
+      "label": "Longitudinal 15 m",
+      "x": 15.0,
+      "y": 0.0,
+      "with_plume": true
+    },
+    {
+      "id": "port_5m",
+      "label": "Transverse 5 m",
+      "x": 0.0,
+      "y": 5.0,
+      "with_plume": true
+    },
+    {
+      "id": "port_10m",
+      "label": "Transverse 10 m",
+      "x": 0.0,
+      "y": 10.0,
+      "with_plume": true
+    },
+    {
+      "id": "port_15m",
+      "label": "Transverse 15 m",
+      "x": 0.0,
+      "y": 15.0,
+      "with_plume": true
+    }
+  ],
+  "time_domain": {
+    "start_s": 450.0,
+    "end_s": 550.0,
+    "dt_s": 0.05,
+    "hydrodynamic_memory": "cummins_cosine_quadrature_from_hams_B",
+    "added_mass_infinite_estimate": "highest_computed_frequency",
+    "linear_damping_ratio": 0.01,
+    "wave_seed": 2023,
+    "include_second_order_wave_force": false,
+    "include_mooring_stiffness": false
+  },
+  "paper_targets": [
+    {
+      "id": "calm_bow_15_pitch_deg",
+      "environment": "calm",
+      "case": "bow_15m",
+      "metric": "pitch_peak_deg",
+      "paper_value": 0.25,
+      "unit": "deg",
+      "source": "Section 3.2.1 text"
+    },
+    {
+      "id": "calm_port_15_roll_deg",
+      "environment": "calm",
+      "case": "port_15m",
+      "metric": "roll_peak_deg",
+      "paper_value": 2.858,
+      "unit": "deg",
+      "source": "Section 3.2.1 text"
+    },
+    {
+      "id": "wave_bow_15_pitch_deg",
+      "environment": "wave",
+      "case": "bow_15m",
+      "metric": "pitch_peak_deg",
+      "paper_value": 0.267,
+      "unit": "deg",
+      "source": "Section 3.2.2 text"
+    },
+    {
+      "id": "wave_port_15_roll_deg",
+      "environment": "wave",
+      "case": "port_15m",
+      "metric": "roll_peak_deg",
+      "paper_value": 2.898,
+      "unit": "deg",
+      "source": "Section 3.2.2 text"
+    },
+    {
+      "id": "wave_heave_impact_delta_m",
+      "environment": "wave_delta",
+      "case": "center",
+      "metric": "heave_delta_peak_m",
+      "paper_value": 0.41,
+      "unit": "m",
+      "source": "Section 3.2.2 text"
+    }
+  ],
+  "model_notes": {
+    "scope": "Reproduces the Wang Zhi 2023 wave-plume-platform response chain as an open HAMS/Cummins surrogate.",
+    "limits": "The paper does not publish STAR-CCM+ load samples, AQWA mesh/project, second-order wave force data, or catenary line mechanical properties."
+  }
+}

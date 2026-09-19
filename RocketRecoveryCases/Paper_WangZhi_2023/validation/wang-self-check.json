@@ -1,0 +1,193 @@
+{
+  "case_id": "WangZhi_2023_RecoveryBarge",
+  "mesh": {
+    "hull_nodes": 1503,
+    "hull_panels": 1292,
+    "waterplane_nodes": 735,
+    "waterplane_panels": 672
+  },
+  "hydrostatic": {
+    "body_mass_matrix": [
+      [
+        22000000.0,
+        0.0,
+        0.0,
+        0.0,
+        -51040000.0,
+        -0.0
+      ],
+      [
+        0.0,
+        22000000.0,
+        0.0,
+        51040000.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        22000000.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        51040000.0,
+        0.0,
+        4127912800.0,
+        -0.0,
+        0.0
+      ],
+      [
+        -51040000.0,
+        0.0,
+        -0.0,
+        -0.0,
+        33238092799.999996,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        35729979999.99999
+      ]
+    ],
+    "hydrostatic_restoring_matrix": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        66341987.25,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        8806763966.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        150474549239.4375,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "waterplane_area_m2": 6600.0,
+    "geometry_displacement_volume_m3": 21463.414634146342,
+    "paper_mass_displacement_volume_m3": 21463.414634146342,
+    "heave_restoring_n_m": 66341987.25,
+    "roll_restoring_nm_rad": 8806763966.0,
+    "pitch_restoring_nm_rad": 150474549239.4375
+  },
+  "published_aqwa_panel_count": 13367,
+  "checks": [
+    {
+      "id": "paper_length",
+      "expected": 165.0,
+      "actual": 165.0,
+      "passed": true
+    },
+    {
+      "id": "paper_beam",
+      "expected": 40.0,
+      "actual": 40.0,
+      "passed": true
+    },
+    {
+      "id": "paper_draft",
+      "expected": 5.0,
+      "actual": 5.0,
+      "passed": true
+    },
+    {
+      "id": "paper_mass",
+      "expected": 22000000.0,
+      "actual": 22000000.0,
+      "passed": true
+    },
+    {
+      "id": "hull_panel_count",
+      "expected": 1292,
+      "actual": 1292,
+      "passed": true
+    },
+    {
+      "id": "waterplane_panel_count",
+      "expected": 672,
+      "actual": 672,
+      "passed": true
+    },
+    {
+      "id": "hull_z_not_above_free_surface",
+      "expected": "<=0",
+      "actual": 0.0,
+      "passed": true
+    },
+    {
+      "id": "waterplane_z_zero",
+      "expected": 0.0,
+      "actual": 0.0,
+      "passed": true
+    },
+    {
+      "id": "jonswap_hs",
+      "expected": 1.75,
+      "actual": 1.75,
+      "passed": true
+    },
+    {
+      "id": "jonswap_tp",
+      "expected": 4.5,
+      "actual": 4.5,
+      "passed": true
+    },
+    {
+      "id": "plume_plateau",
+      "expected": 20400000.0,
+      "actual": 20400000.0,
+      "passed": true
+    },
+    {
+      "id": "positive_hydrostatics",
+      "expected": ">0",
+      "actual": 66341987.25,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

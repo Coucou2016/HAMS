@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono Leg Mechanism Data Contract</title>
+  <script src="leg-mechanism-contract-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #5b6673;
+      --line: #d8dee8;
+      --panel: #f7f9fc;
+      --accent: #0f766e;
+      --warn: #b45309;
+      --bad: #b91c1c;
+      --good: #047857;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+    }
+    header {
+      padding: 18px 24px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+    nav a:hover { border-bottom-color: var(--accent); }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 980px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 22px 24px 44px;
+    }
+    section { margin: 0 0 30px; }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel);
+      min-height: 92px;
+    }
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .metric .value {
+      margin-top: 8px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .status-bad { color: var(--bad); }
+    .status-warn { color: var(--warn); }
+    .status-good { color: var(--good); }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+      gap: 18px;
+      align-items: start;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      line-height: 1.45;
+      border: 1px solid var(--line);
+    }
+    th, td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      background: #eef3f8;
+      font-weight: 700;
+    }
+    tr:last-child td { border-bottom: 0; }
+    code {
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 12px;
+      background: #eef3f8;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .note {
+      border-left: 4px solid var(--warn);
+      padding: 10px 12px;
+      background: #fff8ed;
+      color: #563600;
+      line-height: 1.55;
+    }
+    .empty {
+      color: var(--muted);
+      padding: 18px;
+      border: 1px dashed var(--line);
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      main, header { padding-left: 16px; padding-right: 16px; }
+      table { font-size: 12px; }
+      th, td { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="chrono-final-acceptance.html">Final audit</a>
+      <a href="leg-mechanism-import.html">Data import</a>
+      <a href="leg-mechanism-import-selftest.html">Import self-test</a>
+      <a href="leg-mechanism-validation.html">Data validation</a>
+      <a href="leg-mechanism-gap-tracker.html">Gap tracker</a>
+      <a href="leg-mechanism-data-request-pack.html">Request pack</a>
+      <a href="leg-mechanism-data-request-lint.html">Request lint</a>
+      <a href="real-leg-mechanism-builder.html">Builder gate</a>
+      <a href="chrono-real-leg-mechanism.html">Real runtime</a>
+      <a href="chrono-stage3-tripod.html">Stage 3A</a>
+      <a href="chrono-stage3-thies-buffer.html">Thies buffer</a>
+      <a href="chrono-stage3c-rigid-body-link.html">Stage 3C</a>
+      <a href="literature-comparison-registry.html">Literature registry</a>
+    </nav>
+    <h1>Chrono 支腿机构数据合同</h1>
+    <p class="lead">用于把当前 Stage 3A/3B/3C 代理支腿替换为 Adams 等价 Chrono 机构。页面只显示真实数据需求和当前缺口，不把缺失数据用假设补成验收结果。</p>
+  </header>
+  <main id="app">
+    <div class="empty">等待 <code>leg-mechanism-contract-data.js</code> 数据。</div>
+  </main>
+  <script>
+    const contract = window.LEG_MECHANISM_CONTRACT;
+    const app = document.getElementById("app");
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[ch]));
+    }
+
+    function metric(label, value, cls = "") {
+      return `<div class="metric"><div class="label">${esc(label)}</div><div class="value ${cls}">${esc(value)}</div></div>`;
+    }
+
+    function requirementRows(rows) {
+      return rows.map(row => `<tr>
+        <td><code>${esc(row.id)}</code></td>
+        <td>${esc(row.component)}</td>
+        <td><strong>${esc(row.current_status)}</strong></td>
+        <td>${esc(row.current_evidence)}</td>
+        <td>${esc(row.next_action)}</td>
+      </tr>`).join("");
+    }
+
+    function fieldRows(rows) {
+      return rows.slice(0, 120).map(row => `<tr>
+        <td><code>${esc(row.path)}</code></td>
+        <td>${esc(row.unit || "")}</td>
+        <td>${esc(row.source_category)}</td>
+        <td>${esc(row.source_detail)}</td>
+      </tr>`).join("");
+    }
+
+    function categoryRows(counts) {
+      return Object.entries(counts || {}).sort((a, b) => a[0].localeCompare(b[0])).map(([key, val]) => `<tr>
+        <td><code>${esc(key)}</code></td>
+        <td>${esc(val)}</td>
+      </tr>`).join("");
+    }
+
+    if (!contract) {
+      app.innerHTML = '<div class="empty">没有找到合同数据。请运行 <code>.\\.tools\\chrono-env\\python.exe .\\analysis\\rocket_recovery\\leg_mechanism_data_contract.py report</code>。</div>';
+    } else {
+      const ready = contract.readiness.adams_equivalent_chrono_mechanism;
+      app.innerHTML = `
+        <section class="summary">
+          ${metric("Adams-equivalent ready", ready.pass ? "PASS" : "NO", ready.pass ? "status-good" : "status-bad")}
+          ${metric("Blocking requirements", ready.blocking_requirement_count, "status-warn")}
+          ${metric("Blocking fields", ready.blocking_field_count, "status-warn")}
+          ${metric("Template", contract.template_path)}
+        </section>
+        <section>
+          <div class="note">${esc(ready.reason)}</div>
+        </section>
+        <section class="grid">
+          <div>
+            <h2>Requirements</h2>
+            <table>
+              <thead><tr><th>ID</th><th>Component</th><th>Status</th><th>Evidence</th><th>Next action</th></tr></thead>
+              <tbody>${requirementRows(contract.requirements || [])}</tbody>
+            </table>
+          </div>
+          <div>
+            <h2>Source Categories</h2>
+            <table>
+              <thead><tr><th>Category</th><th>Count</th></tr></thead>
+              <tbody>${categoryRows(contract.summary.source_category_counts)}</tbody>
+            </table>
+          </div>
+        </section>
+        <section>
+          <h2>Blocking Fields</h2>
+          <table>
+            <thead><tr><th>Path</th><th>Unit</th><th>Source</th><th>Detail</th></tr></thead>
+            <tbody>${fieldRows(contract.blocking_fields || [])}</tbody>
+          </table>
+        </section>
+      `;
+    }
+  </script>
+</body>
+</html>

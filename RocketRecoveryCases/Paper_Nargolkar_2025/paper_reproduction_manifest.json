@@ -1,0 +1,21 @@
+{
+  "paper_id": "Nargolkar_2025_PMA",
+  "cases": {
+    "BoxBarge_Center": {
+      "case_dir": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Paper_Nargolkar_2025\\BoxBarge_Center",
+      "self_check_passed": true
+    },
+    "BoxBarge_Offset5m": {
+      "case_dir": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Paper_Nargolkar_2025\\BoxBarge_Offset5m",
+      "self_check_passed": true
+    },
+    "MARMAC302_Center": {
+      "case_dir": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Paper_Nargolkar_2025\\MARMAC302_Center",
+      "self_check_passed": true
+    },
+    "MARMAC302_Offset30m": {
+      "case_dir": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Paper_Nargolkar_2025\\MARMAC302_Offset30m",
+      "self_check_passed": true
+    }
+  }
+}

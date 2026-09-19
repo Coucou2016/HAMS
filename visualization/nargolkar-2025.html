@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nargolkar 2025 Reproduction</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18201d;
+      --muted: #65716b;
+      --line: #d7dfda;
+      --panel: #ffffff;
+      --wash: #eef4f1;
+      --sea: #347f8c;
+      --hull: #839096;
+      --accent: #b94d36;
+      --violet: #6957a8;
+      --green: #207650;
+      --amber: #b16f1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: #f7faf8;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 8px;
+      border-radius: 6px;
+    }
+
+    nav a[aria-current="page"] {
+      color: var(--ink);
+      background: var(--wash);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(430px, 1.05fr) minmax(390px, 0.95fr);
+      gap: 18px;
+      padding: 18px;
+      max-width: 1550px;
+      margin: 0 auto;
+    }
+
+    section {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 14px;
+      overflow: hidden;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .viewer {
+      min-height: 560px;
+      padding: 0;
+      position: relative;
+      background: #fbfdfc;
+    }
+
+    #scene {
+      width: 100%;
+      height: 100%;
+      min-height: 560px;
+      display: block;
+    }
+
+    .hud {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      pointer-events: none;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .side, .wide {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    select {
+      width: 100%;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: white;
+      color: var(--ink);
+      padding: 5px 8px;
+      font-size: 14px;
+    }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--ink);
+      color: white;
+      padding: 6px 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .playback {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr);
+      gap: 10px;
+      align-items: end;
+      margin-top: 10px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--sea);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      border-left: 3px solid var(--sea);
+      padding: 8px 9px;
+      background: #f8fbfa;
+      min-height: 64px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    svg {
+      width: 100%;
+      height: 310px;
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 8px 6px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      margin: 8px 0 0;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-block;
+    }
+
+    .dot.check {
+      background: var(--amber);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 32px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      main, .wide {
+        grid-template-columns: 1fr;
+      }
+
+      .viewer, #scene {
+        min-height: 420px;
+      }
+
+      .controls, .metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>论文复现：驳船触地耦合响应</h1>
+    <nav>
+      <a href="viewer.html">3D Mesh</a>
+      <a href="results.html">HAMS Results</a>
+      <a href="rocket-recovery.html">Rocket Recovery</a>
+      <a href="nargolkar-2025.html" aria-current="page">Paper 2025</a>
+      <a href="wang-2023.html">Wang 2023</a>
+      <a href="landing-leg-contact.html">Leg Contact</a>
+      <a href="integrated-recovery.html">Integrated</a>
+      <a href="chrono-recovery.html">Chrono</a>
+    </nav>
+  </header>
+
+  <main id="app">
+    <section class="viewer">
+      <canvas id="scene"></canvas>
+      <div class="hud" id="sceneHud"></div>
+    </section>
+
+    <div class="side">
+      <section>
+        <h2>Case Controls</h2>
+        <div class="controls">
+          <label>Case<select id="caseSelect"></select></label>
+          <label>Velocity<select id="velocitySelect"></select></label>
+          <label>Response<select id="responseSelect"></select></label>
+        </div>
+        <div class="playback">
+          <button id="playButton" type="button">Play</button>
+          <label>Motion Scale<select id="motionScaleSelect">
+            <option value="1">1x</option>
+            <option value="20">20x</option>
+            <option value="80">80x</option>
+            <option value="200">200x</option>
+            <option value="500">500x</option>
+            <option value="1000">1000x</option>
+          </select></label>
+          <label>Time<span class="pill" id="timeReadout">t = -2.000 s</span></label>
+          <label>Timeline<input id="timeSlider" type="range" min="-2" max="10" step="0.002" value="-2"></label>
+        </div>
+        <p class="note" id="caseNote"></p>
+      </section>
+
+      <section>
+        <h2>Selected Response</h2>
+        <div class="metrics" id="metricGrid"></div>
+      </section>
+
+      <section>
+        <h2>Paper Parameters</h2>
+        <div id="paperTable"></div>
+      </section>
+    </div>
+
+    <div class="wide">
+      <section>
+        <h2>Time Response</h2>
+        <svg id="timeChart" role="img" aria-label="Touchdown time response"></svg>
+        <p class="note" id="comparisonNote"></p>
+        <svg id="freqChart" role="img" aria-label="Touchdown frequency content"></svg>
+      </section>
+      <section>
+        <h2>Paper Trend Check</h2>
+        <div id="trendCheck"></div>
+      </section>
+    </div>
+
+    <div class="wide">
+      <section>
+        <h2>Center vs Offset</h2>
+        <div id="comparisonTable"></div>
+      </section>
+      <section>
+        <h2>Model Notes</h2>
+        <div id="modelNotes"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script src="nargolkar-2025-data.js"></script>
+  <script>
+    const data = window.NARGOLKAR_2025_DATA;
+    const app = document.getElementById("app");
+
+    if (!data) {
+      app.innerHTML = '<section class="empty">nargolkar-2025-data.js is missing. Generate it with nargolkar_2025.py report.</section>';
+      throw new Error("Missing Nargolkar 2025 data");
+    }
+
+    const responseOptions = [
+      ["barge_surge_m", "Barge surge"],
+      ["barge_heave_m", "Barge heave"],
+      ["barge_pitch_rad", "Barge pitch"],
+      ["rlv_transverse_m", "RLV transverse"],
+      ["rlv_axial_m", "RLV axial"],
+      ["rlv_rotation_rad", "RLV rotation"],
+      ["relative_axial_m", "Contact axial"],
+      ["relative_transverse_m", "Contact transverse"],
+      ["relative_rotation_rad", "Contact rotation"],
+    ];
+
+    const state = {
+      caseId: Object.keys(data.cases)[0],
+      velocity: "2.0",
+      response: "barge_heave_m",
+      playing: false,
+      animationTimeS: -2.0,
+      preTouchdownS: 2.0,
+      motionScale: 20,
+    };
+
+    let sceneState = null;
+
+    function fmt(value, digits = 3) {
+      if (!Number.isFinite(value)) return value === Infinity ? "inf" : "n/a";
+      if (Math.abs(value) >= 1000 || Math.abs(value) < 0.001 && value !== 0) return value.toExponential(2);
+      return value.toFixed(digits);
+    }
+
+    function labelForResponse(id) {
+      return responseOptions.find(item => item[0] === id)?.[1] || id;
+    }
+
+    function selectedCase() {
+      return data.cases[state.caseId];
+    }
+
+    function selectedSimulation() {
+      return selectedCase().simulations[state.velocity];
+    }
+
+    function selectedSeries() {
+      const sim = selectedSimulation();
+      if (sim.responses[state.response]) return sim.responses[state.response];
+      return sim.relative[state.response] || [];
+    }
+
+    function defaultMotionScaleForCase(caseId) {
+      return data.cases[caseId]?.config.barge_family === "MARMAC 302" ? 200 : 20;
+    }
+
+    function populateControls() {
+      const caseSelect = document.getElementById("caseSelect");
+      const velocitySelect = document.getElementById("velocitySelect");
+      const responseSelect = document.getElementById("responseSelect");
+      const playButton = document.getElementById("playButton");
+      const motionScaleSelect = document.getElementById("motionScaleSelect");
+      const timeSlider = document.getElementById("timeSlider");
+
+      caseSelect.innerHTML = Object.values(data.cases).map(item => `<option value="${item.case_id}">${item.title}</option>`).join("");
+      velocitySelect.innerHTML = selectedCase().config.touchdown_velocity_m_s.map(v => `<option value="${v.toFixed(1)}">${v.toFixed(1)} m/s</option>`).join("");
+      responseSelect.innerHTML = responseOptions.map(([id, label]) => `<option value="${id}">${label}</option>`).join("");
+
+      caseSelect.value = state.caseId;
+      velocitySelect.value = state.velocity;
+      responseSelect.value = state.response;
+      motionScaleSelect.value = String(state.motionScale);
+      configureTimeline();
+
+      caseSelect.addEventListener("change", () => {
+        state.caseId = caseSelect.value;
+        velocitySelect.innerHTML = selectedCase().config.touchdown_velocity_m_s.map(v => `<option value="${v.toFixed(1)}">${v.toFixed(1)} m/s</option>`).join("");
+        state.velocity = velocitySelect.value;
+        state.motionScale = defaultMotionScaleForCase(state.caseId);
+        motionScaleSelect.value = String(state.motionScale);
+        resetAnimation();
+        update();
+        rebuildScene();
+      });
+      velocitySelect.addEventListener("change", () => { state.velocity = velocitySelect.value; resetAnimation(); update(); applyAnimationPose(); });
+      responseSelect.addEventListener("change", () => { state.response = responseSelect.value; update(); });
+      motionScaleSelect.addEventListener("change", () => { state.motionScale = Number(motionScaleSelect.value); updateCaseNote(); applyAnimationPose(); });
+      playButton.addEventListener("click", () => {
+        if (state.playing) {
+          pauseAnimation();
+          return;
+        }
+        if (state.animationTimeS >= endTimeS()) state.animationTimeS = -state.preTouchdownS;
+        state.playing = true;
+        playButton.textContent = "Pause";
+        if (sceneState) sceneState.lastFrameMs = performance.now();
+        startAnimationTimer();
+      });
+      timeSlider.addEventListener("input", () => {
+        pauseAnimation();
+        state.animationTimeS = Number(timeSlider.value);
+        applyAnimationPose();
+      });
+    }
+
+    function resetAnimation() {
+      pauseAnimation();
+      state.animationTimeS = -state.preTouchdownS;
+      configureTimeline();
+    }
+
+    function pauseAnimation() {
+      state.playing = false;
+      stopAnimationTimer();
+      document.getElementById("playButton").textContent = state.animationTimeS >= endTimeS() ? "Replay" : "Play";
+    }
+
+    function endTimeS() {
+      const sim = selectedSimulation();
+      return sim.time_s[sim.time_s.length - 1];
+    }
+
+    function configureTimeline() {
+      const slider = document.getElementById("timeSlider");
+      if (!slider) return;
+      slider.min = String(-state.preTouchdownS);
+      slider.max = String(endTimeS());
+      slider.step = "0.002";
+      slider.value = String(state.animationTimeS);
+    }
+
+    function updateCaseNote() {
+      const cfg = selectedCase().config;
+      const p = cfg.platform;
+      const rlv = cfg.rlv;
+      const recommended = cfg.barge_family === "MARMAC 302" ? "200x to 500x" : "20x to 80x";
+      const sim = selectedSimulation();
+      const heavePeak = sim.summary.barge_heave_m?.peak_abs ?? NaN;
+      const pitchPeak = sim.summary.barge_pitch_rad?.peak_abs ?? NaN;
+      const axialPeak = sim.summary.rlv_axial_m?.peak_abs ?? NaN;
+      document.getElementById("caseNote").textContent =
+        `${cfg.barge_family}, landing ${cfg.landing.paper_offset_label}. L ${p.length_m} m, B ${p.beam_m} m, draft ${p.draft_m} m. RLV height ${rlv.height_m} m. At v=${state.velocity} m/s: heave peak ${fmt(heavePeak)} m, pitch peak ${fmt(pitchPeak)} rad, RLV axial peak ${fmt(axialPeak)} m. Animation: kinematic descent until t=0, computed coupled response after touchdown; display scale ${state.motionScale}x. Recommended ${recommended}.`;
+      const check = data.self_checks[state.caseId];
+      document.getElementById("sceneHud").innerHTML = [
+        `Hull panels ${data.mesh[state.caseId].hull.rawPanels}`,
+        `Waterplane ${data.mesh[state.caseId].waterplane.rawPanels}`,
+        `Self-check ${check.passed ? "PASS" : "CHECK"}`,
+        `Offset ${cfg.landing.offset_m} m`,
+      ].map(text => `<span class="pill">${text}</span>`).join("");
+    }
+
+    function updateMetrics() {
+      const sim = selectedSimulation();
+      const summary = sim.summary[state.response];
+      const freqs = summary.dominant_frequencies_hz || [];
+      const cfg = selectedCase().config;
+      const systemFreqs = selectedCase().system_natural_frequencies_hz;
+      const metrics = [
+        ["Peak abs", summary.peak_abs, unitFor(state.response)],
+        ["RMS", summary.rms, unitFor(state.response)],
+        ["Dominant f1", freqs[0]?.frequency_hz ?? NaN, "Hz"],
+        ["System f min", Math.min(...systemFreqs.filter(v => v > 1e-6)), "Hz"],
+      ];
+      document.getElementById("metricGrid").innerHTML = metrics.map(([label, value, unit]) =>
+        `<div class="metric"><strong>${fmt(value)}</strong><span>${label} ${unit}</span></div>`
+      ).join("");
+      const d = cfg.rlv.derived;
+      document.getElementById("paperTable").innerHTML = `
+        <table>
+          <tbody>
+            <tr><td>Printed bend/rot.</td><td>${fmt(d.target_frequency_hz.transverse, 1)} / ${fmt(d.target_frequency_hz.rotational, 1)} Hz</td></tr>
+            <tr><td>K/M bend/rot.</td><td>${fmt(d.table_frequency_hz.transverse, 2)} / ${fmt(d.table_frequency_hz.rotational, 2)} Hz</td></tr>
+            <tr><td>Printed axial</td><td>${fmt(d.target_frequency_hz.axial, 1)} Hz</td></tr>
+            <tr><td>K/M axial</td><td>${fmt(d.table_frequency_hz.axial, 2)} Hz</td></tr>
+            <tr><td>Used mass mode</td><td>Table 2 M_eq</td></tr>
+            <tr><td>COM</td><td>${fmt(cfg.platform.cg_m[0], 4)}, ${fmt(cfg.platform.cg_m[2], 4)} m</td></tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    function unitFor(id) {
+      if (id.includes("_rad")) return "rad";
+      return "m";
+    }
+
+    function updateTrendCheck() {
+      const claims = data.comparison.claims.map(item =>
+        `<tr><td>${item.claim}</td><td><span class="status"><span class="dot ${item.status ? "" : "check"}"></span>${item.status ? "MATCH" : "CHECK"}</span></td></tr>`
+      ).join("");
+      document.getElementById("trendCheck").innerHTML = `<table><tbody>${claims}</tbody></table>`;
+
+      const rows = data.comparison.center_offset.map(row => `
+        <tr>
+          <td>${row.family}</td>
+          <td>${fmt(row.pitch_peak_center_rad)}</td>
+          <td>${fmt(row.pitch_peak_offset_rad)}</td>
+          <td>${fmt(row.transverse_peak_center_m)}</td>
+          <td>${fmt(row.transverse_peak_offset_m)}</td>
+        </tr>
+      `).join("");
+      document.getElementById("comparisonTable").innerHTML = `
+        <table>
+          <thead><tr><th>Family</th><th>Pitch center rad</th><th>Pitch offset rad</th><th>Trans. center m</th><th>Trans. offset m</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    function updateNotes() {
+      const cfg = selectedCase().config;
+      const audit = data.paper_audit;
+      const digitized = data.paper_time_digitized;
+      const unresolved = audit.unresolved.map(item => `<tr><td>${item.item}</td><td>CHECK</td></tr>`).join("");
+      document.getElementById("modelNotes").innerHTML = `
+        <table>
+          <tbody>
+            <tr><td>Source PDF</td><td>${data.paper_assets.pdf_exists ? "found" : "missing"}</td></tr>
+            <tr><td>Source Markdown</td><td>${data.paper_assets.markdown_exists ? "found" : "missing"}</td></tr>
+            <tr><td>Printed values</td><td>${audit.all_printed_values_matched ? "MATCH" : "CHECK"}</td></tr>
+            <tr><td>Table 2 K/M consistency</td><td>${audit.all_internal_consistency_matched ? "MATCH" : "CHECK"}</td></tr>
+            <tr><td>Paper time curves</td><td>${digitized.status}</td></tr>
+            <tr><td>Paper frequency curves</td><td>not digitized; computed spectrum only</td></tr>
+            <tr><td>Geometry</td><td>${cfg.platform.hull_shape}</td></tr>
+            ${unresolved}
+          </tbody>
+        </table>
+        <p class="note">${cfg.model_notes.limits}</p>
+      `;
+    }
+
+    function drawTimeChart() {
+      const svg = document.getElementById("timeChart");
+      const sim = selectedSimulation();
+      const t = sim.time_s;
+      const y = selectedSeries();
+      const rawPaperCurve = rawSelectedPaperTimeCurve();
+      const paperCurve = selectedPaperTimeCurve();
+      const comparison = selectedPaperComparison();
+      const plotMaxTime = paperCurve ? 3 : t[t.length - 1];
+      const stride = Math.max(1, Math.floor(t.length / 1600));
+      const values = [];
+      for (let i = 0; i < t.length; i += stride) {
+        if (t[i] <= plotMaxTime + 1e-9) values.push([t[i], y[i]]);
+      }
+      const series = [{ name: "Our HAMS/Cummins", color: "#347f8c", values }];
+      if (paperCurve) {
+        series.push({ name: "Paper digitized", color: "#b94d36", values: paperCurve.points, dash: true });
+      }
+      renderLineChart(svg, series);
+      const note = document.getElementById("comparisonNote");
+      if (paperCurve) {
+        const comparisonText = comparison?.status === "compared"
+          ? ` RMSE ${fmt(comparison.rmse)} ${unitFor(state.response)}, paper peak ${fmt(comparison.paper_peak_abs)}, our peak ${fmt(comparison.our_peak_abs)}, peak ratio ${fmt(comparison.peak_ratio_our_over_paper, 3)}.`
+          : "";
+        note.textContent = `Paper dashed line digitized from ${paperCurve.figure}, ${paperCurve.legend}; compare only in 0..3 s.${comparisonText}`;
+      } else if (rawPaperCurve) {
+        note.textContent = `Paper curve not overlaid for this selection: ${rawPaperCurve.quality} (${rawPaperCurve.quality_note}).`;
+      } else {
+        note.textContent = "No paper curve is available for this velocity/response selection.";
+      }
+    }
+
+    function rawSelectedPaperTimeCurve() {
+      const cases = data.paper_time_digitized?.cases || {};
+      return cases[state.caseId]?.[state.velocity]?.[state.response] || null;
+    }
+
+    function selectedPaperTimeCurve() {
+      const curve = rawSelectedPaperTimeCurve();
+      return curve?.quality === "ok" ? curve : null;
+    }
+
+    function selectedPaperComparison() {
+      const cases = data.paper_time_comparison?.cases || {};
+      return cases[state.caseId]?.[state.velocity]?.[state.response] || null;
+    }
+
+    function drawFrequencyChart() {
+      const svg = document.getElementById("freqChart");
+      const sim = selectedSimulation();
+      const values = sim.spectra[state.response] || [];
+      renderPositiveChart(svg, [{ name: labelForResponse(state.response), color: "#b94d36", values }]);
+    }
+
+    function renderLineChart(svg, series) {
+      const width = svg.clientWidth || 720;
+      const height = svg.clientHeight || 310;
+      const margin = { left: 54, right: 18, top: 18, bottom: 42 };
+      const xs = series.flatMap(item => item.values.map(point => point[0]));
+      const ys = series.flatMap(item => item.values.map(point => point[1]));
+      const minX = Math.min(...xs);
+      const maxX = Math.max(...xs);
+      const maxAbsY = Math.max(...ys.map(Math.abs), 1e-12);
+      const xScale = x => margin.left + (x - minX) / Math.max(maxX - minX, 1e-12) * (width - margin.left - margin.right);
+      const yScale = y => height / 2 - y / maxAbsY * (height - margin.top - margin.bottom) / 2;
+      const grid = [-1, -0.5, 0, 0.5, 1].map(v => {
+        const y = yScale(v * maxAbsY);
+        return `<line x1="${margin.left}" x2="${width - margin.right}" y1="${y}" y2="${y}" stroke="#e6ece8" />`;
+      }).join("");
+      const paths = series.map(item => {
+        const d = item.values.map((point, index) => `${index ? "L" : "M"}${xScale(point[0]).toFixed(2)},${yScale(point[1]).toFixed(2)}`).join(" ");
+        const dash = item.dash ? ' stroke-dasharray="7 5"' : "";
+        return `<path d="${d}" fill="none" stroke="${item.color}" stroke-width="2.2"${dash} />`;
+      }).join("");
+      const legend = series.map((item, index) =>
+        `<g transform="translate(${margin.left + index * 150},${height - 16})"><line x1="0" x2="18" y1="0" y2="0" stroke="${item.color}" stroke-width="2.2"${item.dash ? ' stroke-dasharray="7 5"' : ""}/><text x="24" y="4" fill="#65716b">${item.name}</text></g>`
+      ).join("");
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      svg.innerHTML = `
+        ${grid}
+        <line x1="${margin.left}" x2="${width - margin.right}" y1="${height / 2}" y2="${height / 2}" stroke="#93a19b" />
+        <line x1="${margin.left}" x2="${margin.left}" y1="${margin.top}" y2="${height - margin.bottom}" stroke="#93a19b" />
+        ${paths}
+        ${legend}
+        <text x="${width - margin.right - 42}" y="${height - 16}" fill="#65716b">time s</text>
+        <text x="${margin.left}" y="14" fill="#65716b">±${fmt(maxAbsY, 2)} ${unitFor(state.response)}</text>
+      `;
+    }
+
+    function renderPositiveChart(svg, series) {
+      const width = svg.clientWidth || 720;
+      const height = 230;
+      const margin = { left: 54, right: 18, top: 18, bottom: 42 };
+      const xs = series.flatMap(item => item.values.map(point => point[0]));
+      const ys = series.flatMap(item => item.values.map(point => point[1]));
+      if (!xs.length) {
+        svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        svg.innerHTML = `<text x="20" y="38" fill="#65716b">No spectrum data for this response.</text>`;
+        return;
+      }
+      const minX = 0;
+      const maxX = Math.max(...xs, 1);
+      const maxY = Math.max(...ys, 1e-12);
+      const xScale = x => margin.left + (x - minX) / Math.max(maxX - minX, 1e-12) * (width - margin.left - margin.right);
+      const yScale = y => height - margin.bottom - y / maxY * (height - margin.top - margin.bottom);
+      const grid = [0, 0.25, 0.5, 0.75, 1].map(tick => {
+        const y = margin.top + tick * (height - margin.top - margin.bottom);
+        return `<line x1="${margin.left}" x2="${width - margin.right}" y1="${y}" y2="${y}" stroke="#e6ece8" />`;
+      }).join("");
+      const paths = series.map(item => {
+        const d = item.values.map((point, index) => `${index ? "L" : "M"}${xScale(point[0]).toFixed(2)},${yScale(point[1]).toFixed(2)}`).join(" ");
+        return `<path d="${d}" fill="none" stroke="${item.color}" stroke-width="1.8" />`;
+      }).join("");
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      svg.innerHTML = `
+        ${grid}
+        <line x1="${margin.left}" x2="${width - margin.right}" y1="${height - margin.bottom}" y2="${height - margin.bottom}" stroke="#93a19b" />
+        <line x1="${margin.left}" x2="${margin.left}" y1="${margin.top}" y2="${height - margin.bottom}" stroke="#93a19b" />
+        ${paths}
+        <text x="${margin.left}" y="${height - 16}" fill="#65716b">frequency Hz</text>
+        <text x="${margin.left}" y="14" fill="#65716b">normalized spectrum</text>
+      `;
+    }
+
+    function initScene() {
+      const canvas = document.getElementById("scene");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xfbfbf8);
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x8ba2a0, 1.35));
+      const sun = new THREE.DirectionalLight(0xffffff, 1.1);
+      sun.position.set(80, -60, 120);
+      scene.add(sun);
+      sceneState = { canvas, renderer, scene, camera, controls, dynamic: new THREE.Group(), lastFrameMs: performance.now() };
+      scene.add(sceneState.dynamic);
+      rebuildScene();
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        renderer.setSize(rect.width, rect.height, false);
+        camera.aspect = rect.width / rect.height;
+        camera.updateProjectionMatrix();
+      }
+
+      function frame() {
+        resize();
+        controls.update();
+        renderer.render(scene, camera);
+        requestAnimationFrame(frame);
+      }
+      frame();
+    }
+
+    function startAnimationTimer() {
+      if (!sceneState || sceneState.animationTimer) return;
+      sceneState.animationTimer = window.setInterval(() => advanceAnimation(), 33);
+    }
+
+    function stopAnimationTimer() {
+      if (!sceneState || !sceneState.animationTimer) return;
+      window.clearInterval(sceneState.animationTimer);
+      sceneState.animationTimer = null;
+    }
+
+    function clearGroup(group) {
+      while (group.children.length) group.remove(group.children[0]);
+    }
+
+    function rebuildScene() {
+      if (!sceneState) return;
+      const { dynamic, camera, controls } = sceneState;
+      clearGroup(dynamic);
+      const cfg = selectedCase().config;
+      const mesh = data.mesh[state.caseId];
+      const bargeGroup = new THREE.Group();
+      const rocketGroup = new THREE.Group();
+      dynamic.add(bargeGroup);
+      dynamic.add(rocketGroup);
+      addMesh(bargeGroup, mesh.hull, 0x839096, 0.72);
+      addMesh(bargeGroup, mesh.waterplane, 0x347f8c, 0.18);
+      addDeck(bargeGroup, cfg);
+      addLandingMarker(bargeGroup, cfg);
+      addRocket(rocketGroup, cfg);
+      sceneState.bargeGroup = bargeGroup;
+      sceneState.rocketGroup = rocketGroup;
+      const length = cfg.platform.length_m;
+      const beam = cfg.platform.beam_m;
+      camera.position.set(length * 0.9, -Math.max(beam * 2.2, length * 0.55), Math.max(18, length * 0.45));
+      controls.target.set(0, 0, -cfg.platform.draft_m * 0.35);
+      applyAnimationPose();
+    }
+
+    function addMesh(scene, mesh, color, opacity) {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.Float32BufferAttribute(mesh.vertices, 3));
+      geometry.setIndex(mesh.triangles);
+      geometry.computeVertexNormals();
+      scene.add(new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color, roughness: 0.78, metalness: 0.04, transparent: true, opacity, side: THREE.DoubleSide })));
+      const edgeGeometry = new THREE.BufferGeometry();
+      edgeGeometry.setAttribute("position", new THREE.Float32BufferAttribute(mesh.vertices, 3));
+      edgeGeometry.setIndex(mesh.edges);
+      scene.add(new THREE.LineSegments(edgeGeometry, new THREE.LineBasicMaterial({ color: 0x586560, transparent: true, opacity: 0.42 })));
+    }
+
+    function addDeck(scene, cfg) {
+      const p = cfg.platform;
+      const deck = new THREE.Mesh(
+        new THREE.PlaneGeometry(p.length_m, p.beam_m),
+        new THREE.MeshBasicMaterial({ color: 0xf3d28a, transparent: true, opacity: 0.22, side: THREE.DoubleSide })
+      );
+      deck.position.z = p.deck_z_m;
+      scene.add(deck);
+    }
+
+    function addLandingMarker(scene, cfg) {
+      const marker = new THREE.Mesh(
+        new THREE.SphereGeometry(Math.max(cfg.platform.length_m * 0.016, 0.35), 24, 16),
+        new THREE.MeshStandardMaterial({ color: 0xb94d36, roughness: 0.4 })
+      );
+      marker.position.set(cfg.landing.offset_m, 0, cfg.platform.deck_z_m);
+      scene.add(marker);
+    }
+
+    function addRocket(scene, cfg) {
+      const tower = new THREE.Mesh(
+        new THREE.CylinderGeometry(cfg.rlv.radius_m, cfg.rlv.radius_m, cfg.rlv.height_m, 28),
+        new THREE.MeshStandardMaterial({ color: 0x6957a8, roughness: 0.52, transparent: true, opacity: 0.38 })
+      );
+      tower.rotation.x = Math.PI / 2;
+      tower.position.set(0, 0, cfg.rlv.height_m / 2);
+      scene.add(tower);
+    }
+
+    function advanceAnimation() {
+      if (!sceneState || !state.playing) return;
+      const now = performance.now();
+      if (now - sceneState.lastFrameMs < 30) return;
+      const deltaS = (now - sceneState.lastFrameMs) / 1000.0;
+      sceneState.lastFrameMs = now;
+      state.animationTimeS += deltaS;
+      if (state.animationTimeS >= endTimeS()) {
+        state.animationTimeS = endTimeS();
+        pauseAnimation();
+      }
+      applyAnimationPose();
+    }
+
+    function applyAnimationPose() {
+      if (!sceneState || !sceneState.bargeGroup || !sceneState.rocketGroup) return;
+      const sim = selectedSimulation();
+      const cfg = selectedCase().config;
+      const scale = state.motionScale;
+      const r = sim.responses;
+      const time = Math.max(-state.preTouchdownS, Math.min(state.animationTimeS, endTimeS()));
+      if (time < 0) {
+        const descentHeight = Math.abs(time) * Number(state.velocity);
+        sceneState.bargeGroup.position.set(0, 0, 0);
+        sceneState.bargeGroup.rotation.set(0, 0, 0);
+        sceneState.rocketGroup.position.set(cfg.landing.offset_m, 0, cfg.platform.deck_z_m + descentHeight);
+        sceneState.rocketGroup.rotation.set(0, 0, 0);
+      } else {
+        const i = nearestTimeIndex(sim.time_s, time);
+        sceneState.bargeGroup.position.set(scale * r.barge_surge_m[i], 0, scale * r.barge_heave_m[i]);
+        sceneState.bargeGroup.rotation.set(0, scale * r.barge_pitch_rad[i], 0);
+        sceneState.rocketGroup.position.set(
+          cfg.landing.offset_m + scale * r.rlv_transverse_m[i],
+          0,
+          cfg.platform.deck_z_m + scale * r.rlv_axial_m[i]
+        );
+        sceneState.rocketGroup.rotation.set(0, scale * r.rlv_rotation_rad[i], 0);
+      }
+      const phase = time < 0 ? "approach" : (time === 0 ? "touchdown" : "coupled response");
+      document.getElementById("timeReadout").textContent = `t = ${fmt(time, 3)} s, ${phase}`;
+      const slider = document.getElementById("timeSlider");
+      if (slider) {
+        slider.value = String(time);
+        slider.setAttribute("value", String(time));
+      }
+    }
+
+    function nearestTimeIndex(times, target) {
+      if (target <= times[0]) return 0;
+      if (target >= times[times.length - 1]) return times.length - 1;
+      let low = 0;
+      let high = times.length - 1;
+      while (high - low > 1) {
+        const mid = Math.floor((low + high) / 2);
+        if (times[mid] < target) low = mid;
+        else high = mid;
+      }
+      return Math.abs(times[low] - target) <= Math.abs(times[high] - target) ? low : high;
+    }
+
+    function update() {
+      updateCaseNote();
+      updateMetrics();
+      updateTrendCheck();
+      updateNotes();
+      drawTimeChart();
+      drawFrequencyChart();
+      applyAnimationPose();
+    }
+
+    populateControls();
+    update();
+    initScene();
+  </script>
+</body>
+</html>

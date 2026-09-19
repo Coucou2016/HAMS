@@ -1,0 +1,367 @@
+{
+  "selftest_id": "ChronoRealLegBackendSyntheticSelfTest",
+  "generated_utc": "2026-08-01T12:33:04+00:00",
+  "status": "PASS",
+  "config_path": "RocketRecoveryCases/Chrono_LeggedRecovery/validation/synthetic_leg_import/chrono_real_leg_mechanism_config.synthetic.json",
+  "synthetic_only": true,
+  "not_literature_reproduction": true,
+  "not_production_data": true,
+  "backend_result": {
+    "pass": true,
+    "stage": "chrono_smoke_assembly",
+    "source_gate": {
+      "pass": true,
+      "allow_synthetic": true,
+      "blocked_row_count": 0,
+      "sample_blocked_paths": []
+    },
+    "manifest": {
+      "backend_id": "ChronoRealLegBackend/v1",
+      "leg_count": 4,
+      "body_count": 16,
+      "joint_count": 24,
+      "force_element_count": 4,
+      "body_rows": [
+        {
+          "leg_id": "leg_1",
+          "body": "main_strut",
+          "endpoints": [
+            "B",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_1",
+          "body": "long_auxiliary_strut",
+          "endpoints": [
+            "T",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_1",
+          "body": "short_auxiliary_strut",
+          "endpoints": [
+            "K",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_1",
+          "body": "footpad",
+          "endpoints": [
+            "P",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "main_strut",
+          "endpoints": [
+            "B",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "long_auxiliary_strut",
+          "endpoints": [
+            "T",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "short_auxiliary_strut",
+          "endpoints": [
+            "K",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "footpad",
+          "endpoints": [
+            "P",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "main_strut",
+          "endpoints": [
+            "B",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "long_auxiliary_strut",
+          "endpoints": [
+            "T",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "short_auxiliary_strut",
+          "endpoints": [
+            "K",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "footpad",
+          "endpoints": [
+            "P",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "main_strut",
+          "endpoints": [
+            "B",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "long_auxiliary_strut",
+          "endpoints": [
+            "T",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "short_auxiliary_strut",
+          "endpoints": [
+            "K",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "footpad",
+          "endpoints": [
+            "P",
+            "P"
+          ]
+        }
+      ],
+      "joint_rows": [
+        {
+          "leg_id": "leg_1",
+          "body": "main_strut",
+          "marker": "B",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_1",
+          "body": "main_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_1",
+          "body": "long_auxiliary_strut",
+          "marker": "T",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_1",
+          "body": "long_auxiliary_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_1",
+          "body": "short_auxiliary_strut",
+          "marker": "K",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_1",
+          "body": "short_auxiliary_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "main_strut",
+          "marker": "B",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "main_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "long_auxiliary_strut",
+          "marker": "T",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "long_auxiliary_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "short_auxiliary_strut",
+          "marker": "K",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_2",
+          "body": "short_auxiliary_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "main_strut",
+          "marker": "B",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "main_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "long_auxiliary_strut",
+          "marker": "T",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "long_auxiliary_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "short_auxiliary_strut",
+          "marker": "K",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_3",
+          "body": "short_auxiliary_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "main_strut",
+          "marker": "B",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "main_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "long_auxiliary_strut",
+          "marker": "T",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "long_auxiliary_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "short_auxiliary_strut",
+          "marker": "K",
+          "connects": "rocket_to_link",
+          "type": "spherical"
+        },
+        {
+          "leg_id": "leg_4",
+          "body": "short_auxiliary_strut",
+          "marker": "P",
+          "connects": "link_to_footpad",
+          "type": "spherical"
+        }
+      ],
+      "force_rows": [
+        {
+          "leg_id": "leg_1",
+          "element": "main_absorber_tsda",
+          "endpoints": [
+            "B",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_2",
+          "element": "main_absorber_tsda",
+          "endpoints": [
+            "B",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_3",
+          "element": "main_absorber_tsda",
+          "endpoints": [
+            "B",
+            "P"
+          ]
+        },
+        {
+          "leg_id": "leg_4",
+          "element": "main_absorber_tsda",
+          "endpoints": [
+            "B",
+            "P"
+          ]
+        }
+      ],
+      "scope": "generic marker/topology adapter; not a CAD-specific validated Adams clone by itself"
+    },
+    "created_body_count": 18,
+    "created_link_count": 28,
+    "unsupported": [],
+    "system_time_s": 0.0,
+    "note": "This checks that a validated real-config package can be assembled into PyChrono bodies, spherical mates and absorber links. It does not solve a landing trajectory."
+  },
+  "warning": "This smoke test proves that the real-config schema can instantiate PyChrono bodies, spherical mates and absorber links. It does not solve a landing trajectory and does not validate Adams equivalence."
+}

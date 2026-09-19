@@ -1,0 +1,9 @@
+{
+  "chrono": {
+    "available": true,
+    "module": "pychrono",
+    "version": "unknown",
+    "adapter_policy": "Use Project Chrono as the landing-leg/contact solver."
+  },
+  "digitized_buffer_available": true
+}

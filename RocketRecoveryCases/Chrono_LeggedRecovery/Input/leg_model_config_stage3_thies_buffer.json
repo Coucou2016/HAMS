@@ -1,0 +1,4063 @@
+{
+  "model_id": "ChronoLeggedRecovery_Stage3A_TripodProxy_ThiesDigitizedBuffer",
+  "solver": {
+    "engine": "Project Chrono / PyChrono",
+    "contact_method": "SMC",
+    "time_step_s": 0.0005,
+    "output_step_s": 0.01,
+    "start_s": 506.0,
+    "end_s": 526.0,
+    "gravity_m_s2": 9.80665,
+    "pre_contact_gravity": "off_until_first_contact_to_preserve_Thies_touchdown_velocity",
+    "deck_thickness_m": 0.35,
+    "contact_force_threshold_n": 100.0,
+    "no_fallback_policy": "If PyChrono is unavailable, stop with an environment report.",
+    "post_touchdown_lock_logic": {
+      "mode": "diagnostic_only",
+      "stable_dwell_s": 1.0,
+      "vertical_velocity_limit_m_s": 0.05,
+      "angular_rate_limit_deg_s": 0.25
+    }
+  },
+  "rocket": {
+    "source": "Table 3 / vehicle data table",
+    "landing_mass_kg": 61288.0,
+    "height_m": 103.0,
+    "engine_length_m": 1.902,
+    "base_diameter_m": 6.0,
+    "cog_from_base_m": 22.059,
+    "inertia_kg_m2": {
+      "roll_x": 376000.0,
+      "pitch_y": 25700000.0,
+      "yaw_z": 25700000.0
+    },
+    "touchdown_vertical_velocity_m_s": 5.0,
+    "initial_lateral_velocity_m_s": 0.0,
+    "nozzle_clearance_required_m": 0.5475,
+    "reported_nozzle_clearance_m": 0.57,
+    "stage3_proxy_nozzle_reference_height_from_model_base_m": 0.57,
+    "stage3_proxy_nozzle_reference_note": "Thies reports nozzle clearance as distance from nozzle end to landing pad. The Stage 3A proxy does not include CAD nozzle coordinates, so the reported 0.570 m parking clearance is stored as a transparent reference height from the proxy lower-leg/base plane to the nozzle-end point."
+  },
+  "legs": {
+    "source": "Table 4",
+    "count": 4,
+    "configuration": "Tripod",
+    "azimuths_deg": [
+      45.0,
+      135.0,
+      225.0,
+      315.0
+    ],
+    "footprint_radius_m": 6.926037828369117,
+    "upper_attachment_height_m": 9.0,
+    "lower_attachment_height_m": 4.4,
+    "leg_length_m": 8.1,
+    "damper_stiffness_n_m": 2600000.0,
+    "damper_damping_ns_m": 1300000.0,
+    "damper_rest_length_m": 8.1,
+    "equivalent_guidance_model": "Stage 3A tripod proxy: inclined ChLinkMatePrismatic main-leg guide, nonlinear compression-only TSDA main buffer, and two spherical-end elastic TSDA diagonal braces per footpad. Main buffer law is replaced by Thies 2022 Figure 4/5 digitized table curves.",
+    "stroke_reference_m": 0.42,
+    "force_reference_n": 935000.0,
+    "footpad_radius_m": 0.2,
+    "footpad_mass_kg": 80.0,
+    "footpad_thickness_m": 0.18,
+    "stage3_tripod_proxy": {
+      "source": "Thies 2022 Table 4 dimensions; tangential brace separation is an explicit geometry-closure assumption.",
+      "stage": "Stage 3A-thies-digitized-buffer",
+      "main_guide_model": "inclined_prismatic",
+      "brace_model": "elastic_tsda",
+      "mechanism_elements_per_leg": {
+        "main_guide": "ChLinkMatePrismatic along the deployed main-leg axis",
+        "main_buffer": "ChLinkTSDA from B attachment to footpad center; nonlinear compression-only force law",
+        "long_brace": "ChLinkTSDA spherical-end axial brace from T attachment to footpad center",
+        "short_brace": "ChLinkTSDA spherical-end axial brace from K attachment to footpad center",
+        "footpad": "ChBodyEasySphere with SMC contact/friction"
+      },
+      "main_buffer_rest_length_m": 8.1,
+      "footprint_radius_m": 6.926037828369117,
+      "attachment_radial_m": {
+        "B_main": 0.0,
+        "T_long": 0.1621631991347776,
+        "K_short": 2.2079873835349373
+      },
+      "attachment_tangential_m": {
+        "B_main": 0.0,
+        "T_long": 1.5,
+        "K_short": -1.5
+      },
+      "attachment_height_m": {
+        "B_main": 4.4,
+        "T_long": 9.0,
+        "K_short": 5.7
+      },
+      "target_lengths_m": {
+        "main_buffer": 8.1,
+        "long_brace": 11.2,
+        "short_brace": 7.4
+      },
+      "geometry_closure_error_m": {
+        "main_buffer": 0.0,
+        "long_brace": 0.0,
+        "short_brace": 0.0
+      },
+      "brace_axial_stiffness_n_m": 10000000.0,
+      "brace_axial_damping_ns_m": 100000.0
+    },
+    "nonlinear_buffer_law": {
+      "source": "Thies 2022 Figures 4 and 5 digitized from supplied PDF page 7.",
+      "type": "compression_only_table",
+      "supported_types": [
+        "compression_only_bilinear_with_hard_stop",
+        "compression_only_table"
+      ],
+      "table_interface_note": "Spring and damper curves are digitized from raster PDF figures; hard stop remains only a numerical guard beyond the digitized stroke range.",
+      "linear_stiffness_n_m": null,
+      "linear_damping_ns_m": null,
+      "stroke_limit_m": 0.39926873857404027,
+      "hard_stop_stiffness_n_m": 200000000.0,
+      "hard_stop_damping_ns_m": 10000000.0,
+      "force_stroke_points": [
+        {
+          "stroke_m": 0.0,
+          "force_n": 0.0
+        },
+        {
+          "stroke_m": 0.004033017561353942,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.008066035122707885,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.012099052684061827,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.01613207024541577,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.020165087806769712,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.024198105368123654,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.028231122929477596,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.03226414049083154,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.03629715805218548,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.040330175613539423,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.044363193174893366,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.04839621073624731,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.05242922829760125,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.05646224585895519,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.060495263420309135,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.06452828098166308,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.06856129854301701,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.07259431610437096,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.07662733366572491,
+          "force_n": 738.9162561576354
+        },
+        {
+          "stroke_m": 0.08066035122707885,
+          "force_n": 850.8732646663681
+        },
+        {
+          "stroke_m": 0.08469336878843278,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.08872638634978673,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.09275940391114068,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.09679242147249462,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.10082543903384855,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.1048584565952025,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.10889147415655645,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.11292449171791039,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.11695750927926432,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.12099052684061827,
+          "force_n": 570.9807433945365
+        },
+        {
+          "stroke_m": 0.12502354440197222,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.12905656196332616,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.1330895795246801,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.13712259708603403,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.141155614647388,
+          "force_n": 727.7205553067554
+        },
+        {
+          "stroke_m": 0.14518863220874192,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.14922164977009586,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.15325466733144982,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.15728768489280376,
+          "force_n": 369.4581280788177
+        },
+        {
+          "stroke_m": 0.1613207024541577,
+          "force_n": 884.4603672189726
+        },
+        {
+          "stroke_m": 0.16535372001551163,
+          "force_n": 1108.3743842364531
+        },
+        {
+          "stroke_m": 0.16938673757686556,
+          "force_n": 1108.3743842364531
+        },
+        {
+          "stroke_m": 0.17341975513821953,
+          "force_n": 1108.3743842364531
+        },
+        {
+          "stroke_m": 0.17745277269957346,
+          "force_n": 738.9162561576354
+        },
+        {
+          "stroke_m": 0.1814857902609274,
+          "force_n": 738.9162561576354
+        },
+        {
+          "stroke_m": 0.18551880782228136,
+          "force_n": 1108.3743842364531
+        },
+        {
+          "stroke_m": 0.1895518253836353,
+          "force_n": 1108.3743842364531
+        },
+        {
+          "stroke_m": 0.19358484294498923,
+          "force_n": 1108.3743842364531
+        },
+        {
+          "stroke_m": 0.19761786050634317,
+          "force_n": 1197.9399910434408
+        },
+        {
+          "stroke_m": 0.2016508780676971,
+          "force_n": 1477.8325123152708
+        },
+        {
+          "stroke_m": 0.20568389562905107,
+          "force_n": 1477.8325123152708
+        },
+        {
+          "stroke_m": 0.209716913190405,
+          "force_n": 1477.8325123152708
+        },
+        {
+          "stroke_m": 0.21374993075175894,
+          "force_n": 1477.8325123152708
+        },
+        {
+          "stroke_m": 0.2177829483131129,
+          "force_n": 1477.8325123152708
+        },
+        {
+          "stroke_m": 0.22181596587446684,
+          "force_n": 1847.2906403940888
+        },
+        {
+          "stroke_m": 0.22584898343582077,
+          "force_n": 2216.7487684729062
+        },
+        {
+          "stroke_m": 0.2298820009971747,
+          "force_n": 2216.7487684729062
+        },
+        {
+          "stroke_m": 0.23391501855852864,
+          "force_n": 2910.8822212270634
+        },
+        {
+          "stroke_m": 0.2379480361198826,
+          "force_n": 2955.6650246305417
+        },
+        {
+          "stroke_m": 0.24198105368123654,
+          "force_n": 3325.12315270936
+        },
+        {
+          "stroke_m": 0.24601407124259048,
+          "force_n": 3694.5812807881775
+        },
+        {
+          "stroke_m": 0.25004708880394444,
+          "force_n": 4041.648007165264
+        },
+        {
+          "stroke_m": 0.2540801063652984,
+          "force_n": 4433.4975369458125
+        },
+        {
+          "stroke_m": 0.2581131239266523,
+          "force_n": 4802.95566502463
+        },
+        {
+          "stroke_m": 0.26214614148800625,
+          "force_n": 5172.413793103448
+        },
+        {
+          "stroke_m": 0.2661791590493602,
+          "force_n": 5911.330049261083
+        },
+        {
+          "stroke_m": 0.2702121766107141,
+          "force_n": 6650.24630541872
+        },
+        {
+          "stroke_m": 0.27424519417206805,
+          "force_n": 7389.162561576355
+        },
+        {
+          "stroke_m": 0.27827821173342204,
+          "force_n": 8866.995073891625
+        },
+        {
+          "stroke_m": 0.282311229294776,
+          "force_n": 9650.694133452838
+        },
+        {
+          "stroke_m": 0.2863442468561299,
+          "force_n": 11083.743842364534
+        },
+        {
+          "stroke_m": 0.29037726441748385,
+          "force_n": 11889.834303627473
+        },
+        {
+          "stroke_m": 0.2944102819788378,
+          "force_n": 13300.49261083744
+        },
+        {
+          "stroke_m": 0.2984432995401917,
+          "force_n": 14084.191670398592
+        },
+        {
+          "stroke_m": 0.30247631710154566,
+          "force_n": 16289.744738020596
+        },
+        {
+          "stroke_m": 0.30650933466289965,
+          "force_n": 18472.906403940888
+        },
+        {
+          "stroke_m": 0.3105423522242536,
+          "force_n": 21305.418719211935
+        },
+        {
+          "stroke_m": 0.3145753697856075,
+          "force_n": 23712.494402149612
+        },
+        {
+          "stroke_m": 0.31860838734696145,
+          "force_n": 27115.98746081509
+        },
+        {
+          "stroke_m": 0.3226414049083154,
+          "force_n": 30821.764442454172
+        },
+        {
+          "stroke_m": 0.3266744224696693,
+          "force_n": 34896.999552172034
+        },
+        {
+          "stroke_m": 0.33070744003102326,
+          "force_n": 38972.23466188988
+        },
+        {
+          "stroke_m": 0.3347404575923772,
+          "force_n": 43696.82042095837
+        },
+        {
+          "stroke_m": 0.33877347515373113,
+          "force_n": 48600.53739364083
+        },
+        {
+          "stroke_m": 0.3428064927150851,
+          "force_n": 53784.14688759526
+        },
+        {
+          "stroke_m": 0.34683951027643906,
+          "force_n": 60300.044782803554
+        },
+        {
+          "stroke_m": 0.350872527837793,
+          "force_n": 67342.14061800284
+        },
+        {
+          "stroke_m": 0.3549055453991469,
+          "force_n": 76354.67980295581
+        },
+        {
+          "stroke_m": 0.35893856296050086,
+          "force_n": 86912.22570532923
+        },
+        {
+          "stroke_m": 0.3629715805218548,
+          "force_n": 100962.83027317536
+        },
+        {
+          "stroke_m": 0.36700459808320873,
+          "force_n": 117454.09762651166
+        },
+        {
+          "stroke_m": 0.3710376156445627,
+          "force_n": 135423.19749216337
+        },
+        {
+          "stroke_m": 0.37507063320591666,
+          "force_n": 154534.25884460408
+        },
+        {
+          "stroke_m": 0.3791036507672706,
+          "force_n": 175951.6345723244
+        },
+        {
+          "stroke_m": 0.38313666832862453,
+          "force_n": 197458.57590685211
+        },
+        {
+          "stroke_m": 0.38716968588997847,
+          "force_n": 218920.7344379762
+        },
+        {
+          "stroke_m": 0.3912027034513324,
+          "force_n": 240774.7424988808
+        },
+        {
+          "stroke_m": 0.39523572101268634,
+          "force_n": 261710.7030900136
+        },
+        {
+          "stroke_m": 0.39926873857404027,
+          "force_n": 279679.80295566504
+        }
+      ],
+      "force_velocity_points": [
+        {
+          "velocity_m_s": 0.0,
+          "force_n": 0.0
+        },
+        {
+          "velocity_m_s": 0.02520339582596392,
+          "force_n": 125813.6924803595
+        },
+        {
+          "velocity_m_s": 0.05040679165192784,
+          "force_n": 219865.31986531892
+        },
+        {
+          "velocity_m_s": 0.07561018747789175,
+          "force_n": 297530.8641975303
+        },
+        {
+          "velocity_m_s": 0.10081358330385568,
+          "force_n": 354433.2210998876
+        },
+        {
+          "velocity_m_s": 0.1260169791298196,
+          "force_n": 395735.1290684624
+        },
+        {
+          "velocity_m_s": 0.1512203749557835,
+          "force_n": 436475.8698092032
+        },
+        {
+          "velocity_m_s": 0.17642377078174742,
+          "force_n": 481705.9483726154
+        },
+        {
+          "velocity_m_s": 0.20162716660771135,
+          "force_n": 523793.490460157
+        },
+        {
+          "velocity_m_s": 0.22683056243367528,
+          "force_n": 553759.820426487
+        },
+        {
+          "velocity_m_s": 0.2520339582596392,
+          "force_n": 576094.276094276
+        },
+        {
+          "velocity_m_s": 0.2772373540856031,
+          "force_n": 598765.4320987656
+        },
+        {
+          "velocity_m_s": 0.302440749911567,
+          "force_n": 619191.9191919193
+        },
+        {
+          "velocity_m_s": 0.3276441457375309,
+          "force_n": 638832.7721661058
+        },
+        {
+          "velocity_m_s": 0.35284754156349485,
+          "force_n": 656341.1896745231
+        },
+        {
+          "velocity_m_s": 0.3780509373894588,
+          "force_n": 673400.6734006734
+        },
+        {
+          "velocity_m_s": 0.4032543332154227,
+          "force_n": 687429.8540965208
+        },
+        {
+          "velocity_m_s": 0.4284577290413866,
+          "force_n": 700224.4668911337
+        },
+        {
+          "velocity_m_s": 0.45366112486735055,
+          "force_n": 713019.0796857463
+        },
+        {
+          "velocity_m_s": 0.4788645206933145,
+          "force_n": 723344.5566778899
+        },
+        {
+          "velocity_m_s": 0.5040679165192784,
+          "force_n": 732884.3995510662
+        },
+        {
+          "velocity_m_s": 0.5292713123452423,
+          "force_n": 742760.9427609427
+        },
+        {
+          "velocity_m_s": 0.5544747081712063,
+          "force_n": 751851.8518518518
+        },
+        {
+          "velocity_m_s": 0.5796781039971701,
+          "force_n": 760718.2940516275
+        },
+        {
+          "velocity_m_s": 0.604881499823134,
+          "force_n": 768350.1683501684
+        },
+        {
+          "velocity_m_s": 0.630084895649098,
+          "force_n": 776655.44332211
+        },
+        {
+          "velocity_m_s": 0.6552882914750618,
+          "force_n": 783613.9169472504
+        },
+        {
+          "velocity_m_s": 0.6804916873010258,
+          "force_n": 790123.4567901235
+        },
+        {
+          "velocity_m_s": 0.7056950831269897,
+          "force_n": 797530.8641975308
+        },
+        {
+          "velocity_m_s": 0.7308984789529537,
+          "force_n": 803142.53647587
+        },
+        {
+          "velocity_m_s": 0.7561018747789175,
+          "force_n": 808529.7418630753
+        },
+        {
+          "velocity_m_s": 0.7813052706048815,
+          "force_n": 814365.8810325477
+        },
+        {
+          "velocity_m_s": 0.8065086664308454,
+          "force_n": 819304.1526374861
+        },
+        {
+          "velocity_m_s": 0.8317120622568093,
+          "force_n": 823456.7901234567
+        },
+        {
+          "velocity_m_s": 0.8569154580827733,
+          "force_n": 827160.4938271606
+        },
+        {
+          "velocity_m_s": 0.8821188539087371,
+          "force_n": 832098.7654320989
+        },
+        {
+          "velocity_m_s": 0.9073222497347011,
+          "force_n": 835914.7025813692
+        },
+        {
+          "velocity_m_s": 0.932525645560665,
+          "force_n": 839506.1728395061
+        },
+        {
+          "velocity_m_s": 0.957729041386629,
+          "force_n": 841975.3086419753
+        },
+        {
+          "velocity_m_s": 0.9829324372125928,
+          "force_n": 846913.5802469135
+        },
+        {
+          "velocity_m_s": 1.0081358330385568,
+          "force_n": 849382.7160493828
+        },
+        {
+          "velocity_m_s": 1.0333392288645207,
+          "force_n": 851851.8518518518
+        },
+        {
+          "velocity_m_s": 1.0585426246904845,
+          "force_n": 854320.987654321
+        },
+        {
+          "velocity_m_s": 1.0837460205164484,
+          "force_n": 856790.1234567902
+        },
+        {
+          "velocity_m_s": 1.1089494163424125,
+          "force_n": 859259.2592592592
+        },
+        {
+          "velocity_m_s": 1.1341528121683764,
+          "force_n": 861728.3950617284
+        },
+        {
+          "velocity_m_s": 1.1593562079943402,
+          "force_n": 864197.5308641974
+        },
+        {
+          "velocity_m_s": 1.1845596038203041,
+          "force_n": 866666.6666666667
+        },
+        {
+          "velocity_m_s": 1.209762999646268,
+          "force_n": 869135.8024691358
+        },
+        {
+          "velocity_m_s": 1.234966395472232,
+          "force_n": 871604.9382716048
+        },
+        {
+          "velocity_m_s": 1.260169791298196,
+          "force_n": 872951.7396184063
+        },
+        {
+          "velocity_m_s": 1.2853731871241598,
+          "force_n": 874410.7744107745
+        },
+        {
+          "velocity_m_s": 1.3105765829501237,
+          "force_n": 876543.2098765431
+        },
+        {
+          "velocity_m_s": 1.3357799787760878,
+          "force_n": 879012.3456790124
+        },
+        {
+          "velocity_m_s": 1.3609833746020517,
+          "force_n": 881257.014590348
+        },
+        {
+          "velocity_m_s": 1.3861867704280155,
+          "force_n": 881481.4814814816
+        },
+        {
+          "velocity_m_s": 1.4113901662539794,
+          "force_n": 883950.6172839506
+        },
+        {
+          "velocity_m_s": 1.4365935620799433,
+          "force_n": 886419.7530864198
+        },
+        {
+          "velocity_m_s": 1.4617969579059074,
+          "force_n": 888327.7216610549
+        },
+        {
+          "velocity_m_s": 1.4870003537318712,
+          "force_n": 888888.8888888888
+        },
+        {
+          "velocity_m_s": 1.512203749557835,
+          "force_n": 891358.0246913581
+        },
+        {
+          "velocity_m_s": 1.537407145383799,
+          "force_n": 893827.1604938272
+        },
+        {
+          "velocity_m_s": 1.562610541209763,
+          "force_n": 894500.5611672279
+        },
+        {
+          "velocity_m_s": 1.587813937035727,
+          "force_n": 896296.2962962963
+        },
+        {
+          "velocity_m_s": 1.6130173328616908,
+          "force_n": 898765.4320987655
+        },
+        {
+          "velocity_m_s": 1.6382207286876547,
+          "force_n": 899775.5331088664
+        },
+        {
+          "velocity_m_s": 1.6634241245136185,
+          "force_n": 901234.5679012345
+        },
+        {
+          "velocity_m_s": 1.6886275203395826,
+          "force_n": 903703.7037037037
+        },
+        {
+          "velocity_m_s": 1.7138309161655465,
+          "force_n": 903703.7037037037
+        },
+        {
+          "velocity_m_s": 1.7390343119915104,
+          "force_n": 906172.8395061728
+        },
+        {
+          "velocity_m_s": 1.7642377078174742,
+          "force_n": 908305.2749719417
+        },
+        {
+          "velocity_m_s": 1.7894411036434383,
+          "force_n": 908641.975308642
+        },
+        {
+          "velocity_m_s": 1.8146444994694022,
+          "force_n": 911111.1111111111
+        },
+        {
+          "velocity_m_s": 1.839847895295366,
+          "force_n": 911447.8114478114
+        },
+        {
+          "velocity_m_s": 1.86505129112133,
+          "force_n": 913580.2469135801
+        },
+        {
+          "velocity_m_s": 1.8902546869472938,
+          "force_n": 915600.4489337823
+        },
+        {
+          "velocity_m_s": 1.915458082773258,
+          "force_n": 916049.3827160494
+        },
+        {
+          "velocity_m_s": 1.9406614785992218,
+          "force_n": 918518.5185185184
+        },
+        {
+          "velocity_m_s": 1.9658648744251856,
+          "force_n": 919977.5533108866
+        },
+        {
+          "velocity_m_s": 1.9910682702511495,
+          "force_n": 920987.6543209876
+        },
+        {
+          "velocity_m_s": 2.0162716660771136,
+          "force_n": 923456.7901234569
+        },
+        {
+          "velocity_m_s": 2.0414750619030775,
+          "force_n": 923456.7901234569
+        },
+        {
+          "velocity_m_s": 2.0666784577290414,
+          "force_n": 925925.925925926
+        },
+        {
+          "velocity_m_s": 2.091881853555005,
+          "force_n": 928395.061728395
+        },
+        {
+          "velocity_m_s": 2.117085249380969,
+          "force_n": 928395.061728395
+        },
+        {
+          "velocity_m_s": 2.142288645206933,
+          "force_n": 930864.1975308642
+        },
+        {
+          "velocity_m_s": 2.167492041032897,
+          "force_n": 930864.1975308642
+        },
+        {
+          "velocity_m_s": 2.192695436858861,
+          "force_n": 933333.3333333334
+        },
+        {
+          "velocity_m_s": 2.217898832684825,
+          "force_n": 933333.3333333334
+        },
+        {
+          "velocity_m_s": 2.243102228510789,
+          "force_n": 933333.3333333334
+        },
+        {
+          "velocity_m_s": 2.2683056243367528,
+          "force_n": 933782.2671156005
+        },
+        {
+          "velocity_m_s": 2.2935090201627166,
+          "force_n": 935802.4691358025
+        },
+        {
+          "velocity_m_s": 2.3187124159886805,
+          "force_n": 935802.4691358025
+        },
+        {
+          "velocity_m_s": 2.3439158118146444,
+          "force_n": 935802.4691358025
+        },
+        {
+          "velocity_m_s": 2.3691192076406082,
+          "force_n": 935802.4691358025
+        },
+        {
+          "velocity_m_s": 2.394322603466572,
+          "force_n": 935802.4691358025
+        },
+        {
+          "velocity_m_s": 2.419525999292536,
+          "force_n": 935802.4691358025
+        },
+        {
+          "velocity_m_s": 2.4447293951185003,
+          "force_n": 935802.4691358025
+        },
+        {
+          "velocity_m_s": 2.469932790944464,
+          "force_n": 935802.4691358025
+        },
+        {
+          "velocity_m_s": 2.495136186770428,
+          "force_n": 935802.4691358025
+        }
+      ],
+      "no_tension": true,
+      "digitization": {
+        "source_pdf": "海上平台火箭回收文献/P3_Thies_2022.pdf",
+        "source_markdown": "海上平台火箭回收文献/P3_Thies_2022.md",
+        "source_page": 7,
+        "method": "PyMuPDF page rendering, manual axis calibration, color-threshold curve extraction, and linear resampling.",
+        "generated_utc": "2026-08-01T10:22:02+00:00",
+        "curve_ids": [
+          "spring_force_stroke",
+          "damper_force_velocity"
+        ],
+        "force_sign_convention": "Thies plots compression as negative force/displacement/velocity; Chrono table stores compression and resisting force as positive values.",
+        "hard_stop_note": "The hard-stop terms are not digitized paper data; they are a numerical guard outside the digitized range."
+      },
+      "source_json": "RocketRecoveryCases/Chrono_LeggedRecovery/validation/thies_absorber_curves/thies-buffer-curves.json"
+    }
+  },
+  "contact": {
+    "source": "Thies Table 6 plus Li 2025 contact/friction values where Thies has no numeric contact material table.",
+    "normal_stiffness_n_m": 100000000.0,
+    "normal_damping_ns_m": 10000000.0,
+    "young_modulus_pa": 2000000000.0,
+    "poisson_ratio": 0.3,
+    "static_friction": 0.5,
+    "dynamic_friction": 0.4,
+    "restitution": 0.0
+  },
+  "validation_targets": {
+    "thies_touchdown_energy_kj": 766.0,
+    "computed_touchdown_energy_kj": 766.1,
+    "max_incident_angle_deg": 10.0,
+    "velocity_range_m_s": [
+      1.0,
+      15.0
+    ],
+    "symmetric_force_tolerance": 0.05
+  },
+  "parameter_audit": {
+    "published_values": [
+      "rocket mass, inertia, height, base diameter, CG and touchdown velocity from Thies 2022",
+      "leg count, leg length, leg angle and attachment heights from Thies 2022",
+      "damper linear stiffness/damping and reference stroke/force from Thies 2022",
+      "reported nozzle clearance 0.570 m from Thies 2022 Table 8",
+      "contact stiffness/damping radius and dynamic friction from Li 2025",
+      "tripod attachment heights T/K/B and strut lengths from Thies 2022 Table 4",
+      "nonlinear buffer base stiffness/damping from Thies 2022 Table 10",
+      "main-buffer nonlinear force-stroke and force-velocity curves digitized from Thies 2022 Figures 4 and 5"
+    ],
+    "explicit_assumptions": [
+      "four leg azimuths are symmetric at 45/135/225/315 deg because exact azimuths are not published",
+      "footpad mass is a transparent engineering placeholder until CAD or paper data is available",
+      "nozzle end location is represented by a Stage 3A proxy reference offset because CAD nozzle coordinates are not published",
+      "stage 1 uses a TSDA strut plus contact footpad model, not a full Adams-equivalent linkage",
+      "stage 1 constrains each footpad with a vertical prismatic mate instead of explicit tripod-link hinges",
+      "Chrono SMC Young modulus is set as an explicit contact-material assumption because Li reports contact stiffness/damping, not elastic modulus",
+      "Stage 3A uses axial TSDA links as spherical-end elastic braces; brace mass/inertia are not yet modeled as separate CAD rods.",
+      "Tangential separation of the two diagonal brace attachment points is set to 1.5 m because the supplied papers do not publish the full 3D CAD hinge coordinates.",
+      "The nonlinear buffer hard-stop stiffness/damping are numerical assumptions until a hydraulic or hydropneumatic force-stroke table is available.",
+      "Post-touchdown lock is currently a diagnostic stability flag and does not yet actuate a physical locking clamp.",
+      "Digitized Thies buffer law still uses a numerical hard-stop guard beyond the visible Figure 4 stroke range."
+    ]
+  },
+  "parameter_provenance": {
+    "schema_version": 1,
+    "coverage": "all scalar/list leaves in config except parameter_audit and parameter_provenance",
+    "parameter_count": 508,
+    "category_counts": {
+      "implementation_setting": 15,
+      "solver_setting": 4,
+      "engineering_assumption": 34,
+      "source_metadata": 14,
+      "paper": 434,
+      "computed": 6,
+      "implementation_assumption": 1
+    },
+    "parameters": [
+      {
+        "path": "model_id",
+        "value": "ChronoLeggedRecovery_Stage3A_TripodProxy_ThiesDigitizedBuffer",
+        "source_category": "implementation_setting",
+        "source_detail": "Open-source implementation setting."
+      },
+      {
+        "path": "solver.engine",
+        "value": "Project Chrono / PyChrono",
+        "source_category": "implementation_setting",
+        "source_detail": "Open-source implementation setting."
+      },
+      {
+        "path": "solver.contact_method",
+        "value": "SMC",
+        "source_category": "implementation_setting",
+        "source_detail": "Open-source implementation setting."
+      },
+      {
+        "path": "solver.time_step_s",
+        "value": 0.0005,
+        "source_category": "solver_setting",
+        "source_detail": "Numerical integration/reporting setting."
+      },
+      {
+        "path": "solver.output_step_s",
+        "value": 0.01,
+        "source_category": "solver_setting",
+        "source_detail": "Numerical integration/reporting setting."
+      },
+      {
+        "path": "solver.start_s",
+        "value": 506.0,
+        "source_category": "solver_setting",
+        "source_detail": "Numerical integration/reporting setting."
+      },
+      {
+        "path": "solver.end_s",
+        "value": 526.0,
+        "source_category": "solver_setting",
+        "source_detail": "Numerical integration/reporting setting."
+      },
+      {
+        "path": "solver.gravity_m_s2",
+        "value": 9.80665,
+        "source_category": "implementation_setting",
+        "source_detail": "Open-source implementation setting."
+      },
+      {
+        "path": "solver.pre_contact_gravity",
+        "value": "off_until_first_contact_to_preserve_Thies_touchdown_velocity",
+        "source_category": "implementation_setting",
+        "source_detail": "Open-source implementation setting."
+      },
+      {
+        "path": "solver.deck_thickness_m",
+        "value": 0.35,
+        "source_category": "implementation_setting",
+        "source_detail": "Open-source implementation setting."
+      },
+      {
+        "path": "solver.contact_force_threshold_n",
+        "value": 100.0,
+        "source_category": "implementation_setting",
+        "source_detail": "Open-source implementation setting."
+      },
+      {
+        "path": "solver.no_fallback_policy",
+        "value": "If PyChrono is unavailable, stop with an environment report.",
+        "source_category": "implementation_setting",
+        "source_detail": "Open-source implementation setting."
+      },
+      {
+        "path": "solver.post_touchdown_lock_logic.mode",
+        "value": "diagnostic_only",
+        "source_category": "engineering_assumption",
+        "source_detail": "Open-source lock proxy setting; no published clamp hardware model."
+      },
+      {
+        "path": "solver.post_touchdown_lock_logic.stable_dwell_s",
+        "value": 1.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Open-source lock proxy setting; no published clamp hardware model."
+      },
+      {
+        "path": "solver.post_touchdown_lock_logic.vertical_velocity_limit_m_s",
+        "value": 0.05,
+        "source_category": "engineering_assumption",
+        "source_detail": "Open-source lock proxy setting; no published clamp hardware model."
+      },
+      {
+        "path": "solver.post_touchdown_lock_logic.angular_rate_limit_deg_s",
+        "value": 0.25,
+        "source_category": "engineering_assumption",
+        "source_detail": "Open-source lock proxy setting; no published clamp hardware model."
+      },
+      {
+        "path": "rocket.source",
+        "value": "Table 3 / vehicle data table",
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "rocket.landing_mass_kg",
+        "value": 61288.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.height_m",
+        "value": 103.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.engine_length_m",
+        "value": 1.902,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.base_diameter_m",
+        "value": 6.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.cog_from_base_m",
+        "value": 22.059,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.inertia_kg_m2.roll_x",
+        "value": 376000.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.inertia_kg_m2.pitch_y",
+        "value": 25700000.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.inertia_kg_m2.yaw_z",
+        "value": 25700000.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.touchdown_vertical_velocity_m_s",
+        "value": 5.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.initial_lateral_velocity_m_s",
+        "value": 0.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.nozzle_clearance_required_m",
+        "value": 0.5475,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.reported_nozzle_clearance_m",
+        "value": 0.57,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.stage3_proxy_nozzle_reference_height_from_model_base_m",
+        "value": 0.57,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "rocket.stage3_proxy_nozzle_reference_note",
+        "value": "Thies reports nozzle clearance as distance from nozzle end to landing pad. The Stage 3A proxy does not include CAD nozzle coordinates, so the reported 0.570 m parking clearance is stored as a transparent reference height from the proxy lower-leg/base plane to the nozzle-end point.",
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "legs.source",
+        "value": "Table 4",
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "legs.count",
+        "value": 4,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 landing-leg geometry."
+      },
+      {
+        "path": "legs.configuration",
+        "value": "Tripod",
+        "source_category": "paper",
+        "source_detail": "Thies 2022 landing-leg geometry."
+      },
+      {
+        "path": "legs.azimuths_deg",
+        "value": [
+          45.0,
+          135.0,
+          225.0,
+          315.0
+        ],
+        "source_category": "engineering_assumption",
+        "source_detail": "Transparent placeholder because exact CAD/azimuth values are not published."
+      },
+      {
+        "path": "legs.footprint_radius_m",
+        "value": 6.926037828369117,
+        "source_category": "computed",
+        "source_detail": "Computed from published input values."
+      },
+      {
+        "path": "legs.upper_attachment_height_m",
+        "value": 9.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "legs.lower_attachment_height_m",
+        "value": 4.4,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 RETALT1 values or labels unless the path is separately classified as an assumption."
+      },
+      {
+        "path": "legs.leg_length_m",
+        "value": 8.1,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 landing-leg geometry."
+      },
+      {
+        "path": "legs.damper_stiffness_n_m",
+        "value": 2600000.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 linear damper values."
+      },
+      {
+        "path": "legs.damper_damping_ns_m",
+        "value": 1300000.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 linear damper values."
+      },
+      {
+        "path": "legs.damper_rest_length_m",
+        "value": 8.1,
+        "source_category": "computed",
+        "source_detail": "Computed proxy rest length from published/assumed geometry."
+      },
+      {
+        "path": "legs.equivalent_guidance_model",
+        "value": "Stage 3A tripod proxy: inclined ChLinkMatePrismatic main-leg guide, nonlinear compression-only TSDA main buffer, and two spherical-end elastic TSDA diagonal braces per footpad. Main buffer law is replaced by Thies 2022 Figure 4/5 digitized table curves.",
+        "source_category": "implementation_assumption",
+        "source_detail": "Chrono proxy model choice."
+      },
+      {
+        "path": "legs.stroke_reference_m",
+        "value": 0.42,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 reported dimensioning result."
+      },
+      {
+        "path": "legs.force_reference_n",
+        "value": 935000.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 reported dimensioning result."
+      },
+      {
+        "path": "legs.footpad_radius_m",
+        "value": 0.2,
+        "source_category": "paper",
+        "source_detail": "Li 2025 contact/friction values used where Thies does not publish a numeric table."
+      },
+      {
+        "path": "legs.footpad_mass_kg",
+        "value": 80.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Transparent placeholder because exact CAD/azimuth values are not published."
+      },
+      {
+        "path": "legs.footpad_thickness_m",
+        "value": 0.18,
+        "source_category": "engineering_assumption",
+        "source_detail": "Transparent placeholder because exact CAD/azimuth values are not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.source",
+        "value": "Thies 2022 Table 4 dimensions; tangential brace separation is an explicit geometry-closure assumption.",
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.stage",
+        "value": "Stage 3A-thies-digitized-buffer",
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.main_guide_model",
+        "value": "inclined_prismatic",
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.brace_model",
+        "value": "elastic_tsda",
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.mechanism_elements_per_leg.main_guide",
+        "value": "ChLinkMatePrismatic along the deployed main-leg axis",
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.mechanism_elements_per_leg.main_buffer",
+        "value": "ChLinkTSDA from B attachment to footpad center; nonlinear compression-only force law",
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.mechanism_elements_per_leg.long_brace",
+        "value": "ChLinkTSDA spherical-end axial brace from T attachment to footpad center",
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.mechanism_elements_per_leg.short_brace",
+        "value": "ChLinkTSDA spherical-end axial brace from K attachment to footpad center",
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.mechanism_elements_per_leg.footpad",
+        "value": "ChBodyEasySphere with SMC contact/friction",
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.main_buffer_rest_length_m",
+        "value": 8.1,
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.footprint_radius_m",
+        "value": 6.926037828369117,
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_radial_m.B_main",
+        "value": 0.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Proxy geometry closure because full 3D hinge coordinates are not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_radial_m.T_long",
+        "value": 0.1621631991347776,
+        "source_category": "engineering_assumption",
+        "source_detail": "Proxy geometry closure because full 3D hinge coordinates are not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_radial_m.K_short",
+        "value": 2.2079873835349373,
+        "source_category": "engineering_assumption",
+        "source_detail": "Proxy geometry closure because full 3D hinge coordinates are not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_tangential_m.B_main",
+        "value": 0.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Proxy geometry closure because full 3D hinge coordinates are not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_tangential_m.T_long",
+        "value": 1.5,
+        "source_category": "engineering_assumption",
+        "source_detail": "Proxy geometry closure because full 3D hinge coordinates are not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_tangential_m.K_short",
+        "value": -1.5,
+        "source_category": "engineering_assumption",
+        "source_detail": "Proxy geometry closure because full 3D hinge coordinates are not published."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_height_m.B_main",
+        "value": 4.4,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 Table 4 geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_height_m.T_long",
+        "value": 9.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 Table 4 geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.attachment_height_m.K_short",
+        "value": 5.7,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 Table 4 geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.target_lengths_m.main_buffer",
+        "value": 8.1,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 Table 4 geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.target_lengths_m.long_brace",
+        "value": 11.2,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 Table 4 geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.target_lengths_m.short_brace",
+        "value": 7.4,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 Table 4 geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.geometry_closure_error_m.main_buffer",
+        "value": 0.0,
+        "source_category": "computed",
+        "source_detail": "Computed closure error from the Stage 3 proxy geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.geometry_closure_error_m.long_brace",
+        "value": 0.0,
+        "source_category": "computed",
+        "source_detail": "Computed closure error from the Stage 3 proxy geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.geometry_closure_error_m.short_brace",
+        "value": 0.0,
+        "source_category": "computed",
+        "source_detail": "Computed closure error from the Stage 3 proxy geometry."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.brace_axial_stiffness_n_m",
+        "value": 10000000.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Axial brace stiffness/damping placeholder until rod properties are available."
+      },
+      {
+        "path": "legs.stage3_tripod_proxy.brace_axial_damping_ns_m",
+        "value": 100000.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Axial brace stiffness/damping placeholder until rod properties are available."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.source",
+        "value": "Thies 2022 Figures 4 and 5 digitized from supplied PDF page 7.",
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.type",
+        "value": "compression_only_table",
+        "source_category": "implementation_setting",
+        "source_detail": "Buffer-law implementation interface."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.supported_types",
+        "value": [
+          "compression_only_bilinear_with_hard_stop",
+          "compression_only_table"
+        ],
+        "source_category": "implementation_setting",
+        "source_detail": "Buffer-law implementation interface."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.table_interface_note",
+        "value": "Spring and damper curves are digitized from raster PDF figures; hard stop remains only a numerical guard beyond the digitized stroke range.",
+        "source_category": "implementation_setting",
+        "source_detail": "Buffer-law implementation interface."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.linear_stiffness_n_m",
+        "value": null,
+        "source_category": "implementation_setting",
+        "source_detail": "Buffer-law implementation interface."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.linear_damping_ns_m",
+        "value": null,
+        "source_category": "implementation_setting",
+        "source_detail": "Buffer-law implementation interface."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.stroke_limit_m",
+        "value": 0.39926873857404027,
+        "source_category": "implementation_setting",
+        "source_detail": "Buffer-law implementation interface."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.hard_stop_stiffness_n_m",
+        "value": 200000000.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Hard stop or empty table interface until measured/digitized buffer curves are available."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.hard_stop_damping_ns_m",
+        "value": 10000000.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Hard stop or empty table interface until measured/digitized buffer curves are available."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[0].stroke_m",
+        "value": 0.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Empty table interface until measured/digitized buffer curves are available."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[0].force_n",
+        "value": 0.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Empty table interface until measured/digitized buffer curves are available."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[1].stroke_m",
+        "value": 0.004033017561353942,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[1].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[2].stroke_m",
+        "value": 0.008066035122707885,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[2].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[3].stroke_m",
+        "value": 0.012099052684061827,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[3].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[4].stroke_m",
+        "value": 0.01613207024541577,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[4].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[5].stroke_m",
+        "value": 0.020165087806769712,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[5].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[6].stroke_m",
+        "value": 0.024198105368123654,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[6].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[7].stroke_m",
+        "value": 0.028231122929477596,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[7].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[8].stroke_m",
+        "value": 0.03226414049083154,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[8].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[9].stroke_m",
+        "value": 0.03629715805218548,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[9].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[10].stroke_m",
+        "value": 0.040330175613539423,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[10].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[11].stroke_m",
+        "value": 0.044363193174893366,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[11].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[12].stroke_m",
+        "value": 0.04839621073624731,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[12].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[13].stroke_m",
+        "value": 0.05242922829760125,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[13].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[14].stroke_m",
+        "value": 0.05646224585895519,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[14].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[15].stroke_m",
+        "value": 0.060495263420309135,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[15].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[16].stroke_m",
+        "value": 0.06452828098166308,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[16].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[17].stroke_m",
+        "value": 0.06856129854301701,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[17].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[18].stroke_m",
+        "value": 0.07259431610437096,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[18].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[19].stroke_m",
+        "value": 0.07662733366572491,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[19].force_n",
+        "value": 738.9162561576354,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[20].stroke_m",
+        "value": 0.08066035122707885,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[20].force_n",
+        "value": 850.8732646663681,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[21].stroke_m",
+        "value": 0.08469336878843278,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[21].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[22].stroke_m",
+        "value": 0.08872638634978673,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[22].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[23].stroke_m",
+        "value": 0.09275940391114068,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[23].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[24].stroke_m",
+        "value": 0.09679242147249462,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[24].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[25].stroke_m",
+        "value": 0.10082543903384855,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[25].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[26].stroke_m",
+        "value": 0.1048584565952025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[26].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[27].stroke_m",
+        "value": 0.10889147415655645,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[27].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[28].stroke_m",
+        "value": 0.11292449171791039,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[28].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[29].stroke_m",
+        "value": 0.11695750927926432,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[29].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[30].stroke_m",
+        "value": 0.12099052684061827,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[30].force_n",
+        "value": 570.9807433945365,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[31].stroke_m",
+        "value": 0.12502354440197222,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[31].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[32].stroke_m",
+        "value": 0.12905656196332616,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[32].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[33].stroke_m",
+        "value": 0.1330895795246801,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[33].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[34].stroke_m",
+        "value": 0.13712259708603403,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[34].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[35].stroke_m",
+        "value": 0.141155614647388,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[35].force_n",
+        "value": 727.7205553067554,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[36].stroke_m",
+        "value": 0.14518863220874192,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[36].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[37].stroke_m",
+        "value": 0.14922164977009586,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[37].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[38].stroke_m",
+        "value": 0.15325466733144982,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[38].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[39].stroke_m",
+        "value": 0.15728768489280376,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[39].force_n",
+        "value": 369.4581280788177,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[40].stroke_m",
+        "value": 0.1613207024541577,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[40].force_n",
+        "value": 884.4603672189726,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[41].stroke_m",
+        "value": 0.16535372001551163,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[41].force_n",
+        "value": 1108.3743842364531,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[42].stroke_m",
+        "value": 0.16938673757686556,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[42].force_n",
+        "value": 1108.3743842364531,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[43].stroke_m",
+        "value": 0.17341975513821953,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[43].force_n",
+        "value": 1108.3743842364531,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[44].stroke_m",
+        "value": 0.17745277269957346,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[44].force_n",
+        "value": 738.9162561576354,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[45].stroke_m",
+        "value": 0.1814857902609274,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[45].force_n",
+        "value": 738.9162561576354,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[46].stroke_m",
+        "value": 0.18551880782228136,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[46].force_n",
+        "value": 1108.3743842364531,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[47].stroke_m",
+        "value": 0.1895518253836353,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[47].force_n",
+        "value": 1108.3743842364531,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[48].stroke_m",
+        "value": 0.19358484294498923,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[48].force_n",
+        "value": 1108.3743842364531,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[49].stroke_m",
+        "value": 0.19761786050634317,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[49].force_n",
+        "value": 1197.9399910434408,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[50].stroke_m",
+        "value": 0.2016508780676971,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[50].force_n",
+        "value": 1477.8325123152708,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[51].stroke_m",
+        "value": 0.20568389562905107,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[51].force_n",
+        "value": 1477.8325123152708,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[52].stroke_m",
+        "value": 0.209716913190405,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[52].force_n",
+        "value": 1477.8325123152708,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[53].stroke_m",
+        "value": 0.21374993075175894,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[53].force_n",
+        "value": 1477.8325123152708,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[54].stroke_m",
+        "value": 0.2177829483131129,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[54].force_n",
+        "value": 1477.8325123152708,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[55].stroke_m",
+        "value": 0.22181596587446684,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[55].force_n",
+        "value": 1847.2906403940888,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[56].stroke_m",
+        "value": 0.22584898343582077,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[56].force_n",
+        "value": 2216.7487684729062,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[57].stroke_m",
+        "value": 0.2298820009971747,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[57].force_n",
+        "value": 2216.7487684729062,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[58].stroke_m",
+        "value": 0.23391501855852864,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[58].force_n",
+        "value": 2910.8822212270634,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[59].stroke_m",
+        "value": 0.2379480361198826,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[59].force_n",
+        "value": 2955.6650246305417,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[60].stroke_m",
+        "value": 0.24198105368123654,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[60].force_n",
+        "value": 3325.12315270936,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[61].stroke_m",
+        "value": 0.24601407124259048,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[61].force_n",
+        "value": 3694.5812807881775,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[62].stroke_m",
+        "value": 0.25004708880394444,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[62].force_n",
+        "value": 4041.648007165264,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[63].stroke_m",
+        "value": 0.2540801063652984,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[63].force_n",
+        "value": 4433.4975369458125,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[64].stroke_m",
+        "value": 0.2581131239266523,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[64].force_n",
+        "value": 4802.95566502463,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[65].stroke_m",
+        "value": 0.26214614148800625,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[65].force_n",
+        "value": 5172.413793103448,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[66].stroke_m",
+        "value": 0.2661791590493602,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[66].force_n",
+        "value": 5911.330049261083,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[67].stroke_m",
+        "value": 0.2702121766107141,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[67].force_n",
+        "value": 6650.24630541872,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[68].stroke_m",
+        "value": 0.27424519417206805,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[68].force_n",
+        "value": 7389.162561576355,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[69].stroke_m",
+        "value": 0.27827821173342204,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[69].force_n",
+        "value": 8866.995073891625,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[70].stroke_m",
+        "value": 0.282311229294776,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[70].force_n",
+        "value": 9650.694133452838,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[71].stroke_m",
+        "value": 0.2863442468561299,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[71].force_n",
+        "value": 11083.743842364534,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[72].stroke_m",
+        "value": 0.29037726441748385,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[72].force_n",
+        "value": 11889.834303627473,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[73].stroke_m",
+        "value": 0.2944102819788378,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[73].force_n",
+        "value": 13300.49261083744,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[74].stroke_m",
+        "value": 0.2984432995401917,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[74].force_n",
+        "value": 14084.191670398592,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[75].stroke_m",
+        "value": 0.30247631710154566,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[75].force_n",
+        "value": 16289.744738020596,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[76].stroke_m",
+        "value": 0.30650933466289965,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[76].force_n",
+        "value": 18472.906403940888,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[77].stroke_m",
+        "value": 0.3105423522242536,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[77].force_n",
+        "value": 21305.418719211935,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[78].stroke_m",
+        "value": 0.3145753697856075,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[78].force_n",
+        "value": 23712.494402149612,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[79].stroke_m",
+        "value": 0.31860838734696145,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[79].force_n",
+        "value": 27115.98746081509,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[80].stroke_m",
+        "value": 0.3226414049083154,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[80].force_n",
+        "value": 30821.764442454172,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[81].stroke_m",
+        "value": 0.3266744224696693,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[81].force_n",
+        "value": 34896.999552172034,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[82].stroke_m",
+        "value": 0.33070744003102326,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[82].force_n",
+        "value": 38972.23466188988,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[83].stroke_m",
+        "value": 0.3347404575923772,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[83].force_n",
+        "value": 43696.82042095837,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[84].stroke_m",
+        "value": 0.33877347515373113,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[84].force_n",
+        "value": 48600.53739364083,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[85].stroke_m",
+        "value": 0.3428064927150851,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[85].force_n",
+        "value": 53784.14688759526,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[86].stroke_m",
+        "value": 0.34683951027643906,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[86].force_n",
+        "value": 60300.044782803554,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[87].stroke_m",
+        "value": 0.350872527837793,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[87].force_n",
+        "value": 67342.14061800284,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[88].stroke_m",
+        "value": 0.3549055453991469,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[88].force_n",
+        "value": 76354.67980295581,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[89].stroke_m",
+        "value": 0.35893856296050086,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[89].force_n",
+        "value": 86912.22570532923,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[90].stroke_m",
+        "value": 0.3629715805218548,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[90].force_n",
+        "value": 100962.83027317536,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[91].stroke_m",
+        "value": 0.36700459808320873,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[91].force_n",
+        "value": 117454.09762651166,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[92].stroke_m",
+        "value": 0.3710376156445627,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[92].force_n",
+        "value": 135423.19749216337,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[93].stroke_m",
+        "value": 0.37507063320591666,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[93].force_n",
+        "value": 154534.25884460408,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[94].stroke_m",
+        "value": 0.3791036507672706,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[94].force_n",
+        "value": 175951.6345723244,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[95].stroke_m",
+        "value": 0.38313666832862453,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[95].force_n",
+        "value": 197458.57590685211,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[96].stroke_m",
+        "value": 0.38716968588997847,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[96].force_n",
+        "value": 218920.7344379762,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[97].stroke_m",
+        "value": 0.3912027034513324,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[97].force_n",
+        "value": 240774.7424988808,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[98].stroke_m",
+        "value": 0.39523572101268634,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[98].force_n",
+        "value": 261710.7030900136,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[99].stroke_m",
+        "value": 0.39926873857404027,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_stroke_points[99].force_n",
+        "value": 279679.80295566504,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[0].velocity_m_s",
+        "value": 0.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Empty table interface until measured/digitized buffer curves are available."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[0].force_n",
+        "value": 0.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Empty table interface until measured/digitized buffer curves are available."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[1].velocity_m_s",
+        "value": 0.02520339582596392,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[1].force_n",
+        "value": 125813.6924803595,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[2].velocity_m_s",
+        "value": 0.05040679165192784,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[2].force_n",
+        "value": 219865.31986531892,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[3].velocity_m_s",
+        "value": 0.07561018747789175,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[3].force_n",
+        "value": 297530.8641975303,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[4].velocity_m_s",
+        "value": 0.10081358330385568,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[4].force_n",
+        "value": 354433.2210998876,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[5].velocity_m_s",
+        "value": 0.1260169791298196,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[5].force_n",
+        "value": 395735.1290684624,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[6].velocity_m_s",
+        "value": 0.1512203749557835,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[6].force_n",
+        "value": 436475.8698092032,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[7].velocity_m_s",
+        "value": 0.17642377078174742,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[7].force_n",
+        "value": 481705.9483726154,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[8].velocity_m_s",
+        "value": 0.20162716660771135,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[8].force_n",
+        "value": 523793.490460157,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[9].velocity_m_s",
+        "value": 0.22683056243367528,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[9].force_n",
+        "value": 553759.820426487,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[10].velocity_m_s",
+        "value": 0.2520339582596392,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[10].force_n",
+        "value": 576094.276094276,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[11].velocity_m_s",
+        "value": 0.2772373540856031,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[11].force_n",
+        "value": 598765.4320987656,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[12].velocity_m_s",
+        "value": 0.302440749911567,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[12].force_n",
+        "value": 619191.9191919193,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[13].velocity_m_s",
+        "value": 0.3276441457375309,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[13].force_n",
+        "value": 638832.7721661058,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[14].velocity_m_s",
+        "value": 0.35284754156349485,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[14].force_n",
+        "value": 656341.1896745231,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[15].velocity_m_s",
+        "value": 0.3780509373894588,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[15].force_n",
+        "value": 673400.6734006734,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[16].velocity_m_s",
+        "value": 0.4032543332154227,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[16].force_n",
+        "value": 687429.8540965208,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[17].velocity_m_s",
+        "value": 0.4284577290413866,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[17].force_n",
+        "value": 700224.4668911337,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[18].velocity_m_s",
+        "value": 0.45366112486735055,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[18].force_n",
+        "value": 713019.0796857463,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[19].velocity_m_s",
+        "value": 0.4788645206933145,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[19].force_n",
+        "value": 723344.5566778899,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[20].velocity_m_s",
+        "value": 0.5040679165192784,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[20].force_n",
+        "value": 732884.3995510662,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[21].velocity_m_s",
+        "value": 0.5292713123452423,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[21].force_n",
+        "value": 742760.9427609427,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[22].velocity_m_s",
+        "value": 0.5544747081712063,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[22].force_n",
+        "value": 751851.8518518518,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[23].velocity_m_s",
+        "value": 0.5796781039971701,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[23].force_n",
+        "value": 760718.2940516275,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[24].velocity_m_s",
+        "value": 0.604881499823134,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[24].force_n",
+        "value": 768350.1683501684,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[25].velocity_m_s",
+        "value": 0.630084895649098,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[25].force_n",
+        "value": 776655.44332211,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[26].velocity_m_s",
+        "value": 0.6552882914750618,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[26].force_n",
+        "value": 783613.9169472504,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[27].velocity_m_s",
+        "value": 0.6804916873010258,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[27].force_n",
+        "value": 790123.4567901235,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[28].velocity_m_s",
+        "value": 0.7056950831269897,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[28].force_n",
+        "value": 797530.8641975308,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[29].velocity_m_s",
+        "value": 0.7308984789529537,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[29].force_n",
+        "value": 803142.53647587,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[30].velocity_m_s",
+        "value": 0.7561018747789175,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[30].force_n",
+        "value": 808529.7418630753,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[31].velocity_m_s",
+        "value": 0.7813052706048815,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[31].force_n",
+        "value": 814365.8810325477,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[32].velocity_m_s",
+        "value": 0.8065086664308454,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[32].force_n",
+        "value": 819304.1526374861,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[33].velocity_m_s",
+        "value": 0.8317120622568093,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[33].force_n",
+        "value": 823456.7901234567,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[34].velocity_m_s",
+        "value": 0.8569154580827733,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[34].force_n",
+        "value": 827160.4938271606,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[35].velocity_m_s",
+        "value": 0.8821188539087371,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[35].force_n",
+        "value": 832098.7654320989,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[36].velocity_m_s",
+        "value": 0.9073222497347011,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[36].force_n",
+        "value": 835914.7025813692,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[37].velocity_m_s",
+        "value": 0.932525645560665,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[37].force_n",
+        "value": 839506.1728395061,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[38].velocity_m_s",
+        "value": 0.957729041386629,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[38].force_n",
+        "value": 841975.3086419753,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[39].velocity_m_s",
+        "value": 0.9829324372125928,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[39].force_n",
+        "value": 846913.5802469135,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[40].velocity_m_s",
+        "value": 1.0081358330385568,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[40].force_n",
+        "value": 849382.7160493828,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[41].velocity_m_s",
+        "value": 1.0333392288645207,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[41].force_n",
+        "value": 851851.8518518518,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[42].velocity_m_s",
+        "value": 1.0585426246904845,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[42].force_n",
+        "value": 854320.987654321,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[43].velocity_m_s",
+        "value": 1.0837460205164484,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[43].force_n",
+        "value": 856790.1234567902,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[44].velocity_m_s",
+        "value": 1.1089494163424125,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[44].force_n",
+        "value": 859259.2592592592,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[45].velocity_m_s",
+        "value": 1.1341528121683764,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[45].force_n",
+        "value": 861728.3950617284,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[46].velocity_m_s",
+        "value": 1.1593562079943402,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[46].force_n",
+        "value": 864197.5308641974,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[47].velocity_m_s",
+        "value": 1.1845596038203041,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[47].force_n",
+        "value": 866666.6666666667,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[48].velocity_m_s",
+        "value": 1.209762999646268,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[48].force_n",
+        "value": 869135.8024691358,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[49].velocity_m_s",
+        "value": 1.234966395472232,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[49].force_n",
+        "value": 871604.9382716048,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[50].velocity_m_s",
+        "value": 1.260169791298196,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[50].force_n",
+        "value": 872951.7396184063,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[51].velocity_m_s",
+        "value": 1.2853731871241598,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[51].force_n",
+        "value": 874410.7744107745,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[52].velocity_m_s",
+        "value": 1.3105765829501237,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[52].force_n",
+        "value": 876543.2098765431,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[53].velocity_m_s",
+        "value": 1.3357799787760878,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[53].force_n",
+        "value": 879012.3456790124,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[54].velocity_m_s",
+        "value": 1.3609833746020517,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[54].force_n",
+        "value": 881257.014590348,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[55].velocity_m_s",
+        "value": 1.3861867704280155,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[55].force_n",
+        "value": 881481.4814814816,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[56].velocity_m_s",
+        "value": 1.4113901662539794,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[56].force_n",
+        "value": 883950.6172839506,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[57].velocity_m_s",
+        "value": 1.4365935620799433,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[57].force_n",
+        "value": 886419.7530864198,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[58].velocity_m_s",
+        "value": 1.4617969579059074,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[58].force_n",
+        "value": 888327.7216610549,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[59].velocity_m_s",
+        "value": 1.4870003537318712,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[59].force_n",
+        "value": 888888.8888888888,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[60].velocity_m_s",
+        "value": 1.512203749557835,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[60].force_n",
+        "value": 891358.0246913581,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[61].velocity_m_s",
+        "value": 1.537407145383799,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[61].force_n",
+        "value": 893827.1604938272,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[62].velocity_m_s",
+        "value": 1.562610541209763,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[62].force_n",
+        "value": 894500.5611672279,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[63].velocity_m_s",
+        "value": 1.587813937035727,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[63].force_n",
+        "value": 896296.2962962963,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[64].velocity_m_s",
+        "value": 1.6130173328616908,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[64].force_n",
+        "value": 898765.4320987655,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[65].velocity_m_s",
+        "value": 1.6382207286876547,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[65].force_n",
+        "value": 899775.5331088664,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[66].velocity_m_s",
+        "value": 1.6634241245136185,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[66].force_n",
+        "value": 901234.5679012345,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[67].velocity_m_s",
+        "value": 1.6886275203395826,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[67].force_n",
+        "value": 903703.7037037037,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[68].velocity_m_s",
+        "value": 1.7138309161655465,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[68].force_n",
+        "value": 903703.7037037037,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[69].velocity_m_s",
+        "value": 1.7390343119915104,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[69].force_n",
+        "value": 906172.8395061728,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[70].velocity_m_s",
+        "value": 1.7642377078174742,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[70].force_n",
+        "value": 908305.2749719417,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[71].velocity_m_s",
+        "value": 1.7894411036434383,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[71].force_n",
+        "value": 908641.975308642,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[72].velocity_m_s",
+        "value": 1.8146444994694022,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[72].force_n",
+        "value": 911111.1111111111,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[73].velocity_m_s",
+        "value": 1.839847895295366,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[73].force_n",
+        "value": 911447.8114478114,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[74].velocity_m_s",
+        "value": 1.86505129112133,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[74].force_n",
+        "value": 913580.2469135801,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[75].velocity_m_s",
+        "value": 1.8902546869472938,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[75].force_n",
+        "value": 915600.4489337823,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[76].velocity_m_s",
+        "value": 1.915458082773258,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[76].force_n",
+        "value": 916049.3827160494,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[77].velocity_m_s",
+        "value": 1.9406614785992218,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[77].force_n",
+        "value": 918518.5185185184,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[78].velocity_m_s",
+        "value": 1.9658648744251856,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[78].force_n",
+        "value": 919977.5533108866,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[79].velocity_m_s",
+        "value": 1.9910682702511495,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[79].force_n",
+        "value": 920987.6543209876,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[80].velocity_m_s",
+        "value": 2.0162716660771136,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[80].force_n",
+        "value": 923456.7901234569,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[81].velocity_m_s",
+        "value": 2.0414750619030775,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[81].force_n",
+        "value": 923456.7901234569,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[82].velocity_m_s",
+        "value": 2.0666784577290414,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[82].force_n",
+        "value": 925925.925925926,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[83].velocity_m_s",
+        "value": 2.091881853555005,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[83].force_n",
+        "value": 928395.061728395,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[84].velocity_m_s",
+        "value": 2.117085249380969,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[84].force_n",
+        "value": 928395.061728395,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[85].velocity_m_s",
+        "value": 2.142288645206933,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[85].force_n",
+        "value": 930864.1975308642,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[86].velocity_m_s",
+        "value": 2.167492041032897,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[86].force_n",
+        "value": 930864.1975308642,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[87].velocity_m_s",
+        "value": 2.192695436858861,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[87].force_n",
+        "value": 933333.3333333334,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[88].velocity_m_s",
+        "value": 2.217898832684825,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[88].force_n",
+        "value": 933333.3333333334,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[89].velocity_m_s",
+        "value": 2.243102228510789,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[89].force_n",
+        "value": 933333.3333333334,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[90].velocity_m_s",
+        "value": 2.2683056243367528,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[90].force_n",
+        "value": 933782.2671156005,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[91].velocity_m_s",
+        "value": 2.2935090201627166,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[91].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[92].velocity_m_s",
+        "value": 2.3187124159886805,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[92].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[93].velocity_m_s",
+        "value": 2.3439158118146444,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[93].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[94].velocity_m_s",
+        "value": 2.3691192076406082,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[94].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[95].velocity_m_s",
+        "value": 2.394322603466572,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[95].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[96].velocity_m_s",
+        "value": 2.419525999292536,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[96].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[97].velocity_m_s",
+        "value": 2.4447293951185003,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[97].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[98].velocity_m_s",
+        "value": 2.469932790944464,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[98].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[99].velocity_m_s",
+        "value": 2.495136186770428,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.force_velocity_points[99].force_n",
+        "value": 935802.4691358025,
+        "source_category": "paper",
+        "source_detail": "Digitized from Thies 2022 Figures 4 and 5."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.no_tension",
+        "value": true,
+        "source_category": "implementation_setting",
+        "source_detail": "Buffer-law implementation interface."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.digitization.source_pdf",
+        "value": "海上平台火箭回收文献/P3_Thies_2022.pdf",
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.digitization.source_markdown",
+        "value": "海上平台火箭回收文献/P3_Thies_2022.md",
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.digitization.source_page",
+        "value": 7,
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.digitization.method",
+        "value": "PyMuPDF page rendering, manual axis calibration, color-threshold curve extraction, and linear resampling.",
+        "source_category": "source_metadata",
+        "source_detail": "Digitized buffer-curve provenance metadata."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.digitization.generated_utc",
+        "value": "2026-08-01T10:22:02+00:00",
+        "source_category": "source_metadata",
+        "source_detail": "Digitized buffer-curve provenance metadata."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.digitization.curve_ids",
+        "value": [
+          "spring_force_stroke",
+          "damper_force_velocity"
+        ],
+        "source_category": "source_metadata",
+        "source_detail": "Digitized buffer-curve provenance metadata."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.digitization.force_sign_convention",
+        "value": "Thies plots compression as negative force/displacement/velocity; Chrono table stores compression and resisting force as positive values.",
+        "source_category": "source_metadata",
+        "source_detail": "Digitized buffer-curve provenance metadata."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.digitization.hard_stop_note",
+        "value": "The hard-stop terms are not digitized paper data; they are a numerical guard outside the digitized range.",
+        "source_category": "source_metadata",
+        "source_detail": "Digitized buffer-curve provenance metadata."
+      },
+      {
+        "path": "legs.nonlinear_buffer_law.source_json",
+        "value": "RocketRecoveryCases/Chrono_LeggedRecovery/validation/thies_absorber_curves/thies-buffer-curves.json",
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "contact.source",
+        "value": "Thies Table 6 plus Li 2025 contact/friction values where Thies has no numeric contact material table.",
+        "source_category": "source_metadata",
+        "source_detail": "Source description embedded in the configuration."
+      },
+      {
+        "path": "contact.normal_stiffness_n_m",
+        "value": 100000000.0,
+        "source_category": "paper",
+        "source_detail": "Li 2025 contact/friction values used where Thies does not publish a numeric table."
+      },
+      {
+        "path": "contact.normal_damping_ns_m",
+        "value": 10000000.0,
+        "source_category": "paper",
+        "source_detail": "Li 2025 contact/friction values used where Thies does not publish a numeric table."
+      },
+      {
+        "path": "contact.young_modulus_pa",
+        "value": 2000000000.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "contact.poisson_ratio",
+        "value": 0.3,
+        "source_category": "engineering_assumption",
+        "source_detail": "Chrono material/mechanism proxy setting because the exact value is not published."
+      },
+      {
+        "path": "contact.static_friction",
+        "value": 0.5,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 landing requirement."
+      },
+      {
+        "path": "contact.dynamic_friction",
+        "value": 0.4,
+        "source_category": "paper",
+        "source_detail": "Li 2025 contact/friction values used where Thies does not publish a numeric table."
+      },
+      {
+        "path": "contact.restitution",
+        "value": 0.0,
+        "source_category": "engineering_assumption",
+        "source_detail": "Conservative non-bouncing contact assumption."
+      },
+      {
+        "path": "validation_targets.thies_touchdown_energy_kj",
+        "value": 766.0,
+        "source_category": "paper",
+        "source_detail": "Published validation target or tolerance derived from published values."
+      },
+      {
+        "path": "validation_targets.computed_touchdown_energy_kj",
+        "value": 766.1,
+        "source_category": "computed",
+        "source_detail": "Computed from published input values."
+      },
+      {
+        "path": "validation_targets.max_incident_angle_deg",
+        "value": 10.0,
+        "source_category": "paper",
+        "source_detail": "Thies 2022 landing requirement."
+      },
+      {
+        "path": "validation_targets.velocity_range_m_s",
+        "value": [
+          1.0,
+          15.0
+        ],
+        "source_category": "paper",
+        "source_detail": "Published validation target or tolerance derived from published values."
+      },
+      {
+        "path": "validation_targets.symmetric_force_tolerance",
+        "value": 0.05,
+        "source_category": "paper",
+        "source_detail": "Published validation target or tolerance derived from published values."
+      }
+    ]
+  }
+}

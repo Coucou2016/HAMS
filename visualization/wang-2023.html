@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wang Zhi 2023 Reproduction</title>
+  <script src="wang-2023-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17211d;
+      --muted: #64716b;
+      --line: #d7dfdb;
+      --panel: #ffffff;
+      --wash: #f4f7f5;
+      --green: #2b7a58;
+      --teal: #2e7f8c;
+      --red: #b94d36;
+      --amber: #b9862f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--wash);
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    header {
+      padding: 18px 28px 10px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfb;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    h1, h2 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 15px; margin-bottom: 12px; }
+
+    nav { display: flex; flex-wrap: wrap; gap: 10px; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 6px;
+    }
+    nav a[aria-current="page"] { color: var(--ink); border-color: #9eb5ad; }
+
+    main {
+      padding: 18px;
+      display: grid;
+      grid-template-columns: minmax(520px, 1.35fr) minmax(380px, 0.8fr);
+      gap: 18px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .viewer {
+      min-height: 560px;
+      position: relative;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #scene {
+      width: 100%;
+      height: 100%;
+      min-height: 560px;
+      display: block;
+    }
+
+    .hud {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .side, .wide { display: grid; gap: 18px; }
+    .wide { grid-column: 1 / -1; grid-template-columns: 1.2fr 0.8fr; }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    select, input, button {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 6px 9px;
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .playback {
+      display: grid;
+      grid-template-columns: 88px 130px 1fr;
+      gap: 10px;
+      align-items: end;
+      margin-top: 12px;
+    }
+
+    .timeline {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef4f1;
+      color: var(--ink);
+      border: 1px solid #d7e3dd;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 10px 0 0;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px;
+      min-height: 70px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .metric span, td, th {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      padding: 8px 6px;
+      vertical-align: top;
+    }
+
+    th { color: var(--ink); font-weight: 600; }
+
+    svg {
+      width: 100%;
+      height: 330px;
+      display: block;
+      background: #fcfdfc;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-block;
+    }
+
+    .dot.check { background: var(--amber); }
+
+    @media (max-width: 980px) {
+      main, .wide { grid-template-columns: 1fr; }
+      .viewer, #scene { min-height: 420px; }
+      .controls, .metrics, .playback { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>王智 2023：喷流-波浪-平台响应</h1>
+    <nav>
+      <a href="viewer.html">3D Mesh</a>
+      <a href="results.html">HAMS Results</a>
+      <a href="rocket-recovery.html">Rocket Recovery</a>
+      <a href="nargolkar-2025.html">Nargolkar 2025</a>
+      <a href="wang-2023.html" aria-current="page">Wang 2023</a>
+      <a href="landing-leg-contact.html">Leg Contact</a>
+      <a href="integrated-recovery.html">Integrated</a>
+      <a href="chrono-recovery.html">Chrono</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="viewer">
+      <canvas id="scene"></canvas>
+      <div class="hud" id="sceneHud"></div>
+    </section>
+
+    <div class="side">
+      <section>
+        <h2>Case Controls</h2>
+        <div class="controls">
+          <label>Environment<select id="environmentSelect"></select></label>
+          <label>Landing Point<select id="caseSelect"></select></label>
+          <label>Response<select id="responseSelect"></select></label>
+          <label>Motion Scale<select id="scaleSelect">
+            <option value="1">1x</option>
+            <option value="3">3x</option>
+            <option value="5">5x</option>
+            <option value="10">10x</option>
+            <option value="20">20x</option>
+          </select></label>
+        </div>
+        <div class="playback">
+          <button id="playButton" type="button">Play</button>
+          <label>Time<span class="pill" id="timeReadout">t = 450.00 s</span></label>
+          <label>Load<span class="pill" id="loadReadout">0 MN</span></label>
+          <label class="timeline">Timeline<input id="timeSlider" type="range"></label>
+        </div>
+        <p class="note" id="caseNote"></p>
+      </section>
+
+      <section>
+        <h2>Selected Metrics</h2>
+        <div class="metrics" id="metricGrid"></div>
+      </section>
+
+      <section>
+        <h2>Paper Inputs</h2>
+        <div id="inputTable"></div>
+      </section>
+    </div>
+
+    <div class="wide">
+      <section>
+        <h2>Time Response</h2>
+        <svg id="timeChart" role="img" aria-label="Wang 2023 time response"></svg>
+        <p class="note" id="chartNote"></p>
+      </section>
+      <section>
+        <h2>Published Metric Check</h2>
+        <div id="targetTable"></div>
+      </section>
+    </div>
+
+    <div class="wide">
+      <section>
+        <h2>Model Audit</h2>
+        <div id="auditTable"></div>
+      </section>
+      <section>
+        <h2>Unresolved Inputs</h2>
+        <div id="unresolvedTable"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script>
+    const data = window.WANG_2023_DATA;
+    if (!data) throw new Error("Missing Wang 2023 report data");
+
+    const responseOptions = [
+      ["heave_m", "Heave", "m"],
+      ["roll_deg", "Roll", "deg"],
+      ["pitch_deg", "Pitch", "deg"],
+      ["plume_load_mn", "Plume load", "MN"],
+    ];
+
+    const state = {
+      environment: "wave",
+      caseId: "center",
+      response: "heave_m",
+      scale: 5,
+      playing: false,
+      timeS: data.config.time_domain.start_s,
+    };
+
+    let sceneState = null;
+
+    function fmt(value, digits = 3) {
+      if (!Number.isFinite(value)) return "n/a";
+      if ((Math.abs(value) >= 1000 || Math.abs(value) < 0.001) && value !== 0) return value.toExponential(2);
+      return value.toFixed(digits);
+    }
+
+    function simulationId(environment = state.environment, caseId = state.caseId) {
+      return `${environment}_${caseId}`;
+    }
+
+    function selectedSimulation() {
+      return data.simulations[simulationId()];
+    }
+
+    function selectedOffset() {
+      return selectedSimulation().offset;
+    }
+
+    function responseUnit() {
+      return responseOptions.find(row => row[0] === state.response)?.[2] || "";
+    }
+
+    function responseLabel() {
+      return responseOptions.find(row => row[0] === state.response)?.[1] || state.response;
+    }
+
+    function seriesFor(sim, response = state.response) {
+      if (response === "plume_load_mn") return sim.plume_load_n.map(value => value / 1e6);
+      return sim.responses[response] || [];
+    }
+
+    function populateControls() {
+      const environmentSelect = document.getElementById("environmentSelect");
+      const caseSelect = document.getElementById("caseSelect");
+      const responseSelect = document.getElementById("responseSelect");
+      const scaleSelect = document.getElementById("scaleSelect");
+      environmentSelect.innerHTML = `<option value="wave">Wave + plume cases</option><option value="calm">Calm-water plume cases</option>`;
+      responseSelect.innerHTML = responseOptions.map(([id, label]) => `<option value="${id}">${label}</option>`).join("");
+      scaleSelect.value = String(state.scale);
+      updateCaseOptions();
+      environmentSelect.value = state.environment;
+      responseSelect.value = state.response;
+
+      environmentSelect.addEventListener("change", () => {
+        state.environment = environmentSelect.value;
+        if (!data.simulations[simulationId(state.environment, state.caseId)]) state.caseId = state.environment === "wave" ? "no_plume" : "center";
+        updateCaseOptions();
+        resetTimeline();
+        update();
+        rebuildScene();
+      });
+      caseSelect.addEventListener("change", () => {
+        state.caseId = caseSelect.value;
+        resetTimeline();
+        update();
+        rebuildScene();
+      });
+      responseSelect.addEventListener("change", () => { state.response = responseSelect.value; update(); });
+      scaleSelect.addEventListener("change", () => { state.scale = Number(scaleSelect.value); updateCaseNote(); applyPose(); });
+      document.getElementById("playButton").addEventListener("click", () => {
+        if (state.playing) {
+          pause();
+          return;
+        }
+        if (state.timeS >= data.config.time_domain.end_s) state.timeS = data.config.time_domain.start_s;
+        state.playing = true;
+        document.getElementById("playButton").textContent = "Pause";
+        if (sceneState) sceneState.lastMs = performance.now();
+      });
+      document.getElementById("timeSlider").addEventListener("input", event => {
+        pause();
+        state.timeS = Number(event.target.value);
+        applyPose();
+      });
+    }
+
+    function updateCaseOptions() {
+      const caseSelect = document.getElementById("caseSelect");
+      const options = Object.values(data.simulations)
+        .filter(sim => sim.environment === state.environment)
+        .map(sim => `<option value="${sim.offset.id}">${sim.offset.label}</option>`)
+        .join("");
+      caseSelect.innerHTML = options;
+      caseSelect.value = state.caseId;
+    }
+
+    function resetTimeline() {
+      pause();
+      state.timeS = data.config.time_domain.start_s;
+      configureTimeline();
+    }
+
+    function configureTimeline() {
+      const slider = document.getElementById("timeSlider");
+      slider.min = String(data.config.time_domain.start_s);
+      slider.max = String(data.config.time_domain.end_s);
+      slider.step = String(data.config.time_domain.dt_s);
+      slider.value = String(state.timeS);
+    }
+
+    function pause() {
+      state.playing = false;
+      document.getElementById("playButton").textContent = state.timeS >= data.config.time_domain.end_s ? "Replay" : "Play";
+    }
+
+    function update() {
+      updateCaseNote();
+      updateMetrics();
+      drawChart();
+      updateTables();
+      applyPose();
+    }
+
+    function updateCaseNote() {
+      const sim = selectedSimulation();
+      const cfg = data.config;
+      const offset = selectedOffset();
+      document.getElementById("caseNote").textContent =
+        `${sim.environment === "wave" ? "JONSWAP wave Hs 1.75 m, Tp 4.5 s, gamma 3, heading 135 deg" : "Calm water"}; landing point ${offset.label} at x=${offset.x} m, y=${offset.y} m. ` +
+        `The arrow is the published plume force history; platform motion uses computed HAMS/Cummins heave-roll-pitch response at ${state.scale}x display scale.`;
+      document.getElementById("sceneHud").innerHTML = [
+        `Hull panels ${data.mesh.hull.rawPanels}`,
+        `Waterplane ${data.mesh.waterplane.rawPanels}`,
+        `HAMS 135 deg`,
+        `Self-check ${data.self_check.passed ? "PASS" : "CHECK"}`,
+      ].map(text => `<span class="pill">${text}</span>`).join("");
+    }
+
+    function updateMetrics() {
+      const sim = selectedSimulation();
+      const s = sim.summary;
+      const rows = [
+        ["Heave peak", s.heave_peak_m, "m"],
+        ["Roll peak", s.roll_peak_deg, "deg"],
+        ["Pitch peak", s.pitch_peak_deg, "deg"],
+      ];
+      document.getElementById("metricGrid").innerHTML = rows.map(([label, value, unit]) =>
+        `<div class="metric"><strong>${fmt(value)}</strong><span>${label} ${unit}</span></div>`
+      ).join("");
+    }
+
+    function updateTables() {
+      const p = data.config.platform;
+      const sea = data.config.sea_state;
+      document.getElementById("inputTable").innerHTML = `
+        <table><tbody>
+          <tr><td>Hull</td><td>${p.length_m} x ${p.beam_m} x draft ${p.draft_m} m</td></tr>
+          <tr><td>Mass</td><td>${fmt(p.mass_kg / 1000, 1)} t</td></tr>
+          <tr><td>Reported CG</td><td>${p.reported_cg_from_aft_m.join(", ")} m</td></tr>
+          <tr><td>Inertia radii</td><td>roll ${p.inertia_radius_m.roll} m, pitch ${p.inertia_radius_m.pitch} m, yaw ${p.inertia_radius_m.yaw} m</td></tr>
+          <tr><td>JONSWAP</td><td>Hs ${sea.hs_m} m, Tp ${sea.tp_s} s, gamma ${sea.gamma}, heading ${sea.heading_deg} deg</td></tr>
+          <tr><td>Plume plateau</td><td>${fmt(data.config.plume_load.plateau_n / 1e6, 2)} MN</td></tr>
+        </tbody></table>`;
+
+      document.getElementById("targetTable").innerHTML = `
+        <table>
+          <thead><tr><th>Target</th><th>Paper</th><th>Computed</th><th>Rel. error</th></tr></thead>
+          <tbody>
+            ${data.comparison.map(row => `
+              <tr>
+                <td>${row.id}</td>
+                <td>${fmt(row.paper_value)} ${row.unit}</td>
+                <td>${fmt(row.computed_value)} ${row.unit}</td>
+                <td>${fmt(row.relative_error * 100, 1)}%</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>`;
+
+      document.getElementById("auditTable").innerHTML = `
+        <table><tbody>
+          ${data.model_audit.published_inputs_used.map(row => `<tr><td>${row.item}</td><td>${typeof row.value === "object" ? JSON.stringify(row.value) : row.value} ${row.unit}</td><td>${row.source}</td></tr>`).join("")}
+        </tbody></table>`;
+      document.getElementById("unresolvedTable").innerHTML = `
+        <table><tbody>
+          ${data.model_audit.unresolved.map(row => `<tr><td>${row.item}</td><td>${row.impact}</td></tr>`).join("")}
+        </tbody></table>`;
+    }
+
+    function matchingTarget() {
+      const metricMap = { roll_deg: "roll_peak_deg", pitch_deg: "pitch_peak_deg" };
+      const metric = metricMap[state.response];
+      if (!metric) return null;
+      return data.comparison.find(row => row.environment === state.environment && row.case === state.caseId && row.metric === metric) || null;
+    }
+
+    function drawChart() {
+      const sim = selectedSimulation();
+      const values = sim.time_s.map((time, index) => [time, seriesFor(sim)[index]]);
+      const target = matchingTarget();
+      renderChart(document.getElementById("timeChart"), values, target);
+      const targetText = target ? ` Dashed reference lines show the published peak ${fmt(target.paper_value)} ${target.unit} from ${target.source}.` : "";
+      document.getElementById("chartNote").textContent =
+        `Solid curve is this HAMS/Cummins surrogate, not AQWA author data.${targetText} Vertical markers: ignition 480 s, vertical descent 506 s, landing 510 s, shutdown 511 s.`;
+    }
+
+    function renderChart(svg, values, target) {
+      const width = svg.clientWidth || 760;
+      const height = svg.clientHeight || 330;
+      const margin = { left: 58, right: 18, top: 20, bottom: 42 };
+      const ys = values.map(point => point[1]);
+      if (target) ys.push(target.paper_value, -target.paper_value);
+      const minX = values[0][0];
+      const maxX = values[values.length - 1][0];
+      const maxAbsY = Math.max(...ys.map(value => Math.abs(value)), 1e-12);
+      const xScale = x => margin.left + (x - minX) / Math.max(maxX - minX, 1e-12) * (width - margin.left - margin.right);
+      const yScale = y => height / 2 - y / maxAbsY * (height - margin.top - margin.bottom) / 2;
+      const grid = [-1, -0.5, 0, 0.5, 1].map(v => `<line x1="${margin.left}" x2="${width - margin.right}" y1="${yScale(v * maxAbsY)}" y2="${yScale(v * maxAbsY)}" stroke="#e6ece8" />`).join("");
+      const eventLines = [480, 506, 510, 511].map(t => `<line x1="${xScale(t)}" x2="${xScale(t)}" y1="${margin.top}" y2="${height - margin.bottom}" stroke="#d7d2c2" stroke-dasharray="3 5" />`).join("");
+      const path = values.map((point, index) => `${index ? "L" : "M"}${xScale(point[0]).toFixed(2)},${yScale(point[1]).toFixed(2)}`).join(" ");
+      const ref = target ? [
+        `<line x1="${margin.left}" x2="${width - margin.right}" y1="${yScale(target.paper_value)}" y2="${yScale(target.paper_value)}" stroke="${getComputedStyle(document.documentElement).getPropertyValue("--red")}" stroke-dasharray="8 5" />`,
+        `<line x1="${margin.left}" x2="${width - margin.right}" y1="${yScale(-target.paper_value)}" y2="${yScale(-target.paper_value)}" stroke="${getComputedStyle(document.documentElement).getPropertyValue("--red")}" stroke-dasharray="8 5" />`,
+      ].join("") : "";
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      svg.innerHTML = `
+        ${grid}
+        ${eventLines}
+        <line x1="${margin.left}" x2="${width - margin.right}" y1="${height / 2}" y2="${height / 2}" stroke="#93a19b" />
+        <line x1="${margin.left}" x2="${margin.left}" y1="${margin.top}" y2="${height - margin.bottom}" stroke="#93a19b" />
+        ${ref}
+        <path d="${path}" fill="none" stroke="#2e7f8c" stroke-width="2.2" />
+        <text x="${margin.left}" y="15" fill="#64716b">${responseLabel()} ±${fmt(maxAbsY)} ${responseUnit()}</text>
+        <text x="${width - margin.right - 46}" y="${height - 16}" fill="#64716b">time s</text>`;
+    }
+
+    function interpolate(sim, t, seriesName) {
+      const times = sim.time_s;
+      const values = seriesName === "plume_load_mn" ? sim.plume_load_n.map(v => v / 1e6) : sim.responses[seriesName];
+      if (t <= times[0]) return values[0];
+      if (t >= times[times.length - 1]) return values[values.length - 1];
+      let lo = 0;
+      let hi = times.length - 1;
+      while (hi - lo > 1) {
+        const mid = Math.floor((lo + hi) / 2);
+        if (times[mid] <= t) lo = mid; else hi = mid;
+      }
+      const alpha = (t - times[lo]) / Math.max(times[hi] - times[lo], 1e-12);
+      return values[lo] * (1 - alpha) + values[hi] * alpha;
+    }
+
+    function initScene() {
+      const canvas = document.getElementById("scene");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xfbfcfb);
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x7f9a99, 1.35));
+      const sun = new THREE.DirectionalLight(0xffffff, 1.1);
+      sun.position.set(120, -80, 120);
+      scene.add(sun);
+      sceneState = { canvas, renderer, scene, camera, controls, body: new THREE.Group(), lastMs: performance.now() };
+      scene.add(sceneState.body);
+      rebuildScene();
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        renderer.setSize(rect.width, rect.height, false);
+        camera.aspect = rect.width / Math.max(rect.height, 1);
+        camera.updateProjectionMatrix();
+      }
+
+      function animate(now) {
+        requestAnimationFrame(animate);
+        const dt = Math.min((now - sceneState.lastMs) / 1000, 0.08);
+        sceneState.lastMs = now;
+        if (state.playing) {
+          state.timeS = Math.min(state.timeS + dt * 3.0, data.config.time_domain.end_s);
+          if (state.timeS >= data.config.time_domain.end_s) pause();
+          applyPose();
+        }
+        controls.update();
+        resize();
+        renderer.render(scene, camera);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    function meshObject(mesh, color, opacity) {
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute("position", new THREE.Float32BufferAttribute(mesh.vertices, 3));
+      geom.setIndex(mesh.triangles);
+      geom.computeVertexNormals();
+      const material = new THREE.MeshStandardMaterial({ color, roughness: 0.72, metalness: 0.08, side: THREE.DoubleSide, transparent: opacity < 1, opacity });
+      return new THREE.Mesh(geom, material);
+    }
+
+    function edgeObject(mesh, color) {
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute("position", new THREE.Float32BufferAttribute(mesh.vertices, 3));
+      geom.setIndex(mesh.edges);
+      return new THREE.LineSegments(geom, new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.24 }));
+    }
+
+    function rebuildScene() {
+      if (!sceneState) return;
+      sceneState.body.clear();
+      sceneState.body.add(meshObject(data.mesh.hull, 0x6d8581, 0.88));
+      sceneState.body.add(edgeObject(data.mesh.hull, 0x2d3b38));
+      const water = meshObject(data.mesh.waterplane, 0x8bbcca, 0.18);
+      sceneState.body.add(water);
+      const pointMaterial = new THREE.MeshStandardMaterial({ color: 0xb94d36, roughness: 0.5 });
+      for (const point of data.config.platform.deck_points) {
+        const marker = new THREE.Mesh(new THREE.SphereGeometry(1.2, 16, 12), pointMaterial);
+        marker.position.set(point.position_m[0], point.position_m[1], 1.5);
+        sceneState.body.add(marker);
+      }
+      const arrowDir = new THREE.Vector3(0, 0, -1);
+      const arrow = new THREE.ArrowHelper(arrowDir, new THREE.Vector3(0, 0, 28), 22, 0xb94d36, 5, 3);
+      arrow.name = "plumeArrow";
+      sceneState.body.add(arrow);
+      sceneState.camera.position.set(150, -125, 70);
+      sceneState.controls.target.set(12, 0, -2);
+      sceneState.controls.update();
+      applyPose();
+    }
+
+    function applyPose() {
+      if (!sceneState) return;
+      const sim = selectedSimulation();
+      const heave = interpolate(sim, state.timeS, "heave_m");
+      const roll = interpolate(sim, state.timeS, "roll_rad");
+      const pitch = interpolate(sim, state.timeS, "pitch_rad");
+      const loadMn = interpolate(sim, state.timeS, "plume_load_mn");
+      sceneState.body.position.z = heave * state.scale;
+      sceneState.body.rotation.x = roll * state.scale;
+      sceneState.body.rotation.y = -pitch * state.scale;
+      const arrow = sceneState.body.getObjectByName("plumeArrow");
+      if (arrow) {
+        const offset = selectedOffset();
+        arrow.position.set(offset.x, offset.y, 0);
+        arrow.visible = sim.with_plume && loadMn > 0.05;
+        arrow.setLength(8 + 16 * Math.min(loadMn / 20.4, 1), 4, 2.5);
+      }
+      document.getElementById("timeReadout").textContent = `t = ${fmt(state.timeS, 2)} s`;
+      document.getElementById("loadReadout").textContent = `${fmt(loadMn, 2)} MN`;
+      document.getElementById("timeSlider").value = String(state.timeS);
+    }
+
+    populateControls();
+    configureTimeline();
+    initScene();
+    update();
+  </script>
+</body>
+</html>

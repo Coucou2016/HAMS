@@ -1,0 +1,114 @@
+{
+  "case_id": "BoxBarge_Center",
+  "paper_id": "Nargolkar_2025_PMA",
+  "title": "Box Barge - center landing",
+  "barge_family": "Box Barge",
+  "platform": {
+    "length_m": 44.0,
+    "beam_m": 4.0,
+    "depth_m": 4.0,
+    "draft_m": 2.0,
+    "deck_z_m": 2.0,
+    "mass_kg": 260800.0,
+    "cg_m": [
+      0.0,
+      0.0,
+      -0.0238
+    ],
+    "hull_shape": "rectangular_box",
+    "water_depth_m": -1.0,
+    "rho_kg_m3": 1025.0,
+    "gravity_m_s2": 9.80665,
+    "bottom_beam_m": 4.0,
+    "geometry_displacement_volume_m3": 352.0,
+    "paper_mass_displacement_volume_m3": 254.4390243902439,
+    "rectangular_displacement_volume_m3": 352.0,
+    "waterplane_area_m2": 176.0
+  },
+  "mesh": {
+    "nx": 24,
+    "ny": 8,
+    "nz": 5
+  },
+  "reference_point_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "landing": {
+    "offset_m": 0.0,
+    "paper_offset_label": "center"
+  },
+  "rlv": {
+    "mass_kg": 100000.0,
+    "height_m": 22.0,
+    "radius_m": 1.6,
+    "thickness_m": 0.004,
+    "youngs_modulus_pa": 210000000000.0,
+    "table": {
+      "transverse_stiffness_n_m": 785000.0,
+      "axial_stiffness_n_m": 384000000.0,
+      "rotational_stiffness_nm_rad": 61200000.0,
+      "transverse_eq_mass_kg": 48.03,
+      "axial_eq_mass_kg": 10803.24,
+      "rotational_eq_mass_kg": 704.47,
+      "heave_corrected_barge_mass_kg": 350000.0
+    },
+    "derived": {
+      "target_frequency_hz": {
+        "transverse": 10.0,
+        "axial": 30.0,
+        "rotational": 10.0
+      },
+      "table_frequency_hz": {
+        "transverse": 20.346919492386668,
+        "axial": 30.00604330292546,
+        "rotational": 46.90990906372959
+      },
+      "target_frequency_eq_mass_kg": {
+        "transverse": 198.8428228980879,
+        "axial": 10807.592921849366,
+        "rotational": 15502.14109727768
+      },
+      "mass_used_note": "Strict mode uses the equivalent masses printed in Table 2. The table-implied frequencies are reported separately because Table 2 is not fully consistent with the paper text."
+    }
+  },
+  "frequency": {
+    "min_rad_s": 0.2,
+    "max_rad_s": 4.0,
+    "step_rad_s": 0.1
+  },
+  "headings_deg": [
+    0.0
+  ],
+  "touchdown_velocity_m_s": [
+    1.0,
+    2.0,
+    3.0
+  ],
+  "time_domain": {
+    "duration_s": 10.0,
+    "dt_s": 0.002,
+    "hydro_damping_sample_rad_s": 1.0,
+    "structural_damping_ratio": 0.0,
+    "barge_viscous_damping_ratio": 0.0,
+    "contact_damping_ratio": 0.0,
+    "surge_mooring_stiffness_n_m": 0.0,
+    "use_target_structural_frequencies": false
+  },
+  "paper_targets": {
+    "source_markdown": "海上平台火箭回收文献/065002_1_2.0002061.md",
+    "source_pdf": "海上平台火箭回收文献/065002_1_2.0002061.pdf",
+    "qualitative_claims": [
+      "Center landing does not excite pitch in the symmetric XZ model.",
+      "Offset landing induces heave-pitch coupling.",
+      "Offset landing increases barge pitch and RLV transverse response.",
+      "Hydrodynamic low-frequency response and structural 10/30 Hz response are separated by a bandgap."
+    ]
+  },
+  "model_notes": {
+    "scope": "Paper-oriented reproduction of the 3DOF barge plus 3DOF equivalent-RLV touchdown model.",
+    "hams_role": "HAMS supplies frequency-domain added mass and radiation damping; touchdown coupling is solved externally.",
+    "limits": "The paper does not publish MATLAB code, impact law, mesh, mooring stiffness, or digitized figure values. This is a transparent parameter-matched surrogate, not a hidden rebaseline."
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "lint_id": "ChronoRealLegMechanismDataRequestPackLint",
+  "generated_utc": "2026-08-08T12:08:55+00:00",
+  "overall_status": "pass",
+  "pass": true,
+  "request_pack_json": "RocketRecoveryCases/Chrono_LeggedRecovery/leg-mechanism-data-request-pack.json",
+  "gap_tracker_json": "RocketRecoveryCases/Chrono_LeggedRecovery/leg-mechanism-gap-tracker.json",
+  "request_dir": "RocketRecoveryCases/Chrono_LeggedRecovery/Input/leg_mechanism_data_request_pack",
+  "summary": {
+    "check_count": 9,
+    "passing_check_count": 9,
+    "blocking_check_count": 0,
+    "blocking_field_count": 120,
+    "field_task_count": 120,
+    "todo_file_count": 6
+  },
+  "checks": [
+    {
+      "id": "request_pack_files_exist",
+      "status": "PASS",
+      "description": "All request-pack CSV, JSONL and README files must exist.",
+      "evidence": "missing=0, request_dir=RocketRecoveryCases/Chrono_LeggedRecovery/Input/leg_mechanism_data_request_pack",
+      "blockers": []
+    },
+    {
+      "id": "todo_headers_match_schema",
+      "status": "PASS",
+      "description": "Todo CSV headers must match the documented request-pack schema.",
+      "evidence": "header_errors=0",
+      "blockers": []
+    },
+    {
+      "id": "field_tasks_cover_blocking_fields",
+      "status": "PASS",
+      "description": "field_tasks.csv must cover every strict blocking field exactly once.",
+      "evidence": "tasks=120, blockers=120, missing=0, extra=0, duplicates=0",
+      "blockers": []
+    },
+    {
+      "id": "jsonl_matches_field_tasks",
+      "status": "PASS",
+      "description": "field_tasks.jsonl must match field_tasks.csv path coverage.",
+      "evidence": "jsonl_rows=120, csv_rows=120, path_sets_equal=True",
+      "blockers": []
+    },
+    {
+      "id": "todo_files_cannot_be_imported_accidentally",
+      "status": "PASS",
+      "description": "Request-pack todo files must not share exact names with importer CSV files.",
+      "evidence": "ambiguous_importer_names=0, non_todo_csv=0",
+      "blockers": []
+    },
+    {
+      "id": "todo_rows_cover_blocking_field_groups",
+      "status": "PASS",
+      "description": "Per-topic todo CSVs must cover all blocking field groups. Marker scalar fields are intentionally grouped as one B/T/K/P row.",
+      "evidence": "[{\"name\": \"coordinate_system\", \"expected_count\": 3, \"actual_count\": 3, \"missing_count\": 0, \"extra_count\": 0}, {\"name\": \"azimuths\", \"expected_count\": 4, \"actual_count\": 4, \"missing_count\": 0, \"extra_count\": 0}, {\"name\": \"marker_groups\", \"expected_count\": 16, \"actual_count\": 16, \"missing_count\": 0, \"extra_count\": 0}, {\"name\": \"constraint_topology\", \"expected_count\": 24, \"actual_count\": 24, \"missing_count\": 0, \"extra_count\": 0}, {\"name\": \"body_properties\", \"expected_count\": 48, \"actual_count\": 48, \"missing_count\": 0, \"extra_count\": 0}, {\"name\": \"buffer_lock\", \"expected_count\": 5, \"actual_count\": 5, \"missing_count\": 0, \"extra_count\": 0}]",
+      "blockers": []
+    },
+    {
+      "id": "todo_rows_are_unfilled",
+      "status": "PASS",
+      "description": "Generated .todo.csv files must remain blank for user-supplied source tags until real data are copied into importer schema files.",
+      "evidence": "nonblank_source_cells=0",
+      "blockers": []
+    },
+    {
+      "id": "acceptable_sources_are_strict",
+      "status": "PASS",
+      "description": "Request pack acceptable source categories must exclude synthetic fixtures and assumptions.",
+      "evidence": "acceptable=['adams_export', 'author_data', 'cad_export', 'calibrated', 'computed_from_source', 'engineering_data', 'measured', 'paper']",
+      "blockers": []
+    },
+    {
+      "id": "current_papers_not_used_to_fill_strict_blockers",
+      "status": "PASS",
+      "description": "The request pack must preserve the gap-tracker conclusion that current papers cannot directly fill strict real-mechanism blockers.",
+      "evidence": "current_papers_can_fill_count=0",
+      "blockers": []
+    }
+  ],
+  "blocking_checks": [],
+  "coverage_evidence": [
+    {
+      "name": "coordinate_system",
+      "expected_count": 3,
+      "actual_count": 3,
+      "missing_count": 0,
+      "extra_count": 0
+    },
+    {
+      "name": "azimuths",
+      "expected_count": 4,
+      "actual_count": 4,
+      "missing_count": 0,
+      "extra_count": 0
+    },
+    {
+      "name": "marker_groups",
+      "expected_count": 16,
+      "actual_count": 16,
+      "missing_count": 0,
+      "extra_count": 0
+    },
+    {
+      "name": "constraint_topology",
+      "expected_count": 24,
+      "actual_count": 24,
+      "missing_count": 0,
+      "extra_count": 0
+    },
+    {
+      "name": "body_properties",
+      "expected_count": 48,
+      "actual_count": 48,
+      "missing_count": 0,
+      "extra_count": 0
+    },
+    {
+      "name": "buffer_lock",
+      "expected_count": 5,
+      "actual_count": 5,
+      "missing_count": 0,
+      "extra_count": 0
+    }
+  ]
+}

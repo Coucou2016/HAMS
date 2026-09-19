@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono Legged Recovery</title>
+  <script src="chrono-recovery-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17211d;
+      --muted: #64716b;
+      --line: #d7dfdb;
+      --panel: #fff;
+      --wash: #f4f7f5;
+      --green: #2b7a58;
+      --blue: #2f6fa3;
+      --red: #b94d36;
+      --amber: #b9862f;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--wash); color: var(--ink); font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif; }
+    header { padding: 18px 28px 10px; border-bottom: 1px solid var(--line); background: #fbfcfb; display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+    h1, h2 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 15px; margin-bottom: 12px; }
+    nav { display: flex; flex-wrap: wrap; gap: 10px; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; padding: 6px 9px; border: 1px solid var(--line); background: #fff; border-radius: 6px; }
+    nav a[aria-current="page"] { color: var(--ink); border-color: #9eb5ad; }
+    main { padding: 18px; display: grid; grid-template-columns: minmax(560px, 1.25fr) minmax(390px, 0.8fr); gap: 18px; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+    .wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .viewer { padding: 0; overflow: hidden; position: relative; min-height: 520px; }
+    canvas { width: 100%; display: block; background: #fff; }
+    #scene { height: 520px; }
+    #chart { height: 330px; border: 1px solid var(--line); border-radius: 8px; }
+    .hud { position: absolute; left: 12px; top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill { display: inline-flex; align-items: center; min-height: 24px; padding: 3px 8px; border-radius: 999px; background: #eef4f1; border: 1px solid #d7e3dd; font-size: 12px; white-space: nowrap; }
+    .note { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 10px 0 0; }
+    .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    label { display: grid; gap: 6px; font-size: 12px; color: var(--muted); }
+    select, input, button { min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 9px; font: inherit; }
+    button { cursor: pointer; background: var(--ink); color: #fff; border-color: var(--ink); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 8px 7px; border-bottom: 1px solid #e4ebe7; text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; }
+    td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .ok { color: var(--green); font-weight: 700; }
+    .warn { color: var(--red); font-weight: 700; }
+    .mono { font-family: Consolas, "SFMono-Regular", monospace; }
+    .banner { border-left: 4px solid var(--amber); background: #fff8ec; padding: 11px 12px; border-radius: 6px; color: #614718; }
+    @media (max-width: 1050px) { header, main, .wide { display: block; } nav { margin-top: 12px; } section { margin-bottom: 14px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Chrono 着陆腿耦合</h1>
+      <p class="note">HAMS/Cummins 只负责平台水动力；Project Chrono/PyChrono 负责火箭刚体、四腿、足垫接触、缓冲器和摩擦。</p>
+    </div>
+    <nav>
+      <a href="viewer.html">3D Mesh</a>
+      <a href="results.html">HAMS Results</a>
+      <a href="rocket-recovery.html">Rocket Recovery</a>
+      <a href="nargolkar-2025.html">Nargolkar 2025</a>
+      <a href="wang-2023.html">Wang 2023</a>
+      <a href="landing-leg-contact.html">Leg Contact</a>
+      <a href="integrated-recovery.html">Integrated</a>
+      <a href="chrono-recovery.html" aria-current="page">Chrono</a>
+      <a href="chrono-two-way.html">Chrono Two-Way</a>
+      <a href="chrono-stage3-tripod.html">Stage 3A Tripod</a>
+      <a href="chrono-stage3-two-way.html">Stage 3A Two-Way</a>
+      <a href="chrono-stage3-lock.html">Stage 3 Lock</a>
+      <a href="chrono-stage3-lock-two-way.html">Lock Two-Way</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="viewer">
+      <canvas id="scene" width="1100" height="620"></canvas>
+      <div class="hud" id="hud"></div>
+    </section>
+
+    <div>
+      <section>
+        <h2>状态</h2>
+        <div id="status"></div>
+        <p class="note" id="statusNote"></p>
+      </section>
+      <section>
+        <h2>控制</h2>
+        <div class="controls">
+          <label>工况<select id="caseSelect"></select></label>
+          <label>曲线<select id="responseSelect">
+            <option value="leg_force">单腿接触力</option>
+            <option value="tsda_force">缓冲 TSDA 力</option>
+            <option value="leg_stroke">缓冲行程</option>
+            <option value="leg_slip">足垫滑移</option>
+            <option value="rocket_attitude">火箭姿态</option>
+            <option value="rocket_v">火箭垂向速度</option>
+            <option value="deck">平台 heave/roll/pitch</option>
+          </select></label>
+          <label>时间<span class="pill" id="timeReadout">-</span></label>
+          <button id="playButton" type="button">Play</button>
+          <label style="grid-column:1/-1">Timeline<input id="timeSlider" type="range" min="0" value="0"></label>
+        </div>
+      </section>
+      <section>
+        <h2>验收检查</h2>
+        <table><tbody id="validationRows"></tbody></table>
+      </section>
+    </div>
+
+    <div class="wide">
+      <section>
+        <h2>计算时历</h2>
+        <canvas id="chart" width="1100" height="420"></canvas>
+        <p class="note" id="chartNote"></p>
+      </section>
+      <section>
+        <h2>四个输入工况</h2>
+        <table>
+          <thead><tr><th>Case</th><th>输入</th><th>平台峰值</th></tr></thead>
+          <tbody id="caseRows"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <div class="wide">
+      <section>
+        <h2>环境安装</h2>
+        <table><tbody id="installRows"></tbody></table>
+      </section>
+      <section>
+        <h2>建模边界</h2>
+        <table><tbody id="auditRows"></tbody></table>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const data = window.CHRONO_RECOVERY_DATA || null;
+    const state = { caseId: null, frame: 0, playing: false, lastMs: performance.now() };
+    const caseSelect = document.getElementById("caseSelect");
+    const responseSelect = document.getElementById("responseSelect");
+    const slider = document.getElementById("timeSlider");
+    const scene = document.getElementById("scene");
+    const sceneCtx = scene.getContext("2d");
+    const chart = document.getElementById("chart");
+    const chartCtx = chart.getContext("2d");
+
+    function fmt(value, digits = 3) {
+      if (!Number.isFinite(value)) return "-";
+      const abs = Math.abs(value);
+      if (abs !== 0 && abs < 0.001) return value.toExponential(2);
+      return value.toFixed(digits);
+    }
+
+    function hasSimulations() {
+      return data && data.simulations && Object.keys(data.simulations).length > 0;
+    }
+
+    function sim() {
+      return hasSimulations() ? data.simulations[state.caseId] : null;
+    }
+
+    function init() {
+      if (!data) {
+        document.getElementById("status").innerHTML = `<div class="banner">尚未生成 Chrono 数据。先运行 <span class="mono">python .\\analysis\\rocket_recovery\\chrono_one_way_recovery.py check</span>。</div>`;
+        drawEmptyScene("No chrono-recovery-data.js loaded");
+        return;
+      }
+      const cases = Object.keys(hasSimulations() ? data.simulations : data.deck_inputs);
+      state.caseId = cases[0] || null;
+      cases.forEach(id => {
+        const opt = document.createElement("option");
+        opt.value = id;
+        opt.textContent = id;
+        caseSelect.appendChild(opt);
+      });
+      caseSelect.value = state.caseId || "";
+      document.getElementById("status").innerHTML = statusHtml();
+      document.getElementById("statusNote").textContent = data.coupling ? `${data.coupling.platform_solver} -> ${data.coupling.leg_solver}; fallback=${data.coupling.fallback_to_handwritten_contact}` : "";
+      populateRows();
+      resetCase();
+      requestAnimationFrame(frame);
+    }
+
+    function statusHtml() {
+      const env = data.environment || {};
+      if (data.status === "simulated") return `<div class="pill ok">PyChrono simulated</div>`;
+      if (env.available) return `<div class="pill ok">PyChrono available</div><p class="note">当前报告是准备/检查数据；运行 report 生成时程。</p>`;
+      return `<div class="banner">PyChrono 未安装：页面只显示输入、验收项和安装命令；不会把旧手写 contact_forces 当作 Chrono 结果。</div>`;
+    }
+
+    function populateRows() {
+      const validation = data.validation || {};
+      document.getElementById("validationRows").innerHTML = Object.entries(validation).map(([key, row]) => {
+        const pass = row && typeof row === "object" && "pass" in row ? (row.pass ? "PASS" : "CHECK") : "INFO";
+        return `<tr><td class="mono">${key}</td><td class="${pass === "PASS" ? "ok" : "warn"}">${pass}</td><td>${typeof row === "object" ? JSON.stringify(row) : row}</td></tr>`;
+      }).join("");
+
+      document.getElementById("caseRows").innerHTML = Object.entries(data.deck_inputs || {}).map(([id, row]) => {
+        const peak = row.peak_deck_motion || {};
+        return `<tr><td class="mono">${id}</td><td>${row.with_wave ? "wave" : "calm"}, ${row.offset?.label || ""}</td><td>heave ${fmt(peak.heave_m)} m, roll ${fmt(peak.roll_deg)} deg, pitch ${fmt(peak.pitch_deg)} deg</td></tr>`;
+      }).join("");
+
+      const hint = data.environment?.install_hint || {};
+      document.getElementById("installRows").innerHTML = Object.entries(hint).map(([key, value]) => {
+        const text = Array.isArray(value) ? value.join("<br>") : value;
+        return `<tr><td class="mono">${key}</td><td>${text}</td></tr>`;
+      }).join("");
+
+      const audit = data.config?.parameter_audit || {};
+      const rows = [];
+      (audit.published_values || []).forEach(v => rows.push(["published", v]));
+      (audit.explicit_assumptions || []).forEach(v => rows.push(["assumption", v]));
+      document.getElementById("auditRows").innerHTML = rows.map(row => `<tr><td class="mono">${row[0]}</td><td>${row[1]}</td></tr>`).join("");
+    }
+
+    function resetCase() {
+      state.caseId = caseSelect.value || state.caseId;
+      state.frame = 0;
+      if (sim()) {
+        slider.max = String(sim().time_s.length - 1);
+        slider.disabled = false;
+      } else {
+        slider.max = "0";
+        slider.disabled = true;
+      }
+      sync();
+    }
+
+    function frame(now) {
+      if (state.playing && sim() && now - state.lastMs > 30) {
+        state.frame = Math.min(sim().time_s.length - 1, state.frame + 2);
+        if (state.frame >= sim().time_s.length - 1) state.playing = false;
+        state.lastMs = now;
+        sync();
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function sync() {
+      document.getElementById("playButton").textContent = state.playing ? "Pause" : "Play";
+      if (!sim()) {
+        document.getElementById("timeReadout").textContent = "-";
+        drawEmptyScene("Chrono simulation not generated yet");
+        drawEmptyChart("Run chrono_one_way_recovery.py report after installing PyChrono");
+        return;
+      }
+      slider.value = String(state.frame);
+      document.getElementById("timeReadout").textContent = `t = ${fmt(sim().time_s[state.frame], 3)} s`;
+      drawScene();
+      drawChart();
+    }
+
+    function drawEmptyScene(message) {
+      sceneCtx.clearRect(0, 0, scene.width, scene.height);
+      sceneCtx.fillStyle = "#fbfcfb";
+      sceneCtx.fillRect(0, 0, scene.width, scene.height);
+      sceneCtx.fillStyle = "#64716b";
+      sceneCtx.font = "18px Segoe UI";
+      sceneCtx.fillText(message, 40, 80);
+      sceneCtx.strokeStyle = "#93a19b";
+      sceneCtx.beginPath();
+      sceneCtx.moveTo(120, 400);
+      sceneCtx.lineTo(980, 400);
+      sceneCtx.stroke();
+      sceneCtx.fillStyle = "#b94d36";
+      sceneCtx.fillRect(520, 210, 60, 190);
+      document.getElementById("hud").innerHTML = `<span class="pill">status ${data?.status || "missing"}</span>`;
+    }
+
+    function drawScene() {
+      const s = sim();
+      const i = state.frame;
+      const w = scene.width, h = scene.height;
+      sceneCtx.clearRect(0, 0, w, h);
+      sceneCtx.fillStyle = "#fbfcfb";
+      sceneCtx.fillRect(0, 0, w, h);
+      const zBase = h - 170;
+      const scale = 4.5;
+      const deckZ = s.deck.heave_m[i] * scale;
+      const roll = s.deck.roll_rad[i];
+      const pitch = s.deck.pitch_rad[i];
+      const useBeamView = Math.abs(roll) >= Math.abs(pitch);
+      const deckAngle = useBeamView ? roll : -pitch;
+      const rocketAngle = useBeamView ? (s.rocket.roll_rad?.[i] || 0) : -(s.rocket.pitch_rad?.[i] || 0);
+      const axisKey = useBeamView ? "y_m" : "x_m";
+      const offset = data.deck_inputs?.[state.caseId]?.offset || { x: 0, y: 0 };
+      const axisOffset = useBeamView ? (offset.y || 0) : (offset.x || 0);
+      sceneCtx.save();
+      sceneCtx.translate(w / 2, zBase - deckZ);
+      sceneCtx.rotate(-deckAngle);
+      sceneCtx.fillStyle = "#d9c48c";
+      sceneCtx.fillRect(-420, -8, 840, 16);
+      sceneCtx.restore();
+      const rocketX = w / 2;
+      const rocketBase = zBase - s.rocket.cg_z_m[i] * scale + data.config.rocket.cog_from_base_m * scale;
+      sceneCtx.save();
+      sceneCtx.translate(rocketX, rocketBase);
+      sceneCtx.rotate(-rocketAngle);
+      sceneCtx.fillStyle = "#5e6a74";
+      sceneCtx.fillRect(-22, -250, 44, 250);
+      sceneCtx.fillStyle = "#b94d36";
+      sceneCtx.beginPath();
+      sceneCtx.moveTo(-22, -250);
+      sceneCtx.lineTo(0, -286);
+      sceneCtx.lineTo(22, -250);
+      sceneCtx.closePath();
+      sceneCtx.fill();
+      sceneCtx.restore();
+      const legs = data.leg_positions || [];
+      legs.forEach(leg => {
+        const contact = s.contact.leg_contact[leg.id][i] > 0;
+        const foot = s.feet?.position_m?.[leg.id];
+        const projected = foot ? foot[axisKey][i] - axisOffset : leg[axisKey];
+        const x = rocketX + projected * scale;
+        const z = foot ? zBase - foot.z_m[i] * scale : rocketBase;
+        sceneCtx.strokeStyle = "#333b38";
+        sceneCtx.beginPath();
+        sceneCtx.moveTo(rocketX, rocketBase - 30);
+        sceneCtx.lineTo(x, z);
+        sceneCtx.stroke();
+        sceneCtx.fillStyle = contact ? "#2b7a58" : "#b94d36";
+        sceneCtx.fillRect(x - 9, z - 3, 18, 6);
+      });
+      const count = Object.values(s.contact.leg_contact).reduce((sum, row) => sum + (row[i] > 0 ? 1 : 0), 0);
+      document.getElementById("hud").innerHTML = [
+        `<span class="pill">${s.id || state.caseId}</span>`,
+        `<span class="pill">${useBeamView ? "y-z" : "x-z"} view</span>`,
+        `<span class="pill">contact ${count}/4</span>`,
+        `<span class="pill">vz ${fmt(s.rocket.vertical_velocity_m_s[i], 2)} m/s</span>`,
+        `<span class="pill">roll ${fmt((s.rocket.roll_rad?.[i] || 0) * 180 / Math.PI, 2)} deg</span>`,
+        `<span class="pill">pitch ${fmt((s.rocket.pitch_rad?.[i] || 0) * 180 / Math.PI, 2)} deg</span>`,
+      ].join("");
+    }
+
+    function drawEmptyChart(message) {
+      chartCtx.clearRect(0, 0, chart.width, chart.height);
+      chartCtx.fillStyle = "#fff";
+      chartCtx.fillRect(0, 0, chart.width, chart.height);
+      chartCtx.fillStyle = "#64716b";
+      chartCtx.font = "16px Segoe UI";
+      chartCtx.fillText(message, 32, 60);
+      document.getElementById("chartNote").textContent = "当前没有 Chrono 时程数据。";
+    }
+
+    function drawChart() {
+      const s = sim();
+      const t = s.time_s;
+      let rows = [];
+      const mode = responseSelect.value;
+      if (mode === "leg_force") rows = Object.entries(s.forces.leg_contact_force_n || s.forces.leg_tsda_force_n).map(([id, values]) => ({ id, values: values.map(v => v / 1000) }));
+      if (mode === "tsda_force") rows = Object.entries(s.forces.leg_tsda_force_n).map(([id, values]) => ({ id, values: values.map(v => v / 1000) }));
+      if (mode === "leg_stroke") rows = Object.entries(s.contact.leg_stroke_m).map(([id, values]) => ({ id, values }));
+      if (mode === "leg_slip") rows = Object.entries(s.contact.leg_slip_m).map(([id, values]) => ({ id, values }));
+      if (mode === "rocket_attitude") rows = [
+        { id: "roll_deg", values: (s.rocket.roll_rad || []).map(v => v * 180 / Math.PI) },
+        { id: "pitch_deg", values: (s.rocket.pitch_rad || []).map(v => v * 180 / Math.PI) },
+      ];
+      if (mode === "rocket_v") rows = [{ id: "rocket_v", values: s.rocket.vertical_velocity_m_s }];
+      if (mode === "deck") rows = [
+        { id: "heave_m", values: s.deck.heave_m },
+        { id: "roll_deg", values: s.deck.roll_rad.map(v => v * 180 / Math.PI) },
+        { id: "pitch_deg", values: s.deck.pitch_rad.map(v => v * 180 / Math.PI) },
+      ];
+      const w = chart.width, h = chart.height;
+      chartCtx.clearRect(0, 0, w, h);
+      chartCtx.fillStyle = "#fff";
+      chartCtx.fillRect(0, 0, w, h);
+      const m = { l: 56, r: 18, t: 18, b: 36 };
+      const minX = t[0], maxX = t[t.length - 1];
+      const maxAbs = Math.max(1e-9, ...rows.flatMap(row => row.values.map(v => Math.abs(v))));
+      const x = v => m.l + (v - minX) / (maxX - minX) * (w - m.l - m.r);
+      const y = v => h / 2 - v / maxAbs * (h - m.t - m.b) / 2;
+      chartCtx.strokeStyle = "#e6ece8";
+      [-1, -0.5, 0, 0.5, 1].forEach(f => {
+        chartCtx.beginPath();
+        chartCtx.moveTo(m.l, y(f * maxAbs));
+        chartCtx.lineTo(w - m.r, y(f * maxAbs));
+        chartCtx.stroke();
+      });
+      const colors = ["#2f6fa3", "#b94d36", "#2b7a58", "#b9862f"];
+      rows.forEach((row, ri) => {
+        chartCtx.strokeStyle = colors[ri % colors.length];
+        chartCtx.lineWidth = 2;
+        chartCtx.beginPath();
+        row.values.forEach((v, i) => {
+          if (i === 0) chartCtx.moveTo(x(t[i]), y(v));
+          else chartCtx.lineTo(x(t[i]), y(v));
+        });
+        chartCtx.stroke();
+      });
+      chartCtx.strokeStyle = "#17211d";
+      chartCtx.beginPath();
+      chartCtx.moveTo(x(t[state.frame]), m.t);
+      chartCtx.lineTo(x(t[state.frame]), h - m.b);
+      chartCtx.stroke();
+      document.getElementById("chartNote").textContent = `曲线来自 Project Chrono 输出；mode=${mode}`;
+    }
+
+    caseSelect.addEventListener("change", resetCase);
+    responseSelect.addEventListener("change", sync);
+    slider.addEventListener("input", () => { state.frame = Number(slider.value); state.playing = false; sync(); });
+    document.getElementById("playButton").addEventListener("click", () => { state.playing = !state.playing; state.lastMs = performance.now(); sync(); });
+    init();
+  </script>
+</body>
+</html>

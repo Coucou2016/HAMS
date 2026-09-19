@@ -1,0 +1,2009 @@
+{
+  "schema_id": "ChronoLegMechanismDataContract/v1",
+  "purpose": "Replace Stage 3A/3B/3C proxy legs with an Adams-equivalent Chrono mechanism only when these fields are populated and source-tagged.",
+  "source_files": {
+    "thies_markdown": "海上平台火箭回收文献/P3_Thies_2022.md",
+    "thies_pdf": "海上平台火箭回收文献/P3_Thies_2022.pdf"
+  },
+  "coordinate_system": {
+    "global_note": "Use SI units. Define all CAD markers in the rocket body frame, then supply the transform into the HAMS/Cummins deck frame.",
+    "rocket_body_origin": {
+      "value": {
+        "origin": "rocket_base_center",
+        "position_m": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "unit": null,
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "rocket_body_axes": {
+      "value": {
+        "x": "forward",
+        "y": "port",
+        "z": "up",
+        "handedness": "right"
+      },
+      "unit": null,
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "deck_frame_transform": {
+      "value": {
+        "translation_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "unit": null,
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    }
+  },
+  "rocket": {
+    "landing_mass_kg": {
+      "value": 61288.0,
+      "unit": "kg",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 vehicle data table",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "height_m": {
+      "value": 103.0,
+      "unit": "m",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 vehicle data table",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "base_diameter_m": {
+      "value": 6.0,
+      "unit": "m",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 vehicle data table",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "cog_from_base_m": {
+      "value": 22.059,
+      "unit": "m",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 vehicle data table",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "inertia_kg_m2": {
+      "value": {
+        "pitch_ixx": 25700000.0,
+        "roll_iyy": 376000.0,
+        "yaw_izz": 25700000.0
+      },
+      "unit": "kg m^2",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 vehicle data table",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    }
+  },
+  "landing_conditions": {
+    "touchdown_vertical_velocity_m_s": {
+      "value": 5.0,
+      "unit": "m/s",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 Table 6/7 nominal case",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "friction_coefficient_nominal": {
+      "value": 0.5,
+      "unit": null,
+      "source_category": "paper",
+      "source_detail": "Thies 2022 Table 6",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "reported_nozzle_clearance_m": {
+      "value": 0.57,
+      "unit": "m",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 Table 8",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "reported_damper_deformation_m": {
+      "value": 0.42,
+      "unit": "m",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 Table 8",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "reported_spring_damper_force_kn": {
+      "value": 935.0,
+      "unit": "kN",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 Table 8",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    }
+  },
+  "legs": [
+    {
+      "id": "leg_1",
+      "azimuth_deg": {
+        "value": 45.0,
+        "unit": "deg",
+        "source_category": "synthetic_test_fixture",
+        "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+        "required_for": [
+          "adams_equivalent_chrono_mechanism"
+        ]
+      },
+      "published_plane_dimensions": {
+        "PB_length_m": {
+          "value": 8.1,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "PT_length_m": {
+          "value": 11.2,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "PK_length_m": {
+          "value": 7.4,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "B_height_m": {
+          "value": 4.4,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "T_height_m": {
+          "value": 9.0,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "K_height_m": {
+          "value": 5.7,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "leg_angle_deg": {
+          "value": 33.0,
+          "unit": "deg",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "strut_angle_deg": {
+          "value": 51.0,
+          "unit": "deg",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "adams_equivalent_geometry": {
+        "B_rocket_marker_xyz_m": {
+          "x": {
+            "value": 0.848008234,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": 0.848008234,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 4.4,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "T_rocket_marker_xyz_m": {
+          "x": {
+            "value": 0.94304475,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": 0.94304475,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 9.0,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "K_rocket_marker_xyz_m": {
+          "x": {
+            "value": 2.319939507,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": 2.319939507,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 5.7,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "P_footpad_marker_xyz_m": {
+          "x": {
+            "value": 5.656854249,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": 5.656854249,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 0.0,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "proxy_footprint_radius_m": {
+          "value": 6.7932316003579345,
+          "unit": "m",
+          "source_category": "computed",
+          "source_detail": "Derived from PB length and leg angle: radius = PB*cos(angle).",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "constraint_topology": {
+        "B_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "T_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "K_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "P_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "absorber_slider_axis_xyz": {
+          "value": {
+            "x": 0.5936846932614612,
+            "y": 0.5936846932614612,
+            "z": -0.5432098765432098
+          },
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "joint_limit_definitions": {
+          "value": {
+            "stroke_min_m": 0.0,
+            "stroke_max_m": 0.8,
+            "hard_stop_policy": "synthetic_selftest_only"
+          },
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "body_properties": {
+        "main_strut": {
+          "mass_kg": {
+            "value": 250.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": 3.252431241783462,
+              "y": 3.252431241783462,
+              "z": 2.2
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "long_auxiliary_strut": {
+          "mass_kg": {
+            "value": 140.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": 3.299949499613846,
+              "y": 3.299949499613846,
+              "z": 4.5
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "short_auxiliary_strut": {
+          "mass_kg": {
+            "value": 110.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": 3.9883968781460224,
+              "y": 3.9883968781460224,
+              "z": 2.85
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "footpad": {
+          "mass_kg": {
+            "value": 80.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": 5.656854249492381,
+              "y": 5.656854249492381,
+              "z": 0.0
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "leg_2",
+      "azimuth_deg": {
+        "value": 135.0,
+        "unit": "deg",
+        "source_category": "synthetic_test_fixture",
+        "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+        "required_for": [
+          "adams_equivalent_chrono_mechanism"
+        ]
+      },
+      "published_plane_dimensions": {
+        "PB_length_m": {
+          "value": 8.1,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "PT_length_m": {
+          "value": 11.2,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "PK_length_m": {
+          "value": 7.4,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "B_height_m": {
+          "value": 4.4,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "T_height_m": {
+          "value": 9.0,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "K_height_m": {
+          "value": 5.7,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "leg_angle_deg": {
+          "value": 33.0,
+          "unit": "deg",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "strut_angle_deg": {
+          "value": 51.0,
+          "unit": "deg",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "adams_equivalent_geometry": {
+        "B_rocket_marker_xyz_m": {
+          "x": {
+            "value": -0.848008234,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": 0.848008234,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 4.4,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "T_rocket_marker_xyz_m": {
+          "x": {
+            "value": -0.94304475,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": 0.94304475,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 9.0,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "K_rocket_marker_xyz_m": {
+          "x": {
+            "value": -2.319939507,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": 2.319939507,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 5.7,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "P_footpad_marker_xyz_m": {
+          "x": {
+            "value": -5.656854249,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": 5.656854249,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 0.0,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "proxy_footprint_radius_m": {
+          "value": 6.7932316003579345,
+          "unit": "m",
+          "source_category": "computed",
+          "source_detail": "Derived from PB length and leg angle: radius = PB*cos(angle).",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "constraint_topology": {
+        "B_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "T_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "K_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "P_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "absorber_slider_axis_xyz": {
+          "value": {
+            "x": -0.5936846932614612,
+            "y": 0.5936846932614613,
+            "z": -0.54320987654321
+          },
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "joint_limit_definitions": {
+          "value": {
+            "stroke_min_m": 0.0,
+            "stroke_max_m": 0.8,
+            "hard_stop_policy": "synthetic_selftest_only"
+          },
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "body_properties": {
+        "main_strut": {
+          "mass_kg": {
+            "value": 250.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": -3.2524312417834618,
+              "y": 3.252431241783462,
+              "z": 2.2
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "long_auxiliary_strut": {
+          "mass_kg": {
+            "value": 140.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": -3.299949499613845,
+              "y": 3.299949499613846,
+              "z": 4.5
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "short_auxiliary_strut": {
+          "mass_kg": {
+            "value": 110.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": -3.9883968781460215,
+              "y": 3.9883968781460224,
+              "z": 2.85
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "footpad": {
+          "mass_kg": {
+            "value": 80.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": -5.65685424949238,
+              "y": 5.656854249492381,
+              "z": 0.0
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "leg_3",
+      "azimuth_deg": {
+        "value": 225.0,
+        "unit": "deg",
+        "source_category": "synthetic_test_fixture",
+        "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+        "required_for": [
+          "adams_equivalent_chrono_mechanism"
+        ]
+      },
+      "published_plane_dimensions": {
+        "PB_length_m": {
+          "value": 8.1,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "PT_length_m": {
+          "value": 11.2,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "PK_length_m": {
+          "value": 7.4,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "B_height_m": {
+          "value": 4.4,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "T_height_m": {
+          "value": 9.0,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "K_height_m": {
+          "value": 5.7,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "leg_angle_deg": {
+          "value": 33.0,
+          "unit": "deg",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "strut_angle_deg": {
+          "value": 51.0,
+          "unit": "deg",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "adams_equivalent_geometry": {
+        "B_rocket_marker_xyz_m": {
+          "x": {
+            "value": -0.848008234,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": -0.848008234,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 4.4,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "T_rocket_marker_xyz_m": {
+          "x": {
+            "value": -0.94304475,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": -0.94304475,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 9.0,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "K_rocket_marker_xyz_m": {
+          "x": {
+            "value": -2.319939507,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": -2.319939507,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 5.7,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "P_footpad_marker_xyz_m": {
+          "x": {
+            "value": -5.656854249,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": -5.656854249,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 0.0,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "proxy_footprint_radius_m": {
+          "value": 6.7932316003579345,
+          "unit": "m",
+          "source_category": "computed",
+          "source_detail": "Derived from PB length and leg angle: radius = PB*cos(angle).",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "constraint_topology": {
+        "B_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "T_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "K_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "P_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "absorber_slider_axis_xyz": {
+          "value": {
+            "x": -0.5936846932614613,
+            "y": -0.5936846932614611,
+            "z": -0.5432098765432098
+          },
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "joint_limit_definitions": {
+          "value": {
+            "stroke_min_m": 0.0,
+            "stroke_max_m": 0.8,
+            "hard_stop_policy": "synthetic_selftest_only"
+          },
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "body_properties": {
+        "main_strut": {
+          "mass_kg": {
+            "value": 250.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": -3.2524312417834627,
+              "y": -3.2524312417834618,
+              "z": 2.2
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "long_auxiliary_strut": {
+          "mass_kg": {
+            "value": 140.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": -3.2999494996138465,
+              "y": -3.299949499613845,
+              "z": 4.5
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "short_auxiliary_strut": {
+          "mass_kg": {
+            "value": 110.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": -3.9883968781460224,
+              "y": -3.9883968781460215,
+              "z": 2.85
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "footpad": {
+          "mass_kg": {
+            "value": 80.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": -5.6568542494923815,
+              "y": -5.65685424949238,
+              "z": 0.0
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "leg_4",
+      "azimuth_deg": {
+        "value": 315.0,
+        "unit": "deg",
+        "source_category": "synthetic_test_fixture",
+        "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+        "required_for": [
+          "adams_equivalent_chrono_mechanism"
+        ]
+      },
+      "published_plane_dimensions": {
+        "PB_length_m": {
+          "value": 8.1,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "PT_length_m": {
+          "value": 11.2,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "PK_length_m": {
+          "value": 7.4,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "B_height_m": {
+          "value": 4.4,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "T_height_m": {
+          "value": 9.0,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "K_height_m": {
+          "value": 5.7,
+          "unit": "m",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "leg_angle_deg": {
+          "value": 33.0,
+          "unit": "deg",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "strut_angle_deg": {
+          "value": 51.0,
+          "unit": "deg",
+          "source_category": "paper",
+          "source_detail": "Thies 2022 Table 4",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "adams_equivalent_geometry": {
+        "B_rocket_marker_xyz_m": {
+          "x": {
+            "value": 0.848008234,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": -0.848008234,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 4.4,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "T_rocket_marker_xyz_m": {
+          "x": {
+            "value": 0.94304475,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": -0.94304475,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 9.0,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "K_rocket_marker_xyz_m": {
+          "x": {
+            "value": 2.319939507,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": -2.319939507,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 5.7,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "P_footpad_marker_xyz_m": {
+          "x": {
+            "value": 5.656854249,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "y": {
+            "value": -5.656854249,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "z": {
+            "value": 0.0,
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "proxy_footprint_radius_m": {
+          "value": 6.7932316003579345,
+          "unit": "m",
+          "source_category": "computed",
+          "source_detail": "Derived from PB length and leg angle: radius = PB*cos(angle).",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "constraint_topology": {
+        "B_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "T_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "K_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "P_joint_type": {
+          "value": "spherical",
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "absorber_slider_axis_xyz": {
+          "value": {
+            "x": 0.5936846932614611,
+            "y": -0.5936846932614614,
+            "z": -0.54320987654321
+          },
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        },
+        "joint_limit_definitions": {
+          "value": {
+            "stroke_min_m": 0.0,
+            "stroke_max_m": 0.8,
+            "hard_stop_policy": "synthetic_selftest_only"
+          },
+          "unit": null,
+          "source_category": "synthetic_test_fixture",
+          "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+          "required_for": [
+            "adams_equivalent_chrono_mechanism"
+          ]
+        }
+      },
+      "body_properties": {
+        "main_strut": {
+          "mass_kg": {
+            "value": 250.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": 3.2524312417834613,
+              "y": -3.2524312417834627,
+              "z": 2.2
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "long_auxiliary_strut": {
+          "mass_kg": {
+            "value": 140.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": 3.2999494996138448,
+              "y": -3.2999494996138465,
+              "z": 4.5
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "short_auxiliary_strut": {
+          "mass_kg": {
+            "value": 110.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": 3.9883968781460206,
+              "y": -3.9883968781460224,
+              "z": 2.85
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        },
+        "footpad": {
+          "mass_kg": {
+            "value": 80.0,
+            "unit": "kg",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "com_xyz_m": {
+            "value": {
+              "x": 5.656854249492379,
+              "y": -5.6568542494923815,
+              "z": 0.0
+            },
+            "unit": "m",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          },
+          "inertia_kg_m2": {
+            "value": {
+              "ixx": 1.0,
+              "iyy": 1.0,
+              "izz": 1.0,
+              "ixy": 0.0,
+              "ixz": 0.0,
+              "iyz": 0.0
+            },
+            "unit": "kg m^2",
+            "source_category": "synthetic_test_fixture",
+            "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+            "required_for": [
+              "adams_equivalent_chrono_mechanism"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "buffer_law": {
+    "linear_k_n_m": {
+      "value": 2600000.0,
+      "unit": "N/m",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 Table 10, converted from N/mm.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "linear_c_n_s_m": {
+      "value": 1300000.0,
+      "unit": "N s/m",
+      "source_category": "paper",
+      "source_detail": "Thies 2022 Table 10, converted from N sec/mm.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "nonlinear_force_stroke_table": {
+      "value": "RocketRecoveryCases/Chrono_LeggedRecovery/validation/synthetic_leg_import/synthetic-buffer-curve.json",
+      "unit": null,
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": []
+    },
+    "stroke_limit_m": {
+      "value": 0.8,
+      "unit": "m",
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "extension_behavior": {
+      "value": "compression_only_with_rebound_gap",
+      "unit": null,
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    }
+  },
+  "lock_hardware": {
+    "mechanism_type": {
+      "value": "synthetic_fixed_clamp",
+      "unit": null,
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "trigger_logic": {
+      "value": {
+        "stable_dwell_s": 1.0,
+        "max_body_rate_rad_s": 0.01
+      },
+      "unit": null,
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    },
+    "constraint_stiffness": {
+      "value": {
+        "linear_n_m": 100000000.0,
+        "angular_nm_rad": 100000000.0
+      },
+      "unit": null,
+      "source_category": "synthetic_test_fixture",
+      "source_detail": "Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data.",
+      "required_for": [
+        "adams_equivalent_chrono_mechanism"
+      ]
+    }
+  }
+}

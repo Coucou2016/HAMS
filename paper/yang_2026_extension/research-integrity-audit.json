@@ -1,0 +1,691 @@
+{
+  "audit_id": "SeaLandingPaper-ResearchIntegrity-Audit-v2",
+  "generated_utc": "2026-09-05T07:35:59.117394+00:00",
+  "status": "PASS_WITH_DECLARED_LIMITATIONS",
+  "classification": {
+    "present_calculation": "Output produced in this project from executable code.",
+    "reference_target": "Published value or digitized curve used only for labelled comparison/input.",
+    "proxy_or_assumption": "Input introduced because open literature does not supply vehicle data; it cannot support an exact-reproduction claim."
+  },
+  "checks": {
+    "evidence_files_exist": true,
+    "protected_claims_present": true,
+    "figures_pass_mechanical_checks": true,
+    "old_literals_removed": true,
+    "all_loaded_numeric_trees_finite": true
+  },
+  "current_results": {
+    "medium_heave_rao_m_per_m": 1.113483,
+    "hydrodynamic_acceptance": {
+      "status": "FAIL",
+      "all_jobs_completed": true,
+      "criterion": "At 0.6, 0.8 and 1.0 rad/s, selected heave/roll/pitch A, B and non-symmetry RAO entries must change by no more than 5% for coarse-to-medium and medium-to-fine refinement.",
+      "pair_checks": [
+        {
+          "coarser": "coarse",
+          "finer": "medium",
+          "selected_metric_count": 30,
+          "maximum_selected_relative_change": 0.15464968310784943,
+          "pass_5_percent": false
+        },
+        {
+          "coarser": "medium",
+          "finer": "fine",
+          "selected_metric_count": 30,
+          "maximum_selected_relative_change": 0.05879837438854719,
+          "pass_5_percent": false
+        }
+      ],
+      "note": "A failed criterion is retained as a numerical limitation; no result is promoted to mesh-converged by narrative judgement."
+    },
+    "random_wave_acceptance": {
+      "status": "NUMERICAL_PASS_OUTSIDE_LINEAR_VALIDITY",
+      "numerical_verification_pass": true,
+      "all_cases_within_linear_validity": false,
+      "checks": {
+        "case_count": {
+          "actual": 63,
+          "expected": 63
+        },
+        "realizations_per_case": {
+          "actual": 1000,
+          "minimum": 1000
+        },
+        "all_values_finite": true,
+        "maximum_relative_spectrum_m0_error": 1.3322676295501878e-15,
+        "maximum_relative_hs_linearity_error": 0.0,
+        "frequency_step_within_limit": true,
+        "no_repeat_period_in_record": true,
+        "rao_kinematic_consistency": true,
+        "linear_validity": false
+      },
+      "claim": "Numerically reproducible linear HAMS/JONSWAP deck-motion screening with realization-level P95 bootstrap uncertainty.",
+      "not_claimed": "Coupled landing success probability, nonlinear deck wetting, or operational sea-state qualification."
+    },
+    "random_wave_valid_case_count": 41,
+    "random_wave_case_count": 63,
+    "duration_center_p95_m_s": {
+      "Hs3_Tp8": {
+        "600": 1.1242510071646494,
+        "1200": 1.1776906250535837,
+        "1800": 1.2071486947944876
+      },
+      "Hs3_Tp10": {
+        "600": 1.5758814699064376,
+        "1200": 1.6591027720677836,
+        "1800": 1.6989937387485983
+      }
+    },
+    "coupling_iteration_pass": true,
+    "contact_time_step_pass": false,
+    "contact_load_prediction_qualified": false,
+    "stable_standing_pass": false,
+    "final_platform_summary": {
+      "heave_peak_m": 0.588302546628078,
+      "roll_peak_deg": 1.83387871225264,
+      "pitch_peak_deg": 0.45207609380579894,
+      "heave_rms_m": 0.2487678106296241,
+      "roll_rms_deg": 1.0212065677771822,
+      "pitch_rms_deg": 0.22035997584308323,
+      "heave_velocity_peak_m_s": 0.3089196003365724,
+      "roll_rate_peak_deg_s": 1.3168574648873015,
+      "pitch_rate_peak_deg_s": 0.2897426624652877
+    }
+  },
+  "claim_registry": [
+    {
+      "id": "yang_stroke_peak",
+      "literal": "within 4.1%",
+      "value": 4.024010180541493,
+      "source": "RocketRecoveryCases/Paper_Yang_2026/identified_landing_model/yang-2026-identified-landing-report.json",
+      "pointer": "/comparisons/*/metrics/stroke_m/peak_relative_error",
+      "literal_present": true
+    },
+    {
+      "id": "yang_near_optimal",
+      "literal": "127 of 128",
+      "value": [
+        127,
+        128
+      ],
+      "source": "RocketRecoveryCases/Paper_Yang_2026/identified_landing_model/yang-2026-identifiability-report.json",
+      "pointer": "/convergence",
+      "literal_present": true
+    },
+    {
+      "id": "medium_heave_rao",
+      "literal": "1.113 m/m",
+      "value": 1.113483,
+      "source": "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/deck-point-rao-medium.json",
+      "pointer": "/points[id=landing_center]/rows/*/displacement_m/z/amp",
+      "literal_present": true
+    },
+    {
+      "id": "mesh_medium_fine",
+      "literal": "5.88%",
+      "value": 5.879837438854719,
+      "source": "RocketRecoveryCases/Barge_120x50/validation/barge-hydrodynamic-convergence.json",
+      "pointer": "/acceptance/pair_checks/1",
+      "literal_present": true
+    },
+    {
+      "id": "center_p95",
+      "literal": "1.570 m/s",
+      "value": 1.570142137428662,
+      "source": "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/wave-sensitivity-revision-600s.json",
+      "pointer": "/cases/*/statistics/landing_center.max_abs_vertical_velocity_m_s/p95",
+      "literal_present": true
+    },
+    {
+      "id": "actual_feet_p95",
+      "literal": "1.591 m/s",
+      "value": 1.5912185953541447,
+      "source": "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/wave-sensitivity-revision-600s.json",
+      "pointer": "/cases/*/statistics/four_feet.max_vertical_velocity_span_m_s/p95",
+      "literal_present": true
+    },
+    {
+      "id": "valid_cases",
+      "literal": "41 of 63",
+      "value": [
+        41,
+        63
+      ],
+      "source": "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/wave-sensitivity-revision-600s.json",
+      "pointer": "/cases/*/linear_validity/pass",
+      "literal_present": true
+    },
+    {
+      "id": "touchdown_span_production",
+      "literal": "0.229 s",
+      "value": 0.228999999999985,
+      "source": "RocketRecoveryCases/Chrono_LeggedRecovery/chrono-same-platform-multibody-report.json",
+      "pointer": "/iterative_run/final_contact_summary/contact_state/touchdown_span_s",
+      "literal_present": true
+    },
+    {
+      "id": "production_peak_force",
+      "literal": "5.006 MN",
+      "value": 5.006461513957208,
+      "source": "RocketRecoveryCases/Chrono_LeggedRecovery/chrono-same-platform-multibody-report.json",
+      "pointer": "/iterative_run/final_contact_summary/max_leg_contact_force_kn",
+      "literal_present": true
+    },
+    {
+      "id": "platform_energy_residual",
+      "literal": "-6.43e-6",
+      "value": -6.432821992171707e-06,
+      "source": "RocketRecoveryCases/Chrono_LeggedRecovery/chrono-same-platform-multibody-report.json",
+      "pointer": "/algorithms/four_pass_platform_update/platform_energy/platform_energy_residual_relative",
+      "literal_present": true
+    },
+    {
+      "id": "cert_file_failures",
+      "literal": "157 file-level failures",
+      "value": {
+        "Cylinder": 65,
+        "DeepCwind": 13,
+        "HywindSpar": 7,
+        "Moonpool": 72
+      },
+      "source": "analysis/diagnostics/hams-cert-root-cause.json",
+      "pointer": "/cases/*/comparison/failed_files",
+      "literal_present": true
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "新论文参考写作论文/Analysis+of+Sea-Based+Landing+Dynamics+of+Reusable+Landing+Vehicle+Considering+Mechanism+Flexibility.pdf",
+      "evidence_class": "reference_source",
+      "role": "Yang et al. paper",
+      "exists": true,
+      "bytes": 2895998,
+      "sha256": "e7949d55dea5a5d9c383d1eaa3ce451d3d73564c6557cd4eb2aa0ea268c7b402"
+    },
+    {
+      "path": "新论文参考写作论文/Analysis+of+Sea-Based+Landing+Dynamics+of+Reusable+Landing+Vehicle+Considering+Mechanism+Flexibility.md",
+      "evidence_class": "reference_source",
+      "role": "Yang et al. extracted text",
+      "exists": true,
+      "bytes": 47209,
+      "sha256": "3939e6f442f1738d37cecc4e84d021eb75060e099c7f36daf6c4ba6935749c24"
+    },
+    {
+      "path": "海上平台火箭回收文献/065002_1_2.0002061.pdf",
+      "evidence_class": "reference_source",
+      "role": "Nargolkar and Vijayan paper",
+      "exists": true,
+      "bytes": 9926149,
+      "sha256": "f9ba2eb6197a8ad79c5e5c588e4049eda3d65385cfda8bed1f2f2e6f6d3418f3"
+    },
+    {
+      "path": "海上平台火箭回收文献/P3_Thies_2022.pdf",
+      "evidence_class": "reference_source",
+      "role": "Thies landing-leg paper",
+      "exists": true,
+      "bytes": 2840096,
+      "sha256": "98d22ac4d4995872f4bc9d1c363f62fb00af05b2f4013e561c0f5495acf857dc"
+    },
+    {
+      "path": "海上平台火箭回收文献/P2_WangZhi_2023_ShipSciTech.pdf",
+      "evidence_class": "reference_source",
+      "role": "Wang plume/platform paper",
+      "exists": true,
+      "bytes": 3058789,
+      "sha256": "afd1269bd8d00a757ecc4232a06264816e632d23a70a59dbee11da60d08055ef"
+    },
+    {
+      "path": "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/yang-2026-fig09-11-digitization.json",
+      "evidence_class": "reference_target",
+      "role": "Digitized published test traces",
+      "exists": true,
+      "bytes": 11227,
+      "sha256": "309fb9da09933f8c18256d3f0bb8bd1da332460f9c8dcc25682f45c096d101e7"
+    },
+    {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/validation/thies_absorber_curves/thies-buffer-curves.json",
+      "evidence_class": "reference_target",
+      "role": "Digitized absorber curves and axis calibration",
+      "exists": true,
+      "bytes": 321937,
+      "sha256": "e4971045da507e8932451e3faff5d8ef82147f1ef0e239aca4d18229d0c972bc"
+    },
+    {
+      "path": "RocketRecoveryCases/Barge_120x50/platform_config.json",
+      "evidence_class": "present_input",
+      "role": "Parameterized barge input",
+      "exists": true,
+      "bytes": 2804,
+      "sha256": "50f90e7fbd6f1f1b99d5d2713e0815998726e3468bb8f9ae21c9896eb4aed883"
+    },
+    {
+      "path": "RocketRecoveryCases/Barge_120x50/validation/barge-self-check.json",
+      "evidence_class": "present_calculation",
+      "role": "Analytic mesh and hydrostatic self-check",
+      "exists": true,
+      "bytes": 1695,
+      "sha256": "06359d8905263bfcb8bef0f57e0ac10006c6f4f2a8d279285b9ebf7fe1be84a4"
+    },
+    {
+      "path": "RocketRecoveryCases/Barge_120x50/validation/barge-hydrodynamic-convergence.json",
+      "evidence_class": "present_calculation",
+      "role": "Hydrodynamic refinement, A-infinity and IRF checks",
+      "exists": true,
+      "bytes": 705348,
+      "sha256": "69304f742c7bf2ca27c49d6c95e9f885aa161aa5a2f12e3e253e73f16283781d"
+    },
+    {
+      "path": "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/deck-point-rao-medium.json",
+      "evidence_class": "present_calculation",
+      "role": "Medium-grid local deck response operators",
+      "exists": true,
+      "bytes": 8430736,
+      "sha256": "61091ab1919a2593ea837766b8ba79527f6fd46ababea7da32243833fa216a99"
+    },
+    {
+      "path": "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/wave-sensitivity-revision-600s.json",
+      "evidence_class": "present_calculation",
+      "role": "1000-realization random-wave calculation",
+      "exists": true,
+      "bytes": 71241320,
+      "sha256": "5519de6bbc861e8ce2ede8f685624e5067ba700eb1d1f1a17d3e8a3879eebf8e"
+    },
+    {
+      "path": "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/wave-duration-sensitivity.json",
+      "evidence_class": "present_calculation",
+      "role": "600/1200/1800 s duration sensitivity",
+      "exists": true,
+      "bytes": 86590,
+      "sha256": "4392ba5f0490553f0736152f153ea403f788eedc227464d304d4d4f9a39922fa"
+    },
+    {
+      "path": "RocketRecoveryCases/Paper_Yang_2026/identified_landing_model/yang-2026-identified-landing-report.json",
+      "evidence_class": "present_calculation",
+      "role": "Reduced-model comparison",
+      "exists": true,
+      "bytes": 161076,
+      "sha256": "da1f143fe0d4051ee426c291addeefb6f88002b245656edcf16909fea566a6c3"
+    },
+    {
+      "path": "RocketRecoveryCases/Paper_Yang_2026/identified_landing_model/yang-2026-identifiability-report.json",
+      "evidence_class": "present_calculation",
+      "role": "128-start identifiability analysis",
+      "exists": true,
+      "bytes": 308559,
+      "sha256": "98f77e5b97f6558a9d3acea79e2f1d71b0377608cfd5e74dcdba532f0f0a4c31"
+    },
+    {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/chrono-same-platform-multibody-report.json",
+      "evidence_class": "present_calculation_with_labelled_proxies",
+      "role": "Same-platform four-pass multibody report",
+      "exists": true,
+      "bytes": 211463,
+      "sha256": "868e066a08d712f2b4ae8a334d50b2697555a28e0a04afb22c776f2776dbafae"
+    },
+    {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/Output/RocketRecovery/chrono-same-platform-multibody-response.json",
+      "evidence_class": "present_calculation_with_labelled_proxies",
+      "role": "Full same-platform response history",
+      "exists": true,
+      "bytes": 11015461,
+      "sha256": "eb6546558296c4eeb34a663b2cc37db3b03f108d951dc20c558475e2da06dc91"
+    },
+    {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/chrono-revision-study-report.json",
+      "evidence_class": "present_code_verification",
+      "role": "Independent smooth-law energy/code companion",
+      "exists": true,
+      "bytes": 58010,
+      "sha256": "0954aa98bbbee7712b279fc3c67914fb4edad885b477dfe0fd2ddd12e976f743"
+    },
+    {
+      "path": "analysis/diagnostics/hams-cert-root-cause.json",
+      "evidence_class": "failed_external_regression",
+      "role": "Official four-case comparator diagnostic; no validation credit",
+      "exists": true,
+      "bytes": 52691,
+      "sha256": "03d9bb625c5540f225afdb6442813af52d500e67eaff80f23104c81974e8e73a"
+    },
+    {
+      "path": "paper/yang_2026_extension/manuscript.md",
+      "evidence_class": "present_manuscript",
+      "role": "Submission manuscript source",
+      "exists": true,
+      "bytes": 38680,
+      "sha256": "83d4f469b23f9cc2d957c3fb1904b5be87298607b03b43b53b8476fbfd8eaad9"
+    }
+  ],
+  "code_files": [
+    {
+      "path": "analysis/rocket_recovery/generate_barge_case.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 15814,
+      "sha256": "305e2fd4265a6d00dc47451402e31de2aea729362a7a61ac3dcacaff3c078dfd"
+    },
+    {
+      "path": "analysis/rocket_recovery/barge_hydrodynamic_convergence.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 51487,
+      "sha256": "113a2fa4fd744e8acb611fcc022b296274b3af40cc34cfd7b95a19908301f9e4"
+    },
+    {
+      "path": "analysis/rocket_recovery/deck_point_rao.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 3996,
+      "sha256": "cc97d9e88d53f80e77a8e9c2246a2b5626f71626189b4ca8df2ac8dffa588811"
+    },
+    {
+      "path": "analysis/rocket_recovery/barge_wave_sensitivity.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 15908,
+      "sha256": "5621bebc714570cf3cb08cb9f0fd49174fcc98174559fc259593a8ca1ea4eb99"
+    },
+    {
+      "path": "analysis/rocket_recovery/barge_wave_duration_sensitivity.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 11795,
+      "sha256": "117ee23d59f6b287944cbdd075ae10c397356970ccbbf5000d3faae5666c22f7"
+    },
+    {
+      "path": "analysis/rocket_recovery/yang_2026_landing_identification.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 22556,
+      "sha256": "cb985bbdd1cb2a8a05e2eac6e53b33d3265c59b9a59bc48e16610bfe7abff8c9"
+    },
+    {
+      "path": "analysis/rocket_recovery/yang_2026_identifiability.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 13287,
+      "sha256": "98ec13a06c1427825b2c54d864dfe2ffc75edde802f6db86eb0d7c60c35d5833"
+    },
+    {
+      "path": "analysis/rocket_recovery/thies_buffer_digitization.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 11381,
+      "sha256": "2cc59d474896424e429b2fbfbe37c73260a4a264d3eb6608f35694aa1e7d5547"
+    },
+    {
+      "path": "analysis/rocket_recovery/chrono_leg_model.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 109300,
+      "sha256": "f40a2bfb889a2e24c70f6b405ecd5d218d7d2cb74a7bc11f383259faa7fb824f"
+    },
+    {
+      "path": "analysis/rocket_recovery/chrono_same_platform_multibody.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 21937,
+      "sha256": "dfa6d89a538e58669e207ed5c53fbe4a457f0cdea8634850e96a7b99a59da8f1"
+    },
+    {
+      "path": "analysis/rocket_recovery/yang_2026_figures.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 39437,
+      "sha256": "ccb0026ac553fa450fbb6156015dcf097f0539b5faa13270cd13498b266b186d"
+    },
+    {
+      "path": "analysis/rocket_recovery/paper_integrity_audit.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 25964,
+      "sha256": "091f4dc1531deca322ae66cd9e369b68277aea6a1a2c8b4a9d0e7c4a2b411b75"
+    }
+  ],
+  "figures": [
+    {
+      "id": "fig01-coupled-framework",
+      "role": "Implemented theoretical data flow",
+      "sources": [
+        "analysis/rocket_recovery/yang_2026_figures.py"
+      ],
+      "png": "paper/yang_2026_extension/figures/fig01-coupled-framework.png",
+      "svg": "paper/yang_2026_extension/figures/fig01-coupled-framework.svg",
+      "checks": {
+        "png_exists": true,
+        "width_px": 4299,
+        "height_px": 2019,
+        "minimum_dimension_at_least_1800_px": true,
+        "nonblank": true,
+        "sha256": "0bd63483100ef73ad65a29f8b55a3023eaef045b8e893962a7c297fe327ffe03",
+        "svg_exists": true,
+        "svg_contains_times_new_roman": true,
+        "svg_sha256": "8811dcf0e916454af3ce3dba99485487d01f0eb8dcd71b006475c2b847ff3802"
+      }
+    },
+    {
+      "id": "fig02-barge-geometry-mesh",
+      "role": "Present geometry and two deck-point layouts",
+      "sources": [
+        "RocketRecoveryCases/Barge_120x50/platform_config.json"
+      ],
+      "png": "paper/yang_2026_extension/figures/fig02-barge-geometry-mesh.png",
+      "svg": "paper/yang_2026_extension/figures/fig02-barge-geometry-mesh.svg",
+      "checks": {
+        "png_exists": true,
+        "width_px": 4029,
+        "height_px": 2257,
+        "minimum_dimension_at_least_1800_px": true,
+        "nonblank": true,
+        "sha256": "6b271ae6b1f9f8572d2deae6ae290e2100b6d9c0e26196038dba85b60d279e7b",
+        "svg_exists": true,
+        "svg_contains_times_new_roman": true,
+        "svg_sha256": "5ed2d58ac611a126502b575accfb1042b3dcf89361f08d229709de528d08e3a8"
+      }
+    },
+    {
+      "id": "fig03-yang-identified-landing-comparison",
+      "role": "Digitized reference versus present reduced-model calculation",
+      "sources": [
+        "RocketRecoveryCases/Paper_Yang_2026/reference/digitized/yang-2026-fig09-11-digitization.json",
+        "RocketRecoveryCases/Paper_Yang_2026/identified_landing_model/yang-2026-identified-landing-report.json",
+        "RocketRecoveryCases/Paper_Yang_2026/identified_landing_model/yang-2026-identifiability-report.json"
+      ],
+      "png": "paper/yang_2026_extension/figures/fig03-yang-identified-landing-comparison.png",
+      "svg": "paper/yang_2026_extension/figures/fig03-yang-identified-landing-comparison.svg",
+      "checks": {
+        "png_exists": true,
+        "width_px": 4296,
+        "height_px": 3399,
+        "minimum_dimension_at_least_1800_px": true,
+        "nonblank": true,
+        "sha256": "0a5197c8716688515d57a4d4c5f54ddbc5629e676e6fd88e771d345836d44f4c",
+        "svg_exists": true,
+        "svg_contains_times_new_roman": true,
+        "svg_sha256": "7e2a13770869e7742cd6d9b12239d50abfcef0f968dacbb793ce352dc7d42355"
+      }
+    },
+    {
+      "id": "fig04-platform-hydrodynamic-response",
+      "role": "Present hydrodynamic and refinement calculations",
+      "sources": [
+        "RocketRecoveryCases/Barge_120x50/validation/barge-hydrodynamic-convergence.json",
+        "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/deck-point-rao-medium.json"
+      ],
+      "png": "paper/yang_2026_extension/figures/fig04-platform-hydrodynamic-response.png",
+      "svg": "paper/yang_2026_extension/figures/fig04-platform-hydrodynamic-response.svg",
+      "checks": {
+        "png_exists": true,
+        "width_px": 4299,
+        "height_px": 2799,
+        "minimum_dimension_at_least_1800_px": true,
+        "nonblank": true,
+        "sha256": "db83a3110b4e5a39f6b1290d68755cf901347780596a9f5d1f7f64b9296641c2",
+        "svg_exists": true,
+        "svg_contains_times_new_roman": true,
+        "svg_sha256": "b9bf3b1bc6062830e27223346b15697786c1592678df4777db54f1e72d9b7006"
+      }
+    },
+    {
+      "id": "fig05-random-wave-deck-statistics",
+      "role": "Present 1000-realization statistics and validity flags",
+      "sources": [
+        "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/wave-sensitivity-revision-600s.json",
+        "RocketRecoveryCases/Barge_120x50/Output/RocketRecovery/wave-duration-sensitivity.json"
+      ],
+      "png": "paper/yang_2026_extension/figures/fig05-random-wave-deck-statistics.png",
+      "svg": "paper/yang_2026_extension/figures/fig05-random-wave-deck-statistics.svg",
+      "checks": {
+        "png_exists": true,
+        "width_px": 4299,
+        "height_px": 2799,
+        "minimum_dimension_at_least_1800_px": true,
+        "nonblank": true,
+        "sha256": "66f2168bdcafca5c64bc725f13a616dfefbffe47579341902b40f7327e2cdfb8",
+        "svg_exists": true,
+        "svg_contains_times_new_roman": true,
+        "svg_sha256": "dd1c56c1c367171dbac3594bd118af69f54ba6ca81ccfd2b12ad663eb9072ef8"
+      }
+    },
+    {
+      "id": "fig06-partitioned-contact-feedback",
+      "role": "Present same-platform multibody response and numerical sensitivity",
+      "sources": [
+        "RocketRecoveryCases/Chrono_LeggedRecovery/chrono-same-platform-multibody-report.json",
+        "RocketRecoveryCases/Chrono_LeggedRecovery/Output/RocketRecovery/chrono-same-platform-multibody-response.json"
+      ],
+      "png": "paper/yang_2026_extension/figures/fig06-partitioned-contact-feedback.png",
+      "svg": "paper/yang_2026_extension/figures/fig06-partitioned-contact-feedback.svg",
+      "checks": {
+        "png_exists": true,
+        "width_px": 4299,
+        "height_px": 4719,
+        "minimum_dimension_at_least_1800_px": true,
+        "nonblank": true,
+        "sha256": "b4d06de4475e7e7707edaf6aae3e974777d8909dcea0e5bc3c46948996ff8205",
+        "svg_exists": true,
+        "svg_contains_times_new_roman": true,
+        "svg_sha256": "c8371e9e71184f729b277b03a11ec2d797167d0f23daa18e835e238c2197d594"
+      }
+    },
+    {
+      "id": "figS01-yang-identifiability",
+      "role": "Present multi-start identifiability result",
+      "sources": [
+        "RocketRecoveryCases/Paper_Yang_2026/identified_landing_model/yang-2026-identifiability-report.json"
+      ],
+      "png": "paper/yang_2026_extension/figures/figS01-yang-identifiability.png",
+      "svg": "paper/yang_2026_extension/figures/figS01-yang-identifiability.svg",
+      "checks": {
+        "png_exists": true,
+        "width_px": 4303,
+        "height_px": 1869,
+        "minimum_dimension_at_least_1800_px": true,
+        "nonblank": true,
+        "sha256": "495d07339611b49b6c10d35830cc872b8cbf83a57b1b01bca1efce2f8efbff58",
+        "svg_exists": true,
+        "svg_contains_times_new_roman": true,
+        "svg_sha256": "244c15f33e40b8f2d46591df4c886b82c08b1db20ad2507942834f34c693c5ee"
+      }
+    },
+    {
+      "id": "figS02-yang-deck-filter-reproduction",
+      "role": "Supplementary transfer-function reconstruction",
+      "sources": [
+        "RocketRecoveryCases/Paper_Yang_2026/yang-2026-evidence-report.json"
+      ],
+      "png": "paper/yang_2026_extension/figures/figS02-yang-deck-filter-reproduction.png",
+      "svg": "paper/yang_2026_extension/figures/figS02-yang-deck-filter-reproduction.svg",
+      "checks": {
+        "png_exists": true,
+        "width_px": 4299,
+        "height_px": 2769,
+        "minimum_dimension_at_least_1800_px": true,
+        "nonblank": true,
+        "sha256": "a68a77a375f853a76eb2cded0b5866dcdd0ec314c08f4e83665ead78638043c2",
+        "svg_exists": true,
+        "svg_contains_times_new_roman": true,
+        "svg_sha256": "a2bc7a8a7411ac2969d681782ff3f9ed9e6a1a50f20f86f95134a4cd49ab9acf"
+      }
+    }
+  ],
+  "style_checks": {
+    "forbidden_old_literals": {
+      "1.128 m/m": false,
+      "1.505 m/s": false,
+      "2.435 m/s": false,
+      "0.148 m": false,
+      "2.678 MN": false,
+      "100 realizations": false,
+      "one-pass correction": false
+    },
+    "explicit_product_chain_label_present": false,
+    "em_dash_count": 0,
+    "template_phrases": {
+      "This paper presents": false,
+      "The present work": true,
+      "It is important to note": false
+    }
+  },
+  "declared_limitations": [
+    {
+      "severity": "high",
+      "item": "Repository certification regression",
+      "evidence": "The registered four-case comparator reports 157 failed output files (65/13/7/72 by case).",
+      "claim_boundary": "No solver-certification or hydrodynamic-benchmark pass is claimed; cause remains unresolved."
+    },
+    {
+      "severity": "high",
+      "item": "Hydrodynamic mesh refinement",
+      "evidence": "Medium-to-fine maximum selected change is 5.88%, above the 5% criterion.",
+      "claim_boundary": "Medium-grid RAOs are reported as sampled case-study results, not mesh-converged predictions."
+    },
+    {
+      "severity": "high",
+      "item": "Linear free-surface validity",
+      "evidence": "Only 41/63 random-wave cases pass tilt and deck-edge criteria; worst P95 tilt is 11.99 deg.",
+      "claim_boundary": "Failed conditions are screens for nonlinear analysis, not operational predictions."
+    },
+    {
+      "severity": "high",
+      "item": "Contact numerical convergence",
+      "evidence": "Time-step convergence and contact-stiffness regularization both fail for local force/stroke/touchdown metrics.",
+      "claim_boundary": "No contact peak is qualified as a design load."
+    },
+    {
+      "severity": "high",
+      "item": "Stable standing",
+      "evidence": "Final vertical speed and angular rate exceed the diagnostic thresholds.",
+      "claim_boundary": "The simulated interval demonstrates contact dynamics, not a completed stable landing."
+    },
+    {
+      "severity": "medium",
+      "item": "Reduced-model identifiability",
+      "evidence": "127/128 starts are near-optimal and parameters are strongly correlated.",
+      "claim_boundary": "Yang curves support response comparison, not unique physical parameter recovery."
+    },
+    {
+      "severity": "medium",
+      "item": "Horizontal platform closure",
+      "evidence": "Fx, Fy and Mz are calculated but not injected because horizontal restoring is absent.",
+      "claim_boundary": "Feedback is restricted to heave, roll and pitch."
+    },
+    {
+      "severity": "medium",
+      "item": "Literature-derived full-scale inputs",
+      "evidence": "Vehicle geometry and absorber curves are proxies digitized from public literature; azimuths and component inertia allocation remain declared assumptions.",
+      "claim_boundary": "The full-scale calculation is a proof of concept, not a reproduction of proprietary vehicle data."
+    }
+  ]
+}

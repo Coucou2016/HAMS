@@ -1,0 +1,25 @@
+leg_id,field,value_json,source_category,source_detail,required_source,note
+leg_1,B_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_1,T_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_1,K_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_1,P_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_1,absorber_slider_axis_xyz,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required if the main leg is telescopic.
+leg_1,joint_limit_definitions,,,,"Adams constraint graph, CAD mate definitions, or author topology table","Required for stops, deployment locks, and post-touchdown constraints."
+leg_2,B_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_2,T_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_2,K_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_2,P_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_2,absorber_slider_axis_xyz,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required if the main leg is telescopic.
+leg_2,joint_limit_definitions,,,,"Adams constraint graph, CAD mate definitions, or author topology table","Required for stops, deployment locks, and post-touchdown constraints."
+leg_3,B_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_3,T_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_3,K_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_3,P_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_3,absorber_slider_axis_xyz,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required if the main leg is telescopic.
+leg_3,joint_limit_definitions,,,,"Adams constraint graph, CAD mate definitions, or author topology table","Required for stops, deployment locks, and post-touchdown constraints."
+leg_4,B_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_4,T_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_4,K_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_4,P_joint_type,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required for a Chrono/Adams-equivalent linkage.
+leg_4,absorber_slider_axis_xyz,,,,"Adams constraint graph, CAD mate definitions, or author topology table",Required if the main leg is telescopic.
+leg_4,joint_limit_definitions,,,,"Adams constraint graph, CAD mate definitions, or author topology table","Required for stops, deployment locks, and post-touchdown constraints."

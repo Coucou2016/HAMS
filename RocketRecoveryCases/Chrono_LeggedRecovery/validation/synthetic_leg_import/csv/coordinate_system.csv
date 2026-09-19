@@ -1,0 +1,4 @@
+field,value_json,source_category,source_detail
+rocket_body_origin,"{""origin"":""rocket_base_center"",""position_m"":[0.0,0.0,0.0]}",synthetic_test_fixture,"Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data."
+rocket_body_axes,"{""x"":""forward"",""y"":""port"",""z"":""up"",""handedness"":""right""}",synthetic_test_fixture,"Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data."
+deck_frame_transform,"{""translation_m"":[0.0,0.0,0.0],""rotation_matrix"":[[1.0,0.0,0.0],[0.0,1.0,0.0],[0.0,0.0,1.0]]}",synthetic_test_fixture,"Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data."

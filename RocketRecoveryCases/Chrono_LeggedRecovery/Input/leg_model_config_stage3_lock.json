@@ -1,0 +1,170 @@
+{
+  "model_id": "ChronoLeggedRecovery_Stage3A_ActuatedLock",
+  "solver": {
+    "engine": "Project Chrono / PyChrono",
+    "contact_method": "SMC",
+    "time_step_s": 0.0005,
+    "output_step_s": 0.01,
+    "start_s": 506.0,
+    "end_s": 526.0,
+    "gravity_m_s2": 9.80665,
+    "pre_contact_gravity": "off_until_first_contact_to_preserve_Thies_touchdown_velocity",
+    "deck_thickness_m": 0.35,
+    "contact_force_threshold_n": 100.0,
+    "no_fallback_policy": "If PyChrono is unavailable, stop with an environment report.",
+    "post_touchdown_lock_logic": {
+      "mode": "actuated_body_deck_fix",
+      "stable_dwell_s": 1.0,
+      "vertical_velocity_limit_m_s": 0.05,
+      "angular_rate_limit_deg_s": 0.25,
+      "constraint": "ChLinkMateFix between rocket and prescribed deck, initialized at the current rocket pose",
+      "scope_note": "This is an open-source locking proxy for post-touchdown securing; it is not a published hardware clamp model."
+    }
+  },
+  "rocket": {
+    "source": "Table 3 / vehicle data table",
+    "landing_mass_kg": 61288.0,
+    "height_m": 103.0,
+    "engine_length_m": 1.902,
+    "base_diameter_m": 6.0,
+    "cog_from_base_m": 22.059,
+    "inertia_kg_m2": {
+      "roll_x": 376000.0,
+      "pitch_y": 25700000.0,
+      "yaw_z": 25700000.0
+    },
+    "touchdown_vertical_velocity_m_s": 5.0,
+    "initial_lateral_velocity_m_s": 0.0,
+    "nozzle_clearance_required_m": 0.5475,
+    "reported_nozzle_clearance_m": 0.57,
+    "stage3_proxy_nozzle_reference_height_from_model_base_m": 0.57,
+    "stage3_proxy_nozzle_reference_note": "Thies reports nozzle clearance as distance from nozzle end to landing pad. The Stage 3A proxy does not include CAD nozzle coordinates, so the reported 0.570 m parking clearance is stored as a transparent reference height from the proxy lower-leg/base plane to the nozzle-end point."
+  },
+  "legs": {
+    "source": "Table 4",
+    "count": 4,
+    "configuration": "Tripod",
+    "azimuths_deg": [
+      45.0,
+      135.0,
+      225.0,
+      315.0
+    ],
+    "footprint_radius_m": 6.926037828369117,
+    "upper_attachment_height_m": 9.0,
+    "lower_attachment_height_m": 4.4,
+    "leg_length_m": 8.1,
+    "damper_stiffness_n_m": 2600000.0,
+    "damper_damping_ns_m": 1300000.0,
+    "damper_rest_length_m": 8.1,
+    "equivalent_guidance_model": "Stage 3A tripod proxy: inclined ChLinkMatePrismatic main-leg guide, nonlinear compression-only TSDA main buffer, and two spherical-end elastic TSDA diagonal braces per footpad.",
+    "stroke_reference_m": 0.42,
+    "force_reference_n": 935000.0,
+    "footpad_radius_m": 0.2,
+    "footpad_mass_kg": 80.0,
+    "footpad_thickness_m": 0.18,
+    "stage3_tripod_proxy": {
+      "source": "Thies 2022 Table 4 dimensions; tangential brace separation is an explicit geometry-closure assumption.",
+      "stage": "Stage 3A-lock",
+      "main_guide_model": "inclined_prismatic",
+      "brace_model": "elastic_tsda",
+      "mechanism_elements_per_leg": {
+        "main_guide": "ChLinkMatePrismatic along the deployed main-leg axis",
+        "main_buffer": "ChLinkTSDA from B attachment to footpad center; nonlinear compression-only force law",
+        "long_brace": "ChLinkTSDA spherical-end axial brace from T attachment to footpad center",
+        "short_brace": "ChLinkTSDA spherical-end axial brace from K attachment to footpad center",
+        "footpad": "ChBodyEasySphere with SMC contact/friction"
+      },
+      "main_buffer_rest_length_m": 8.1,
+      "footprint_radius_m": 6.926037828369117,
+      "attachment_radial_m": {
+        "B_main": 0.0,
+        "T_long": 0.1621631991347776,
+        "K_short": 2.2079873835349373
+      },
+      "attachment_tangential_m": {
+        "B_main": 0.0,
+        "T_long": 1.5,
+        "K_short": -1.5
+      },
+      "attachment_height_m": {
+        "B_main": 4.4,
+        "T_long": 9.0,
+        "K_short": 5.7
+      },
+      "target_lengths_m": {
+        "main_buffer": 8.1,
+        "long_brace": 11.2,
+        "short_brace": 7.4
+      },
+      "geometry_closure_error_m": {
+        "main_buffer": 0.0,
+        "long_brace": 0.0,
+        "short_brace": 0.0
+      },
+      "brace_axial_stiffness_n_m": 10000000.0,
+      "brace_axial_damping_ns_m": 100000.0
+    },
+    "nonlinear_buffer_law": {
+      "source": "Thies 2022 Table 10 linear k/c and Table 8 reference stroke; hard stop is an explicit numerical assumption.",
+      "type": "compression_only_bilinear_with_hard_stop",
+      "supported_types": [
+        "compression_only_bilinear_with_hard_stop",
+        "compression_only_table"
+      ],
+      "table_interface_note": "If a digitized or measured hydropneumatic buffer curve becomes available, set type to compression_only_table and provide force_stroke_points plus optional force_velocity_points. The default remains bilinear because no machine-readable Thies/Yue/Li buffer curve is published in the supplied files.",
+      "linear_stiffness_n_m": 2600000.0,
+      "linear_damping_ns_m": 1300000.0,
+      "stroke_limit_m": 0.42,
+      "hard_stop_stiffness_n_m": 200000000.0,
+      "hard_stop_damping_ns_m": 10000000.0,
+      "force_stroke_points": [],
+      "force_velocity_points": [],
+      "no_tension": true
+    }
+  },
+  "contact": {
+    "source": "Thies Table 6 plus Li 2025 contact/friction values where Thies has no numeric contact material table.",
+    "normal_stiffness_n_m": 100000000.0,
+    "normal_damping_ns_m": 10000000.0,
+    "young_modulus_pa": 2000000000.0,
+    "poisson_ratio": 0.3,
+    "static_friction": 0.5,
+    "dynamic_friction": 0.4,
+    "restitution": 0.0
+  },
+  "validation_targets": {
+    "thies_touchdown_energy_kj": 766.0,
+    "computed_touchdown_energy_kj": 766.1,
+    "max_incident_angle_deg": 10.0,
+    "velocity_range_m_s": [
+      1.0,
+      15.0
+    ],
+    "symmetric_force_tolerance": 0.05
+  },
+  "parameter_audit": {
+    "published_values": [
+      "rocket mass, inertia, height, base diameter, CG and touchdown velocity from Thies 2022",
+      "leg count, leg length, leg angle and attachment heights from Thies 2022",
+      "damper linear stiffness/damping and reference stroke/force from Thies 2022",
+      "reported nozzle clearance 0.570 m from Thies 2022 Table 8",
+      "contact stiffness/damping radius and dynamic friction from Li 2025",
+      "tripod attachment heights T/K/B and strut lengths from Thies 2022 Table 4",
+      "nonlinear buffer base stiffness/damping from Thies 2022 Table 10"
+    ],
+    "explicit_assumptions": [
+      "four leg azimuths are symmetric at 45/135/225/315 deg because exact azimuths are not published",
+      "footpad mass is a transparent engineering placeholder until CAD or paper data is available",
+      "nozzle end location is represented by a Stage 3A proxy reference offset because CAD nozzle coordinates are not published",
+      "stage 1 uses a TSDA strut plus contact footpad model, not a full Adams-equivalent linkage",
+      "stage 1 constrains each footpad with a vertical prismatic mate instead of explicit tripod-link hinges",
+      "Chrono SMC Young modulus is set as an explicit contact-material assumption because Li reports contact stiffness/damping, not elastic modulus",
+      "Stage 3A uses axial TSDA links as spherical-end elastic braces; brace mass/inertia are not yet modeled as separate CAD rods.",
+      "Tangential separation of the two diagonal brace attachment points is set to 1.5 m because the supplied papers do not publish the full 3D CAD hinge coordinates.",
+      "The nonlinear buffer hard-stop stiffness/damping are numerical assumptions until a hydraulic or hydropneumatic force-stroke table is available.",
+      "Post-touchdown lock is currently a diagnostic stability flag and does not yet actuate a physical locking clamp.",
+      "Actuated lock uses a ChLinkMateFix rocket-to-deck constraint after the diagnostic stability window; no published clamp geometry or actuator timing is available."
+    ]
+  }
+}

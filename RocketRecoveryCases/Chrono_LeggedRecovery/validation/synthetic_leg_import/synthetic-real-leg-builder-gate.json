@@ -1,0 +1,41 @@
+{
+  "builder_id": "ChronoRealLegMechanismBuilderGate",
+  "generated_utc": "2026-08-01T12:10:25+00:00",
+  "builder_mode": "synthetic_selftest",
+  "input_path": "RocketRecoveryCases/Chrono_LeggedRecovery/validation/synthetic_leg_import/leg_mechanism_data_synthetic.json",
+  "overall_status": "ready_config_written",
+  "ready": true,
+  "config_path": "RocketRecoveryCases/Chrono_LeggedRecovery/validation/synthetic_leg_import/chrono_real_leg_mechanism_config.synthetic.json",
+  "config_written": true,
+  "validation_summary": {
+    "check_count": 7,
+    "passing_check_count": 7,
+    "blocking_check_count": 0,
+    "adams_required_field_count": 180,
+    "blocking_field_count": 0,
+    "source_category_counts": {
+      "synthetic_test_fixture": 133,
+      "paper": 44,
+      "computed": 4
+    }
+  },
+  "blocking_checks": [],
+  "blocking_fields": [],
+  "policy": {
+    "default_behavior": "Do not generate a runnable real-leg Chrono config unless validator.ready is true.",
+    "synthetic_output_policy": "Synthetic fixtures may be built only to explicit non-production output paths.",
+    "current_fallback": "Continue using Stage 3A proxy and Stage 3B/3C diagnostic branches.",
+    "not_a_solver": "This builder only assembles validated real mechanism data; it does not run Chrono by itself."
+  },
+  "would_build_sections_when_ready": [
+    "coordinate_system",
+    "rocket",
+    "landing_conditions",
+    "legs[].markers_body_frame_m",
+    "legs[].joint_topology",
+    "legs[].body_properties",
+    "buffer_law",
+    "lock_hardware",
+    "source_map"
+  ]
+}

@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Landing Leg Contact Envelope</title>
+  <script src="landing-leg-contact-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17211d;
+      --muted: #64716b;
+      --line: #d7dfdb;
+      --panel: #ffffff;
+      --wash: #f4f7f5;
+      --green: #2b7a58;
+      --blue: #2f6fa3;
+      --red: #b94d36;
+      --amber: #b9862f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--wash);
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    header {
+      padding: 18px 28px 10px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfb;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    h1, h2, h3 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 15px; margin-bottom: 12px; }
+    h3 { font-size: 13px; margin: 14px 0 8px; }
+
+    nav { display: flex; flex-wrap: wrap; gap: 10px; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 6px;
+    }
+    nav a[aria-current="page"] { color: var(--ink); border-color: #9eb5ad; }
+
+    main {
+      padding: 18px;
+      display: grid;
+      grid-template-columns: minmax(520px, 1.2fr) minmax(360px, 0.8fr);
+      gap: 18px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .wide { grid-column: 1 / -1; }
+    .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    select {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 6px 9px;
+      font: inherit;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px;
+      background: #fbfcfb;
+      min-height: 78px;
+    }
+
+    .label { color: var(--muted); font-size: 12px; }
+    .value { font-size: 22px; font-weight: 700; margin-top: 6px; white-space: nowrap; }
+    .unit { font-size: 12px; color: var(--muted); margin-left: 3px; }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 10px 0 0;
+    }
+
+    canvas {
+      width: 100%;
+      height: 390px;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 8px 7px;
+      border-bottom: 1px solid #e4ebe7;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { color: var(--muted); font-weight: 600; }
+    td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .ok { color: var(--green); font-weight: 700; }
+    .warn { color: var(--red); font-weight: 700; }
+    .mono { font-family: Consolas, "SFMono-Regular", monospace; }
+
+    @media (max-width: 980px) {
+      header, main { display: block; }
+      nav { margin-top: 12px; }
+      section { margin-bottom: 14px; }
+      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>着陆腿落甲板：接触包络</h1>
+      <p class="note">Thies 2022 支腿参数 + 王智 2023 HAMS/Cummins 甲板时历。这里只计算触地入口量，不声明支腿结构载荷复现。</p>
+    </div>
+    <nav>
+      <a href="viewer.html">3D Mesh</a>
+      <a href="results.html">HAMS Results</a>
+      <a href="rocket-recovery.html">Rocket Recovery</a>
+      <a href="nargolkar-2025.html">Nargolkar 2025</a>
+      <a href="wang-2023.html">Wang 2023</a>
+      <a href="landing-leg-contact.html" aria-current="page">Leg Contact</a>
+      <a href="integrated-recovery.html">Integrated</a>
+      <a href="chrono-recovery.html">Chrono</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>时历包络</h2>
+      <div class="controls">
+        <label>案例
+          <select id="caseSelect"></select>
+        </label>
+        <label>指标
+          <select id="metricSelect">
+            <option value="deck_angle_deg">甲板倾角包络</option>
+            <option value="foot_vertical_spread_m">四腿足迹高度差</option>
+            <option value="closing_speed">相对闭合速度</option>
+            <option value="deck_velocity">足迹垂向速度</option>
+          </select>
+        </label>
+      </div>
+      <canvas id="chart" width="1100" height="500"></canvas>
+      <p id="chartNote" class="note"></p>
+    </section>
+
+    <section>
+      <h2>当前案例指标</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="label">510 s 倾角</div>
+          <div class="value" id="touchAngle">-</div>
+        </div>
+        <div class="card">
+          <div class="label">506-511 s 最大高度差</div>
+          <div class="value" id="spreadPeak">-</div>
+        </div>
+        <div class="card">
+          <div class="label">首腿提前接触</div>
+          <div class="value" id="leadPeak">-</div>
+        </div>
+        <div class="card">
+          <div class="label">最大闭合速度</div>
+          <div class="value" id="closingPeak">-</div>
+        </div>
+      </div>
+      <h3>Thies 约束检查</h3>
+      <table>
+        <tbody id="checkRows"></tbody>
+      </table>
+      <p class="note" id="caseNote"></p>
+    </section>
+
+    <section class="wide">
+      <h2>论文数据复核</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>论文值</th>
+            <th>本地计算</th>
+            <th>误差</th>
+            <th>来源</th>
+          </tr>
+        </thead>
+        <tbody id="comparisonRows"></tbody>
+      </table>
+    </section>
+
+    <section class="wide">
+      <h2>重点工况对比</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>案例</th>
+            <th>510 s 倾角</th>
+            <th>506-511 s 倾角峰值</th>
+            <th>高度差峰值</th>
+            <th>首腿提前接触</th>
+            <th>闭合速度范围</th>
+          </tr>
+        </thead>
+        <tbody id="caseRows"></tbody>
+      </table>
+    </section>
+
+    <section class="wide">
+      <h2>后续接触模型参数池</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>文献</th>
+            <th>用途</th>
+            <th>已进入代码的数据</th>
+          </tr>
+        </thead>
+        <tbody id="literatureRows"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const DATA = window.LANDING_LEG_CONTACT_DATA;
+    const caseSelect = document.getElementById('caseSelect');
+    const metricSelect = document.getElementById('metricSelect');
+    const chart = document.getElementById('chart');
+    const ctx = chart.getContext('2d');
+
+    function fmt(value, digits = 3) {
+      if (!Number.isFinite(value)) return '-';
+      const abs = Math.abs(value);
+      if (abs !== 0 && abs < 0.001) return value.toExponential(2);
+      return value.toFixed(digits);
+    }
+
+    function addUnit(text, unit) {
+      return `${text}<span class="unit">${unit}</span>`;
+    }
+
+    function selectedCase() {
+      return DATA.simulations[caseSelect.value];
+    }
+
+    function populateSelectors() {
+      Object.entries(DATA.simulations).forEach(([id, sim]) => {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = `${id} | ${sim.offset.label}`;
+        caseSelect.appendChild(opt);
+      });
+      if (DATA.simulations.wave_port_15m) caseSelect.value = 'wave_port_15m';
+    }
+
+    function metricDefinition(sim) {
+      const s = sim.time_history.series;
+      const metric = metricSelect.value;
+      if (metric === 'deck_angle_deg') {
+        return {
+          title: '甲板倾角包络',
+          unit: 'deg',
+          series: [{ label: 'computed', values: s.deck_angle_deg, color: '#2f6fa3' }],
+          refs: [{ value: DATA.literature_inputs.thies_2022.requirements.launcher_incident_angle_max_deg, label: 'Thies max 10 deg' }],
+          note: '倾角包络按 sqrt(roll^2 + pitch^2) 计算；虚线为 Thies 表 6 的 10° 上限。'
+        };
+      }
+      if (metric === 'foot_vertical_spread_m') {
+        return {
+          title: '四腿足迹高度差',
+          unit: 'm',
+          series: [{ label: 'computed', values: s.foot_vertical_spread_m, color: '#2b7a58' }],
+          refs: [],
+          note: '高度差 = 2*r*sqrt(roll^2 + pitch^2)，r 由 Thies 支腿长度和角度推得。'
+        };
+      }
+      if (metric === 'closing_speed') {
+        return {
+          title: '相对闭合速度',
+          unit: 'm/s',
+          series: [
+            { label: 'min', values: s.closing_speed_min_m_s, color: '#2f6fa3' },
+            { label: 'max', values: s.closing_speed_max_m_s, color: '#b94d36' }
+          ],
+          refs: [
+            { value: DATA.literature_inputs.thies_2022.requirements.touchdown_vertical_velocity_min_m_s, label: 'Thies min 1 m/s' },
+            { value: DATA.literature_inputs.thies_2022.requirements.touchdown_vertical_velocity_max_m_s, label: 'Thies max 15 m/s' }
+          ],
+          note: '闭合速度 = Thies 名义下落速度 5 m/s + 足迹处甲板上向速度。'
+        };
+      }
+      return {
+        title: '足迹垂向速度',
+        unit: 'm/s',
+        series: [
+          { label: 'min', values: s.deck_vz_min_m_s, color: '#2b7a58' },
+          { label: 'max', values: s.deck_vz_max_m_s, color: '#b9862f' }
+        ],
+        refs: [{ value: 0, label: 'zero' }],
+        note: '足迹速度包络 = heave_dot +/- r*sqrt(roll_dot^2 + pitch_dot^2)。'
+      };
+    }
+
+    function drawChart() {
+      const sim = selectedCase();
+      const def = metricDefinition(sim);
+      const time = sim.time_history.time_s;
+      const allValues = def.series.flatMap(row => row.values).concat(def.refs.map(ref => ref.value));
+      let ymin = Math.min(...allValues);
+      let ymax = Math.max(...allValues);
+      if (Math.abs(ymax - ymin) < 1e-9) {
+        ymax += 1;
+        ymin -= 1;
+      }
+      const pad = 0.12 * (ymax - ymin);
+      ymin -= pad;
+      ymax += pad;
+
+      const w = chart.width;
+      const h = chart.height;
+      const m = { left: 70, right: 24, top: 28, bottom: 54 };
+      const x0 = m.left;
+      const x1 = w - m.right;
+      const y0 = h - m.bottom;
+      const y1 = m.top;
+      const tmin = time[0];
+      const tmax = time[time.length - 1];
+      const x = t => x0 + (t - tmin) / (tmax - tmin) * (x1 - x0);
+      const y = v => y0 - (v - ymin) / (ymax - ymin) * (y0 - y1);
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.strokeStyle = '#d7dfdb';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y0);
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x0, y1);
+      ctx.stroke();
+
+      ctx.fillStyle = '#64716b';
+      ctx.font = '18px Segoe UI, Arial';
+      ctx.fillText(`${def.title} (${def.unit})`, x0, 20);
+      ctx.font = '12px Segoe UI, Arial';
+      for (let i = 0; i <= 5; i++) {
+        const tv = tmin + (tmax - tmin) * i / 5;
+        ctx.fillText(fmt(tv, 0), x(tv) - 10, y0 + 22);
+        const yv = ymin + (ymax - ymin) * i / 5;
+        ctx.fillText(fmt(yv, 3), 12, y(yv) + 4);
+        ctx.strokeStyle = '#eef2ef';
+        ctx.beginPath();
+        ctx.moveTo(x0, y(yv));
+        ctx.lineTo(x1, y(yv));
+        ctx.stroke();
+      }
+
+      [480, 506, 510, 511].forEach(t => {
+        if (t < tmin || t > tmax) return;
+        ctx.save();
+        ctx.strokeStyle = t === 510 ? '#b94d36' : '#b9862f';
+        ctx.setLineDash([4, 5]);
+        ctx.beginPath();
+        ctx.moveTo(x(t), y0);
+        ctx.lineTo(x(t), y1);
+        ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = '#64716b';
+        ctx.fillText(String(t), x(t) + 4, y1 + 13);
+      });
+
+      def.refs.forEach(ref => {
+        ctx.save();
+        ctx.strokeStyle = '#b94d36';
+        ctx.setLineDash([7, 5]);
+        ctx.beginPath();
+        ctx.moveTo(x0, y(ref.value));
+        ctx.lineTo(x1, y(ref.value));
+        ctx.stroke();
+        ctx.fillStyle = '#b94d36';
+        ctx.fillText(ref.label, x1 - 145, y(ref.value) - 5);
+        ctx.restore();
+      });
+
+      def.series.forEach(row => {
+        ctx.strokeStyle = row.color;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        row.values.forEach((value, i) => {
+          if (i === 0) ctx.moveTo(x(time[i]), y(value));
+          else ctx.lineTo(x(time[i]), y(value));
+        });
+        ctx.stroke();
+      });
+
+      document.getElementById('chartNote').textContent = def.note;
+    }
+
+    function updateSummary() {
+      const sim = selectedCase();
+      const t = sim.summary.touchdown;
+      const term = sim.summary.terminal_506_511;
+      document.getElementById('touchAngle').innerHTML = addUnit(fmt(t.deck_angle_deg, 3), 'deg');
+      document.getElementById('spreadPeak').innerHTML = addUnit(fmt(term.foot_vertical_spread_peak_m, 3), 'm');
+      document.getElementById('leadPeak').innerHTML = addUnit(fmt(term.first_touch_lead_peak_s, 3), 's');
+      document.getElementById('closingPeak').innerHTML = addUnit(fmt(term.closing_speed_max_m_s, 3), 'm/s');
+      const checks = sim.summary.checks;
+      document.getElementById('checkRows').innerHTML = `
+        <tr><td>506-511 s 倾角 <= Thies 10°</td><td class="${checks.deck_angle_within_thies_max ? 'ok' : 'warn'}">${checks.deck_angle_within_thies_max ? 'PASS' : 'CHECK'}</td></tr>
+        <tr><td>闭合速度在 Thies 1-15 m/s 包络内</td><td class="${checks.closing_speed_within_thies_vertical_velocity_envelope ? 'ok' : 'warn'}">${checks.closing_speed_within_thies_vertical_velocity_envelope ? 'PASS' : 'CHECK'}</td></tr>
+      `;
+      document.getElementById('caseNote').textContent = `${sim.id}: ${sim.with_wave ? 'JONSWAP 波浪' : '静水'}，${sim.with_plume ? '含喷流载荷' : '无喷流载荷'}，落点 ${sim.offset.label}。`;
+    }
+
+    function populateTables() {
+      document.getElementById('comparisonRows').innerHTML = DATA.comparison.map(row => `
+        <tr>
+          <td>${row.id}</td>
+          <td class="num">${fmt(row.paper_value, 3)} ${row.unit}</td>
+          <td class="num">${fmt(row.computed_value, 3)} ${row.unit}</td>
+          <td class="num">${fmt(100 * row.relative_error, 4)}%</td>
+          <td>${row.source}</td>
+        </tr>
+      `).join('');
+
+      const preferred = ['wave_center', 'wave_bow_15m', 'wave_port_15m', 'calm_center', 'calm_bow_15m', 'calm_port_15m'];
+      document.getElementById('caseRows').innerHTML = preferred.filter(id => DATA.simulations[id]).map(id => {
+        const sim = DATA.simulations[id];
+        const t = sim.summary.touchdown;
+        const term = sim.summary.terminal_506_511;
+        return `
+          <tr>
+            <td class="mono">${id}</td>
+            <td class="num">${fmt(t.deck_angle_deg, 3)} deg</td>
+            <td class="num">${fmt(term.deck_angle_peak_deg, 3)} deg</td>
+            <td class="num">${fmt(term.foot_vertical_spread_peak_m, 3)} m</td>
+            <td class="num">${fmt(term.first_touch_lead_peak_s, 4)} s</td>
+            <td class="num">${fmt(term.closing_speed_min_m_s, 3)}-${fmt(term.closing_speed_max_m_s, 3)} m/s</td>
+          </tr>
+        `;
+      }).join('');
+
+      const lit = DATA.literature_inputs;
+      const rows = Object.entries(lit).map(([id, item]) => {
+        let payload = '';
+        if (id === 'thies_2022') {
+          payload = `m=${fmt(item.rocket.landing_mass_kg, 0)} kg; v=${item.requirements.touchdown_vertical_velocity_nominal_m_s}-${item.requirements.touchdown_vertical_velocity_max_m_s} m/s; leg=${item.landing_leg.leg_length_m} m @ ${item.landing_leg.leg_angle_to_hinge_plane_deg} deg`;
+        } else if (id === 'li_2025') {
+          payload = `contact k=${item.contact.stiffness_n_m.toExponential(1)} N/m; c=${item.contact.damping_ns_m.toExponential(1)} Ns/m; mu=${item.contact.dynamic_friction}-${item.contact.static_friction}`;
+        } else if (id === 'xie_2025') {
+          payload = `impact peak=${item.validation.impact_force.peak_n.toExponential(1)} N; duration=${item.validation.impact_force.duration_s}s; bounds h<${item.validation.moderate_sea_state_bounds.max_heave_m}m, pitch<${item.validation.moderate_sea_state_bounds.max_pitch_deg}deg`;
+        } else if (id === 'yue_2022') {
+          payload = `test v=${item.test_conditions.map(c => c.vertical_velocity_m_s).join(', ')} m/s; RMS ranges stored`;
+        } else {
+          payload = `freefall=${item.experiment.freefall_height_m}m; steady force errors ${fmt(100 * item.reported_errors.impact_force_steady_error, 2)}%/${fmt(100 * item.reported_errors.buffering_force_steady_error, 2)}%`;
+        }
+        return `<tr><td class="mono">${id}</td><td>${item.model_role}</td><td>${payload}</td></tr>`;
+      });
+      document.getElementById('literatureRows').innerHTML = rows.join('');
+    }
+
+    function update() {
+      updateSummary();
+      drawChart();
+    }
+
+    if (!DATA) {
+      document.body.innerHTML = '<main><section>landing-leg-contact-data.js is missing. Run landing_leg_contact.py report.</section></main>';
+    } else {
+      populateSelectors();
+      populateTables();
+      caseSelect.addEventListener('change', update);
+      metricSelect.addEventListener('change', update);
+      update();
+    }
+  </script>
+</body>
+</html>

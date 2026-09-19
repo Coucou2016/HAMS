@@ -265,3 +265,22 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+# Local dependency caches and transient compiler artifacts
+.tools/
+.conda-pkgs/
+SourceCode/*.o
+SourceCode/*.mod
+
+# Research evidence is intentionally versioned in this fork.
+!build-logs/
+!build-logs/**
+!.diagnostics/**/*.log
+!RocketRecoveryCases/**/*.log
+!SourceCode/hams.exe
+!SourceCode/libhams.dll
+!visualization/mesh-data.js
+!visualization/snapshots/
+!visualization/snapshots/**
+!visualization/vendor/
+!visualization/vendor/**

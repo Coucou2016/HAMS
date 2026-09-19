@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HAMS Mesh Viewer</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18211f;
+      --muted: #5b6862;
+      --paper: #f4f1ea;
+      --panel: #fffdf8;
+      --line: #c8c0b4;
+      --hull: #287d7a;
+      --water: #e59a35;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    #app {
+      display: grid;
+      grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+      width: 100%;
+      height: 100%;
+    }
+
+    aside {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    select,
+    button,
+    .nav-link {
+      width: 100%;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .toggles {
+      display: grid;
+      gap: 8px;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 34px;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--hull);
+    }
+
+    dl {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 12px;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    dt {
+      color: var(--muted);
+    }
+
+    dd {
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #viewport {
+      position: relative;
+      min-width: 0;
+      height: 100%;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    #legend {
+      position: absolute;
+      right: 16px;
+      bottom: 14px;
+      display: flex;
+      gap: 14px;
+      padding: 8px 10px;
+      border: 1px solid rgba(24, 33, 31, 0.12);
+      border-radius: 6px;
+      background: rgba(255, 253, 248, 0.86);
+      backdrop-filter: blur(6px);
+      font-size: 12px;
+    }
+
+    .swatch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--hull);
+    }
+
+    .dot.water {
+      background: var(--water);
+    }
+
+    @media (max-width: 760px) {
+      #app {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+      }
+
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        gap: 12px;
+      }
+
+      dl {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>HAMS Mesh Viewer</h1>
+
+      <div>
+        <label for="caseSelect">Case</label>
+        <select id="caseSelect"></select>
+      </div>
+
+      <div class="toggles">
+        <div class="toggle">
+          <span>Hull</span>
+          <input id="showHull" type="checkbox" checked>
+        </div>
+        <div class="toggle">
+          <span>Waterplane</span>
+          <input id="showWater" type="checkbox" checked>
+        </div>
+        <div class="toggle">
+          <span>Panel edges</span>
+          <input id="showEdges" type="checkbox" checked>
+        </div>
+      </div>
+
+      <button id="resetView" type="button">Reset View</button>
+      <a class="nav-link" href="results.html">Results</a>
+      <a class="nav-link" href="rocket-recovery.html">Rocket Recovery</a>
+      <a class="nav-link" href="nargolkar-2025.html">Paper 2025</a>
+      <a class="nav-link" href="wang-2023.html">Wang 2023</a>
+      <a class="nav-link" href="landing-leg-contact.html">Leg Contact</a>
+      <a class="nav-link" href="integrated-recovery.html">Integrated</a>
+      <a class="nav-link" href="chrono-recovery.html">Chrono</a>
+
+      <dl>
+        <dt>Hull panels</dt>
+        <dd id="hullPanels">0</dd>
+        <dt>Hull nodes</dt>
+        <dd id="hullNodes">0</dd>
+        <dt>Water panels</dt>
+        <dd id="waterPanels">0</dd>
+        <dt>Water nodes</dt>
+        <dd id="waterNodes">0</dd>
+        <dt>X symmetry</dt>
+        <dd id="xSym">0</dd>
+        <dt>Y symmetry</dt>
+        <dd id="ySym">0</dd>
+      </dl>
+    </aside>
+
+    <main id="viewport">
+      <div id="legend">
+        <span class="swatch"><span class="dot"></span>Hull</span>
+        <span class="swatch"><span class="dot water"></span>Waterplane</span>
+      </div>
+    </main>
+  </div>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script src="mesh-data.js"></script>
+  <script>
+    const data = window.HAMS_MESH_DATA;
+    const viewport = document.getElementById("viewport");
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf4f1ea);
+
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 100000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    viewport.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xc8b9a4, 1.1));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 0.85);
+    keyLight.position.set(3, -4, 6);
+    scene.add(keyLight);
+
+    const root = new THREE.Group();
+    scene.add(root);
+
+    const caseSelect = document.getElementById("caseSelect");
+    const showHull = document.getElementById("showHull");
+    const showWater = document.getElementById("showWater");
+    const showEdges = document.getElementById("showEdges");
+    const resetView = document.getElementById("resetView");
+
+    let activeCase = null;
+    let hullGroup = null;
+    let waterGroup = null;
+    let axesHelper = null;
+
+    for (const item of data.cases) {
+      const option = document.createElement("option");
+      option.value = item.name;
+      option.textContent = item.name;
+      caseSelect.appendChild(option);
+    }
+
+    function makeGeometry(part) {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(new Float32Array(part.vertices), 3)
+      );
+      geometry.setIndex(new THREE.BufferAttribute(new Uint32Array(part.triangles), 1));
+      geometry.computeVertexNormals();
+      return geometry;
+    }
+
+    function makeEdges(part, color) {
+      const source = part.vertices;
+      const positions = new Float32Array(part.edges.length * 3);
+      for (let i = 0; i < part.edges.length; i++) {
+        const vertexIndex = part.edges[i] * 3;
+        positions[i * 3] = source[vertexIndex];
+        positions[i * 3 + 1] = source[vertexIndex + 1];
+        positions[i * 3 + 2] = source[vertexIndex + 2];
+      }
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      const material = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.42 });
+      return new THREE.LineSegments(geometry, material);
+    }
+
+    function makePartGroup(part, color, opacity) {
+      const group = new THREE.Group();
+      const material = new THREE.MeshPhongMaterial({
+        color,
+        transparent: opacity < 1,
+        opacity,
+        shininess: 28,
+        side: THREE.DoubleSide
+      });
+      group.add(new THREE.Mesh(makeGeometry(part), material));
+      const edgeLines = makeEdges(part, 0x26322f);
+      edgeLines.name = "edges";
+      group.add(edgeLines);
+      return group;
+    }
+
+    function sizeRenderer() {
+      const rect = viewport.getBoundingClientRect();
+      renderer.setSize(rect.width, rect.height, false);
+      camera.aspect = rect.width / Math.max(rect.height, 1);
+      camera.updateProjectionMatrix();
+    }
+
+    function frameCase(item) {
+      const min = new THREE.Vector3(...item.bounds.min);
+      const max = new THREE.Vector3(...item.bounds.max);
+      const center = new THREE.Vector3().addVectors(min, max).multiplyScalar(0.5);
+      const size = new THREE.Vector3().subVectors(max, min);
+      const radius = Math.max(size.x, size.y, size.z) || 1;
+
+      controls.target.copy(center);
+      camera.position.set(center.x + radius * 1.1, center.y - radius * 1.55, center.z + radius * 0.82);
+      camera.near = Math.max(radius / 10000, 0.001);
+      camera.far = radius * 40;
+      camera.updateProjectionMatrix();
+      controls.update();
+    }
+
+    function updateVisibility() {
+      if (hullGroup) {
+        hullGroup.visible = showHull.checked;
+        const edges = hullGroup.getObjectByName("edges");
+        if (edges) edges.visible = showEdges.checked;
+      }
+      if (waterGroup) {
+        waterGroup.visible = showWater.checked;
+        const edges = waterGroup.getObjectByName("edges");
+        if (edges) edges.visible = showEdges.checked;
+      }
+    }
+
+    function setStats(item) {
+      document.getElementById("hullPanels").textContent = item.hull.rawPanels;
+      document.getElementById("hullNodes").textContent = item.hull.rawNodes;
+      document.getElementById("waterPanels").textContent = item.waterplane.rawPanels;
+      document.getElementById("waterNodes").textContent = item.waterplane.rawNodes;
+      document.getElementById("xSym").textContent = item.hull.xSymmetry;
+      document.getElementById("ySym").textContent = item.hull.ySymmetry;
+    }
+
+    function loadCase(name) {
+      activeCase = data.cases.find((item) => item.name === name) || data.cases[0];
+      root.clear();
+
+      hullGroup = makePartGroup(activeCase.hull, 0x287d7a, 0.86);
+      waterGroup = makePartGroup(activeCase.waterplane, 0xe59a35, 0.38);
+      axesHelper = new THREE.AxesHelper(Math.max(
+        activeCase.bounds.max[0] - activeCase.bounds.min[0],
+        activeCase.bounds.max[1] - activeCase.bounds.min[1],
+        activeCase.bounds.max[2] - activeCase.bounds.min[2]
+      ) * 0.35);
+
+      root.add(hullGroup, waterGroup, axesHelper);
+      setStats(activeCase);
+      updateVisibility();
+      frameCase(activeCase);
+    }
+
+    caseSelect.addEventListener("change", () => loadCase(caseSelect.value));
+    showHull.addEventListener("change", updateVisibility);
+    showWater.addEventListener("change", updateVisibility);
+    showEdges.addEventListener("change", updateVisibility);
+    resetView.addEventListener("click", () => frameCase(activeCase));
+    window.addEventListener("resize", sizeRenderer);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    sizeRenderer();
+    loadCase(data.cases[0].name);
+    animate();
+  </script>
+</body>
+</html>

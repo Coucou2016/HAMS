@@ -1,0 +1,594 @@
+{
+  "audit_id": "HAMS_Chrono_RocketRecovery_FinalAcceptance",
+  "generated_utc": "2026-08-28T03:25:44+00:00",
+  "overall_status": "incomplete",
+  "summary": {
+    "PASS": 18,
+    "PARTIAL": 5,
+    "CHECK": 1,
+    "MISSING": 0
+  },
+  "requirements": [
+    {
+      "group": "boundary",
+      "id": "hams_core_unchanged",
+      "requirement": "HAMS core source remains unchanged.",
+      "status": "PASS",
+      "evidence": "git diff -- SourceCode",
+      "note": "Generated HAMS case outputs may be dirty; this check is limited to SourceCode."
+    },
+    {
+      "group": "boundary",
+      "id": "hams_official_benchmark",
+      "requirement": "The locally compiled HAMS executable reproduces the four CertTest benchmark output sets within the registered tolerances.",
+      "status": "CHECK",
+      "evidence": "RocketRecoveryCases/Barge_120x50/validation/benchmark-regression.json cases=4",
+      "note": "The four cases were regenerated with SourceCode/hams.exe. See docs/hams-certtest-toolchain-diagnosis.md; do not relabel the recorded toolchain-sensitive failures as tolerance noise."
+    },
+    {
+      "group": "boundary",
+      "id": "no_commercial_required_solver",
+      "requirement": "No Adams/AQWA runtime is required for the implemented leg-coupling chain.",
+      "status": "PASS",
+      "evidence": "Chrono reports are simulated; chrono*.py has no contact_forces() fallback.",
+      "note": "AQWA/Adams/STAR are only mentioned as literature baselines and missing original-model data."
+    },
+    {
+      "group": "stage1",
+      "id": "deck_motion_input",
+      "requirement": "Chrono reads platform displacement, velocity, attitude and angular-rate time histories.",
+      "status": "PASS",
+      "evidence": "Deck keys in Chrono report: heave_m, heave_m_s, pitch_rad, pitch_rad_s, roll_rad, roll_rad_s, surge_m, surge_m_s, sway_m, sway_m_s, yaw_rad, yaw_rad_s",
+      "note": "DeckMotion and the leg-reaction correction are 6DOF. The Wang wave/plume baseline remains heave/roll/pitch only, so zero horizontal baseline channels are audited separately as a model limitation."
+    },
+    {
+      "group": "stage1",
+      "id": "vertical_rocket_and_leg_outputs",
+      "requirement": "Rocket lands vertically and each leg outputs contact, force, stroke, slip, attitude, velocity and nozzle-clearance diagnostics.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-tripod-report-data.json validation.case_physical_diagnostics",
+      "note": "This proves the Stage 3A proxy diagnostics, not a hardware-valid Adams replica."
+    },
+    {
+      "group": "stage1",
+      "id": "calculated_animation",
+      "requirement": "HTML animation is driven by calculated time histories, not hand-made trajectories.",
+      "status": "PASS",
+      "evidence": "visualization/chrono-stage3-lock-two-way.html + data JS + validation.animation_feedback_deck_replay + validation.chrono_time_grid",
+      "note": "The final replay must use the plotted feedback deck and an exact endpoint-inclusive time axis; staggered decks or pre-step time labels are not accepted."
+    },
+    {
+      "group": "stage1",
+      "id": "literature_scale_comparison",
+      "requirement": "Available Thies/Nargolkar/Wang velocity, force and displacement scales are compared.",
+      "status": "PARTIAL",
+      "evidence": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\literature-comparison-registry.json",
+      "note": "A central registry now records pointwise Nargolkar digitized curves, Wang text indicators, Thies table/scale checks, units, extraction methods, error metrics and missing-curve gaps. Missing Wang/Thies/Yue/Li curves remain registered gaps, not reproduced claims."
+    },
+    {
+      "group": "stage2",
+      "id": "generalized_force_mapping",
+      "requirement": "Chrono leg and lock reactions map into platform [Fx,Fy,Fz,Mx,My,Mz] generalized loads.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-lock-two-way validation.six_dof_leg_increment",
+      "note": "This validates six-component transfer and reciprocity; it does not imply a full 6DOF Wang wave/mooring/DP baseline."
+    },
+    {
+      "group": "stage2",
+      "id": "no_force_degeneracy",
+      "requirement": "With no contact force, the platform response degenerates to the HAMS/Cummins baseline.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-lock-two-way validation.rhs_composition.no_leg_degeneracy_pass",
+      "note": ""
+    },
+    {
+      "group": "stage2",
+      "id": "eccentric_response",
+      "requirement": "Eccentric landing produces explainable roll/pitch response changes.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-lock-two-way validation.eccentric_response",
+      "note": ""
+    },
+    {
+      "group": "stage2",
+      "id": "baseline_vs_feedback_output",
+      "requirement": "Baseline and feedback time histories are output and plotted together.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-lock-two-way report contains baseline/with_leg_feedback/leg_induced_delta; HTML plots them.",
+      "note": ""
+    },
+    {
+      "group": "stage2",
+      "id": "loose_coupling_declared",
+      "requirement": "The two-way stage is explicitly marked as loose coupling, not strong co-simulation.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-lock-two-way coupling.limitations",
+      "note": ""
+    },
+    {
+      "group": "stage2",
+      "id": "loose_coupling_fixed_point",
+      "requirement": "The partitioned Chrono/Cummins iteration publishes and satisfies an explicit reaction/deck closure residual gate.",
+      "status": "PARTIAL",
+      "evidence": "chrono-stage3-lock-two-way simulations[*].validation.loose_coupling_closure_diagnostic",
+      "note": "The published closure residual is currently pass=false; this remains honest loose coupling and is not fixed-point convergence."
+    },
+    {
+      "group": "stage2",
+      "id": "time_step_convergence",
+      "requirement": "Contact, lock, and all six platform response channels satisfy the registered coarse-versus-half-step convergence gate.",
+      "status": "PARTIAL",
+      "evidence": "chrono-stage3-lock-two-way validation.time_step_convergence + validation.six_dof_time_step_convergence",
+      "note": "The current wave_port_15m half-step study fails in event-sensitive horizontal channels; this must remain visible until event localization and real horizontal restoring inputs are available."
+    },
+    {
+      "group": "stage3",
+      "id": "geometric_leg_mechanism",
+      "requirement": "Equivalent spring-damper legs are upgraded toward geometric link mechanisms.",
+      "status": "PARTIAL",
+      "evidence": "Stage 3A tripod proxy passes; Stage 3B/3C diagnostics exist but fail physical checks; leg mechanism contract/import schema/import self-test/backend self-test/validation/gap tracker/request pack/request lint/builder/runtime gate define, accept, check, and block missing Adams-equivalent input fields.",
+      "note": "This is not yet an Adams-equivalent CAD hinge/link mechanism. The request-pack lint passes and proves the .todo.csv data-acquisition package covers all strict blockers without changing model inputs."
+    },
+    {
+      "group": "stage3",
+      "id": "nonlinear_buffer_interface",
+      "requirement": "Buffers support nonlinear force-stroke and force-velocity curves.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-tripod validation.nonlinear_buffer_law plus config.legs.nonlinear_buffer_law.supported_types",
+      "note": "The table interface exists. The default active law still uses published linear k/c plus explicit hard-stop assumptions; real curve availability is audited separately."
+    },
+    {
+      "group": "stage3",
+      "id": "contact_state_and_stability",
+      "requirement": "Footpads support friction, slip, liftoff, recontact, stability, toppling risk, lock state and nozzle clearance.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-lock-two-way validation.contact_state_machine + lock_feedback",
+      "note": ""
+    },
+    {
+      "group": "stage3",
+      "id": "real_buffer_data",
+      "requirement": "Real or literature-given buffer curves can be used instead of arbitrary assumptions.",
+      "status": "PARTIAL",
+      "evidence": "thies-buffer-curves.json plus chrono-stage3-thies-buffer-report-data.json",
+      "note": "Thies 2022 Figure 4/5 curves are digitized and used in a Chrono compression_only_table buffer-law branch. The raster digitization is not original author data, and the hard stop beyond the visible curve range remains a numerical guard."
+    },
+    {
+      "group": "stage3",
+      "id": "parameter_sources",
+      "requirement": "All new parameters are in config and marked as paper, computed, assumption or to-verify.",
+      "status": "PASS",
+      "evidence": "published=7, assumptions=11, provenance_rows=103",
+      "note": "Config now includes a per-parameter provenance table; rows marked as engineering assumptions or to_verify must not be treated as reproduced paper data."
+    },
+    {
+      "group": "final",
+      "id": "command_line_chain",
+      "requirement": "Command line can run HAMS hydrodynamics, Cummins response, Chrono landing, two-way feedback and HTML visualization.",
+      "status": "PASS",
+      "evidence": "local-tools/Run-RocketRecoveryPipeline.ps1 plus existing generated reports and LOCAL_USAGE.md.",
+      "note": "The audit validates the command entrypoint and artifacts; use -DryRun to inspect the full sequence without rerunning expensive simulations."
+    },
+    {
+      "group": "final",
+      "id": "case_artifacts",
+      "requirement": "Cases output JSON, comparison plots/HTML animation and validation summary.",
+      "status": "PASS",
+      "evidence": "chrono-stage3-lock-two-way + chrono-stage3-thies-buffer JSON/HTML, Thies curve page, literature registry and final audit page.",
+      "note": ""
+    },
+    {
+      "group": "final",
+      "id": "model_realism_audit",
+      "requirement": "A machine-readable realism audit separates reproduced data, digitized curves, surrogate models, proxy mechanisms and missing data.",
+      "status": "PASS",
+      "evidence": "model-realism-audit.json plus model-realism-audit.html",
+      "note": "This is an honesty gate: it can pass while still reporting PARTIAL model realism findings."
+    },
+    {
+      "group": "final",
+      "id": "paper_curve_metadata",
+      "requirement": "Paper comparison curves state data source, digitization method, units and error metrics.",
+      "status": "PASS",
+      "evidence": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\literature-comparison-registry.json",
+      "note": "Current comparison entries include source, extraction method, units and errors; missing full curves are explicit registry gaps."
+    },
+    {
+      "group": "final",
+      "id": "assumptions_not_claimed_as_reproduced",
+      "requirement": "Unsupported parts are marked as engineering assumptions or to-verify, not as reproduced.",
+      "status": "PASS",
+      "evidence": "config.parameter_audit.explicit_assumptions and report.acceptance_scope.not_claimed",
+      "note": ""
+    }
+  ],
+  "gaps": [
+    {
+      "group": "boundary",
+      "id": "hams_official_benchmark",
+      "requirement": "The locally compiled HAMS executable reproduces the four CertTest benchmark output sets within the registered tolerances.",
+      "status": "CHECK",
+      "evidence": "RocketRecoveryCases/Barge_120x50/validation/benchmark-regression.json cases=4",
+      "note": "The four cases were regenerated with SourceCode/hams.exe. See docs/hams-certtest-toolchain-diagnosis.md; do not relabel the recorded toolchain-sensitive failures as tolerance noise."
+    },
+    {
+      "group": "stage1",
+      "id": "literature_scale_comparison",
+      "requirement": "Available Thies/Nargolkar/Wang velocity, force and displacement scales are compared.",
+      "status": "PARTIAL",
+      "evidence": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\literature-comparison-registry.json",
+      "note": "A central registry now records pointwise Nargolkar digitized curves, Wang text indicators, Thies table/scale checks, units, extraction methods, error metrics and missing-curve gaps. Missing Wang/Thies/Yue/Li curves remain registered gaps, not reproduced claims."
+    },
+    {
+      "group": "stage2",
+      "id": "loose_coupling_fixed_point",
+      "requirement": "The partitioned Chrono/Cummins iteration publishes and satisfies an explicit reaction/deck closure residual gate.",
+      "status": "PARTIAL",
+      "evidence": "chrono-stage3-lock-two-way simulations[*].validation.loose_coupling_closure_diagnostic",
+      "note": "The published closure residual is currently pass=false; this remains honest loose coupling and is not fixed-point convergence."
+    },
+    {
+      "group": "stage2",
+      "id": "time_step_convergence",
+      "requirement": "Contact, lock, and all six platform response channels satisfy the registered coarse-versus-half-step convergence gate.",
+      "status": "PARTIAL",
+      "evidence": "chrono-stage3-lock-two-way validation.time_step_convergence + validation.six_dof_time_step_convergence",
+      "note": "The current wave_port_15m half-step study fails in event-sensitive horizontal channels; this must remain visible until event localization and real horizontal restoring inputs are available."
+    },
+    {
+      "group": "stage3",
+      "id": "geometric_leg_mechanism",
+      "requirement": "Equivalent spring-damper legs are upgraded toward geometric link mechanisms.",
+      "status": "PARTIAL",
+      "evidence": "Stage 3A tripod proxy passes; Stage 3B/3C diagnostics exist but fail physical checks; leg mechanism contract/import schema/import self-test/backend self-test/validation/gap tracker/request pack/request lint/builder/runtime gate define, accept, check, and block missing Adams-equivalent input fields.",
+      "note": "This is not yet an Adams-equivalent CAD hinge/link mechanism. The request-pack lint passes and proves the .todo.csv data-acquisition package covers all strict blockers without changing model inputs."
+    },
+    {
+      "group": "stage3",
+      "id": "real_buffer_data",
+      "requirement": "Real or literature-given buffer curves can be used instead of arbitrary assumptions.",
+      "status": "PARTIAL",
+      "evidence": "thies-buffer-curves.json plus chrono-stage3-thies-buffer-report-data.json",
+      "note": "Thies 2022 Figure 4/5 curves are digitized and used in a Chrono compression_only_table buffer-law branch. The raster digitization is not original author data, and the hard stop beyond the visible curve range remains a numerical guard."
+    }
+  ],
+  "report_artifacts": {
+    "hams_benchmark": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Barge_120x50\\validation\\benchmark-regression.json",
+      "exists": true,
+      "bytes": 16526
+    },
+    "nargolkar_2025": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Paper_Nargolkar_2025\\nargolkar-2025-report-data.json",
+      "exists": true,
+      "bytes": 10893660
+    },
+    "wang_2023": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Paper_WangZhi_2023\\wang-2023-report-data.json",
+      "exists": true,
+      "bytes": 4830415
+    },
+    "literature_registry": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\literature-comparison-registry.json",
+      "exists": true,
+      "bytes": 302635
+    },
+    "thies_buffer_curves": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\validation\\thies_absorber_curves\\thies-buffer-curves.json",
+      "exists": true,
+      "bytes": 321937
+    },
+    "chrono_one_way": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-one-way-report-data.json",
+      "exists": true,
+      "bytes": 15589211
+    },
+    "chrono_two_way": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-two-way-report-data.json",
+      "exists": true,
+      "bytes": 24557129
+    },
+    "chrono_stage3_tripod": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-stage3-tripod-report-data.json",
+      "exists": true,
+      "bytes": 21089576
+    },
+    "chrono_stage3_two_way": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-stage3-two-way-report-data.json",
+      "exists": true,
+      "bytes": 30429717
+    },
+    "chrono_stage3_lock": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-stage3-lock-report-data.json",
+      "exists": true,
+      "bytes": 21183157
+    },
+    "chrono_stage3_lock_two_way": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-stage3-lock-two-way-report-data.json",
+      "exists": true,
+      "bytes": 27059355
+    },
+    "chrono_stage3_thies_buffer": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-stage3-thies-buffer-report-data.json",
+      "exists": true,
+      "bytes": 24017142
+    },
+    "chrono_stage3b_rigid": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-stage3b-rigid-report-data.json",
+      "exists": true,
+      "bytes": 4852903
+    },
+    "chrono_stage3c_rigid_body_link": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-stage3c-rigid-body-link-report-data.json",
+      "exists": true,
+      "bytes": 5736388
+    },
+    "leg_mechanism_contract": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\leg-mechanism-data-contract.json",
+      "exists": true,
+      "bytes": 112644
+    },
+    "leg_mechanism_validation": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\leg-mechanism-data-validation.json",
+      "exists": true,
+      "bytes": 65240
+    },
+    "leg_mechanism_gap_tracker": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\leg-mechanism-gap-tracker.json",
+      "exists": true,
+      "bytes": 73520
+    },
+    "leg_mechanism_data_request_pack": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\leg-mechanism-data-request-pack.json",
+      "exists": true,
+      "bytes": 4673
+    },
+    "leg_mechanism_data_request_lint": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\leg-mechanism-data-request-lint.json",
+      "exists": true,
+      "bytes": 5060
+    },
+    "leg_mechanism_import": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\leg-mechanism-data-import-report.json",
+      "exists": true,
+      "bytes": 2307
+    },
+    "leg_mechanism_import_selftest": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\leg-mechanism-import-selftest-report.json",
+      "exists": true,
+      "bytes": 16237
+    },
+    "chrono_real_leg_backend_selftest": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-real-leg-backend-selftest-report.json",
+      "exists": true,
+      "bytes": 9411
+    },
+    "real_leg_mechanism_builder": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\real-leg-mechanism-builder-gate.json",
+      "exists": true,
+      "bytes": 53036
+    },
+    "chrono_real_leg_mechanism": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\chrono-real-leg-mechanism-report-data.json",
+      "exists": true,
+      "bytes": 1870
+    },
+    "model_realism_audit": {
+      "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\model-realism-audit.json",
+      "exists": true,
+      "bytes": 59794
+    }
+  },
+  "html_artifacts": {
+    "chrono_one_way": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-recovery.html",
+      "exists": true,
+      "bytes": 19545
+    },
+    "chrono_two_way": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-two-way.html",
+      "exists": true,
+      "bytes": 21016
+    },
+    "chrono_stage3_tripod": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-stage3-tripod.html",
+      "exists": true,
+      "bytes": 17501
+    },
+    "chrono_stage3_two_way": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-stage3-two-way.html",
+      "exists": true,
+      "bytes": 17484
+    },
+    "chrono_stage3_lock": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-stage3-lock.html",
+      "exists": true,
+      "bytes": 15018
+    },
+    "chrono_stage3_lock_two_way": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-stage3-lock-two-way.html",
+      "exists": true,
+      "bytes": 29944
+    },
+    "chrono_stage3_thies_buffer": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-stage3-thies-buffer.html",
+      "exists": true,
+      "bytes": 21379
+    },
+    "chrono_stage3c_rigid_body_link": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-stage3c-rigid-body-link.html",
+      "exists": true,
+      "bytes": 7234
+    },
+    "leg_mechanism_contract": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\leg-mechanism-contract.html",
+      "exists": true,
+      "bytes": 7816
+    },
+    "leg_mechanism_validation": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\leg-mechanism-validation.html",
+      "exists": true,
+      "bytes": 7808
+    },
+    "leg_mechanism_gap_tracker": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\leg-mechanism-gap-tracker.html",
+      "exists": true,
+      "bytes": 9631
+    },
+    "leg_mechanism_data_request_pack": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\leg-mechanism-data-request-pack.html",
+      "exists": true,
+      "bytes": 5991
+    },
+    "leg_mechanism_data_request_lint": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\leg-mechanism-data-request-lint.html",
+      "exists": true,
+      "bytes": 5774
+    },
+    "leg_mechanism_import": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\leg-mechanism-import.html",
+      "exists": true,
+      "bytes": 6104
+    },
+    "leg_mechanism_import_selftest": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\leg-mechanism-import-selftest.html",
+      "exists": true,
+      "bytes": 6920
+    },
+    "chrono_real_leg_backend_selftest": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-real-leg-backend-selftest.html",
+      "exists": true,
+      "bytes": 5401
+    },
+    "real_leg_mechanism_builder": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\real-leg-mechanism-builder.html",
+      "exists": true,
+      "bytes": 6922
+    },
+    "chrono_real_leg_mechanism": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-real-leg-mechanism.html",
+      "exists": true,
+      "bytes": 6613
+    },
+    "model_realism_audit": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\model-realism-audit.html",
+      "exists": true,
+      "bytes": 6001
+    },
+    "thies_buffer_curves": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\thies-buffer-curves.html",
+      "exists": true,
+      "bytes": 7510
+    },
+    "literature_registry": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\literature-comparison-registry.html",
+      "exists": true,
+      "bytes": 8282
+    },
+    "final_acceptance": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\chrono-final-acceptance.html",
+      "exists": true,
+      "bytes": 7532
+    },
+    "nargolkar_2025": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\nargolkar-2025.html",
+      "exists": true,
+      "bytes": 33825
+    },
+    "wang_2023": {
+      "path": "E:\\Projects\\20260728-HAMS\\visualization\\wang-2023.html",
+      "exists": true,
+      "bytes": 24933
+    }
+  },
+  "sourcecode_clean_check": {
+    "checked": true,
+    "returncode": 0,
+    "pass": true,
+    "diff_bytes": 0,
+    "stderr": ""
+  },
+  "chrono_contact_force_scan": {
+    "pass": true,
+    "matches": []
+  },
+  "deck_dof_status": {
+    "status": "PASS",
+    "deck_keys": [
+      "heave_m",
+      "heave_m_s",
+      "pitch_rad",
+      "pitch_rad_s",
+      "roll_rad",
+      "roll_rad_s",
+      "surge_m",
+      "surge_m_s",
+      "sway_m",
+      "sway_m_s",
+      "yaw_rad",
+      "yaw_rad_s"
+    ],
+    "has_full_6dof": true,
+    "reduced_feedback": false,
+    "feedback_dofs": [
+      "surge",
+      "sway",
+      "heave",
+      "roll",
+      "pitch",
+      "yaw"
+    ],
+    "zero_filled_adapter_fields": [],
+    "required_6dof_keys": [
+      "surge_m",
+      "sway_m",
+      "heave_m",
+      "roll_rad",
+      "pitch_rad",
+      "yaw_rad",
+      "surge_m_s",
+      "sway_m_s",
+      "heave_m_s",
+      "roll_rad_s",
+      "pitch_rad_s",
+      "yaw_rad_s"
+    ]
+  },
+  "parameter_audit_summary": {
+    "published_value_count": 7,
+    "explicit_assumption_count": 11,
+    "machine_readable_config_sections": true,
+    "parameter_provenance_count": 103,
+    "parameter_provenance_category_counts": {
+      "implementation_setting": 15,
+      "solver_setting": 4,
+      "engineering_assumption": 34,
+      "source_metadata": 5,
+      "paper": 38,
+      "computed": 6,
+      "implementation_assumption": 1
+    },
+    "status": "PASS",
+    "note": "Config now includes a per-parameter provenance table; rows marked as engineering assumptions or to_verify must not be treated as reproduced paper data."
+  },
+  "literature_comparison_summary": {
+    "registry_path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery\\literature-comparison-registry.json",
+    "status": "PARTIAL",
+    "metadata_complete": true,
+    "available_comparisons_covered": true,
+    "pointwise_digitized_curve_count": 36,
+    "wang_text_indicator_count": 5,
+    "thies_table_or_scale_count": 9,
+    "thies_digitized_buffer_curve_count": 2,
+    "missing_curve_count": 6,
+    "metadata_gap_count": 0,
+    "note": "A central registry now records pointwise Nargolkar digitized curves, Wang text indicators, Thies table/scale checks, units, extraction methods, error metrics and missing-curve gaps. Missing Wang/Thies/Yue/Li curves remain registered gaps, not reproduced claims."
+  },
+  "next_hardening_steps": [
+    "Replace Wang zero-filled surge/sway/yaw adapter fields with full 6DOF HAMS/Cummins platform time histories when available.",
+    "Run local-tools/Run-RocketRecoveryPipeline.ps1 end-to-end after major model changes to refresh every artifact from source.",
+    "Use leg_mechanism_gap_tracker.py and leg_mechanism_data_request_pack.py as the authoritative real-data punch list; fill the CSV files under RocketRecoveryCases/Chrono_LeggedRecovery/Input/leg_mechanism_import_schema with CAD/Adams hinge coordinates, telescopic absorber topology, joint graph, and rod mass/inertia data, then import, validate, build, and run chrono_real_leg_mechanism_recovery.py in strict mode.",
+    "Replace raster-digitized Thies buffer curves with original author tables or measured hydropneumatic hardware data when available.",
+    "Use docs/literature-comparison-registry.md as the source-data punch list; digitize or obtain Wang/Thies/Yue/Li curves for point-by-point validation."
+  ]
+}

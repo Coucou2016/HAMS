@@ -1,0 +1,41 @@
+ 
+ ------------------------HAMS (Hydrodynamic Analysis of Marine Structures)---------------------
+ 
+                                                         Code Original Author: Yingyi Liu
+ 
+  HAMS is an open-source software for computing wave diffraction and radiation of 3D structures.
+ 
+ Please cite the following papers in your publications, reports, etc., when HAMS has been used in your work:
+ 
+  (1) Yingyi Liu. (2019).
+      HAMS: A Frequency-Domain Preprocessor for Wave-Structure Interactions—
+      Theory, Development, and Application. Journal of Marine Science and Engineering, 7(3), 81.
+ 
+  (2) Yingyi Liu et al. (2018). 
+      A reliable open-source package for performance evaluation of floating renewable energy systems
+      in coastal and offshore regions. Energy Conversion and Management, 174: 516-536.
+ 
+  (3) Yingyi Liu et al. (2016).
+      Motion response prediction by hybrid panel-stick models for a semi-submersible with bracings.
+      Journal of Marine Science and Technology, 21: 742-757.
+ 
+  (4) Yingyi Liu et al. (2015).
+      A calculation method for finite depth free-surface green function.
+      International Journal of Naval Architecture and Ocean Engineering, 7: 375-389.
+ 
+  Paper list to be continued...
+ 
+ -----------------------------------------------------------------------------------------------
+ 
+forrtl: severe (64): input conversion error, unit 1, file E:\Projects\20260728-HAMS\.diagnostics\cert-cylinder-20260815-210508\ifort\Input\ControlFile.in
+Image              PC                Routine            Line        Source             
+HAMS_ifort_Win.ex  00007FF70391DD2A  Unknown               Unknown  Unknown
+HAMS_ifort_Win.ex  00007FF70390D84D  Unknown               Unknown  Unknown
+HAMS_ifort_Win.ex  00007FF70390A351  Unknown               Unknown  Unknown
+HAMS_ifort_Win.ex  00007FF7038EB182  Unknown               Unknown  Unknown
+HAMS_ifort_Win.ex  00007FF7038EF9AC  Unknown               Unknown  Unknown
+HAMS_ifort_Win.ex  00007FF7038EF1A0  Unknown               Unknown  Unknown
+HAMS_ifort_Win.ex  00007FF703FC0C1E  Unknown               Unknown  Unknown
+HAMS_ifort_Win.ex  00007FF704077814  Unknown               Unknown  Unknown
+KERNEL32.DLL       00007FFAAD037974  Unknown               Unknown  Unknown
+ntdll.dll          00007FFAAF6FA0B1  Unknown               Unknown  Unknown

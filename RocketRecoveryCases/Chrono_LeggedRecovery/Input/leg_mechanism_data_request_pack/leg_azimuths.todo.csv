@@ -1,0 +1,5 @@
+leg_id,azimuth_deg,source_category,source_detail,current_template_azimuth_deg,required_source,note
+leg_1,,,,45.0,CAD/Adams leg layout export or published four-leg azimuth table,Replace symmetric proxy azimuth with source data.
+leg_2,,,,135.0,CAD/Adams leg layout export or published four-leg azimuth table,Replace symmetric proxy azimuth with source data.
+leg_3,,,,225.0,CAD/Adams leg layout export or published four-leg azimuth table,Replace symmetric proxy azimuth with source data.
+leg_4,,,,315.0,CAD/Adams leg layout export or published four-leg azimuth table,Replace symmetric proxy azimuth with source data.

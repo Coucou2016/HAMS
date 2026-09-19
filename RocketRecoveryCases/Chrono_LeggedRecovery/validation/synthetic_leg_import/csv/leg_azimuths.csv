@@ -1,0 +1,5 @@
+leg_id,azimuth_deg,source_category,source_detail
+leg_1,45.0,synthetic_test_fixture,"Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data."
+leg_2,135.0,synthetic_test_fixture,"Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data."
+leg_3,225.0,synthetic_test_fixture,"Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data."
+leg_4,315.0,synthetic_test_fixture,"Synthetic importer self-test fixture generated from Thies published plane lengths; not production, CAD, Adams, author, measured, or calibrated data."

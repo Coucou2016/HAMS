@@ -1,0 +1,15 @@
+Loading Wang 2023 HAMS/Cummins baseline...
+Loading HAMS radiation damping matrices...
+Building Stage 3 lock two-way loose-coupling case: calm_center
+Running Stage 3 lock two-way source case: calm_center iteration 1/1
+Building Stage 3 lock two-way loose-coupling case: wave_center
+Running Stage 3 lock two-way source case: wave_center iteration 1/1
+Building Stage 3 lock two-way loose-coupling case: wave_bow_15m
+Running Stage 3 lock two-way source case: wave_bow_15m iteration 1/1
+Building Stage 3 lock two-way loose-coupling case: wave_port_15m
+Running Stage 3 lock two-way source case: wave_port_15m iteration 1/1
+Running Stage 3 lock two-way time-step convergence check: wave_port_15m
+Running Stage 3 lock two-way source case: wave_port_15m convergence half Chrono dt
+Wrote E:\Projects\20260728-HAMS\visualization\chrono-stage3-lock-two-way-data.js
+Status: simulated
+Report: E:\Projects\20260728-HAMS\RocketRecoveryCases\Chrono_LeggedRecovery\chrono-stage3-lock-two-way-report-data.json

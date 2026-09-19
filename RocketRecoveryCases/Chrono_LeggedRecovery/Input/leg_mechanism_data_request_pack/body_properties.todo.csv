@@ -1,0 +1,49 @@
+leg_id,body,field,value_json,unit,source_category,source_detail,required_source,note
+leg_1,main_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_1,main_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_1,main_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_1,long_auxiliary_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_1,long_auxiliary_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_1,long_auxiliary_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_1,short_auxiliary_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_1,short_auxiliary_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_1,short_auxiliary_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_1,footpad,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,"Current 80 kg value is an engineering placeholder, not paper data."
+leg_1,footpad,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_1,footpad,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_2,main_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_2,main_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_2,main_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_2,long_auxiliary_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_2,long_auxiliary_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_2,long_auxiliary_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_2,short_auxiliary_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_2,short_auxiliary_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_2,short_auxiliary_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_2,footpad,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,"Current 80 kg value is an engineering placeholder, not paper data."
+leg_2,footpad,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_2,footpad,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_3,main_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_3,main_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_3,main_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_3,long_auxiliary_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_3,long_auxiliary_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_3,long_auxiliary_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_3,short_auxiliary_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_3,short_auxiliary_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_3,short_auxiliary_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_3,footpad,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,"Current 80 kg value is an engineering placeholder, not paper data."
+leg_3,footpad,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_3,footpad,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_4,main_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_4,main_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_4,main_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_4,long_auxiliary_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_4,long_auxiliary_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_4,long_auxiliary_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_4,short_auxiliary_strut,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,CAD/Adams body mass not published.
+leg_4,short_auxiliary_strut,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_4,short_auxiliary_strut,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.
+leg_4,footpad,mass_kg,,kg,,,CAD mass-property export or validated component mass budget,"Current 80 kg value is an engineering placeholder, not paper data."
+leg_4,footpad,com_xyz_m,,m,,,CAD mass-property export or validated component mass budget,CAD/Adams body COM not published.
+leg_4,footpad,inertia_kg_m2,,kg m^2,,,CAD mass-property export or validated component mass budget,CAD/Adams inertia tensor not published.

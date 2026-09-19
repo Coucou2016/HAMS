@@ -1,0 +1,14 @@
+Loading Chrono leg configuration...
+Checking PyChrono environment...
+Loading Wang 2023 HAMS/Cummins baseline...
+Loading HAMS radiation damping matrices...
+Building two-way loose-coupling case: calm_center
+Running PyChrono two-way source case: calm_center iteration 1/1
+Building two-way loose-coupling case: wave_center
+Running PyChrono two-way source case: wave_center iteration 1/1
+Building two-way loose-coupling case: wave_bow_15m
+Running PyChrono two-way source case: wave_bow_15m iteration 1/1
+Building two-way loose-coupling case: wave_port_15m
+Running PyChrono two-way source case: wave_port_15m iteration 1/1
+Running time-step convergence check: wave_port_15m
+Running PyChrono two-way source case: wave_port_15m convergence half Chrono dt

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono Real Leg Mechanism Gap Tracker</title>
+  <script src="leg-mechanism-gap-tracker-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #5d6876;
+      --line: #d8dee8;
+      --panel: #f7f9fc;
+      --accent: #0f766e;
+      --good: #047857;
+      --warn: #b45309;
+      --bad: #b91c1c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+    header {
+      padding: 18px 24px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav a:hover { text-decoration: underline; }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 980px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 22px 24px 44px;
+    }
+    section { margin: 0 0 30px; }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+    .metric {
+      min-height: 92px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .metric .value {
+      margin-top: 8px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+    .good { color: var(--good); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--bad); }
+    .note {
+      border-left: 4px solid var(--warn);
+      padding: 10px 12px;
+      background: #fff8ed;
+      color: #563900;
+      line-height: 1.55;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, .8fr);
+      gap: 18px;
+      align-items: start;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    th, td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #eef3f8; }
+    tr:last-child td { border-bottom: 0; }
+    code {
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 12px;
+      background: #eef3f8;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #eef3f8;
+      color: var(--ink);
+      font-size: 12px;
+    }
+    .empty {
+      padding: 18px;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+    }
+    @media (max-width: 900px) {
+      main, header { padding-left: 16px; padding-right: 16px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="chrono-final-acceptance.html">Final audit</a>
+      <a href="leg-mechanism-contract.html">Data contract</a>
+      <a href="leg-mechanism-import.html">Data import</a>
+      <a href="leg-mechanism-validation.html">Data validation</a>
+      <a href="leg-mechanism-import-selftest.html">Import self-test</a>
+      <a href="leg-mechanism-data-request-pack.html">Request pack</a>
+      <a href="leg-mechanism-data-request-lint.html">Request lint</a>
+      <a href="chrono-real-leg-backend-selftest.html">Backend self-test</a>
+      <a href="real-leg-mechanism-builder.html">Builder gate</a>
+      <a href="chrono-real-leg-mechanism.html">Real runtime</a>
+      <a href="literature-comparison-registry.html">Literature registry</a>
+    </nav>
+    <h1>真实支腿机构数据缺口追踪</h1>
+    <p class="lead">把当前论文可用信息、严格 gate 阻塞字段、CSV 导入文件和下一步数据来源对应起来。这个页面用于防止把论文量级值或 synthetic fixture 当成真实 Adams 等价机构数据。</p>
+  </header>
+  <main id="app">
+    <div class="empty">等待 <code>leg-mechanism-gap-tracker-data.js</code> 数据。</div>
+  </main>
+  <script>
+    const data = window.LEG_MECHANISM_GAP_TRACKER;
+    const app = document.getElementById("app");
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[ch]));
+    }
+
+    function metric(label, value, cls = "") {
+      return `<div class="metric"><div class="label">${esc(label)}</div><div class="value ${cls}">${esc(value)}</div></div>`;
+    }
+
+    function classRows(counts, mapping) {
+      return Object.keys(mapping || {}).map(key => {
+        const item = mapping[key];
+        return `<tr>
+          <td><code>${esc(key)}</code></td>
+          <td><strong>${esc((counts || {})[key] || 0)}</strong></td>
+          <td><code>${esc(item.csv_file)}</code></td>
+          <td>${esc(item.needed_source)}</td>
+        </tr>`;
+      }).join("");
+    }
+
+    function sourceRows(rows) {
+      return (rows || []).map(row => `<tr>
+        <td><code>${esc(row.source_id)}</code></td>
+        <td>${(row.usable_data || []).map(item => `<span class="pill">${esc(item)}</span>`).join(" ")}</td>
+        <td>${(row.cannot_fill_strict_fields || []).map(item => esc(item)).join("<br>")}</td>
+        <td><code>${esc(row.strict_gate_use)}</code></td>
+      </tr>`).join("");
+    }
+
+    function actionRows(rows) {
+      return (rows || []).map(row => `<tr>
+        <td>${esc(row.order)}</td>
+        <td><code>${esc(row.id)}</code></td>
+        <td>${(row.target_csv || []).map(item => `<code>${esc(item)}</code>`).join(" ")}</td>
+        <td>${esc(row.acceptance)}</td>
+        <td>${esc(row.why)}</td>
+      </tr>`).join("");
+    }
+
+    function blockerRows(rows) {
+      return (rows || []).slice(0, 120).map(row => `<tr>
+        <td><code>${esc(row.path)}</code></td>
+        <td>${esc(row.source_category)}</td>
+        <td>${esc(row.field_class)}</td>
+        <td><code>${esc(row.csv_file)}</code></td>
+        <td>${esc(row.needed_source)}</td>
+      </tr>`).join("");
+    }
+
+    if (!data) {
+      app.innerHTML = '<div class="empty">没有找到缺口数据。请运行 <code>.\\.tools\\chrono-env\\python.exe .\\analysis\\rocket_recovery\\leg_mechanism_gap_tracker.py report</code>。</div>';
+    } else {
+      const summary = data.summary || {};
+      const gate = data.current_gate || {};
+      app.innerHTML = `
+        <section class="summary">
+          ${metric("Strict ready", gate.strict_validation_ready ? "YES" : "NO", gate.strict_validation_ready ? "good" : "bad")}
+          ${metric("Blocking fields", summary.strict_blocking_field_count_from_validator ?? summary.strict_blocking_field_count, "bad")}
+          ${metric("Papers can fill", summary.current_papers_can_fill_blocking_field_count, summary.current_papers_can_fill_blocking_field_count ? "warn" : "bad")}
+          ${metric("Builder", gate.builder_status || "missing", gate.builder_status === "ready" ? "good" : "warn")}
+          ${metric("Runtime", gate.runtime_status || "missing", gate.runtime_status === "simulated" ? "good" : "warn")}
+        </section>
+        <section>
+          <div class="note">${esc(data.conclusion)}</div>
+        </section>
+        <section class="grid">
+          <div>
+            <h2>Blocking Classes</h2>
+            <table>
+              <thead><tr><th>Class</th><th>Count</th><th>CSV</th><th>Needed Source</th></tr></thead>
+              <tbody>${classRows(summary.blocking_field_class_counts, data.csv_mapping)}</tbody>
+            </table>
+          </div>
+          <div>
+            <h2>Current Gate</h2>
+            <table>
+              <tbody>
+                <tr><th>Validation</th><td>${esc(gate.strict_validation_ready ? "ready" : "blocked")}</td></tr>
+                <tr><th>Builder</th><td>${esc(gate.builder_status)}</td></tr>
+                <tr><th>Runtime</th><td>${esc(gate.runtime_status)}</td></tr>
+                <tr><th>Production config</th><td>${esc(gate.production_real_config_exists ? "exists" : "absent")}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section>
+          <h2>Literature Source Matrix</h2>
+          <table>
+            <thead><tr><th>Source</th><th>Usable Data</th><th>Cannot Fill Strict Fields</th><th>Gate Use</th></tr></thead>
+            <tbody>${sourceRows(data.source_matrix)}</tbody>
+          </table>
+        </section>
+        <section>
+          <h2>Action Plan</h2>
+          <table>
+            <thead><tr><th>#</th><th>ID</th><th>CSV</th><th>Acceptance</th><th>Reason</th></tr></thead>
+            <tbody>${actionRows(data.action_plan)}</tbody>
+          </table>
+        </section>
+        <section>
+          <h2>Top Blocking Fields</h2>
+          <table>
+            <thead><tr><th>Path</th><th>Source</th><th>Class</th><th>CSV</th><th>Needed Source</th></tr></thead>
+            <tbody>${blockerRows(data.blocking_fields)}</tbody>
+          </table>
+        </section>
+      `;
+    }
+  </script>
+</body>
+</html>

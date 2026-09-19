@@ -1,0 +1,1705 @@
+{
+  "report_id": "ChronoRealLegMechanismGapTracker",
+  "generated_utc": "2026-08-01T12:52:12+00:00",
+  "overall_status": "blocked_pending_real_mechanism_data",
+  "conclusion": "当前论文和 Markdown 可支撑平台水动力、喷流载荷、缓冲器曲线和支腿量级验证，但不能填满 Adams 等价 Chrono 支腿所需的真实 CAD/Adams 机构字段。",
+  "inputs": {
+    "template_json": {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/Input/leg_mechanism_data_template.json",
+      "exists": true
+    },
+    "contract_json": {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/leg-mechanism-data-contract.json",
+      "exists": true
+    },
+    "validation_json": {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/leg-mechanism-data-validation.json",
+      "exists": true
+    },
+    "builder_json": {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/real-leg-mechanism-builder-gate.json",
+      "exists": true
+    },
+    "runtime_json": {
+      "path": "RocketRecoveryCases/Chrono_LeggedRecovery/chrono-real-leg-mechanism-report-data.json",
+      "exists": true
+    }
+  },
+  "current_gate": {
+    "strict_validation_ready": false,
+    "strict_validation_blocking_field_count": 120,
+    "builder_status": "blocked_by_data_validation",
+    "runtime_status": "blocked_missing_real_config",
+    "production_real_config_exists": false
+  },
+  "summary": {
+    "adams_required_field_count": 180,
+    "strict_ready_field_count": 60,
+    "strict_blocking_field_count": 120,
+    "strict_blocking_field_count_from_validator": 120,
+    "current_papers_can_fill_blocking_field_count": 0,
+    "ready_source_category_counts": {
+      "computed": 4,
+      "paper": 56
+    },
+    "blocking_source_category_counts": {
+      "engineering_assumption": 4,
+      "missing_required": 116
+    },
+    "blocking_field_class_counts": {
+      "azimuths": 4,
+      "body_properties": 48,
+      "buffer_lock": 5,
+      "constraint_topology": 24,
+      "coordinate_system": 3,
+      "marker_coordinates": 36
+    },
+    "blocking_csv_file_counts": {
+      "body_properties.csv": 48,
+      "buffer_lock.csv": 5,
+      "constraint_topology.csv": 24,
+      "coordinate_system.csv": 3,
+      "leg_azimuths.csv": 4,
+      "marker_coordinates.csv": 36
+    }
+  },
+  "source_matrix": [
+    {
+      "source_id": "Thies_2022",
+      "local_files": [
+        "海上平台火箭回收文献/P3_Thies_2022.md",
+        "海上平台火箭回收文献/P3_Thies_2022.pdf"
+      ],
+      "usable_data": [
+        "火箭高度、直径、着陆质量、质心和惯量",
+        "四腿 tripod 总体构型",
+        "B/T/K 高度、PB/PT/PK 长度、33 deg 主腿角、51 deg 斜撑角",
+        "名义触地速度、触地动能、无摩擦名义工况",
+        "缓冲器线性刚度/阻尼、表格结果中的行程/力/喷管间隙",
+        "Figure 4/5 可数字化缓冲器力-行程/力-速度曲线"
+      ],
+      "cannot_fill_strict_fields": [
+        "四条腿在火箭体坐标系内的完整 B/T/K/P 三维 marker 坐标",
+        "真实 CAD/Adams 坐标系原点、轴向和 HAMS 甲板坐标转换",
+        "每个铰链的 joint type、joint axis、限位和约束图",
+        "主支柱、斜撑、足垫、缓冲器壳体/活塞/锁紧件的质量、质心和惯量",
+        "伸缩缓冲器内部拓扑、真实 stroke limit、回弹/伸出行为和锁紧硬件"
+      ],
+      "strict_gate_use": "primary_scale_validation_only",
+      "notes": "适合作为支腿量级和缓冲曲线基准；不足以直接生成 Adams 等价 Chrono 机构。"
+    },
+    {
+      "source_id": "Yue_2022",
+      "local_files": [
+        "海上平台火箭回收文献/P4_Yue_2022.md",
+        "海上平台火箭回收文献/P4_Yue_2022.pdf"
+      ],
+      "usable_data": [
+        "准三维 2-2 / 1-2-1 对称着陆建模方式",
+        "主支柱力、辅助支柱力、缓冲器行程、加速度的仿真/试验对比指标",
+        "非线性接触和液体弹簧缓冲器验证思路"
+      ],
+      "cannot_fill_strict_fields": [
+        "该文是另一缩比/准三维模型，不是 Thies/RETALT 真实 CAD 数据",
+        "不能直接填入当前 Thies-based B/T/K/P marker 和质量惯量字段",
+        "不能替代浮动甲板 HAMS/Cummins 数据"
+      ],
+      "strict_gate_use": "future_validation_targets",
+      "notes": "适合后续增加支腿试验级对比，但不能和 Thies 参数混用后声称真实机构。"
+    },
+    {
+      "source_id": "Li_2025",
+      "local_files": [
+        "海上平台火箭回收文献/P5_Li_2025_Aerospace.md",
+        "海上平台火箭回收文献/P5_Li_2025_Aerospace.pdf"
+      ],
+      "usable_data": [
+        "四腿机构、主支柱、两根辅助支柱、足垫和液气弹簧的建模拓扑描述",
+        "另一设计的质量/惯量表",
+        "接触刚度、阻尼、接触半径、接触指数、静/动摩擦系数",
+        "柔性-刚体耦合和发动机关机后残余推力建模思路"
+      ],
+      "cannot_fill_strict_fields": [
+        "这是另一火箭/支腿设计，不能直接填入 Thies/RETALT 机构几何",
+        "不能与 Thies 几何混合后作为同一真实机构的质量惯量",
+        "不包含浮式平台水动力或海上甲板运动数据"
+      ],
+      "strict_gate_use": "alternate_design_or_contact_reference",
+      "notes": "可作为接触参数和未来柔性支腿路线参考；若采用，需要建立独立 Li-based config。"
+    },
+    {
+      "source_id": "Wang_2023",
+      "local_files": [
+        "海上平台火箭回收文献/海上火箭回收过程中船舶耦合运动响应分析_王智.md",
+        "海上平台火箭回收文献/P2_WangZhi_2023_ShipSciTech.pdf"
+      ],
+      "usable_data": [
+        "JONSWAP 谱 Hs=1.75 m、Tp=4.5 s、gamma=3、浪向 135 deg",
+        "31 s 喷流载荷时程构造和最终约 20400 kN 的垂向载荷量级",
+        "165 m x 40 m x 5 m 驳船、四点悬链线系泊、偏心落点响应量级",
+        "静水/波浪中 heave/roll/pitch 响应文字指标"
+      ],
+      "cannot_fill_strict_fields": [
+        "没有火箭四腿结构模型",
+        "没有足垫接触、缓冲器、摩擦、锁紧或火箭刚体动力学",
+        "没有 HAMS/Chrono 真实支腿机构所需 CAD/Adams 数据"
+      ],
+      "strict_gate_use": "platform_wave_plume_validation",
+      "notes": "用于 HAMS/Cummins 平台和喷流外载验证，不用于填真实支腿机构 gate。"
+    },
+    {
+      "source_id": "Nargolkar_2025",
+      "local_files": [
+        "海上平台火箭回收文献/065002_1_2.0002061.md",
+        "海上平台火箭回收文献/065002_1_2.0002061.pdf"
+      ],
+      "usable_data": [
+        "HAMS 势流到 Cummins 时域记忆力再到火箭等效梁/弹簧耦合的主链路",
+        "箱形驳船和 MARMAC 302 几何/质量参数",
+        "中心/偏心着陆和不同速度的耦合响应对比"
+      ],
+      "cannot_fill_strict_fields": [
+        "该文使用等效弹簧耦合，不是四腿接触模型",
+        "没有铰链、足垫、缓冲器曲线、摩擦或锁紧硬件",
+        "不能作为 Adams 等价支腿机构数据来源"
+      ],
+      "strict_gate_use": "hydro_structural_coupling_benchmark",
+      "notes": "主复现基准仍有效，但其接触接口必须由 Chrono 支腿模型替换。"
+    }
+  ],
+  "blocking_fields": [
+    {
+      "path": "coordinate_system.rocket_body_origin",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Use CAD/Adams exported frame origin.",
+      "field_class": "coordinate_system",
+      "csv_file": "coordinate_system.csv",
+      "needed_source": "CAD/Adams frame export or author frame metadata",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "coordinate_system.rocket_body_axes",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Use CAD/Adams exported axis convention.",
+      "field_class": "coordinate_system",
+      "csv_file": "coordinate_system.csv",
+      "needed_source": "CAD/Adams frame export or author frame metadata",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "coordinate_system.deck_frame_transform",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Rigid transform from rocket landing frame to HAMS/Cummins deck frame.",
+      "field_class": "coordinate_system",
+      "csv_file": "coordinate_system.csv",
+      "needed_source": "CAD/Adams frame export or author frame metadata",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].azimuth_deg",
+      "unit": "deg",
+      "value": 45.0,
+      "source_category": "engineering_assumption",
+      "source_detail": "Symmetric azimuth used by the current Chrono proxy; not a published Thies value.",
+      "field_class": "azimuths",
+      "csv_file": "leg_azimuths.csv",
+      "needed_source": "CAD/Adams leg layout export or published four-leg azimuth table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.B_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.B_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.T_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.T_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.K_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.K_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.P_footpad_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "The proxy derives a footprint radius, but real CAD P coordinates are not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.P_footpad_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "The proxy derives a footprint radius, but real CAD P coordinates are not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].adams_equivalent_geometry.P_footpad_marker_xyz_m.z",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Footpad joint height relative to pad/contact geometry is not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].constraint_topology.B_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].constraint_topology.T_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].constraint_topology.K_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].constraint_topology.P_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].constraint_topology.absorber_slider_axis_xyz",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required if the main leg is telescopic.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].constraint_topology.joint_limit_definitions",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for stops, deployment locks, and post-touchdown constraints.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.main_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.main_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.main_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.long_auxiliary_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.long_auxiliary_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.long_auxiliary_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.short_auxiliary_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.short_auxiliary_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.short_auxiliary_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.footpad.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Current 80 kg value is an engineering placeholder, not paper data.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.footpad.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[0].body_properties.footpad.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].azimuth_deg",
+      "unit": "deg",
+      "value": 135.0,
+      "source_category": "engineering_assumption",
+      "source_detail": "Symmetric azimuth used by the current Chrono proxy; not a published Thies value.",
+      "field_class": "azimuths",
+      "csv_file": "leg_azimuths.csv",
+      "needed_source": "CAD/Adams leg layout export or published four-leg azimuth table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.B_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.B_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.T_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.T_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.K_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.K_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.P_footpad_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "The proxy derives a footprint radius, but real CAD P coordinates are not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.P_footpad_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "The proxy derives a footprint radius, but real CAD P coordinates are not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].adams_equivalent_geometry.P_footpad_marker_xyz_m.z",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Footpad joint height relative to pad/contact geometry is not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].constraint_topology.B_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].constraint_topology.T_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].constraint_topology.K_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].constraint_topology.P_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].constraint_topology.absorber_slider_axis_xyz",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required if the main leg is telescopic.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].constraint_topology.joint_limit_definitions",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for stops, deployment locks, and post-touchdown constraints.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.main_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.main_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.main_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.long_auxiliary_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.long_auxiliary_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.long_auxiliary_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.short_auxiliary_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.short_auxiliary_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.short_auxiliary_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.footpad.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Current 80 kg value is an engineering placeholder, not paper data.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.footpad.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[1].body_properties.footpad.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].azimuth_deg",
+      "unit": "deg",
+      "value": 225.0,
+      "source_category": "engineering_assumption",
+      "source_detail": "Symmetric azimuth used by the current Chrono proxy; not a published Thies value.",
+      "field_class": "azimuths",
+      "csv_file": "leg_azimuths.csv",
+      "needed_source": "CAD/Adams leg layout export or published four-leg azimuth table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.B_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.B_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.T_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.T_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.K_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.K_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.P_footpad_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "The proxy derives a footprint radius, but real CAD P coordinates are not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.P_footpad_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "The proxy derives a footprint radius, but real CAD P coordinates are not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].adams_equivalent_geometry.P_footpad_marker_xyz_m.z",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Footpad joint height relative to pad/contact geometry is not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].constraint_topology.B_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].constraint_topology.T_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].constraint_topology.K_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].constraint_topology.P_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].constraint_topology.absorber_slider_axis_xyz",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required if the main leg is telescopic.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].constraint_topology.joint_limit_definitions",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for stops, deployment locks, and post-touchdown constraints.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.main_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.main_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.main_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.long_auxiliary_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.long_auxiliary_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.long_auxiliary_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.short_auxiliary_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.short_auxiliary_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.short_auxiliary_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.footpad.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Current 80 kg value is an engineering placeholder, not paper data.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.footpad.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[2].body_properties.footpad.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].azimuth_deg",
+      "unit": "deg",
+      "value": 315.0,
+      "source_category": "engineering_assumption",
+      "source_detail": "Symmetric azimuth used by the current Chrono proxy; not a published Thies value.",
+      "field_class": "azimuths",
+      "csv_file": "leg_azimuths.csv",
+      "needed_source": "CAD/Adams leg layout export or published four-leg azimuth table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.B_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.B_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.T_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.T_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.K_rocket_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.K_rocket_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Not published in the current paper extraction.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.P_footpad_marker_xyz_m.x",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "The proxy derives a footprint radius, but real CAD P coordinates are not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.P_footpad_marker_xyz_m.y",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "The proxy derives a footprint radius, but real CAD P coordinates are not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].adams_equivalent_geometry.P_footpad_marker_xyz_m.z",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Footpad joint height relative to pad/contact geometry is not published.",
+      "field_class": "marker_coordinates",
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].constraint_topology.B_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].constraint_topology.T_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].constraint_topology.K_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].constraint_topology.P_joint_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for a Chrono/Adams-equivalent linkage.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].constraint_topology.absorber_slider_axis_xyz",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required if the main leg is telescopic.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].constraint_topology.joint_limit_definitions",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Required for stops, deployment locks, and post-touchdown constraints.",
+      "field_class": "constraint_topology",
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.main_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.main_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.main_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.long_auxiliary_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.long_auxiliary_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.long_auxiliary_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.short_auxiliary_strut.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body mass not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.short_auxiliary_strut.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.short_auxiliary_strut.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.footpad.mass_kg",
+      "unit": "kg",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Current 80 kg value is an engineering placeholder, not paper data.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.footpad.com_xyz_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams body COM not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "legs[3].body_properties.footpad.inertia_kg_m2",
+      "unit": "kg m^2",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "CAD/Adams inertia tensor not published.",
+      "field_class": "body_properties",
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "buffer_law.stroke_limit_m",
+      "unit": "m",
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Need physical absorber stroke limit and hard-stop definition.",
+      "field_class": "buffer_lock",
+      "csv_file": "buffer_lock.csv",
+      "needed_source": "absorber hardware specification, force-law table, stroke/rebound data, and lock hardware data",
+      "priority": "P1",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "buffer_law.extension_behavior",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Need whether the absorber can carry tension/extension after rebound.",
+      "field_class": "buffer_lock",
+      "csv_file": "buffer_lock.csv",
+      "needed_source": "absorber hardware specification, force-law table, stroke/rebound data, and lock hardware data",
+      "priority": "P1",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "lock_hardware.mechanism_type",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Current ChLinkMateFix lock is a numerical proxy only.",
+      "field_class": "buffer_lock",
+      "csv_file": "buffer_lock.csv",
+      "needed_source": "absorber hardware specification, force-law table, stroke/rebound data, and lock hardware data",
+      "priority": "P1",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "lock_hardware.trigger_logic",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Need real platform or leg securing logic.",
+      "field_class": "buffer_lock",
+      "csv_file": "buffer_lock.csv",
+      "needed_source": "absorber hardware specification, force-law table, stroke/rebound data, and lock hardware data",
+      "priority": "P1",
+      "current_papers_can_fill_without_new_assumption": false
+    },
+    {
+      "path": "lock_hardware.constraint_stiffness",
+      "unit": null,
+      "value": null,
+      "source_category": "missing_required",
+      "source_detail": "Need hardware stiffness/damping or equivalent constraint model.",
+      "field_class": "buffer_lock",
+      "csv_file": "buffer_lock.csv",
+      "needed_source": "absorber hardware specification, force-law table, stroke/rebound data, and lock hardware data",
+      "priority": "P1",
+      "current_papers_can_fill_without_new_assumption": false
+    }
+  ],
+  "csv_mapping": {
+    "coordinate_system": {
+      "csv_file": "coordinate_system.csv",
+      "needed_source": "CAD/Adams frame export or author frame metadata",
+      "priority": "P0"
+    },
+    "azimuths": {
+      "csv_file": "leg_azimuths.csv",
+      "needed_source": "CAD/Adams leg layout export or published four-leg azimuth table",
+      "priority": "P0"
+    },
+    "marker_coordinates": {
+      "csv_file": "marker_coordinates.csv",
+      "needed_source": "CAD/Adams marker export for B/T/K/P in a declared rocket body frame",
+      "priority": "P0"
+    },
+    "constraint_topology": {
+      "csv_file": "constraint_topology.csv",
+      "needed_source": "Adams constraint graph, CAD mate definitions, or author topology table",
+      "priority": "P0"
+    },
+    "body_properties": {
+      "csv_file": "body_properties.csv",
+      "needed_source": "CAD mass-property export or validated component mass budget",
+      "priority": "P0"
+    },
+    "buffer_lock": {
+      "csv_file": "buffer_lock.csv",
+      "needed_source": "absorber hardware specification, force-law table, stroke/rebound data, and lock hardware data",
+      "priority": "P1"
+    },
+    "unknown": {
+      "csv_file": "manual_review",
+      "needed_source": "manual review",
+      "priority": "P2"
+    }
+  },
+  "action_plan": [
+    {
+      "order": 1,
+      "id": "export_frames_and_markers",
+      "target_csv": [
+        "coordinate_system.csv",
+        "leg_azimuths.csv",
+        "marker_coordinates.csv"
+      ],
+      "acceptance": "validator coordinate_system and geometry_closure checks pass in strict_real_data mode",
+      "why": "没有统一坐标系和 B/T/K/P marker，Chrono 中杆件闭合方向、支腿高度和足垫位置都无法证明。"
+    },
+    {
+      "order": 2,
+      "id": "export_constraint_graph",
+      "target_csv": [
+        "constraint_topology.csv"
+      ],
+      "acceptance": "validator constraint_topology check passes and every slider axis is unit length",
+      "why": "真实铰链类型、轴向、限位和伸缩副决定机构自由度，不能从 PB/PT/PK 长度反推。"
+    },
+    {
+      "order": 3,
+      "id": "export_mass_properties",
+      "target_csv": [
+        "body_properties.csv"
+      ],
+      "acceptance": "validator body_mass_inertia check passes for main strut, auxiliary struts and footpad of every leg",
+      "why": "Chrono 刚体杆件会参与冲击和反弹，质量/惯量不能继续使用占位值。"
+    },
+    {
+      "order": 4,
+      "id": "fill_absorber_and_lock_hardware",
+      "target_csv": [
+        "buffer_lock.csv"
+      ],
+      "acceptance": "validator buffer_law and lock_hardware checks pass or lock hardware is explicitly moved to a separate platform-side model",
+      "why": "Thies 给出了可数字化曲线和结果量级，但没有完整 stroke limit、伸出/回弹规则和锁紧硬件。"
+    },
+    {
+      "order": 5,
+      "id": "rerun_strict_gate_and_runtime",
+      "target_csv": [
+        "all"
+      ],
+      "acceptance": "validator ready=true, builder writes Input/chrono_real_leg_mechanism_config.json, runtime gate runs strict config",
+      "why": "只有这个链路通过后，才允许把模型标为真实机构分支，而不是 Stage 3A 代理。"
+    }
+  ],
+  "commands": [
+    ".\\.tools\\chrono-env\\python.exe .\\analysis\\rocket_recovery\\leg_mechanism_data_importer.py import --source-dir .\\RocketRecoveryCases\\Chrono_LeggedRecovery\\Input\\leg_mechanism_import_schema",
+    ".\\.tools\\chrono-env\\python.exe .\\analysis\\rocket_recovery\\leg_mechanism_data_validator.py report --input .\\RocketRecoveryCases\\Chrono_LeggedRecovery\\Input\\leg_mechanism_data_imported.json",
+    ".\\.tools\\chrono-env\\python.exe .\\analysis\\rocket_recovery\\real_leg_mechanism_builder.py report --input .\\RocketRecoveryCases\\Chrono_LeggedRecovery\\Input\\leg_mechanism_data_imported.json",
+    ".\\.tools\\chrono-env\\python.exe .\\analysis\\rocket_recovery\\chrono_real_leg_mechanism_recovery.py report"
+  ],
+  "contract_status": "incomplete_for_adams_equivalent_chrono_model"
+}

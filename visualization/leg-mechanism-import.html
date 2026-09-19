@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrono Leg Mechanism Data Import</title>
+  <script src="leg-mechanism-import-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18202a;
+      --muted: #5e6875;
+      --line: #d7dde7;
+      --panel: #f7f9fc;
+      --accent: #0f766e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: #fff;
+    }
+    header {
+      padding: 18px 24px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+    nav a { color: var(--accent); text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 980px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px 24px 44px;
+    }
+    section { margin: 0 0 30px; }
+    h2 { margin: 0 0 12px; font-size: 19px; letter-spacing: 0; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel);
+      min-height: 92px;
+    }
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .metric .value {
+      margin-top: 8px;
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    th, td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #eef3f8; }
+    tr:last-child td { border-bottom: 0; }
+    code {
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 12px;
+      background: #eef3f8;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .note {
+      border-left: 4px solid var(--accent);
+      padding: 10px 12px;
+      background: #eefaf7;
+      color: #16443f;
+      line-height: 1.55;
+    }
+    .empty {
+      padding: 18px;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+    }
+    @media (max-width: 860px) {
+      main, header { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="chrono-final-acceptance.html">Final audit</a>
+      <a href="leg-mechanism-contract.html">Data contract</a>
+      <a href="leg-mechanism-import-selftest.html">Import self-test</a>
+      <a href="leg-mechanism-validation.html">Data validation</a>
+      <a href="leg-mechanism-gap-tracker.html">Gap tracker</a>
+      <a href="leg-mechanism-data-request-pack.html">Request pack</a>
+      <a href="leg-mechanism-data-request-lint.html">Request lint</a>
+      <a href="real-leg-mechanism-builder.html">Builder gate</a>
+      <a href="chrono-real-leg-mechanism.html">Real runtime</a>
+      <a href="chrono-stage3-tripod.html">Stage 3A</a>
+    </nav>
+    <h1>Chrono 支腿机构数据导入</h1>
+    <p class="lead">用于把 CAD/Adams/作者数据 CSV 导入到支腿机构模板。默认模式只生成空 schema，不修改当前模板。</p>
+  </header>
+  <main id="app">
+    <div class="empty">等待 <code>leg-mechanism-import-data.js</code> 数据。</div>
+  </main>
+  <script>
+    const report = window.LEG_MECHANISM_IMPORT_REPORT;
+    const app = document.getElementById("app");
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[ch]));
+    }
+
+    function metric(label, value) {
+      return `<div class="metric"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div></div>`;
+    }
+
+    function schemaRows(files) {
+      return (files || []).map(row => `<tr>
+        <td><code>${esc(row.path)}</code></td>
+        <td>${esc((row.columns || []).join(", "))}</td>
+      </tr>`).join("");
+    }
+
+    function changeRows(rows) {
+      return (rows || []).map(row => `<tr>
+        <td><code>${esc(row.file)}</code></td>
+        <td><code>${esc(row.field)}</code></td>
+      </tr>`).join("");
+    }
+
+    function commandRows(rows) {
+      return (rows || []).map(row => `<tr><td><code>${esc(row)}</code></td></tr>`).join("");
+    }
+
+    if (!report) {
+      app.innerHTML = '<div class="empty">没有找到导入报告。请运行 <code>.\\.tools\\chrono-env\\python.exe .\\analysis\\rocket_recovery\\leg_mechanism_data_importer.py report</code>。</div>';
+    } else {
+      app.innerHTML = `
+        <section class="summary">
+          ${metric("Mode", report.mode || "import")}
+          ${metric("Change count", report.change_count || 0)}
+          ${metric("Output", report.output_path || "none")}
+          ${metric("Generated", report.generated_utc)}
+        </section>
+        <section><div class="note">${esc(report.note)}</div></section>
+        <section>
+          <h2>Schema Files</h2>
+          <table><thead><tr><th>File</th><th>Columns</th></tr></thead><tbody>${schemaRows(report.schema && report.schema.files)}</tbody></table>
+        </section>
+        <section>
+          <h2>Changes</h2>
+          <table><thead><tr><th>CSV</th><th>Field</th></tr></thead><tbody>${changeRows(report.changes)}</tbody></table>
+        </section>
+        <section>
+          <h2>Next Commands</h2>
+          <table><tbody>${commandRows(report.next_commands)}</tbody></table>
+        </section>
+      `;
+    }
+  </script>
+</body>
+</html>

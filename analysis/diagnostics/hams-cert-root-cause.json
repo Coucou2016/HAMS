@@ -1,0 +1,1688 @@
+{
+  "generated_utc": "2026-09-04T06:34:45.258250+00:00",
+  "root": "E:\\Projects\\20260728-HAMS",
+  "git": {
+    "head": "",
+    "branch": "",
+    "remote": [],
+    "benchmark_history": [],
+    "source_delta_70283d0_to_head": [],
+    "source_delta_is_phase_only_candidate": false
+  },
+  "build": {
+    "script": {
+      "path": "local-tools\\Build-HAMS.ps1",
+      "exists": true,
+      "size": 1169,
+      "mtime": "2026-07-31T20:47:42+00:00",
+      "sha256": "3341fc71378ecb1149bfa75c951effab000b4fad0bf61acaf55a0481b88ee511"
+    },
+    "run_script": {
+      "path": "local-tools\\Run-HAMS.ps1",
+      "exists": true,
+      "size": 1085,
+      "mtime": "2026-07-28T10:27:32+00:00",
+      "sha256": "991b1a9b27282243212d9a7d0c5ac2dd9d8b70fd1d760e9c8a658d563ad21012"
+    },
+    "makefile": {
+      "path": "SourceCode\\makefile",
+      "exists": true,
+      "size": 2564,
+      "mtime": "2026-07-31T20:47:02+00:00",
+      "sha256": "dd68855a592956b656b0a0fa78d74355d8cb4dd93382dbd61c70718854428aa6"
+    },
+    "source_executable": {
+      "path": "SourceCode\\hams.exe",
+      "exists": true,
+      "size": 1172194,
+      "mtime": "2026-07-31T20:48:06+00:00",
+      "sha256": "d3fb6552b45d91be41349868c886f8f0a83f9386aeff0cba3845d4d31c829e7f",
+      "is_pe": true,
+      "pe_header_offset": 128
+    },
+    "repository_ifort_executable": {
+      "path": "SourceCode\\HAMS_ifort_Win.exe",
+      "exists": true,
+      "size": 10155520,
+      "mtime": "2026-07-28T01:17:18+00:00",
+      "sha256": "2373c2ee44bdaabca7639dd43edf3e8247c3656f1e5dc8c77aa14e9ae7801608",
+      "is_pe": true,
+      "pe_header_offset": 264
+    },
+    "compiler": {
+      "gfortran": {
+        "command": [
+          "E:\\Projects\\20260728-HAMS\\.tools\\msys64\\mingw64\\bin\\gfortran.exe",
+          "--version"
+        ],
+        "returncode": 0,
+        "version": [
+          "GNU Fortran (Rev5, Built by MSYS2 project) 16.1.0",
+          "Copyright (C) 2026 Free Software Foundation, Inc.",
+          "This is free software; see the source for copying conditions.  There is NO",
+          "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+        ],
+        "stderr": ""
+      },
+      "make": {
+        "command": [
+          "E:\\Projects\\20260728-HAMS\\.tools\\msys64\\usr\\bin\\make.exe",
+          "--version"
+        ],
+        "returncode": 0,
+        "version": [
+          "GNU Make 4.4.1",
+          "Built for x86_64-pc-cygwin",
+          "Copyright (C) 1988-2023 Free Software Foundation, Inc.",
+          "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>"
+        ],
+        "stderr": ""
+      },
+      "ld": {
+        "command": [
+          "E:\\Projects\\20260728-HAMS\\.tools\\msys64\\mingw64\\bin\\ld.exe",
+          "--version"
+        ],
+        "returncode": 0,
+        "version": [
+          "GNU ld (GNU Binutils) 2.47.20260726",
+          "Copyright (C) 2026 Free Software Foundation, Inc.",
+          "This program is free software; you may redistribute it under the terms of",
+          "the GNU General Public License version 3 or (at your option) a later version."
+        ],
+        "stderr": ""
+      }
+    }
+  },
+  "registered_comparison": {
+    "source": "CertTest/test_cert.py",
+    "rel_tol": 0.1,
+    "abs_tol": 1e-07,
+    "tolerance_was_not_changed_by_this_diagnostic": true
+  },
+  "cases": {
+    "Cylinder": {
+      "input_semantically_matches_head": false,
+      "input_semantically_matches_benchmark_commit": false,
+      "benchmark_unmodified_in_worktree": false,
+      "comparison": {
+        "truth": "CertTest\\Cylinder\\Output_Benchmark",
+        "actual": "CertTest\\Cylinder\\Output",
+        "registered_tolerance": {
+          "rel_tol": 0.1,
+          "abs_tol": 1e-07
+        },
+        "files": 108,
+        "missing_files": 0,
+        "failed_files": 65,
+        "mismatches": 9387,
+        "numeric_mismatches": 9387,
+        "text_mismatches": 0,
+        "by_group": {
+          "ErrorCheck.txt": {
+            "files": 1,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hams_format": {
+            "files": 18,
+            "failed_files": 18,
+            "mismatches": 365
+          },
+          "Hydrostar_format": {
+            "files": 84,
+            "failed_files": 43,
+            "mismatches": 7391
+          },
+          "Wamit_format": {
+            "files": 5,
+            "failed_files": 4,
+            "mismatches": 1631
+          }
+        },
+        "first_mismatches": [
+          {
+            "file": "Hams_format\\OAMASS1.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 8,
+            "truth": "-0.10192E-06",
+            "actual": "-0.21006E-06",
+            "mismatch_count_in_file": 9
+          },
+          {
+            "file": "Hams_format\\OAMASS2.txt",
+            "kind": "numeric",
+            "line": 15,
+            "token": 3,
+            "truth": "-0.18102E+00",
+            "actual": "-0.15931E+00",
+            "mismatch_count_in_file": 8
+          },
+          {
+            "file": "Hams_format\\OAMASS3.txt",
+            "kind": "numeric",
+            "line": 16,
+            "token": 8,
+            "truth": "-0.72692E-06",
+            "actual": "-0.87941E-06",
+            "mismatch_count_in_file": 40
+          },
+          {
+            "file": "Hams_format\\OAMASS4.txt",
+            "kind": "numeric",
+            "line": 18,
+            "token": 3,
+            "truth": "-0.20768E+00",
+            "actual": "-0.16886E+00",
+            "mismatch_count_in_file": 11
+          },
+          {
+            "file": "Hams_format\\OAMASS5.txt",
+            "kind": "numeric",
+            "line": 18,
+            "token": 4,
+            "truth": "0.29096E+00",
+            "actual": "0.24097E+00",
+            "mismatch_count_in_file": 14
+          },
+          {
+            "file": "Hams_format\\OAMASS6.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 4,
+            "truth": "0.13189E-05",
+            "actual": "0.85782E-06",
+            "mismatch_count_in_file": 7
+          },
+          {
+            "file": "Hams_format\\ODAMPING1.txt",
+            "kind": "numeric",
+            "line": 11,
+            "token": 7,
+            "truth": "0.39562E+02",
+            "actual": "0.34401E+02",
+            "mismatch_count_in_file": 12
+          },
+          {
+            "file": "Hams_format\\ODAMPING2.txt",
+            "kind": "numeric",
+            "line": 11,
+            "token": 6,
+            "truth": "-0.38998E+02",
+            "actual": "-0.33837E+02",
+            "mismatch_count_in_file": 17
+          },
+          {
+            "file": "Hams_format\\ODAMPING3.txt",
+            "kind": "numeric",
+            "line": 15,
+            "token": 8,
+            "truth": "0.19909E-06",
+            "actual": "0.34370E-06",
+            "mismatch_count_in_file": 10
+          },
+          {
+            "file": "Hams_format\\ODAMPING4.txt",
+            "kind": "numeric",
+            "line": 8,
+            "token": 7,
+            "truth": "-0.37339E-01",
+            "actual": "-0.32739E-01",
+            "mismatch_count_in_file": 36
+          },
+          {
+            "file": "Hams_format\\ODAMPING5.txt",
+            "kind": "numeric",
+            "line": 8,
+            "token": 6,
+            "truth": "-0.47538E-01",
+            "actual": "-0.41849E-01",
+            "mismatch_count_in_file": 34
+          },
+          {
+            "file": "Hams_format\\ODAMPING6.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 4,
+            "truth": "0.22630E-05",
+            "actual": "0.17850E-05",
+            "mismatch_count_in_file": 4
+          },
+          {
+            "file": "Hams_format\\OEXFOR1.txt",
+            "kind": "numeric",
+            "line": 659,
+            "token": 4,
+            "truth": "-0.119385E+01",
+            "actual": "-0.159135E+01",
+            "mismatch_count_in_file": 6
+          },
+          {
+            "file": "Hams_format\\OEXFOR2.txt",
+            "kind": "numeric",
+            "line": 883,
+            "token": 4,
+            "truth": "-0.408901E+01",
+            "actual": "-0.486551E+01",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Hams_format\\OEXFOR3.txt",
+            "kind": "numeric",
+            "line": 832,
+            "token": 4,
+            "truth": "-0.537577E+02",
+            "actual": "-0.471902E+02",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\OEXFOR4.txt",
+            "kind": "numeric",
+            "line": 308,
+            "token": 4,
+            "truth": "0.518292E+00",
+            "actual": "0.464207E+00",
+            "mismatch_count_in_file": 49
+          },
+          {
+            "file": "Hams_format\\OEXFOR5.txt",
+            "kind": "numeric",
+            "line": 352,
+            "token": 4,
+            "truth": "0.511092E+00",
+            "actual": "0.573761E+00",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\OEXFOR6.txt",
+            "kind": "numeric",
+            "line": 382,
+            "token": 4,
+            "truth": "-0.110065E-05",
+            "actual": "-0.854317E-06",
+            "mismatch_count_in_file": 13
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_11.rao",
+            "kind": "numeric",
+            "line": 47,
+            "token": 2,
+            "truth": "2.757589E+02",
+            "actual": "2.279888E+02",
+            "mismatch_count_in_file": 36
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_12.rao",
+            "kind": "numeric",
+            "line": 37,
+            "token": 2,
+            "truth": "-2.537816E-01",
+            "actual": "-2.253120E-01",
+            "mismatch_count_in_file": 216
+          }
+        ]
+      }
+    },
+    "DeepCwind": {
+      "input_semantically_matches_head": false,
+      "input_semantically_matches_benchmark_commit": false,
+      "benchmark_unmodified_in_worktree": false,
+      "comparison": {
+        "truth": "CertTest\\DeepCwind\\Output_Benchmark",
+        "actual": "CertTest\\DeepCwind\\Output",
+        "registered_tolerance": {
+          "rel_tol": 0.1,
+          "abs_tol": 1e-07
+        },
+        "files": 108,
+        "missing_files": 0,
+        "failed_files": 13,
+        "mismatches": 54,
+        "numeric_mismatches": 54,
+        "text_mismatches": 0,
+        "by_group": {
+          "ErrorCheck.txt": {
+            "files": 1,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hams_format": {
+            "files": 18,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hydrostar_format": {
+            "files": 84,
+            "failed_files": 12,
+            "mismatches": 49
+          },
+          "Wamit_format": {
+            "files": 5,
+            "failed_files": 1,
+            "mismatches": 5
+          }
+        },
+        "first_mismatches": [
+          {
+            "file": "Hydrostar_format\\Excitation_1.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 7,
+            "truth": "138.0579",
+            "actual": "153.7654",
+            "mismatch_count_in_file": 5
+          },
+          {
+            "file": "Hydrostar_format\\Excitation_2.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 7,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 4
+          },
+          {
+            "file": "Hydrostar_format\\Excitation_3.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 7,
+            "truth": "122.4901",
+            "actual": "107.0416",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Hydrostar_format\\Excitation_4.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 7,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 8
+          },
+          {
+            "file": "Hydrostar_format\\Excitation_5.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 8,
+            "truth": "17.6155",
+            "actual": "24.1035",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Hydrostar_format\\Excitation_6.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 7,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 4
+          },
+          {
+            "file": "Hydrostar_format\\Motion_1.rao",
+            "kind": "numeric",
+            "line": 23,
+            "token": 7,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 8
+          },
+          {
+            "file": "Hydrostar_format\\Motion_2.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 8,
+            "truth": "61.3110",
+            "actual": "86.1761",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hydrostar_format\\Motion_3.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 9,
+            "truth": "183.6548",
+            "actual": "356.9534",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hydrostar_format\\Motion_4.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 8,
+            "truth": "213.7277",
+            "actual": "174.8689",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Hydrostar_format\\Motion_5.rao",
+            "kind": "numeric",
+            "line": 23,
+            "token": 7,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 6
+          },
+          {
+            "file": "Hydrostar_format\\Motion_6.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 8,
+            "truth": "105.9293",
+            "actual": "5.1302",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Wamit_format\\Buoy.3",
+            "kind": "numeric",
+            "line": 28,
+            "token": 5,
+            "truth": "-1.134986E+02",
+            "actual": "-1.518438E+02",
+            "mismatch_count_in_file": 5
+          }
+        ]
+      }
+    },
+    "HywindSpar": {
+      "input_semantically_matches_head": false,
+      "input_semantically_matches_benchmark_commit": false,
+      "benchmark_unmodified_in_worktree": false,
+      "comparison": {
+        "truth": "CertTest\\HywindSpar\\Output_Benchmark",
+        "actual": "CertTest\\HywindSpar\\Output",
+        "registered_tolerance": {
+          "rel_tol": 0.1,
+          "abs_tol": 1e-07
+        },
+        "files": 108,
+        "missing_files": 0,
+        "failed_files": 7,
+        "mismatches": 10,
+        "numeric_mismatches": 10,
+        "text_mismatches": 0,
+        "by_group": {
+          "ErrorCheck.txt": {
+            "files": 1,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hams_format": {
+            "files": 18,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hydrostar_format": {
+            "files": 84,
+            "failed_files": 7,
+            "mismatches": 10
+          },
+          "Wamit_format": {
+            "files": 5,
+            "failed_files": 0,
+            "mismatches": 0
+          }
+        },
+        "first_mismatches": [
+          {
+            "file": "Hydrostar_format\\Excitation_2.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 4,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hydrostar_format\\Excitation_4.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 4,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hydrostar_format\\Excitation_6.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 4,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hydrostar_format\\Motion_1.rao",
+            "kind": "numeric",
+            "line": 23,
+            "token": 4,
+            "truth": "180.0000",
+            "actual": "-0.0000",
+            "mismatch_count_in_file": 2
+          },
+          {
+            "file": "Hydrostar_format\\Motion_3.rao",
+            "kind": "numeric",
+            "line": 23,
+            "token": 5,
+            "truth": "180.0000",
+            "actual": "-0.0000",
+            "mismatch_count_in_file": 2
+          },
+          {
+            "file": "Hydrostar_format\\Motion_5.rao",
+            "kind": "numeric",
+            "line": 23,
+            "token": 4,
+            "truth": "0.0000",
+            "actual": "180.0000",
+            "mismatch_count_in_file": 2
+          },
+          {
+            "file": "Hydrostar_format\\Motion_6.rao",
+            "kind": "numeric",
+            "line": 24,
+            "token": 5,
+            "truth": "164.7425",
+            "actual": "139.6694",
+            "mismatch_count_in_file": 1
+          }
+        ]
+      }
+    },
+    "Moonpool": {
+      "input_semantically_matches_head": false,
+      "input_semantically_matches_benchmark_commit": false,
+      "benchmark_unmodified_in_worktree": false,
+      "comparison": {
+        "truth": "CertTest\\Moonpool\\Output_Benchmark",
+        "actual": "CertTest\\Moonpool\\Output",
+        "registered_tolerance": {
+          "rel_tol": 0.1,
+          "abs_tol": 1e-07
+        },
+        "files": 108,
+        "missing_files": 0,
+        "failed_files": 72,
+        "mismatches": 2618,
+        "numeric_mismatches": 2618,
+        "text_mismatches": 0,
+        "by_group": {
+          "ErrorCheck.txt": {
+            "files": 1,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hams_format": {
+            "files": 18,
+            "failed_files": 17,
+            "mismatches": 533
+          },
+          "Hydrostar_format": {
+            "files": 84,
+            "failed_files": 51,
+            "mismatches": 531
+          },
+          "Wamit_format": {
+            "files": 5,
+            "failed_files": 4,
+            "mismatches": 1554
+          }
+        },
+        "first_mismatches": [
+          {
+            "file": "Hams_format\\OAMASS1.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "-0.33882E+00",
+            "actual": "-0.26201E+00",
+            "mismatch_count_in_file": 17
+          },
+          {
+            "file": "Hams_format\\OAMASS2.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 3,
+            "truth": "-0.39427E+00",
+            "actual": "-0.32970E+00",
+            "mismatch_count_in_file": 35
+          },
+          {
+            "file": "Hams_format\\OAMASS3.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "0.20218E+00",
+            "actual": "0.30772E+00",
+            "mismatch_count_in_file": 72
+          },
+          {
+            "file": "Hams_format\\OAMASS4.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 3,
+            "truth": "-0.42976E+00",
+            "actual": "-0.34806E+00",
+            "mismatch_count_in_file": 68
+          },
+          {
+            "file": "Hams_format\\OAMASS5.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "0.28058E+00",
+            "actual": "0.21129E+00",
+            "mismatch_count_in_file": 65
+          },
+          {
+            "file": "Hams_format\\OAMASS6.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 3,
+            "truth": "-0.56324E-01",
+            "actual": "-0.46054E-01",
+            "mismatch_count_in_file": 49
+          },
+          {
+            "file": "Hams_format\\ODAMPING1.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "-0.17235E-02",
+            "actual": "-0.12455E-02",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\ODAMPING2.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 3,
+            "truth": "-0.19997E-02",
+            "actual": "-0.16763E-02",
+            "mismatch_count_in_file": 44
+          },
+          {
+            "file": "Hams_format\\ODAMPING3.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "0.11886E-02",
+            "actual": "0.14912E-02",
+            "mismatch_count_in_file": 22
+          },
+          {
+            "file": "Hams_format\\ODAMPING4.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 3,
+            "truth": "-0.19028E-02",
+            "actual": "-0.14324E-02",
+            "mismatch_count_in_file": 31
+          },
+          {
+            "file": "Hams_format\\ODAMPING5.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "0.14318E-02",
+            "actual": "0.89716E-03",
+            "mismatch_count_in_file": 40
+          },
+          {
+            "file": "Hams_format\\ODAMPING6.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 3,
+            "truth": "-0.19179E-03",
+            "actual": "-0.32829E-04",
+            "mismatch_count_in_file": 37
+          },
+          {
+            "file": "Hams_format\\OEXFOR1.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "-0.451356E+01",
+            "actual": "-0.138211E+02",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hams_format\\OEXFOR2.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "-0.244035E+02",
+            "actual": "-0.203125E+02",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hams_format\\OEXFOR4.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "-0.113815E+02",
+            "actual": "-0.629202E+01",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hams_format\\OEXFOR5.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 4,
+            "truth": "0.383996E+01",
+            "actual": "0.101218E+02",
+            "mismatch_count_in_file": 1
+          },
+          {
+            "file": "Hams_format\\OEXFOR6.txt",
+            "kind": "numeric",
+            "line": 3,
+            "token": 3,
+            "truth": "0.643639E+00",
+            "actual": "0.549575E+00",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_12.rao",
+            "kind": "numeric",
+            "line": 25,
+            "token": 2,
+            "truth": "-3.388163E-01",
+            "actual": "-2.620111E-01",
+            "mismatch_count_in_file": 2
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_13.rao",
+            "kind": "numeric",
+            "line": 25,
+            "token": 2,
+            "truth": "-7.745833E-01",
+            "actual": "-1.148089E-01",
+            "mismatch_count_in_file": 15
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_21.rao",
+            "kind": "numeric",
+            "line": 25,
+            "token": 2,
+            "truth": "-3.942689E-01",
+            "actual": "-3.297000E-01",
+            "mismatch_count_in_file": 1
+          }
+        ]
+      }
+    }
+  },
+  "diagnostic_outputs": [
+    {
+      "output": ".diagnostics\\cert-cylinder-compare-20260815-210608\\gfortran\\Output",
+      "comparison_to_current_cylinder_output": {
+        "left": ".diagnostics\\cert-cylinder-compare-20260815-210608\\gfortran\\Output",
+        "right": "CertTest\\Cylinder\\Output",
+        "same": false,
+        "different_files": [
+          "ErrorCheck.txt",
+          "Hams_format\\OAMASS1.txt",
+          "Hams_format\\OAMASS2.txt",
+          "Hams_format\\OAMASS3.txt",
+          "Hams_format\\OAMASS4.txt",
+          "Hams_format\\OAMASS5.txt",
+          "Hams_format\\OAMASS6.txt",
+          "Hams_format\\ODAMPING1.txt",
+          "Hams_format\\ODAMPING2.txt",
+          "Hams_format\\ODAMPING3.txt",
+          "Hams_format\\ODAMPING4.txt",
+          "Hams_format\\ODAMPING5.txt",
+          "Hams_format\\ODAMPING6.txt",
+          "Hams_format\\OEXFOR1.txt",
+          "Hams_format\\OEXFOR2.txt",
+          "Hams_format\\OEXFOR3.txt",
+          "Hams_format\\OEXFOR4.txt",
+          "Hams_format\\OEXFOR5.txt",
+          "Hams_format\\OEXFOR6.txt",
+          "Hydrostar_format\\AddedMass_11.rao",
+          "Hydrostar_format\\AddedMass_12.rao",
+          "Hydrostar_format\\AddedMass_13.rao",
+          "Hydrostar_format\\AddedMass_14.rao",
+          "Hydrostar_format\\AddedMass_15.rao",
+          "Hydrostar_format\\AddedMass_16.rao",
+          "Hydrostar_format\\AddedMass_21.rao",
+          "Hydrostar_format\\AddedMass_22.rao",
+          "Hydrostar_format\\AddedMass_23.rao",
+          "Hydrostar_format\\AddedMass_24.rao",
+          "Hydrostar_format\\AddedMass_25.rao",
+          "Hydrostar_format\\AddedMass_26.rao",
+          "Hydrostar_format\\AddedMass_31.rao",
+          "Hydrostar_format\\AddedMass_32.rao",
+          "Hydrostar_format\\AddedMass_33.rao",
+          "Hydrostar_format\\AddedMass_34.rao",
+          "Hydrostar_format\\AddedMass_35.rao",
+          "Hydrostar_format\\AddedMass_36.rao",
+          "Hydrostar_format\\AddedMass_41.rao",
+          "Hydrostar_format\\AddedMass_42.rao",
+          "Hydrostar_format\\AddedMass_43.rao",
+          "Hydrostar_format\\AddedMass_44.rao",
+          "Hydrostar_format\\AddedMass_45.rao",
+          "Hydrostar_format\\AddedMass_46.rao",
+          "Hydrostar_format\\AddedMass_51.rao",
+          "Hydrostar_format\\AddedMass_52.rao",
+          "Hydrostar_format\\AddedMass_53.rao",
+          "Hydrostar_format\\AddedMass_54.rao",
+          "Hydrostar_format\\AddedMass_55.rao",
+          "Hydrostar_format\\AddedMass_56.rao",
+          "Hydrostar_format\\AddedMass_61.rao"
+        ],
+        "different_file_count": 108
+      },
+      "comparison_to_cylinder_benchmark": {
+        "truth": "CertTest\\Cylinder\\Output_Benchmark",
+        "actual": ".diagnostics\\cert-cylinder-compare-20260815-210608\\gfortran\\Output",
+        "registered_tolerance": {
+          "rel_tol": 0.1,
+          "abs_tol": 1e-07
+        },
+        "files": 108,
+        "missing_files": 108,
+        "failed_files": 108,
+        "mismatches": 0,
+        "numeric_mismatches": 0,
+        "text_mismatches": 0,
+        "by_group": {
+          "ErrorCheck.txt": {
+            "files": 1,
+            "failed_files": 1,
+            "mismatches": 0
+          },
+          "Hams_format": {
+            "files": 18,
+            "failed_files": 18,
+            "mismatches": 0
+          },
+          "Hydrostar_format": {
+            "files": 84,
+            "failed_files": 84,
+            "mismatches": 0
+          },
+          "Wamit_format": {
+            "files": 5,
+            "failed_files": 5,
+            "mismatches": 0
+          }
+        },
+        "first_mismatches": [
+          {
+            "file": "ErrorCheck.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OAMASS1.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OAMASS2.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OAMASS3.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OAMASS4.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OAMASS5.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OAMASS6.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\ODAMPING1.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\ODAMPING2.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\ODAMPING3.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\ODAMPING4.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\ODAMPING5.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\ODAMPING6.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OEXFOR1.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OEXFOR2.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OEXFOR3.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OEXFOR4.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OEXFOR5.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hams_format\\OEXFOR6.txt",
+            "kind": "missing_actual_file"
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_11.rao",
+            "kind": "missing_actual_file"
+          }
+        ]
+      }
+    },
+    {
+      "output": ".diagnostics\\cert-cylinder-compare-20260815-210631\\gfortran\\Output",
+      "comparison_to_current_cylinder_output": {
+        "left": ".diagnostics\\cert-cylinder-compare-20260815-210631\\gfortran\\Output",
+        "right": "CertTest\\Cylinder\\Output",
+        "same": true,
+        "different_files": [],
+        "different_file_count": 0
+      },
+      "comparison_to_cylinder_benchmark": {
+        "truth": "CertTest\\Cylinder\\Output_Benchmark",
+        "actual": ".diagnostics\\cert-cylinder-compare-20260815-210631\\gfortran\\Output",
+        "registered_tolerance": {
+          "rel_tol": 0.1,
+          "abs_tol": 1e-07
+        },
+        "files": 108,
+        "missing_files": 0,
+        "failed_files": 65,
+        "mismatches": 9387,
+        "numeric_mismatches": 9387,
+        "text_mismatches": 0,
+        "by_group": {
+          "ErrorCheck.txt": {
+            "files": 1,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hams_format": {
+            "files": 18,
+            "failed_files": 18,
+            "mismatches": 365
+          },
+          "Hydrostar_format": {
+            "files": 84,
+            "failed_files": 43,
+            "mismatches": 7391
+          },
+          "Wamit_format": {
+            "files": 5,
+            "failed_files": 4,
+            "mismatches": 1631
+          }
+        },
+        "first_mismatches": [
+          {
+            "file": "Hams_format\\OAMASS1.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 8,
+            "truth": "-0.10192E-06",
+            "actual": "-0.21006E-06",
+            "mismatch_count_in_file": 9
+          },
+          {
+            "file": "Hams_format\\OAMASS2.txt",
+            "kind": "numeric",
+            "line": 15,
+            "token": 3,
+            "truth": "-0.18102E+00",
+            "actual": "-0.15931E+00",
+            "mismatch_count_in_file": 8
+          },
+          {
+            "file": "Hams_format\\OAMASS3.txt",
+            "kind": "numeric",
+            "line": 16,
+            "token": 8,
+            "truth": "-0.72692E-06",
+            "actual": "-0.87941E-06",
+            "mismatch_count_in_file": 40
+          },
+          {
+            "file": "Hams_format\\OAMASS4.txt",
+            "kind": "numeric",
+            "line": 18,
+            "token": 3,
+            "truth": "-0.20768E+00",
+            "actual": "-0.16886E+00",
+            "mismatch_count_in_file": 11
+          },
+          {
+            "file": "Hams_format\\OAMASS5.txt",
+            "kind": "numeric",
+            "line": 18,
+            "token": 4,
+            "truth": "0.29096E+00",
+            "actual": "0.24097E+00",
+            "mismatch_count_in_file": 14
+          },
+          {
+            "file": "Hams_format\\OAMASS6.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 4,
+            "truth": "0.13189E-05",
+            "actual": "0.85782E-06",
+            "mismatch_count_in_file": 7
+          },
+          {
+            "file": "Hams_format\\ODAMPING1.txt",
+            "kind": "numeric",
+            "line": 11,
+            "token": 7,
+            "truth": "0.39562E+02",
+            "actual": "0.34401E+02",
+            "mismatch_count_in_file": 12
+          },
+          {
+            "file": "Hams_format\\ODAMPING2.txt",
+            "kind": "numeric",
+            "line": 11,
+            "token": 6,
+            "truth": "-0.38998E+02",
+            "actual": "-0.33837E+02",
+            "mismatch_count_in_file": 17
+          },
+          {
+            "file": "Hams_format\\ODAMPING3.txt",
+            "kind": "numeric",
+            "line": 15,
+            "token": 8,
+            "truth": "0.19909E-06",
+            "actual": "0.34370E-06",
+            "mismatch_count_in_file": 10
+          },
+          {
+            "file": "Hams_format\\ODAMPING4.txt",
+            "kind": "numeric",
+            "line": 8,
+            "token": 7,
+            "truth": "-0.37339E-01",
+            "actual": "-0.32739E-01",
+            "mismatch_count_in_file": 36
+          },
+          {
+            "file": "Hams_format\\ODAMPING5.txt",
+            "kind": "numeric",
+            "line": 8,
+            "token": 6,
+            "truth": "-0.47538E-01",
+            "actual": "-0.41849E-01",
+            "mismatch_count_in_file": 34
+          },
+          {
+            "file": "Hams_format\\ODAMPING6.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 4,
+            "truth": "0.22630E-05",
+            "actual": "0.17850E-05",
+            "mismatch_count_in_file": 4
+          },
+          {
+            "file": "Hams_format\\OEXFOR1.txt",
+            "kind": "numeric",
+            "line": 659,
+            "token": 4,
+            "truth": "-0.119385E+01",
+            "actual": "-0.159135E+01",
+            "mismatch_count_in_file": 6
+          },
+          {
+            "file": "Hams_format\\OEXFOR2.txt",
+            "kind": "numeric",
+            "line": 883,
+            "token": 4,
+            "truth": "-0.408901E+01",
+            "actual": "-0.486551E+01",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Hams_format\\OEXFOR3.txt",
+            "kind": "numeric",
+            "line": 832,
+            "token": 4,
+            "truth": "-0.537577E+02",
+            "actual": "-0.471902E+02",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\OEXFOR4.txt",
+            "kind": "numeric",
+            "line": 308,
+            "token": 4,
+            "truth": "0.518292E+00",
+            "actual": "0.464207E+00",
+            "mismatch_count_in_file": 49
+          },
+          {
+            "file": "Hams_format\\OEXFOR5.txt",
+            "kind": "numeric",
+            "line": 352,
+            "token": 4,
+            "truth": "0.511092E+00",
+            "actual": "0.573761E+00",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\OEXFOR6.txt",
+            "kind": "numeric",
+            "line": 382,
+            "token": 4,
+            "truth": "-0.110065E-05",
+            "actual": "-0.854317E-06",
+            "mismatch_count_in_file": 13
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_11.rao",
+            "kind": "numeric",
+            "line": 47,
+            "token": 2,
+            "truth": "2.757589E+02",
+            "actual": "2.279888E+02",
+            "mismatch_count_in_file": 36
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_12.rao",
+            "kind": "numeric",
+            "line": 37,
+            "token": 2,
+            "truth": "-2.537816E-01",
+            "actual": "-2.253120E-01",
+            "mismatch_count_in_file": 216
+          }
+        ]
+      }
+    },
+    {
+      "output": ".diagnostics\\cert-cylinder-threads1-correct-20260815-212114\\Output",
+      "comparison_to_current_cylinder_output": {
+        "left": ".diagnostics\\cert-cylinder-threads1-correct-20260815-212114\\Output",
+        "right": "CertTest\\Cylinder\\Output",
+        "same": true,
+        "different_files": [],
+        "different_file_count": 0
+      },
+      "comparison_to_cylinder_benchmark": {
+        "truth": "CertTest\\Cylinder\\Output_Benchmark",
+        "actual": ".diagnostics\\cert-cylinder-threads1-correct-20260815-212114\\Output",
+        "registered_tolerance": {
+          "rel_tol": 0.1,
+          "abs_tol": 1e-07
+        },
+        "files": 108,
+        "missing_files": 0,
+        "failed_files": 65,
+        "mismatches": 9387,
+        "numeric_mismatches": 9387,
+        "text_mismatches": 0,
+        "by_group": {
+          "ErrorCheck.txt": {
+            "files": 1,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hams_format": {
+            "files": 18,
+            "failed_files": 18,
+            "mismatches": 365
+          },
+          "Hydrostar_format": {
+            "files": 84,
+            "failed_files": 43,
+            "mismatches": 7391
+          },
+          "Wamit_format": {
+            "files": 5,
+            "failed_files": 4,
+            "mismatches": 1631
+          }
+        },
+        "first_mismatches": [
+          {
+            "file": "Hams_format\\OAMASS1.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 8,
+            "truth": "-0.10192E-06",
+            "actual": "-0.21006E-06",
+            "mismatch_count_in_file": 9
+          },
+          {
+            "file": "Hams_format\\OAMASS2.txt",
+            "kind": "numeric",
+            "line": 15,
+            "token": 3,
+            "truth": "-0.18102E+00",
+            "actual": "-0.15931E+00",
+            "mismatch_count_in_file": 8
+          },
+          {
+            "file": "Hams_format\\OAMASS3.txt",
+            "kind": "numeric",
+            "line": 16,
+            "token": 8,
+            "truth": "-0.72692E-06",
+            "actual": "-0.87941E-06",
+            "mismatch_count_in_file": 40
+          },
+          {
+            "file": "Hams_format\\OAMASS4.txt",
+            "kind": "numeric",
+            "line": 18,
+            "token": 3,
+            "truth": "-0.20768E+00",
+            "actual": "-0.16886E+00",
+            "mismatch_count_in_file": 11
+          },
+          {
+            "file": "Hams_format\\OAMASS5.txt",
+            "kind": "numeric",
+            "line": 18,
+            "token": 4,
+            "truth": "0.29096E+00",
+            "actual": "0.24097E+00",
+            "mismatch_count_in_file": 14
+          },
+          {
+            "file": "Hams_format\\OAMASS6.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 4,
+            "truth": "0.13189E-05",
+            "actual": "0.85782E-06",
+            "mismatch_count_in_file": 7
+          },
+          {
+            "file": "Hams_format\\ODAMPING1.txt",
+            "kind": "numeric",
+            "line": 11,
+            "token": 7,
+            "truth": "0.39562E+02",
+            "actual": "0.34401E+02",
+            "mismatch_count_in_file": 12
+          },
+          {
+            "file": "Hams_format\\ODAMPING2.txt",
+            "kind": "numeric",
+            "line": 11,
+            "token": 6,
+            "truth": "-0.38998E+02",
+            "actual": "-0.33837E+02",
+            "mismatch_count_in_file": 17
+          },
+          {
+            "file": "Hams_format\\ODAMPING3.txt",
+            "kind": "numeric",
+            "line": 15,
+            "token": 8,
+            "truth": "0.19909E-06",
+            "actual": "0.34370E-06",
+            "mismatch_count_in_file": 10
+          },
+          {
+            "file": "Hams_format\\ODAMPING4.txt",
+            "kind": "numeric",
+            "line": 8,
+            "token": 7,
+            "truth": "-0.37339E-01",
+            "actual": "-0.32739E-01",
+            "mismatch_count_in_file": 36
+          },
+          {
+            "file": "Hams_format\\ODAMPING5.txt",
+            "kind": "numeric",
+            "line": 8,
+            "token": 6,
+            "truth": "-0.47538E-01",
+            "actual": "-0.41849E-01",
+            "mismatch_count_in_file": 34
+          },
+          {
+            "file": "Hams_format\\ODAMPING6.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 4,
+            "truth": "0.22630E-05",
+            "actual": "0.17850E-05",
+            "mismatch_count_in_file": 4
+          },
+          {
+            "file": "Hams_format\\OEXFOR1.txt",
+            "kind": "numeric",
+            "line": 659,
+            "token": 4,
+            "truth": "-0.119385E+01",
+            "actual": "-0.159135E+01",
+            "mismatch_count_in_file": 6
+          },
+          {
+            "file": "Hams_format\\OEXFOR2.txt",
+            "kind": "numeric",
+            "line": 883,
+            "token": 4,
+            "truth": "-0.408901E+01",
+            "actual": "-0.486551E+01",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Hams_format\\OEXFOR3.txt",
+            "kind": "numeric",
+            "line": 832,
+            "token": 4,
+            "truth": "-0.537577E+02",
+            "actual": "-0.471902E+02",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\OEXFOR4.txt",
+            "kind": "numeric",
+            "line": 308,
+            "token": 4,
+            "truth": "0.518292E+00",
+            "actual": "0.464207E+00",
+            "mismatch_count_in_file": 49
+          },
+          {
+            "file": "Hams_format\\OEXFOR5.txt",
+            "kind": "numeric",
+            "line": 352,
+            "token": 4,
+            "truth": "0.511092E+00",
+            "actual": "0.573761E+00",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\OEXFOR6.txt",
+            "kind": "numeric",
+            "line": 382,
+            "token": 4,
+            "truth": "-0.110065E-05",
+            "actual": "-0.854317E-06",
+            "mismatch_count_in_file": 13
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_11.rao",
+            "kind": "numeric",
+            "line": 47,
+            "token": 2,
+            "truth": "2.757589E+02",
+            "actual": "2.279888E+02",
+            "mismatch_count_in_file": 36
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_12.rao",
+            "kind": "numeric",
+            "line": 37,
+            "token": 2,
+            "truth": "-2.537816E-01",
+            "actual": "-2.253120E-01",
+            "mismatch_count_in_file": 216
+          }
+        ]
+      }
+    },
+    {
+      "output": ".diagnostics\\hams-70283d0-cylinder-20260815-211309\\Output",
+      "comparison_to_current_cylinder_output": {
+        "left": ".diagnostics\\hams-70283d0-cylinder-20260815-211309\\Output",
+        "right": "CertTest\\Cylinder\\Output",
+        "same": true,
+        "different_files": [],
+        "different_file_count": 0
+      },
+      "comparison_to_cylinder_benchmark": {
+        "truth": "CertTest\\Cylinder\\Output_Benchmark",
+        "actual": ".diagnostics\\hams-70283d0-cylinder-20260815-211309\\Output",
+        "registered_tolerance": {
+          "rel_tol": 0.1,
+          "abs_tol": 1e-07
+        },
+        "files": 108,
+        "missing_files": 0,
+        "failed_files": 65,
+        "mismatches": 9387,
+        "numeric_mismatches": 9387,
+        "text_mismatches": 0,
+        "by_group": {
+          "ErrorCheck.txt": {
+            "files": 1,
+            "failed_files": 0,
+            "mismatches": 0
+          },
+          "Hams_format": {
+            "files": 18,
+            "failed_files": 18,
+            "mismatches": 365
+          },
+          "Hydrostar_format": {
+            "files": 84,
+            "failed_files": 43,
+            "mismatches": 7391
+          },
+          "Wamit_format": {
+            "files": 5,
+            "failed_files": 4,
+            "mismatches": 1631
+          }
+        },
+        "first_mismatches": [
+          {
+            "file": "Hams_format\\OAMASS1.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 8,
+            "truth": "-0.10192E-06",
+            "actual": "-0.21006E-06",
+            "mismatch_count_in_file": 9
+          },
+          {
+            "file": "Hams_format\\OAMASS2.txt",
+            "kind": "numeric",
+            "line": 15,
+            "token": 3,
+            "truth": "-0.18102E+00",
+            "actual": "-0.15931E+00",
+            "mismatch_count_in_file": 8
+          },
+          {
+            "file": "Hams_format\\OAMASS3.txt",
+            "kind": "numeric",
+            "line": 16,
+            "token": 8,
+            "truth": "-0.72692E-06",
+            "actual": "-0.87941E-06",
+            "mismatch_count_in_file": 40
+          },
+          {
+            "file": "Hams_format\\OAMASS4.txt",
+            "kind": "numeric",
+            "line": 18,
+            "token": 3,
+            "truth": "-0.20768E+00",
+            "actual": "-0.16886E+00",
+            "mismatch_count_in_file": 11
+          },
+          {
+            "file": "Hams_format\\OAMASS5.txt",
+            "kind": "numeric",
+            "line": 18,
+            "token": 4,
+            "truth": "0.29096E+00",
+            "actual": "0.24097E+00",
+            "mismatch_count_in_file": 14
+          },
+          {
+            "file": "Hams_format\\OAMASS6.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 4,
+            "truth": "0.13189E-05",
+            "actual": "0.85782E-06",
+            "mismatch_count_in_file": 7
+          },
+          {
+            "file": "Hams_format\\ODAMPING1.txt",
+            "kind": "numeric",
+            "line": 11,
+            "token": 7,
+            "truth": "0.39562E+02",
+            "actual": "0.34401E+02",
+            "mismatch_count_in_file": 12
+          },
+          {
+            "file": "Hams_format\\ODAMPING2.txt",
+            "kind": "numeric",
+            "line": 11,
+            "token": 6,
+            "truth": "-0.38998E+02",
+            "actual": "-0.33837E+02",
+            "mismatch_count_in_file": 17
+          },
+          {
+            "file": "Hams_format\\ODAMPING3.txt",
+            "kind": "numeric",
+            "line": 15,
+            "token": 8,
+            "truth": "0.19909E-06",
+            "actual": "0.34370E-06",
+            "mismatch_count_in_file": 10
+          },
+          {
+            "file": "Hams_format\\ODAMPING4.txt",
+            "kind": "numeric",
+            "line": 8,
+            "token": 7,
+            "truth": "-0.37339E-01",
+            "actual": "-0.32739E-01",
+            "mismatch_count_in_file": 36
+          },
+          {
+            "file": "Hams_format\\ODAMPING5.txt",
+            "kind": "numeric",
+            "line": 8,
+            "token": 6,
+            "truth": "-0.47538E-01",
+            "actual": "-0.41849E-01",
+            "mismatch_count_in_file": 34
+          },
+          {
+            "file": "Hams_format\\ODAMPING6.txt",
+            "kind": "numeric",
+            "line": 10,
+            "token": 4,
+            "truth": "0.22630E-05",
+            "actual": "0.17850E-05",
+            "mismatch_count_in_file": 4
+          },
+          {
+            "file": "Hams_format\\OEXFOR1.txt",
+            "kind": "numeric",
+            "line": 659,
+            "token": 4,
+            "truth": "-0.119385E+01",
+            "actual": "-0.159135E+01",
+            "mismatch_count_in_file": 6
+          },
+          {
+            "file": "Hams_format\\OEXFOR2.txt",
+            "kind": "numeric",
+            "line": 883,
+            "token": 4,
+            "truth": "-0.408901E+01",
+            "actual": "-0.486551E+01",
+            "mismatch_count_in_file": 3
+          },
+          {
+            "file": "Hams_format\\OEXFOR3.txt",
+            "kind": "numeric",
+            "line": 832,
+            "token": 4,
+            "truth": "-0.537577E+02",
+            "actual": "-0.471902E+02",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\OEXFOR4.txt",
+            "kind": "numeric",
+            "line": 308,
+            "token": 4,
+            "truth": "0.518292E+00",
+            "actual": "0.464207E+00",
+            "mismatch_count_in_file": 49
+          },
+          {
+            "file": "Hams_format\\OEXFOR5.txt",
+            "kind": "numeric",
+            "line": 352,
+            "token": 4,
+            "truth": "0.511092E+00",
+            "actual": "0.573761E+00",
+            "mismatch_count_in_file": 46
+          },
+          {
+            "file": "Hams_format\\OEXFOR6.txt",
+            "kind": "numeric",
+            "line": 382,
+            "token": 4,
+            "truth": "-0.110065E-05",
+            "actual": "-0.854317E-06",
+            "mismatch_count_in_file": 13
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_11.rao",
+            "kind": "numeric",
+            "line": 47,
+            "token": 2,
+            "truth": "2.757589E+02",
+            "actual": "2.279888E+02",
+            "mismatch_count_in_file": 36
+          },
+          {
+            "file": "Hydrostar_format\\AddedMass_12.rao",
+            "kind": "numeric",
+            "line": 37,
+            "token": 2,
+            "truth": "-2.537816E-01",
+            "actual": "-2.253120E-01",
+            "mismatch_count_in_file": 216
+          }
+        ]
+      }
+    }
+  ],
+  "conclusions": [
+    "Input and Output_Benchmark have no semantic Git worktree diff.",
+    "The local run is tied to the case working directory by Run-HAMS.ps1 and the isolated Cylinder run is compared separately.",
+    "A benchmark-commit source rebuild is included when the corresponding .diagnostics output exists.",
+    "Failure of the official benchmark remains a real failure of reproducibility, not a reason to widen tolerance."
+  ]
+}

@@ -389,8 +389,8 @@
       const items = [
         ["Vertical velocity MPM", metrics.vertical_velocity_m_s.most_probable_max, "m/s"],
         ["Vertical displacement RMS", metrics.vertical_displacement_m.rms, "m"],
-        ["Horizontal velocity MPM", metrics.horizontal_velocity_m_s.most_probable_max, "m/s"],
-        ["Tilt MPM", metrics.tilt_rad.most_probable_max * 180 / Math.PI, "deg"],
+        ["Horizontal velocity RMS", metrics.horizontal_velocity_m_s.rms, "m/s"],
+        ["Tilt RMS", metrics.tilt_rad.rms * 180 / Math.PI, "deg"],
       ];
       document.getElementById("metricGrid").innerHTML = items.map(([label, value, unit]) =>
         `<div class="metric"><strong>${fmt(value)}</strong><span>${label} ${unit}</span></div>`
@@ -456,8 +456,8 @@
         return `<tr>
           <td>${row.sea_state_id}</td>
           <td>${fmt(vv.value)} @ ${vv.point_id}, ${vv.heading_deg} deg</td>
-          <td>${fmt(hv.value)} @ ${hv.point_id}, ${hv.heading_deg} deg</td>
-          <td>${fmt(tilt.value * 180 / Math.PI)} @ ${tilt.point_id}, ${tilt.heading_deg} deg</td>
+          <td>Not estimated for vector norm</td>
+          <td>Not estimated for vector norm</td>
         </tr>`;
       }).join("");
       document.getElementById("seaSummary").innerHTML = `

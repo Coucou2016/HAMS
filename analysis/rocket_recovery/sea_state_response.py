@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import math
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -11,7 +12,30 @@ except ImportError:
     from common import G, read_json, resolve_case, trapezoid_integral, write_json
 
 
-def jonswap_spectrum(frequencies: list[float], hs_m: float, tp_s: float, gamma: float = 3.3) -> list[float]:
+@lru_cache(maxsize=32)
+def _full_spectrum_integral(gamma: float) -> float:
+    # Dimensionless omega/wp integration; the omitted high-frequency tail is < 3e-9.
+    count = 20000
+    log_min, log_max = math.log(0.05), math.log(200.0)
+    axis = [math.exp(log_min + (log_max - log_min) * i / count) for i in range(count + 1)]
+    values = []
+    for x in axis:
+        sigma = 0.07 if x <= 1.0 else 0.09
+        peak = math.exp(-((x - 1.0) ** 2) / (2.0 * sigma**2))
+        values.append(x**-5 * math.exp(-1.25 / x**4) * gamma**peak)
+    return trapezoid_integral(axis, values)
+
+
+def jonswap_spectrum(frequencies: list[float], hs_m: float, tp_s: float, gamma: float = 3.3, *, normalization: str = "band") -> list[float]:
+    """Use band normalization for historical reproduction, or full for physical Hs."""
+    if not all(math.isfinite(x) for x in [hs_m, tp_s, gamma, *frequencies]):
+        raise ValueError("Spectrum inputs must be finite")
+    if hs_m < 0 or tp_s <= 0 or gamma < 1 or len(frequencies) < 2:
+        raise ValueError("Require Hs >= 0, Tp > 0, gamma >= 1 and at least two frequencies")
+    if any(b <= a for a, b in zip(frequencies, frequencies[1:])):
+        raise ValueError("Frequencies must be strictly increasing")
+    if normalization not in ("band", "full"):
+        raise ValueError("normalization must be band or full")
     wp = 2.0 * math.pi / tp_s
     raw = []
     for omega in frequencies:
@@ -23,12 +47,23 @@ def jonswap_spectrum(frequencies: list[float], hs_m: float, tp_s: float, gamma: 
         value = G**2 * omega ** -5 * math.exp(-1.25 * (wp / omega) ** 4) * gamma**peak
         raw.append(value)
 
-    current_m0 = trapezoid_integral(frequencies, raw)
+    current_m0 = (trapezoid_integral(frequencies, raw) if normalization == "band"
+                  else G**2 * wp**-4 * _full_spectrum_integral(gamma))
     if current_m0 <= 0.0:
         return [0.0 for _ in frequencies]
     target_m0 = hs_m**2 / 16.0
     scale = target_m0 / current_m0
     return [value * scale for value in raw]
+
+
+def spectrum_band_audit(frequencies: list[float], hs_m: float, tp_s: float, gamma: float = 3.3) -> dict[str, float]:
+    density = jonswap_spectrum(frequencies, hs_m, tp_s, gamma, normalization="full")
+    target = hs_m**2 / 16.0
+    captured = trapezoid_integral(frequencies, density)
+    ratio = captured / target if target > 0 else 0.0
+    return {"target_m0_m2": target, "captured_m0_m2": captured,
+            "captured_variance_fraction": ratio,
+            "full_to_band_response_scale": math.sqrt(ratio)}
 
 
 def spectrum_stats(frequencies: list[float], transfer_abs_squared: list[float], spectrum: list[float], duration_s: float) -> dict[str, float]:
@@ -106,6 +141,10 @@ def build_sea_state_response(case_dir: Path, deck_rao_path: Path | None = None) 
                 for metric, terms in metrics.items():
                     transfer = build_transfer_series(rows, frequencies, terms)
                     metric_values[metric] = spectrum_stats(frequencies, transfer, spectrum, sea_state.get("duration_s", 600.0))
+                    if len(terms) > 1:
+                        metric_values[metric]["most_probable_max"] = None
+                        metric_values[metric]["zero_crossing_period_s"] = None
+                        metric_values[metric]["extreme_status"] = "requires_vector_time_history"
                 heading_rows.append({"heading_deg": heading, "metrics": metric_values})
             sea_states.append({"id": sea_state["id"], "definition": sea_state, "headings": heading_rows})
         points.append({"id": point["id"], "position_m": point["position_m"], "sea_states": sea_states})
@@ -118,6 +157,8 @@ def build_sea_state_response(case_dir: Path, deck_rao_path: Path | None = None) 
             for heading_row in state["headings"]:
                 for metric in worst:
                     value = heading_row["metrics"][metric]["most_probable_max"]
+                    if value is None:
+                        continue
                     current = worst[metric]
                     if current is None or value > current["value"]:
                         worst[metric] = {
@@ -131,6 +172,8 @@ def build_sea_state_response(case_dir: Path, deck_rao_path: Path | None = None) 
         "case_id": config["case_id"],
         "source_deck_rao": str(deck_rao_path or (case_dir / "Output" / "RocketRecovery" / "deck-point-rao.json")),
         "spectrum": "JONSWAP scaled over the HAMS frequency grid to m0 = Hs^2/16.",
+        "spectrum_band_audit": [{"sea_state_id": state["id"], **spectrum_band_audit(frequencies, state["hs_m"], state["tp_s"], state.get("gamma", 3.3))} for state in config["sea_states"]],
+        "vector_extremes_status": "Not estimated from scalar Gaussian extreme formulas; resultant RMS remains available.",
         "frequencies_rad_s": frequencies,
         "headings_deg": headings,
         "points": points,

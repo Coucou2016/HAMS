@@ -1,6 +1,6 @@
 {
   "audit_id": "SeaLandingPaper-ResearchIntegrity-Audit-v2",
-  "generated_utc": "2026-09-05T07:35:59.117394+00:00",
+  "generated_utc": "2026-09-20T15:41:18.281001+00:00",
   "status": "PASS_WITH_DECLARED_LIMITATIONS",
   "classification": {
     "present_calculation": "Output produced in this project from executable code.",
@@ -351,8 +351,24 @@
       "evidence_class": "present_manuscript",
       "role": "Submission manuscript source",
       "exists": true,
-      "bytes": 38680,
-      "sha256": "83d4f469b23f9cc2d957c3fb1904b5be87298607b03b43b53b8476fbfd8eaad9"
+      "bytes": 40523,
+      "sha256": "041a9e65806ae910ae0447639fcf75b35ac0a55fd6cfce548c792e6b1fc2b3f2"
+    },
+    {
+      "path": "analysis/diagnostics/reviewer-spectrum-audit.json",
+      "evidence_class": "present_calculation",
+      "role": "Archived-grid full-spectrum normalization sensitivity",
+      "exists": true,
+      "bytes": 29936,
+      "sha256": "0613a1895ef2e83bf8ab023df6dfbbb99e5ca9ecf6a68f483b2cc07f56be91e8"
+    },
+    {
+      "path": "analysis/diagnostics/reviewer-matrix-audit.json",
+      "evidence_class": "present_calculation",
+      "role": "Raw hydrodynamic reciprocity and damping eigenvalues before symmetrization",
+      "exists": true,
+      "bytes": 660213,
+      "sha256": "0353c516aef8311cce739794e1af092abffe608ff5618018c8f243589098c54f"
     }
   ],
   "code_files": [
@@ -449,8 +465,32 @@
       "evidence_class": "present_code",
       "role": "Executable analysis source",
       "exists": true,
-      "bytes": 25964,
-      "sha256": "091f4dc1531deca322ae66cd9e369b68277aea6a1a2c8b4a9d0e7c4a2b411b75"
+      "bytes": 26434,
+      "sha256": "f51b9247640988b48a63e281b21a3393e7d5ce374978b5ad151a5f4855bd647e"
+    },
+    {
+      "path": "analysis/rocket_recovery/sea_state_response.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 9515,
+      "sha256": "011861792cec73d533841f7f8e8fd4456ab4fefa6d1edfebcb0449ea5e1e3619"
+    },
+    {
+      "path": "analysis/rocket_recovery/reviewer_spectrum_audit.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 2851,
+      "sha256": "899fa32ea37e4da19a9f295a55edcef8893165ec0984dcc6a0438d37e37242c7"
+    },
+    {
+      "path": "analysis/rocket_recovery/reviewer_matrix_audit.py",
+      "evidence_class": "present_code",
+      "role": "Executable analysis source",
+      "exists": true,
+      "bytes": 3947,
+      "sha256": "797c4b611931040f5737556c0bf83b3cbac2d0f8662c7ae39f4cb5dcf1f85834"
     }
   ],
   "figures": [

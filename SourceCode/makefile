@@ -28,8 +28,13 @@ else ifeq ($(FC), ifx)
 	FCFLAGS = -g -xHost -c -O3 -fPIC -check bounds,pointers -warn all -fopenmp -qmkl
 	LDCOMP  = -lmkl_rt
 else
+	ifeq ($(MODE),repro)
+	FLFLAGS = -g -fopenmp
+	FCFLAGS = -g -c -O2 -fPIC -fopenmp -fdec-math -fcheck=bounds,mem,pointer -Wall
+	else
 	FLFLAGS = -g -march=native -mtune=native -fopenmp
 	FCFLAGS = -g -march=native -mtune=native -c -O3 -fPIC -fopenmp -fdec-math -fcheck=bounds,mem,pointer -Wall
+	endif
 	LDCOMP  = -llapack
 endif
 PROGRAM = hams

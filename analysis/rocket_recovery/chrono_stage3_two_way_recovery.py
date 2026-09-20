@@ -198,7 +198,6 @@ def build_validation(simulations: dict[str, Any], convergence: dict[str, Any] | 
     peak_changes = {}
     contact_checks = {}
     all_force_pass = True
-    all_energy_pass = True
     all_no_leg_pass = True
     all_contact_pass = True
     for case_id, sim in simulations.items():
@@ -208,7 +207,6 @@ def build_validation(simulations: dict[str, Any], convergence: dict[str, Any] | 
             and force["max_roll_moment_residual_nm"] < 1.0e-4
             and force["max_pitch_moment_residual_nm"] < 1.0e-4
         )
-        energy_pass = bool(sim["validation"]["rocket_energy"]["pass"])
         no_leg_pass = bool(sim["validation"]["no_leg_degeneracy"]["pass"])
         contact_state = sim["final_iteration_chrono"]["summary"]["contact_state"]
         per_leg = contact_state["per_leg"]
@@ -219,7 +217,7 @@ def build_validation(simulations: dict[str, Any], convergence: dict[str, Any] | 
             and len(contact_state["all_contact_intervals_s"]) > 0
         )
         force_checks[case_id] = {**force, "pass": force_pass}
-        energy_checks[case_id] = {**sim["validation"]["rocket_energy"], "pass": energy_pass}
+        energy_checks[case_id] = {**sim["validation"]["rocket_energy"], "pass": None, "status": "incomplete_energy_budget"}
         no_leg_checks[case_id] = sim["validation"]["no_leg_degeneracy"]
         contact_checks[case_id] = {
             "per_leg_first_contact_times_s": {leg_id: row["first_contact_time_s"] for leg_id, row in per_leg.items()},
@@ -233,7 +231,6 @@ def build_validation(simulations: dict[str, Any], convergence: dict[str, Any] | 
         }
         peak_changes[case_id] = compare_peak_change(sim)
         all_force_pass = all_force_pass and force_pass
-        all_energy_pass = all_energy_pass and energy_pass
         all_no_leg_pass = all_no_leg_pass and no_leg_pass
         all_contact_pass = all_contact_pass and contact_pass
 
@@ -246,7 +243,7 @@ def build_validation(simulations: dict[str, Any], convergence: dict[str, Any] | 
             "no_leg_degeneracy_pass": all_no_leg_pass,
         },
         "force_reciprocity": {"cases": force_checks, "pass": all_force_pass},
-        "energy_diagnostic": {"cases": energy_checks, "pass": all_energy_pass},
+        "energy_diagnostic": {"cases": energy_checks, "pass": None, "status": "incomplete_energy_budget"},
         "contact_state_machine": {"cases": contact_checks, "pass": all_contact_pass if contact_checks else False},
         "eccentric_response": {
             "wave_bow_15m_pitch_peak_delta_deg": bow_change,

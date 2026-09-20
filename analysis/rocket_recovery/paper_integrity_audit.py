@@ -176,6 +176,8 @@ def build_report() -> dict[str, Any]:
             file_record(COMPANION_REPORT, "present_code_verification", "Independent smooth-law energy/code companion"),
             file_record(CERT_DIAGNOSTIC, "failed_external_regression", "Official four-case comparator diagnostic; no validation credit"),
             file_record(MANUSCRIPT, "present_manuscript", "Submission manuscript source"),
+            file_record(ROOT / "analysis" / "diagnostics" / "reviewer-spectrum-audit.json", "present_calculation", "Archived-grid full-spectrum normalization sensitivity"),
+            file_record(ROOT / "analysis" / "diagnostics" / "reviewer-matrix-audit.json", "present_calculation", "Raw hydrodynamic reciprocity and damping eigenvalues before symmetrization"),
         ]
     )
 
@@ -192,6 +194,9 @@ def build_report() -> dict[str, Any]:
         "chrono_same_platform_multibody.py",
         "yang_2026_figures.py",
         "paper_integrity_audit.py",
+        "sea_state_response.py",
+        "reviewer_spectrum_audit.py",
+        "reviewer_matrix_audit.py",
     ]
     code_files = [
         file_record(ROOT / "analysis" / "rocket_recovery" / name, "present_code", "Executable analysis source")
@@ -302,7 +307,7 @@ def write_markdown(report: dict[str, Any]) -> None:
         "# 海上回收着陆论文真实性准确性与完整性审查",
         "",
         f"**审查编号：** `{report['audit_id']}`  ",
-        f"**生成时间（UTC）：** `{report['generated_utc']}`  ",
+        f"**生成时间（UTC）：** `{report['generated_utc']}`",
         f"**机器审查结论：** `{report['status']}`",
         "",
         "## 1. 审查原则",

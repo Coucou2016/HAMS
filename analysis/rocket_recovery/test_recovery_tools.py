@@ -8,13 +8,15 @@ import numpy as np
 from .common import trapezoid_integral
 from .deck_point_rao import transform_motion
 from .landing_leg_contact import deck_footprint_envelope, kinetic_energy_kj, thies_footprint_radius_m
-from .sea_state_response import jonswap_spectrum
+from .sea_state_response import jonswap_spectrum, spectrum_band_audit
+from .reviewer_matrix_audit import matrix_checks
 from .chrono_two_way_recovery import (
     DOF_NAMES_6DOF,
     compare_time_step_series_6dof,
     generalized_leg_force_from_chrono_6dof,
     inverse_square_matrix,
     make_time_grid,
+    rocket_energy_diagnostic,
     solve_cummins_leg_correction,
 )
 
@@ -43,6 +45,33 @@ class DeckPointTransformTest(unittest.TestCase):
 
 
 class SpectrumTest(unittest.TestCase):
+    def test_raw_reciprocity_is_measured_before_symmetrization(self) -> None:
+        matrix = np.eye(6)
+        matrix[0, 1] = 0.5
+        self.assertGreater(matrix_checks(matrix, 120)["raw_reciprocity_relative_frobenius"], 0)
+        matrix[1, 0] = 0.5
+        self.assertEqual(matrix_checks(matrix, 120)["raw_reciprocity_relative_frobenius"], 0)
+        matrix[2, 2] = -1
+        self.assertLess(matrix_checks(matrix, 120)["relative_minimum_eigenvalue"], 0)
+
+    def test_full_normalization_does_not_redistribute_missing_tail(self) -> None:
+        omega = np.linspace(0.2, 2.0, 1801).tolist()
+        audit = spectrum_band_audit(omega, 2.0, 6.0)
+        self.assertAlmostEqual(audit["captured_variance_fraction"], 0.94119, places=4)
+        full = jonswap_spectrum(omega, 2.0, 6.0, normalization="full")
+        band = jonswap_spectrum(omega, 2.0, 6.0, normalization="band")
+        np.testing.assert_allclose(np.asarray(band) * audit["captured_variance_fraction"], full)
+        wider = spectrum_band_audit(np.linspace(0.2, 5.0, 4801).tolist(), 2.0, 6.0)
+        self.assertGreater(wider["captured_variance_fraction"], 0.998)
+
+    def test_kinetic_decay_is_not_energy_balance_validation(self) -> None:
+        config = {"rocket": {"landing_mass_kg": 10, "inertia_kg_m2": {"roll_x": 1, "pitch_y": 1, "yaw_z": 1}}}
+        sim = {"rocket": {"vertical_velocity_m_s": [2, 0], "roll_rate_rad_s": [0, 0], "pitch_rate_rad_s": [0, 0], "yaw_rate_rad_s": [0, 0]}}
+        result = rocket_energy_diagnostic(config, sim)
+        self.assertTrue(result["kinetic_energy_decreased"])
+        self.assertIsNone(result["pass"])
+        self.assertEqual(result["status"], "incomplete_energy_budget")
+
     def test_jonswap_is_scaled_to_hs(self) -> None:
         frequencies = [0.2 + 0.02 * i for i in range(120)]
         spectrum = jonswap_spectrum(frequencies, hs_m=2.0, tp_s=8.0)

@@ -821,22 +821,6 @@ def generalized_leg_force_from_chrono_6dof(
             "max_lock_yaw_platform_moment_mnm": audit["max_lock_yaw_platform_moment_nm"] / 1.0e6,
         },
     }
-    fleg_target = np.column_stack([np.interp(target_time_s, chrono_time, fleg_samples[:, col]) for col in range(3)])
-    return {
-        "time_s": target_time_s,
-        "values_3dof": fleg_target,
-        "samples_time_s": chrono_time,
-        "samples_3dof": fleg_samples,
-        "force_audit": residual,
-        "summary": {
-            "max_downward_platform_force_mn": float(np.max(np.abs(np.minimum(fleg_samples[:, 0], 0.0))) / 1.0e6) if len(chrono_time) else 0.0,
-            "max_roll_moment_mnm": float(np.max(np.abs(fleg_samples[:, 1])) / 1.0e6) if len(chrono_time) else 0.0,
-            "max_pitch_moment_mnm": float(np.max(np.abs(fleg_samples[:, 2])) / 1.0e6) if len(chrono_time) else 0.0,
-            "max_lock_vertical_platform_force_mn": residual["max_lock_vertical_platform_force_n"] / 1.0e6,
-            "max_lock_roll_platform_moment_mnm": residual["max_lock_roll_platform_moment_nm"] / 1.0e6,
-            "max_lock_pitch_platform_moment_mnm": residual["max_lock_pitch_platform_moment_nm"] / 1.0e6,
-        },
-    }
 
 
 def leg_force_series_for_json(time_s: np.ndarray, values: np.ndarray) -> dict[str, Any]:
@@ -885,7 +869,10 @@ def rocket_energy_diagnostic(config: dict[str, Any], chrono_sim: dict[str, Any])
         "peak_kinetic_energy_kj": peak_after_contact,
         "final_over_initial": final / initial if initial > 0.0 else None,
         "trend": "diagnostic_only_includes_rocket_vertical_and_rotational_kinetic_energy",
-        "pass": bool(initial > 0.0 and final < initial),
+        "kinetic_energy_decreased": bool(initial > 0.0 and final < initial),
+        "status": "incomplete_energy_budget",
+        "pass": None,
+        "missing_terms": ["horizontal kinetic energy", "potential and elastic energy", "platform and radiation energy", "external work and dissipation"],
     }
 
 
@@ -1049,7 +1036,6 @@ def build_validation(simulations: dict[str, Any], convergence: dict[str, Any] | 
     no_leg_checks = {}
     peak_changes = {}
     all_force_pass = True
-    all_energy_pass = True
     all_no_leg_pass = True
     for case_id, sim in simulations.items():
         force = sim["validation"]["force_reciprocity"]
@@ -1058,14 +1044,12 @@ def build_validation(simulations: dict[str, Any], convergence: dict[str, Any] | 
             and force["max_roll_moment_residual_nm"] < 1.0e-4
             and force["max_pitch_moment_residual_nm"] < 1.0e-4
         )
-        energy_pass = bool(sim["validation"]["rocket_energy"]["pass"])
         no_leg_pass = bool(sim["validation"]["no_leg_degeneracy"]["pass"])
         force_checks[case_id] = {**force, "pass": force_pass}
-        energy_checks[case_id] = {**sim["validation"]["rocket_energy"], "pass": energy_pass}
+        energy_checks[case_id] = {**sim["validation"]["rocket_energy"], "pass": None, "status": "incomplete_energy_budget"}
         no_leg_checks[case_id] = sim["validation"]["no_leg_degeneracy"]
         peak_changes[case_id] = compare_peak_change(sim)
         all_force_pass = all_force_pass and force_pass
-        all_energy_pass = all_energy_pass and energy_pass
         all_no_leg_pass = all_no_leg_pass and no_leg_pass
     bow_change = abs(peak_changes.get("wave_bow_15m", {}).get("leg_induced_pitch_peak_deg", 0.0))
     port_change = abs(peak_changes.get("wave_port_15m", {}).get("leg_induced_roll_peak_deg", 0.0))
@@ -1082,7 +1066,7 @@ def build_validation(simulations: dict[str, Any], convergence: dict[str, Any] | 
             "no_leg_degeneracy_pass": all_no_leg_pass,
         },
         "force_reciprocity": {"cases": force_checks, "pass": all_force_pass},
-        "energy_diagnostic": {"cases": energy_checks, "pass": all_energy_pass},
+        "energy_diagnostic": {"cases": energy_checks, "pass": None, "status": "incomplete_energy_budget"},
         "eccentric_response": eccentric_response,
         "time_step_convergence": convergence_validation(
             simulations[convergence["case_id"]] if convergence and convergence.get("case_id") in simulations else {},

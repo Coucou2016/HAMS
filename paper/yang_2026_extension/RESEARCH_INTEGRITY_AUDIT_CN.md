@@ -1,7 +1,7 @@
 # 海上回收着陆论文真实性准确性与完整性审查
 
 **审查编号：** `SeaLandingPaper-ResearchIntegrity-Audit-v2`  
-**生成时间（UTC）：** `2026-09-05T07:35:59.117394+00:00`  
+**生成时间（UTC）：** `2026-09-20T15:41:18.281001+00:00`
 **机器审查结论：** `PASS_WITH_DECLARED_LIMITATIONS`
 
 ## 1. 审查原则
@@ -63,7 +63,9 @@
 | `RocketRecoveryCases/Chrono_LeggedRecovery/Output/RocketRecovery/chrono-same-platform-multibody-response.json` | present_calculation_with_labelled_proxies | Full same-platform response history | 是 | eb6546558296c4ee |
 | `RocketRecoveryCases/Chrono_LeggedRecovery/chrono-revision-study-report.json` | present_code_verification | Independent smooth-law energy/code companion | 是 | 0954aa98bbbee771 |
 | `analysis/diagnostics/hams-cert-root-cause.json` | failed_external_regression | Official four-case comparator diagnostic; no validation credit | 是 | 03d9bb625c5540f2 |
-| `paper/yang_2026_extension/manuscript.md` | present_manuscript | Submission manuscript source | 是 | 83d4f469b23f9cc2 |
+| `paper/yang_2026_extension/manuscript.md` | present_manuscript | Submission manuscript source | 是 | 041a9e65806ae910 |
+| `analysis/diagnostics/reviewer-spectrum-audit.json` | present_calculation | Archived-grid full-spectrum normalization sensitivity | 是 | 0613a1895ef2e83b |
+| `analysis/diagnostics/reviewer-matrix-audit.json` | present_calculation | Raw hydrodynamic reciprocity and damping eigenvalues before symmetrization | 是 | 0353c516aef8311c |
 
 ## 6. 图件审查
 

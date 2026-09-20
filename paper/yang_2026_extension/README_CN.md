@@ -1,6 +1,14 @@
 # 杨少斐 2026 主参考论文复现说明
 
-## 当前定位
+## 当前入口（2026-09-20）
+
+- 正文以 `manuscript.md`、`Coupled_Hydrodynamic_FourLeg_Sea_Landing_Manuscript.docx` 和 `Coupled_Hydrodynamic_FourLeg_Sea_Landing_Manuscript_Review20260920.pdf` 为准。原无日期 PDF 被阅读器占用，本轮保留并输出独立日期版，避免误认旧版为最新。
+- 本轮交叉审稿逐项判断及未关闭事项见 `GITHUB_REVIEW_ASSESSMENT_CN.md`。
+- 当前随机波计算为每工况 1000 条记录；同平台四次接口迭代达到 2% 条件，但接触时间步和刚度收敛未达到要求。接口收敛与接触离散收敛须分别表述。
+- 新增全谱归一化及原始水动力矩阵审计，见 `analysis/diagnostics/reviewer-spectrum-audit.json` 与 `reviewer-matrix-audit.json`。
+- 以下内容保留早期研究阶段记录；其中 100 个种子、旧触地误差和旧耦合状态不代表当前版本。当前数字请以正文及 `research-integrity-audit.json` 为准。
+
+## 早期阶段记录
 
 本目录用于形成英文论文：
 

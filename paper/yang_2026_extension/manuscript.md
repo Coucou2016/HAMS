@@ -56,7 +56,7 @@ The retardation kernel follows from the radiation damping,
 \mathbf K_r(t)=\frac{2}{\pi}\int_0^\infty\mathbf B(\omega)\cos(\omega t)\,\mathrm d\omega .
 \]
 
-In the numerical model, the positive-semidefinite 0.2-2.0 rad/s radiation band is represented by auxiliary cosine and sine states,
+In the numerical model, the heave-roll-pitch submatrix is positive semidefinite over the selected 0.2-2.0 rad/s radiation band, which is represented by auxiliary cosine and sine states,
 
 \[
 \dot{\mathbf z}_{c,k}=\dot{\boldsymbol\eta}-\omega_k\mathbf z_{s,k},
@@ -65,6 +65,8 @@ In the numerical model, the positive-semidefinite 0.2-2.0 rad/s radiation band i
 \]
 
 Trapezoidal frequency weights applied to the cosine states recover the finite-band memory force without storing the full velocity history. Added mass is extended separately to 5 rad/s. The mean of the final five matrices between 4 and 5 rad/s is used as a finite-cutoff estimate of \(\mathbf A_\infty\); it is not described as mathematical infinite-frequency convergence. The high-frequency damping values are excluded from the memory kernel because numerical loss of positive semidefiniteness occurs above the active band.
+
+Raw-coefficient reciprocity is checked before symmetrization using work-preserving translation and length-scaled rotation coordinates, with a reference length of 120 m. The Frobenius norm of the difference between the scaled damping matrix and its transpose, divided by the norm of that matrix, reaches 0.803% up to 2 rad/s and 36.65% at 5 rad/s. The full six-coordinate damping matrix also has small negative eigenvalues within the retained band; positivity of the selected three-coordinate submatrix cannot establish six-coordinate passivity. Excluding unreliable high-frequency damping is a numerical restriction, and consistency of the retained memory kernel with the separate added-mass estimate remains unverified.
 
 ### 2.3 Deck-point kinematics and irregular waves
 
@@ -135,7 +137,7 @@ The platform trajectory prescribes deck translation, rotation and their rates in
 \mathbf M_c=-\sum_i(\mathbf r_i-\mathbf r_R)\times\mathbf f_i.
 \]
 
-Fine-grid contact loads are transferred back by conservative interval averaging. Heave, roll and pitch are updated because the generated barge has hydrostatic restoring in these coordinates. Surge, sway and yaw have neither mooring nor dynamic-positioning restoring in the supplied model and are therefore held fixed. Their contact-wrench components are calculated and audited but are not injected. The calculation should consequently be read as three-coordinate platform feedback, not a fully closed six-degree-of-freedom station-keeping model.
+Fine-grid contact loads are transferred back by conservative interval averaging. The feedback calculation updates heave, roll and pitch and imposes a kinematic constraint on surge, sway and yaw. Absence of mooring or dynamic-positioning restoring does not physically constrain these coordinates: an unconstrained platform would respond to the horizontal forces and yaw moment. Their contact-wrench components are calculated and audited but are not injected into the platform equation. The results therefore describe a horizontally constrained platform, with the omitted wrench carried by the constraint; they do not establish the response of a freely drifting or station-kept platform.
 
 Starting with the wave- and plume-driven trajectory \(\boldsymbol\eta^{(0)}\), the landing calculation returns \(\mathbf F_c^{(k)}\), after which the platform equation gives \(\boldsymbol\eta^{(k+1)}\). The sequence is repeated until the last update changes the platform trajectory, peak contact force, absorber stroke, touchdown span and contact impulse by no more than 2%. Equal and opposite wrench components are checked before coordinate selection. Figure 1 summarizes this theoretical data flow without treating the individual software implementations as the scientific model.
 
@@ -177,7 +179,11 @@ Hydrodynamic refinement uses approximately 512, 2048 and 8192 wetted panels. The
 
 Nine JONSWAP conditions combine \(H_s=1,2,3\) m with \(T_p=6,8,10\) s at \(\gamma=3.3\). Seven headings from 0 to 180 deg produce 63 conditions. Each contains 1000 records of 600 s sampled at 0.1 s. The hydrodynamic response is interpolated from the medium mesh to the stochastic grid described in Section 2.3. Statistics are formed from the maximum within each record, followed by P50, P95, P99 and bootstrap confidence intervals across records.
 
+The archived wave-screening spectra are normalized within 0.2-5.0 rad/s. A separate full-spectrum normalization audit, applied to the same archived realizations and transfer functions, changes the in-band linear response amplitudes by at most 0.079%. This tests the normalization choice only; it does not estimate response outside the computed band. The landing feedback operator uses a shorter radiation and wave grid ending at 2.0 rad/s. Its truncation requires a separate assessment and cannot inherit the wave-screening result.
+
 Two geometric layouts are evaluated. Landing statistics use the 6.926 m-radius footprint of the multibody vehicle. The four \([\pm9,\pm9]\) m points remain in the data file as generic deck probes and are never labelled as the vehicle feet. A condition is inside the linear screen only if the P95 maximum tilt does not exceed 5 deg and no deck edge enters the mean free surface in any realization. This screen is diagnostic: failure indicates that fixed-wetted-surface linear results should not be used quantitatively.
+
+Passing this geometric screen does not establish a dry deck: local incident and diffracted wave elevation is not included in the deck-edge clearance. The 41 conditions passing the screen are therefore a preliminary subset, not confirmed wetting-free conditions.
 
 Record-duration sensitivity is assessed separately for the critical \(H_s=3\) m, \(T_p=8\) and 10 s beam-wave conditions. The 600, 1200 and 1800 s calculations share one 1800 s frequency grid and common phase prefixes so that changes are caused by record length rather than unrelated phase samples.
 
@@ -237,11 +243,11 @@ The medium-grid sampled maxima are 1.113 m/m for landing-center heave at 0.6 rad
 
 ![Potential-flow response, finite-cutoff added mass and mesh-refinement diagnostics.](figures/fig04-platform-hydrodynamic-response.png)
 
-**Figure 4.** Present barge hydrodynamics. Response operators use the medium grid. The high-frequency panels show the finite-cutoff added-mass estimate and radiation-memory reconstruction. The mesh bars retain the failed 5% criterion.
+**Figure 4.** Present barge hydrodynamics. Response operators use the medium grid. The lower-left panel shows the finite-cutoff added-mass tail. The lower-right mesh bars retain the failed 5% criterion.
 
-Refinement does not support the label mesh-converged. The maximum selected change is 15.46% from coarse to medium and 5.88% from medium to fine, both above the prescribed 5% threshold. The second value is close to the threshold, but it is not rounded into a pass. The medium mesh is used for subsequent calculations because it is the only completed mesh with all seven headings and the dense active frequency grid; this choice carries the measured 5.88% residual refinement uncertainty.
+Refinement does not support the label mesh-converged. The maximum selected change is 15.46% from coarse to medium and 5.88% from medium to fine, both above the prescribed 5% threshold. The second value is close to the threshold, but it is not rounded into a pass. The medium mesh is used for subsequent calculations because it is the only completed mesh with all seven headings and the dense active frequency grid. The 5.88% value is an observed difference at the selected frequencies, not an estimate or bound of discretization uncertainty. The fine grid does not resolve the sampled resonance near 0.775 rad/s, so the peak response remains unverified by this comparison.
 
-The finite-cutoff estimates of \(A_{33}\), \(A_{44}\) and \(A_{55}\) are 108.315 million kg, 10.303 billion kg m2 and 91.865 billion kg m2. Their relative ranges over the final five samples are 1.638%, 0.220% and 0.605%, respectively. Finite-band retardation-kernel round-trip RMS errors for the same diagonal terms are 3.19%, 6.51% and 3.65%. The active 0.2-2.0 rad/s radiation matrix remains positive semidefinite, with a minimum eigenvalue of 88,931 kg/s. Numerical negative eigenvalues appear in the 3-5 rad/s tail; that tail is therefore used only for the finite-cutoff added-mass estimate, not for time-domain radiation damping.
+The finite-cutoff estimates of \(A_{33}\), \(A_{44}\) and \(A_{55}\) are 108.315 million kg, 10.303 billion kg m2 and 91.865 billion kg m2. Their relative ranges over the final five samples are 1.638%, 0.220% and 0.605%, respectively. Finite-band retardation-kernel round-trip RMS errors for the same diagonal terms are 3.19%, 6.51% and 3.65%. The heave-roll-pitch radiation submatrix remains positive semidefinite over 0.2-2.0 rad/s. Numerical negative eigenvalues appear in the 3-5 rad/s tail; that tail is therefore used only for the finite-cutoff added-mass estimate, not for time-domain radiation damping.
 
 ### 4.3 Random-wave motion at the actual foot locations
 

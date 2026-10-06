@@ -1,0 +1,133 @@
+{
+  "python_syntax": {
+    "review_tools/extract_code_evidence.py": "passed",
+    "review_tools/run_independent_checks.py": "passed",
+    "review_tools/compare_fresh_hams.py": "passed",
+    "code_patch/test_review_integrity.py": "passed",
+    "code_patch/apply_patch.py": "passed",
+    "code_patch/analysis/rocket_recovery/chrono_leg_model.py": "passed",
+    "code_patch/analysis/rocket_recovery/review_integrity.py": "passed",
+    "code_patch/analysis/rocket_recovery/chrono_two_way_recovery.py": "passed",
+    "code_patch/analysis/rocket_recovery/chrono_same_platform_multibody.py": "passed"
+  },
+  "script_help": {
+    "extract_code_evidence.py": {
+      "exit_code": 0,
+      "stdout": "usage: extract_code_evidence.py [-h] --repo REPO --out OUT --archive ARCHIVE\n\nExtract exact original code and seal against archive\n\noptions:\n  -h, --help         show this help message and exit\n  --repo REPO\n  --out OUT\n  --archive ARCHIVE\n",
+      "stderr": ""
+    },
+    "run_independent_checks.py": {
+      "exit_code": 0,
+      "stdout": "usage: run_independent_checks.py [-h] --repo REPO --out OUT\n                                 [--wave-seeds WAVE_SEEDS]\n\noptions:\n  -h, --help            show this help message and exit\n  --repo REPO\n  --out OUT\n  --wave-seeds WAVE_SEEDS\n",
+      "stderr": ""
+    },
+    "compare_fresh_hams.py": {
+      "exit_code": 0,
+      "stdout": "usage: compare_fresh_hams.py [-h] --repo REPO --evidence EVIDENCE\n                             --binary BINARY\n\nNumerical comparisons at actually rerun points; no whole-mesh claim.\n\noptions:\n  -h, --help           show this help message and exit\n  --repo REPO\n  --evidence EVIDENCE\n  --binary BINARY\n",
+      "stderr": ""
+    }
+  },
+  "installer_temporary_copy": [
+    {
+      "mode": "dry_run",
+      "exit_code": 0,
+      "stdout": "VERIFIED analysis/rocket_recovery/review_integrity.py\nVERIFIED analysis/rocket_recovery/chrono_leg_model.py\nVERIFIED analysis/rocket_recovery/chrono_two_way_recovery.py\nVERIFIED analysis/rocket_recovery/chrono_same_platform_multibody.py\nDry-run complete; add --apply to install on a working COPY of the project.\n",
+      "stderr": ""
+    },
+    {
+      "mode": "apply",
+      "exit_code": 0,
+      "stdout": "VERIFIED analysis/rocket_recovery/review_integrity.py\nVERIFIED analysis/rocket_recovery/chrono_leg_model.py\nVERIFIED analysis/rocket_recovery/chrono_two_way_recovery.py\nVERIFIED analysis/rocket_recovery/chrono_same_platform_multibody.py\nCandidate code installed. Full Chrono integration and research acceptance gates are still required.\n",
+      "stderr": ""
+    }
+  ],
+  "installer_all_four_files_match": true,
+  "docx": {
+    "manuscript/HAMS_manuscript_revised.docx": {
+      "tables": 4,
+      "embedded_drawings": 8,
+      "math_objects": 100,
+      "rendered_pages": 20,
+      "all_rendered_pages_visually_inspected": true
+    },
+    "审查文档/HAMS_审查文档.docx": {
+      "tables": 3,
+      "embedded_drawings": 0,
+      "math_objects": 0,
+      "rendered_pages": 10,
+      "all_rendered_pages_visually_inspected": true
+    }
+  },
+  "figures": {
+    "fig05-random-wave-deck-statistics.svg": {
+      "original": "paper/yang_2026_extension/figures/fig05-random-wave-deck-statistics.svg",
+      "byte_identical": true
+    },
+    "fig04-platform-hydrodynamic-response.svg": {
+      "original": "paper/yang_2026_extension/figures/fig04-platform-hydrodynamic-response.svg",
+      "byte_identical": true
+    },
+    "figS01-yang-identifiability.png": {
+      "original": "paper/yang_2026_extension/figures/figS01-yang-identifiability.png",
+      "byte_identical": true
+    },
+    "figS01-yang-identifiability.svg": {
+      "original": "paper/yang_2026_extension/figures/figS01-yang-identifiability.svg",
+      "byte_identical": true
+    },
+    "fig02-barge-geometry-mesh.svg": {
+      "original": "paper/yang_2026_extension/figures/fig02-barge-geometry-mesh.svg",
+      "byte_identical": true
+    },
+    "fig03-yang-identified-landing-comparison.png": {
+      "original": "paper/yang_2026_extension/figures/fig03-yang-identified-landing-comparison.png",
+      "byte_identical": true
+    },
+    "fig06-partitioned-contact-feedback.png": {
+      "changed": "rendered from relabeled SVG; path geometry compared in SVG"
+    },
+    "figS02-yang-deck-filter-reproduction.svg": {
+      "original": "paper/yang_2026_extension/figures/figS02-yang-deck-filter-reproduction.svg",
+      "byte_identical": true
+    },
+    "figS02-yang-deck-filter-reproduction.png": {
+      "original": "paper/yang_2026_extension/figures/figS02-yang-deck-filter-reproduction.png",
+      "byte_identical": true
+    },
+    "fig01-coupled-framework.svg": {
+      "original": "paper/yang_2026_extension/figures/fig01-coupled-framework.svg",
+      "byte_identical": true
+    },
+    "fig06-partitioned-contact-feedback.svg": {
+      "original": "paper/yang_2026_extension/figures/fig06-partitioned-contact-feedback.svg",
+      "path_geometry_unchanged": true,
+      "changed": "text labels only"
+    },
+    "fig04-platform-hydrodynamic-response.png": {
+      "original": "paper/yang_2026_extension/figures/fig04-platform-hydrodynamic-response.png",
+      "byte_identical": true
+    },
+    "fig01-coupled-framework.png": {
+      "original": "paper/yang_2026_extension/figures/fig01-coupled-framework.png",
+      "byte_identical": true
+    },
+    "fig02-barge-geometry-mesh.png": {
+      "original": "paper/yang_2026_extension/figures/fig02-barge-geometry-mesh.png",
+      "byte_identical": true
+    },
+    "fig03-yang-identified-landing-comparison.svg": {
+      "original": "paper/yang_2026_extension/figures/fig03-yang-identified-landing-comparison.svg",
+      "byte_identical": true
+    },
+    "fig05-random-wave-deck-statistics.png": {
+      "original": "paper/yang_2026_extension/figures/fig05-random-wave-deck-statistics.png",
+      "byte_identical": true
+    }
+  },
+  "combined_unit_tests": {
+    "total": 74,
+    "status": "passed",
+    "log": "tests_combined_patch.log",
+    "full_chrono_solver_rerun": false
+  }
+}

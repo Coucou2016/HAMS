@@ -1,5 +1,13 @@
 # Research Change Log
 
+## 2026-09-28 Corrected contact recomputation
+
+* Implemented inertia-axis conversion and reference mass-property allocation, consistent hydrodynamic/collision deck geometry, and conservative six-component load transfer in the actual coupling path.
+* Corrected the deck-mass dependence of damping and full-history output scheduling. Retained all older results separately.
+* Completed six production/refinement cases in the local PyChrono environment: 33 full pass histories and 1,920,033 recorded nodes. Raw hashes, grid counts and conservative impulse transfer were audited; 76 tests passed.
+* Regenerated manuscript Figure 6 and Table 4 from the corrected outputs using SciencePlots and Times New Roman. Added the dated manuscript and independent evidence note under `paper/yang_2026_extension/revision_corrected_20260928`.
+* Retained failed qualification checks: the two fine-step cases exhausted eight coupling passes; stroke and touchdown-span changes exceed the 5% target. Computation completion is not convergence or physical validation. No independent contact-energy closure or new hydrodynamic certification is claimed.
+
 ## 2026-09-19 Public reproducibility snapshot
 
 * Prepared the complete sea-landing research workspace for public cross-review in `Coucou2016/HAMS`.

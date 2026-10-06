@@ -1,0 +1,1222 @@
+{
+  "pass": 2,
+  "raw_history": {
+    "path": "E:\\Projects\\20260728-HAMS\\RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass02.json",
+    "sha256": "7feb42aceab172df801531119872977e9c826fb9b6aabc63d72a6aa4e870e05d",
+    "samples": 40001,
+    "start_s": 506.0,
+    "end_s": 516.0,
+    "sample_dt_median_s": 0.0002499999999940883,
+    "representation": "all recorded integration-grid samples; no resampling"
+  },
+  "trajectory_change": {
+    "max_abs_heave_difference_m": 2.0685247696716758e-05,
+    "max_abs_roll_difference_rad": 1.488417629069011e-05,
+    "max_abs_pitch_difference_rad": 1.0846764467698465e-06,
+    "max_relative_q_difference": 0.00046494366704093323,
+    "max_relative_qd_difference": 0.003192553167873522,
+    "fixed_point_metric": 0.003192553167873522
+  },
+  "contact_summary": {
+    "first_contact_time_s": 509.9605,
+    "all_legs_contact_time_s": 512.993,
+    "contact_state": {
+      "per_leg": {
+        "leg_1": {
+          "first_contact_time_s": 510.514,
+          "liftoff_count": 12,
+          "recontact_count": 12,
+          "final_in_contact": true,
+          "contact_intervals_s": [
+            {
+              "start_s": 510.514,
+              "end_s": 510.6145,
+              "duration_s": 0.10050000000001091
+            },
+            {
+              "start_s": 510.929,
+              "end_s": 511.02,
+              "duration_s": 0.09100000000000819
+            },
+            {
+              "start_s": 511.83725,
+              "end_s": 512.13575,
+              "duration_s": 0.29850000000004684
+            },
+            {
+              "start_s": 512.9905,
+              "end_s": 513.05925,
+              "duration_s": 0.06875000000002274
+            },
+            {
+              "start_s": 513.0975,
+              "end_s": 513.182,
+              "duration_s": 0.0845000000000482
+            },
+            {
+              "start_s": 513.19775,
+              "end_s": 513.63225,
+              "duration_s": 0.43449999999995725
+            },
+            {
+              "start_s": 514.32325,
+              "end_s": 514.5825,
+              "duration_s": 0.2592499999999518
+            },
+            {
+              "start_s": 514.98675,
+              "end_s": 515.189,
+              "duration_s": 0.20224999999993543
+            },
+            {
+              "start_s": 515.42575,
+              "end_s": 515.611,
+              "duration_s": 0.18524999999999636
+            },
+            {
+              "start_s": 515.655,
+              "end_s": 515.676,
+              "duration_s": 0.02100000000007185
+            },
+            {
+              "start_s": 515.734,
+              "end_s": 515.76525,
+              "duration_s": 0.03125
+            },
+            {
+              "start_s": 515.81575,
+              "end_s": 515.867,
+              "duration_s": 0.05124999999998181
+            },
+            {
+              "start_s": 515.8885,
+              "end_s": 516.0,
+              "duration_s": 0.11149999999997817
+            }
+          ],
+          "transitions": [
+            {
+              "time_s": 510.514,
+              "event": "first_contact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 510.61475,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 510.929,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 511.02025,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 511.83725,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 512.136,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 512.9905,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.0595,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.0975,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.18225,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.19775,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.6325,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 514.32325,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 514.58275,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 514.98675,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.18925,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.42575,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.61125,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.655,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.67625,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.734,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.7655,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.81575,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.86725,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.8885,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            }
+          ],
+          "total_contact_duration_s": 1.9395000000000095,
+          "peak_contact_force_kn": 8254.897846588246,
+          "peak_stroke_m": 0.08704192592631799,
+          "peak_slip_m": 0.07442662659919405
+        },
+        "leg_2": {
+          "first_contact_time_s": 510.966,
+          "liftoff_count": 12,
+          "recontact_count": 12,
+          "final_in_contact": true,
+          "contact_intervals_s": [
+            {
+              "start_s": 510.966,
+              "end_s": 511.004,
+              "duration_s": 0.038000000000010914
+            },
+            {
+              "start_s": 511.11625,
+              "end_s": 511.9,
+              "duration_s": 0.7837499999999977
+            },
+            {
+              "start_s": 512.993,
+              "end_s": 513.0615,
+              "duration_s": 0.0684999999999718
+            },
+            {
+              "start_s": 513.09525,
+              "end_s": 513.1845,
+              "duration_s": 0.08924999999999272
+            },
+            {
+              "start_s": 513.1965,
+              "end_s": 513.631,
+              "duration_s": 0.43449999999995725
+            },
+            {
+              "start_s": 514.319,
+              "end_s": 514.5875,
+              "duration_s": 0.2685000000000173
+            },
+            {
+              "start_s": 514.97875,
+              "end_s": 515.18575,
+              "duration_s": 0.20699999999999363
+            },
+            {
+              "start_s": 515.4085,
+              "end_s": 515.60525,
+              "duration_s": 0.1967499999999518
+            },
+            {
+              "start_s": 515.65825,
+              "end_s": 515.67875,
+              "duration_s": 0.020500000000083674
+            },
+            {
+              "start_s": 515.72675,
+              "end_s": 515.77425,
+              "duration_s": 0.04750000000001364
+            },
+            {
+              "start_s": 515.8075,
+              "end_s": 515.8735,
+              "duration_s": 0.06600000000003092
+            },
+            {
+              "start_s": 515.887,
+              "end_s": 515.94775,
+              "duration_s": 0.060750000000098225
+            },
+            {
+              "start_s": 515.9785,
+              "end_s": 516.0,
+              "duration_s": 0.02149999999994634
+            }
+          ],
+          "transitions": [
+            {
+              "time_s": 510.966,
+              "event": "first_contact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 511.00425,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 511.11625,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 511.90025,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 512.993,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.06175,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.09525,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.18475,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.1965,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.63125,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 514.319,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 514.58775,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 514.97875,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.186,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.4085,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.6055,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.65825,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.679,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.72675,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.7745,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.8075,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.87375,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.887,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.948,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.9785,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            }
+          ],
+          "total_contact_duration_s": 2.302500000000066,
+          "peak_contact_force_kn": 2844.420930709238,
+          "peak_stroke_m": 0.020310437458887165,
+          "peak_slip_m": 0.017366772803991466
+        },
+        "leg_3": {
+          "first_contact_time_s": 509.9605,
+          "liftoff_count": 11,
+          "recontact_count": 11,
+          "final_in_contact": true,
+          "contact_intervals_s": [
+            {
+              "start_s": 509.9605,
+              "end_s": 510.043,
+              "duration_s": 0.08249999999998181
+            },
+            {
+              "start_s": 512.269,
+              "end_s": 512.718,
+              "duration_s": 0.44899999999995543
+            },
+            {
+              "start_s": 512.875,
+              "end_s": 513.02325,
+              "duration_s": 0.1482499999999618
+            },
+            {
+              "start_s": 513.60825,
+              "end_s": 513.67675,
+              "duration_s": 0.0684999999999718
+            },
+            {
+              "start_s": 513.7125,
+              "end_s": 514.35675,
+              "duration_s": 0.6442500000000564
+            },
+            {
+              "start_s": 514.55075,
+              "end_s": 515.0285,
+              "duration_s": 0.47775000000001455
+            },
+            {
+              "start_s": 515.1485,
+              "end_s": 515.5235,
+              "duration_s": 0.375
+            },
+            {
+              "start_s": 515.5715,
+              "end_s": 515.61,
+              "duration_s": 0.03849999999999909
+            },
+            {
+              "start_s": 515.6355,
+              "end_s": 515.77475,
+              "duration_s": 0.13925000000006094
+            },
+            {
+              "start_s": 515.80875,
+              "end_s": 515.859,
+              "duration_s": 0.05025000000000546
+            },
+            {
+              "start_s": 515.898,
+              "end_s": 515.94275,
+              "duration_s": 0.04475000000002183
+            },
+            {
+              "start_s": 515.97525,
+              "end_s": 516.0,
+              "duration_s": 0.024750000000040018
+            }
+          ],
+          "transitions": [
+            {
+              "time_s": 509.9605,
+              "event": "first_contact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 510.04325,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 512.269,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 512.71825,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 512.875,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.0235,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.60825,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.677,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.7125,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 514.357,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 514.55075,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.02875,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.1485,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.52375,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.5715,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.61025,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.6355,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.775,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.80875,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.85925,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.898,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.943,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.97525,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            }
+          ],
+          "total_contact_duration_s": 2.542750000000069,
+          "peak_contact_force_kn": 13780.448969018158,
+          "peak_stroke_m": 0.131129413257141,
+          "peak_slip_m": 0.11212435674560753
+        },
+        "leg_4": {
+          "first_contact_time_s": 509.977,
+          "liftoff_count": 14,
+          "recontact_count": 14,
+          "final_in_contact": true,
+          "contact_intervals_s": [
+            {
+              "start_s": 509.977,
+              "end_s": 510.027,
+              "duration_s": 0.05000000000001137
+            },
+            {
+              "start_s": 512.09875,
+              "end_s": 512.2055,
+              "duration_s": 0.10675000000003365
+            },
+            {
+              "start_s": 512.2205,
+              "end_s": 512.327,
+              "duration_s": 0.10649999999998272
+            },
+            {
+              "start_s": 512.6005,
+              "end_s": 513.015,
+              "duration_s": 0.41449999999997544
+            },
+            {
+              "start_s": 513.604,
+              "end_s": 513.6705,
+              "duration_s": 0.06649999999990541
+            },
+            {
+              "start_s": 513.71625,
+              "end_s": 513.77725,
+              "duration_s": 0.06100000000003547
+            },
+            {
+              "start_s": 513.8095,
+              "end_s": 514.35,
+              "duration_s": 0.5405000000000655
+            },
+            {
+              "start_s": 514.558,
+              "end_s": 515.02925,
+              "duration_s": 0.47125000000005457
+            },
+            {
+              "start_s": 515.10825,
+              "end_s": 515.464,
+              "duration_s": 0.3557500000000573
+            },
+            {
+              "start_s": 515.48325,
+              "end_s": 515.5325,
+              "duration_s": 0.049250000000029104
+            },
+            {
+              "start_s": 515.55925,
+              "end_s": 515.6965,
+              "duration_s": 0.13724999999999454
+            },
+            {
+              "start_s": 515.71825,
+              "end_s": 515.76975,
+              "duration_s": 0.05150000000003274
+            },
+            {
+              "start_s": 515.8185,
+              "end_s": 515.85625,
+              "duration_s": 0.03775000000007367
+            },
+            {
+              "start_s": 515.899,
+              "end_s": 515.9485,
+              "duration_s": 0.04949999999996635
+            },
+            {
+              "start_s": 515.9665,
+              "end_s": 516.0,
+              "duration_s": 0.03350000000000364
+            }
+          ],
+          "transitions": [
+            {
+              "time_s": 509.977,
+              "event": "first_contact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 510.02725,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 512.09875,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 512.20575,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 512.2205,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 512.32725,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 512.6005,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.01525,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.604,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.67075,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.71625,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 513.7775,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 513.8095,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 514.35025,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 514.558,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.0295,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.10825,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.46425,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.48325,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.53275,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.55925,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.69675,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.71825,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.77,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.8185,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.8565,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.899,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            },
+            {
+              "time_s": 515.94875,
+              "event": "liftoff",
+              "from": 1,
+              "to": 0
+            },
+            {
+              "time_s": 515.9665,
+              "event": "recontact",
+              "from": 0,
+              "to": 1
+            }
+          ],
+          "total_contact_duration_s": 2.5315000000002215,
+          "peak_contact_force_kn": 7221.036470934086,
+          "peak_stroke_m": 0.05058659084717121,
+          "peak_slip_m": 0.04325489536989612
+        }
+      },
+      "touchdown_sequence": [
+        {
+          "leg_id": "leg_3",
+          "first_contact_time_s": 509.9605
+        },
+        {
+          "leg_id": "leg_4",
+          "first_contact_time_s": 509.977
+        },
+        {
+          "leg_id": "leg_1",
+          "first_contact_time_s": 510.514
+        },
+        {
+          "leg_id": "leg_2",
+          "first_contact_time_s": 510.966
+        }
+      ],
+      "touchdown_span_s": 1.0054999999999836,
+      "liftoff_count_total": 49,
+      "recontact_count_total": 49,
+      "final_contact_count": 4,
+      "all_contact_intervals_s": [
+        {
+          "start_s": 512.993,
+          "end_s": 513.015,
+          "duration_s": 0.021999999999934516
+        },
+        {
+          "start_s": 513.60825,
+          "end_s": 513.631,
+          "duration_s": 0.022749999999973625
+        },
+        {
+          "start_s": 514.32325,
+          "end_s": 514.35,
+          "duration_s": 0.026749999999992724
+        },
+        {
+          "start_s": 514.558,
+          "end_s": 514.5825,
+          "duration_s": 0.024499999999989086
+        },
+        {
+          "start_s": 514.98675,
+          "end_s": 515.0285,
+          "duration_s": 0.04174999999997908
+        },
+        {
+          "start_s": 515.1485,
+          "end_s": 515.18575,
+          "duration_s": 0.037249999999971806
+        },
+        {
+          "start_s": 515.42575,
+          "end_s": 515.464,
+          "duration_s": 0.038250000000061846
+        },
+        {
+          "start_s": 515.48325,
+          "end_s": 515.5235,
+          "duration_s": 0.04025000000001455
+        },
+        {
+          "start_s": 515.5715,
+          "end_s": 515.60525,
+          "duration_s": 0.03374999999994088
+        },
+        {
+          "start_s": 515.65825,
+          "end_s": 515.676,
+          "duration_s": 0.01775000000009186
+        },
+        {
+          "start_s": 515.734,
+          "end_s": 515.76525,
+          "duration_s": 0.03125
+        },
+        {
+          "start_s": 515.8185,
+          "end_s": 515.85625,
+          "duration_s": 0.03775000000007367
+        },
+        {
+          "start_s": 515.899,
+          "end_s": 515.94275,
+          "duration_s": 0.043750000000045475
+        },
+        {
+          "start_s": 515.9785,
+          "end_s": 516.0,
+          "duration_s": 0.02149999999994634
+        }
+      ],
+      "all_legs_finally_in_contact": true
+    },
+    "max_leg_tsda_force_kn": 936.6416721651829,
+    "max_leg_contact_force_kn": 13780.448969018158,
+    "max_leg_stroke_m": 0.131129413257141,
+    "max_contact_penetration_m": 0.06911554095323841,
+    "max_footpad_slip_m": 0.11212435674560753,
+    "max_rocket_roll_deg": 3.03956973219821,
+    "max_rocket_pitch_deg": 1.1241869053118314,
+    "min_base_clearance_m": -0.00286917978599055,
+    "min_nozzle_clearance_m": 0.5671308202140094,
+    "final_nozzle_clearance_m": 0.5681802452828256,
+    "final_contact_count": 4,
+    "final_vertical_velocity_m_s": -0.38846344373297015,
+    "stage3_model": "tripod_prismatic_main_leg_elastic_brace_nonlinear_buffer_proxy",
+    "stage3_substage": "Stage 3A",
+    "brace_model": "elastic_tsda",
+    "main_guide_model": "inclined_prismatic",
+    "brace_force_available": true,
+    "max_brace_length_error_m": 0.12186460063592897,
+    "max_brace_axial_force_kn": 2060.9915162322127,
+    "max_buffer_stroke_ratio_to_reference": 0.328423942544213,
+    "min_support_polygon_margin_m": 3.7155654105179186,
+    "final_support_polygon_margin_m": 4.815365432738595,
+    "toppling_risk_diagnostic": {
+      "method": "CG projection inside the four-foot support polygon in the simplified Stage 3A geometry.",
+      "minimum_margin_m": 3.7155654105179186,
+      "final_margin_m": 4.815365432738595,
+      "ever_outside_support_polygon": false
+    },
+    "stable_standing_diagnostic": {
+      "method": "diagnostic_only_final_state_thresholds",
+      "threshold_source": "solver.post_touchdown_lock_logic engineering thresholds plus Thies nozzle clearance requirement",
+      "flags": {
+        "all_legs_in_contact": true,
+        "vertical_velocity_within_limit": false,
+        "angular_rate_within_limit": false,
+        "support_margin_positive": true,
+        "final_nozzle_clearance_above_required": true
+      },
+      "all_flags_true": false,
+      "final_vertical_velocity_m_s": -0.38846344373297015,
+      "final_roll_deg": 0.2139112201599105,
+      "final_pitch_deg": -0.2107036256175153,
+      "final_angular_rate_deg_s": 0.9670641051522879,
+      "final_nozzle_clearance_m": 0.5681802452828256,
+      "required_nozzle_clearance_m": 0.5475
+    },
+    "post_touchdown_lock": {
+      "mode": "diagnostic_only",
+      "eligible_lock_time_s": null,
+      "actual_lock_actuated_time_s": null,
+      "actual_lock_final_state": false,
+      "stable_dwell_s": 1.0,
+      "vertical_velocity_limit_m_s": 0.05,
+      "angular_rate_limit_deg_s": 0.25
+    }
+  },
+  "wrench_summary": {
+    "max_surge_platform_force_mn": 0.3209550443910187,
+    "max_sway_platform_force_mn": 0.7241295846912649,
+    "max_downward_platform_force_mn": 19.168172936507343,
+    "max_roll_moment_mnm": 193.99793706433692,
+    "max_pitch_moment_mnm": 49.690100924532295,
+    "max_yaw_moment_mnm": 3.9522033673946178,
+    "max_lock_vertical_platform_force_mn": 0.0,
+    "max_lock_roll_platform_moment_mnm": 0.0,
+    "max_lock_pitch_platform_moment_mnm": 0.0,
+    "max_lock_yaw_platform_moment_mnm": 0.0
+  },
+  "wrench_action_reaction": {
+    "max_surge_action_reaction_residual_n": 0.0,
+    "max_sway_action_reaction_residual_n": 0.0,
+    "max_vertical_action_reaction_residual_n": 0.0,
+    "max_roll_moment_residual_nm": 0.0,
+    "max_pitch_moment_residual_nm": 0.0,
+    "max_yaw_moment_residual_nm": 0.0,
+    "max_omitted_horizontal_contact_force_n": 0.0,
+    "max_horizontal_contact_force_fed_back_n": 766821.5176578417,
+    "horizontal_force_feedback_included": true,
+    "lock_reaction_included": false,
+    "max_lock_vertical_platform_force_n": 0.0,
+    "max_lock_roll_platform_moment_nm": 0.0,
+    "max_lock_pitch_platform_moment_nm": 0.0,
+    "max_lock_yaw_platform_moment_nm": 0.0,
+    "contact_application_point": "Chrono spherical footpad center minus radius along the prescribed deck normal.",
+    "coordinate_frame": "Chrono world axes aligned with the HAMS reference axes; moments are about the moving platform reference point; HAMS forces use linearized spatial axes.",
+    "sign_convention": "Chrono contact and lock reactions act on the rocket/footpads. Platform generalized load is the equal and opposite [Fx,Fy,Fz,Mx,My,Mz].",
+    "resampling": "Voronoi-bin means; trapezoidal resultant impulse preserved, not work",
+    "check_scope": "algebraic assembly identity; not independent reaction measurement",
+    "impulse_residual_6dof": [
+      1.2596501619555056e-10,
+      -1.949956640601158e-09,
+      -2.8777867555618286e-07,
+      -3.121793270111084e-06,
+      -5.788169801235199e-07,
+      1.391163095831871e-08
+    ]
+  },
+  "coupling_work": {
+    "available": false,
+    "reason": "Independent contact-pair work requires actual contact-point forces, torques and velocities on both sides; the former origin/CG mixed proxy has been disabled.",
+    "contact_pair_work_j": null,
+    "contact_pair_dissipation_proxy_j": null
+  },
+  "absorber_work": {
+    "per_leg": {
+      "leg_1": {
+        "positive_compression_work_j": 153474.60791093868,
+        "net_force_stroke_work_j": 108775.68139509433
+      },
+      "leg_2": {
+        "positive_compression_work_j": 60552.104884273846,
+        "net_force_stroke_work_j": 16586.37355957988
+      },
+      "leg_3": {
+        "positive_compression_work_j": 189141.6134066881,
+        "net_force_stroke_work_j": 124944.5433697628
+      },
+      "leg_4": {
+        "positive_compression_work_j": 93574.97226455808,
+        "net_force_stroke_work_j": 54363.83208203599
+      }
+    },
+    "positive_compression_work_j": 496743.2984664587,
+    "net_force_stroke_work_j": 304670.430406473,
+    "definition": "Trapezoidal integral of the recorded TSDA force with respect to recorded compression stroke; it includes recoverable and dissipative terms and is not relabelled as pure damping loss."
+  },
+  "contact_impulse": {
+    "projected_normal_impulse_ns": 3911421.01022915,
+    "per_leg_normal_impulse_ns": {
+      "leg_1": 1017218.5894390107,
+      "leg_2": 854084.3393895582,
+      "leg_3": 1131560.2937004713,
+      "leg_4": 909257.1758542294
+    },
+    "total_normal_impulse_ns": 3912120.3983832696,
+    "definition": "Legacy key retained for compatibility: time integral of max(world Fz,0), NOT deck-normal impulse; see projected_normal_impulse_ns for the new quantity."
+  },
+  "rocket_energy": {
+    "available": false,
+    "reason": "Previous proxy mixed total vehicle mass with central-body velocity/inertia and omitted articulated-foot kinetic energy. No closed whole-vehicle energy claim is made."
+  },
+  "platform_summary": {
+    "heave_peak_m": 0.5884722485313363,
+    "roll_peak_deg": 1.834197261307918,
+    "pitch_peak_deg": 0.45210863334421353,
+    "heave_rms_m": 0.3396415692455668,
+    "roll_rms_deg": 1.1634394894419389,
+    "pitch_rms_deg": 0.28299604503909204,
+    "heave_velocity_peak_m_s": 0.30882008385322673,
+    "roll_rate_peak_deg_s": 1.3109537848768458,
+    "pitch_rate_peak_deg_s": 0.28990659884955533
+  },
+  "platform_energy": {
+    "initial_mechanical_energy_j": 0.0,
+    "final_mechanical_energy_j": 8492093.903348582,
+    "final_kinetic_energy_j": 6054039.764507685,
+    "final_hydrostatic_potential_energy_j": 2438054.1388408975,
+    "work_wave_j": -306466.98664791917,
+    "work_plume_j": 20706937.337621838,
+    "work_contact_feedback_j": -884169.5522074982,
+    "work_linear_damping_j": 0.0,
+    "work_radiation_j": -11024205.60909483,
+    "radiation_energy_proxy_absorbed_j": 11024205.60909483,
+    "platform_energy_residual_j": -1.286323007196188,
+    "platform_energy_residual_relative": -1.5147300793376393e-07,
+    "definition": "T_platform + U_hydrostatic; radiation energy is reported as negative radiation work proxy, not a hidden stored state"
+  }
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "old": "Footpad contact force",
+    "new": "Positive vertical foot force"
+  },
+  {
+    "old": "normal impulse (MN s)",
+    "new": "vertical impulse (MN s)"
+  },
+  {
+    "old": "Normal impulse (MN s)",
+    "new": "Vertical impulse (MN s)"
+  },
+  {
+    "old": "Same-platform partitioned response for a 15 m port-offset touchdown",
+    "new": "Archived pre-correction response: 15 m port-offset touchdown"
+  }
+]

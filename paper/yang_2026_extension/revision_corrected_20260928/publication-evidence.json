@@ -1,0 +1,129 @@
+{
+  "input_report_sha256": "8d474b94b8386e06e9db8aaa757129f8ff33eeb0b6ebb6780ad9c6813498129e",
+  "input_response_sha256": "49dc7ff6680a4a6213f53084280206b1527d06201b17927b5c92542eeddc6a56",
+  "raw_figure_source_sha256": "dbc454a57ca86e8abcf1199ef9d89ede1982335c3df86f4a35ff71330da653db",
+  "docx_sha256": "b5c6f9b01cf47d078fd7047ad1d7bbf01efa5381cbcdfd7ce2e6554a199854e9",
+  "native_equations_preserved": true,
+  "table4_source": "time_step_convergence.values",
+  "figure6_source": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end526_dt0.0005_kn1e+08\\pass04.json",
+  "changes": [
+    {
+      "old": "Author working draft, refined 27 September 2026 from the supplied 26 September revision. Figure 6 and Table 4 retain pre-correction contact results; corrected coupled integration remains pending.",
+      "new": "Corrected computational revision, 28 September 2026. Figure 6 and Table 4 use new coupled-contact integrations. Numerical qualification and physical validation are distinguished explicitly."
+    },
+    {
+      "old": "The archived full-scale calculation meets a 2% fixed-point update criterion after four passes but fails contact-refinement checks. Its inertia mapping, collision-deck reference and executed load transfer also require correction. The corresponding landing histories are retained solely as pre-correction diagnostics. Independent subproblem reruns support computational reproducibility within the stated scope; corrected coupled integration and renewed convergence tests are required before interpreting the full-scale contact loads or touchdown sequence physically.",
+      "new": "The corrected full-scale calculation meets the 2% interface update criterion after 4 passes. Its peak positive vertical foot force is 7.067 MN and peak buffer stroke is 127.52 mm. The contact-step study does not meet the joint 5% criterion. These are newly integrated responses of the stated proxy model, not validated full-scale landing loads."
+    },
+    {
+      "old": "The full-scale example is retained as a diagnostic pending the corrections described in Sections 2.4-2.5.",
+      "new": "The full-scale example uses the coordinate-consistent and impulse-preserving implementation described in Sections 2.4-2.5; its numerical limitations are assessed separately from the reduced drop-test comparison."
+    },
+    {
+      "old": "All archived full-scale contact histories in Section 4.4 precede this correction. The candidate implementation also closes mass, center of gravity and inertia",
+      "new": "The histories reported in Section 4.4 have been recomputed with the corrected mapping. The implementation closes mass, center of gravity and inertia"
+    },
+    {
+      "old": "The candidate recorder stores",
+      "new": "The integration-grid recorder stores"
+    },
+    {
+      "old": "Each foot has its own contact state. First contact, lift-off and re-contact are detected from sampled state transitions. Event times therefore inherit the contact step and threshold. The nominal integration step should not be confused with the spacing of a compact plotting history; peak and event audits require the original integration-grid records. Independent contact states are retained in the candidate implementation, but the reported pre-correction event sequence must be rerun after the inertia and reference corrections.",
+      "new": "Each foot has its own contact state. A sample is classified as contact when positive vertical force exceeds 100 N or normal penetration exceeds 10 micrometers. First contact, lift-off and re-contact are detected from transitions of this indicator, so event times inherit the contact step and these thresholds. Gravity activation separately uses the first force-threshold crossing. All recorded integration nodes are retained for peak and event audits; compact plotting histories are separate derived files. The event indicator and deck-normal force projection are distinct quantities."
+    },
+    {
+      "old": "The archived main calculation uses pointwise linear interpolation (`np.interp`) to transfer the sampled wrench. The interval-averaging routine elsewhere in the repository is not on this execution path, so the archived results do not use the conservative transfer previously described. The candidate correction integrates the piecewise-linear fine-grid wrench over control intervals bounded by target-time midpoints and divides each integral by its interval width. With identical source and target endpoints, the half-width endpoint intervals ensure that the target-grid trapezoidal impulse equals the source-grid impulse for each wrench component. This preserves resultant impulse under the stated quadrature; peak-load accuracy, interface work and platform response still require separate checks. The candidate transfer has not yet produced a corrected coupled landing history.",
+      "new": "The fine-grid wrench is integrated as a piecewise-linear function over intervals bounded by target-time midpoints. Each interval integral is divided by its width. With identical source and target endpoints, the half-width end intervals make the target-grid trapezoidal impulse equal to the fine-grid impulse in all six components. This operation replaces pointwise interpolation in the executed feedback path. It preserves resultant impulse, not force peaks or interface work; contact-step and platform-response accuracy require separate checks."
+    },
+    {
+      "old": "The archived main case uses four prescribed passes; the last update is then checked against a 2% criterion for the platform trajectory, peak vertical force, stroke, touchdown span and positive vertical impulse. This post-run check should not be described as an implemented adaptive stopping rule. The candidate runner applies the same criterion after at least two passes, up to eight, and reports failure when the limit is reached without closure.",
+      "new": "The same 2% update criterion is applied to the platform trajectory, peak positive vertical force, stroke, touchdown span and positive vertical impulse. Iteration stops after at least two passes when all criteria are met, with an eight-pass limit. Reaching that limit without closure is reported as failure. Production, time-step and stiffness cases use this identical stopping rule."
+    },
+    {
+      "old": "Figure 1 depicts the intended interface rather than certifying the archived implementation.",
+      "new": "Figure 1 depicts the implemented motion and resultant-load interface, not an independent contact-energy validation."
+    },
+    {
+      "old": "The contact archive does not use a geometrically identical collision deck: its box is 180 m by 54 m, with an unperturbed top surface at z=0. The current footprint remains away from the shorter intended barge edges, so this size discrepancy alone does not demonstrate an edge-contact error in the selected case. The elevation discrepancy nevertheless changes the lever arm of horizontal contact forces and must be corrected. The candidate deck reads the 120 m by 50 m dimensions and 3 m elevation from the barge configuration, and uses one rotation matrix for collision pose, plane geometry and angular velocity. All contact results predating that change are explicitly marked as archived diagnostics.",
+      "new": "The collision deck reads its 120 m by 50 m dimensions and 3 m elevation from the hydrodynamic-platform configuration. One rotation convention defines its collision pose, surface normal, local point coordinates and spatial angular velocity. The deck-center velocity includes the rotational offset from the platform reference point. Contact moments are evaluated about the instantaneous platform reference rather than an unrelated fixed world origin. The pre-correction archive is retained separately for traceability."
+    },
+    {
+      "old": "The archived landing example uses",
+      "new": "The corrected landing example uses"
+    },
+    {
+      "old": "The archived production interval is",
+      "new": "The production interval is"
+    },
+    {
+      "old": "The archived production calculation has four passes. Its contact-step study uses 0.0005, 0.00025 and 0.000125 s over 506-516 s with two passes, whereas the stiffness study uses 100, 250 and 500 MN/m at 0.000125 s over the same shorter interval with one pass. These different pass counts prevent a general claim of matched interface closure across the studies. The production and refinement values are therefore identified separately. The candidate runner applies the same 2% interface criterion to each case, retains every recorded contact-grid sample, and writes to a new output directory. Its complete Chrono rerun remains pending.",
+      "new": "The production calculation uses 4 interface passes over 506-526 s. The contact-step study uses 0.0005, 0.00025 and 0.000125 s over 506-516 s. Contact-stiffness cases use 100, 250 and 500 MN/m at 0.000125 s over that same shorter interval. All runs use the identical adaptive 2% interface criterion, and every recorded contact-grid node is retained. The 100 MN/m stiffness case reuses the identical finest-step calculation rather than rerunning it. Not all six distinct runs meet the interface criterion; physical parameters are not adjusted to force acceptance."
+    },
+    {
+      "old": "That separate review environment lacked PyChrono, and no corrected full-scale contact history is supplied.",
+      "new": "The separate review environment lacked PyChrono; the corrected integrations reported here were subsequently executed locally with the recorded Project Chrono 10.0.0 environment."
+    },
+    {
+      "old": "4.4 Archived sequential touchdown and platform feedback",
+      "new": "4.4 Corrected sequential touchdown and platform feedback"
+    },
+    {
+      "old": "Figure 6 and Table 4 document the archived pre-correction calculation. Wave, plume and contact forcing share the 120 m by 50 m hydrodynamic operator, but the inertia mapping, collision-deck reference and load-transfer implementation require the corrections identified in Section 2. The values below characterize that archived implementation and provide a baseline for subsequent comparison. They do not constitute corrected physical contact predictions.",
+      "new": "Figure 6 and Table 4 are regenerated from the corrected coupled calculations. Wave, plume and contact forcing use the same platform operator; the contact model uses the corrected inertia allocation, collision-deck reference and impulse-preserving load transfer. The original uncorrected histories are preserved outside this result set. The new calculations resolve the implementation defects without removing the separate limitations of the proxy mechanism, finite-startup wave state or constrained horizontal platform coordinates."
+    },
+    {
+      "old": "Within that implementation, the third-to-fourth pass changes the platform fixed-point metric by 0.145%, peak vertical contact force and absorber stroke by less than 0.001%, touchdown span by 0.87%, and positive vertical impulse by 0.03%. This satisfies the selected 2% interface update criterion for the archived production run. Fixed-point closure alone cannot correct an erroneous inertia, reference origin or load-transfer operation.",
+      "new": "The last production update has a platform fixed-point metric of 0.3135%. The largest relative change among peak force, stroke, touchdown span and positive vertical impulse is 1.7656%. Thus this run meets the selected 2% interface criterion after 4 passes. Interface closure tests repeatability of the partitioned trajectory and selected outputs; it does not establish time-step convergence or experimental accuracy."
+    },
+    {
+      "old": "The archived production sequence is legs 3, 4, 2 and 1 over 0.229 s, followed by seventeen lift-offs and seventeen re-contacts before all feet remain in contact. Peak platform heave, roll and pitch are 0.588 m, 1.834 deg and 0.452 deg. The assembled equal-and-opposite wrench residual is zero at output precision because both sides are constructed from the same force samples. It is retained as a bookkeeping check only. The maximum omitted components are 0.424 MN in surge, 1.453 MN in sway and 7.593 MN m in yaw. These loads cannot be treated as absent merely because the corresponding platform coordinates are constrained.",
+      "new": "The corrected initial-contact order is legs 3, 4, 1, 2, spanning 1.0195 s. Peak platform heave, roll and pitch are 0.5885 m, 1.8342 deg and 0.4521 deg. The assembled equal-and-opposite wrench residual remains an algebraic bookkeeping check because both arrays use the same foot-force samples. Surge, sway and yaw contact loads are calculated but not applied to platform motion; their omission is a model constraint, not evidence that these loads vanish."
+    },
+    {
+      "old": "The archived platform work ledger has a final residual of -15.6 J against approximately 2.42 MJ of final mechanical energy, a relative residual of -6.43e-6. A fresh integration driven by the archived contact wrench reproduces that platform response and ledger. This checks the discrete platform equation conditional on its input load. It neither independently recomputes the contact wrench nor closes vehicle propulsion, contact elasticity, articulated-body energy and platform motion into one conserved system. The mixed-origin contact-pair work proxy is not used as evidence.",
+      "new": "The platform work ledger checks the discrete platform equation under its applied input. It does not close vehicle propulsion, foot-contact elasticity, articulated-body kinetic energy and platform motion into one conserved system. The former mixed-origin contact-pair work proxy is disabled and stored as unavailable, rather than assigned a zero residual. An independent contact-pair energy balance remains outside the available evidence."
+    },
+    {
+      "old": "The archived step study does not qualify the contact outputs (Table 4). At 0.5, 0.25 and 0.125 ms, peak positive vertical force is 5.006, 6.701 and 6.630 MN; absorber stroke is 92.56, 81.50 and 73.32 mm; and touchdown span is 0.2225, 0.2648 and 0.0613 s. Changes from the middle to finest step are 1.07% for peak force and 4.90% for penetration, but 11.16% for stroke and more than 300% for touchdown span. Positive vertical impulse changes by less than 0.14%, and platform roll changes little within that study. These observations are conditional on two passes and the shorter time window. They do not establish convergence of the corrected four-pass production case.",
+      "new": "The corrected contact-step study does not meet its joint 5% criterion (Table 4). Interface outcomes are 0.5 ms: 4 passes, closed; 0.25 ms: 8 passes, not closed; 0.125 ms: 8 passes, not closed. From 0.25 to 0.125 ms, peak positive vertical force changes by 0.65%, buffer stroke by 5.22%, penetration by 1.02% and initial touchdown span by 6.55%. Positive vertical impulse changes by 0.128%. A small integral change does not bound peak or event-time error. These comparisons use matched 506-516 s intervals and the same stopping rule. Where interface closure fails, their differences mix iteration and time-step effects and cannot establish isolated time-step convergence."
+    },
+    {
+      "old": "The one-pass stiffness study gives a separate regularization sensitivity.",
+      "new": "The corrected stiffness study evaluates contact regularization using the same adaptive interface rule."
+    },
+    {
+      "old": "from 100 to 250 and 500 MN/m changes peak positive vertical force from 6.432 to 8.718 and 8.999 MN, and stroke from 73.60 to 84.91 and 94.16 mm. Penetration decreases from 52.42 to 23.64 and 12.65 mm. The corresponding positive vertical impulse is approximately 3.909 MN s. Its relative stability within this study does not resolve the different interface iteration count or provide a corrected physical impulse. In particular, one should not combine the 100 MN/m one-pass value with a different-pass time-step row as though they were the same run.",
+      "new": "from 100 to 250 and 500 MN/m gives peak positive vertical forces of 13.870, 15.869, 16.922 MN, and buffer strokes of 138.35, 145.21, 147.67 mm. Maximum penetrations are 69.82, 31.74, 16.91 mm. These are numerical sensitivities of the stated penalty law, not measured material behavior. The 100 MN/m entry is exactly the finest-step run in Table 4. Any run that reaches the eight-pass limit without interface closure remains unqualified; increasing stiffness alone does not establish an accurate contact load."
+    },
+    {
+      "old": "At 526 s, the archived calculation has all four feet in contact and positive nozzle-clearance and support-polygon diagnostics. The final vertical speed is -0.0799 m/s and angular-rate magnitude is 0.588 deg/s, exceeding the selected settling limits of 0.05 m/s and 0.25 deg/s. Thus, even the archived diagnostic does not indicate stable standing within the simulated interval.",
+      "new": "At 526 s, the corrected calculation has 4 feet in contact. Its final world-vertical speed is -0.0256 m/s and angular-rate magnitude is 0.2509 deg/s. The selected standing-diagnostic flag is false. These checks use prescribed 0.05 m/s and 0.25 deg/s limits and are not a measured landing-success criterion. In particular, absolute vehicle velocity is not a substitute for relative vehicle-deck settling on a moving platform."
+    },
+    {
+      "old": "The stored multibody response contains 3638 samples, compared with 40,001 nominal contact-grid samples over 20 s. Its median spacing is 0.0055 s rather than the 0.0005 s integration step. Integrating the compact history gives a positive vertical impulse approximately 0.132% different from the archived full-grid summary. That comparison assesses one integral and does not bound the error in peaks or event times omitted during compression. The candidate recorder writes all recorded per-pass integration nodes separately from plotting histories. Until corrected dynamics and those records are available, the archived sequence remains a numerical diagnostic.",
+      "new": "The production history retains 40,001 actual integration-grid records per pass, including both endpoints. All 33 retained histories pass sample-count, time-spacing and hash checks. The largest absolute source-to-target impulse residual across six components is 4.75e-06 in the corresponding N s or N m s units. This is a quadrature-transfer check, not a contact-work balance. Figures use the retained raw history; compact animation records are derived products and are not substituted for peak or event audits."
+    },
+    {
+      "old": "A corrected assessment requires consistent inertia axes and deck references, conservative resultant-load transfer, and complete recorded contact histories. Production, step-refinement and stiffness cases must satisfy the same interface-closure criterion, with impulse comparisons restricted to a common time window. Figure 6, Table 4 and the associated contact claims can then be regenerated from one corrected output set. The wave-screening and reduced-test results retain their separate evidence and limitations; they cannot substitute for this coupled calculation.",
+      "new": "The corrected calculations now use consistent inertia axes and deck references, conservative resultant-load transfer and complete recorded contact histories. Their contact-refinement and interface outcomes are reported without suppressing failed metrics. Wave-screening and reduced-test comparisons retain their separate evidence and limitations; neither validates this full-scale mechanism. Remaining numerical or physical limitations are not resolved merely by correcting implementation errors."
+    },
+    {
+      "old": "Its original inertia mapping and deck datum are inconsistent, and its reported transfer method differs from the executed code. Contact refinement is incomplete,",
+      "new": "The inertia mapping, deck datum and executed transfer path have been corrected and rerun. Contact numerical qualification remains incomplete,"
+    },
+    {
+      "old": "The archived landing meets its final update criterion after four passes, but contact-refinement and stable-standing criteria remain unmet. Inertia-axis mapping, collision-deck reference and load transfer introduce additional implementation errors that require a complete corrected rerun. The supplied candidate changes have analytical tests but no corrected contact history. Consequently, the reported contact forces, strokes and touchdown sequence remain pre-correction diagnostics and do not qualify design loads or operational limits.",
+      "new": "The corrected full-scale calculation meets the 2% interface update criterion after 4 passes. Its peak positive vertical foot force is 7.067 MN and peak buffer stroke is 127.52 mm. The contact-step study does not meet the joint 5% criterion. These are newly integrated responses of the stated proxy model, not validated full-scale landing loads. Independent coupled experiments, measured mechanism properties and a wider numerical assessment remain necessary before design or operational use."
+    },
+    {
+      "old": "The project repository and accompanying review package contain case inputs, meshes, locally generated hydrodynamic outputs, deck-point response operators, realization-level wave statistics, digitized reference targets, compact multibody histories, refinement summaries and figure-generation code. The main archived multibody history is downsampled. The review package separately records the specified subproblem reruns, file hashes, comparison scripts and candidate source changes. File identity checks connect those records to their inputs; they do not establish experimental authenticity or physical accuracy.",
+      "new": "The project contains case inputs, meshes, locally generated hydrodynamic outputs, deck-point response operators, realization-level wave statistics, digitized comparison targets and figure-generation code. Corrected contact results are stored separately from the pre-correction archive, with per-pass integration histories, source and runtime identities, file hashes, impulse-transfer audits and refinement results. File identity and reproducibility do not establish experimental authenticity or physical accuracy."
+    },
+    {
+      "old": "The absence of PyChrono in the separate review environment limits that assessment, not the availability of the source code. No corrected coupled history or renewed contact-convergence evidence is included in this manuscript version.",
+      "new": "Corrected coupled histories and renewed contact-refinement results are included in this revision. The retained environment manifest and per-pass hashes identify the local execution and generated data; unsuccessful qualification checks remain explicitly reported."
+    }
+  ],
+  "all_interface_runs_closed": false,
+  "contact_step_pass": false
+}

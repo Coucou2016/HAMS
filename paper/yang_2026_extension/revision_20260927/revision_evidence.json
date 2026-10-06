@@ -1,0 +1,177 @@
+{
+  "status": "EDITORIAL_REVISION_WITH_CORRECTED_CONTACT_RERUN_PENDING",
+  "source_docx": "20260925-审稿意见\\HAMS_manuscript_revised.docx",
+  "source_docx_sha256": "0a101666b28abb51d0aea16c2f6ffa80f8fe601b3f3cf82fb7d238d65e31059f",
+  "source_markdown_sha256": "c9ae5b75373f9e5d27939d4a16ee0bd1657225c15293715828ea13a76d0dec65",
+  "output_docx_sha256": "a4055bca34beae65c7f5be2311c51dc8f22c7d0a9c32bc412377e0829ef635eb",
+  "output_markdown_sha256": "f0704542b55bab2a668371f56bd9b693f80998fa2ba07ed7e8b6ed34f4c3ae7c",
+  "reference_evidence": [
+    {
+      "path": "20260925-审稿意见\\independent_checks.json",
+      "sha256": "81ab8750100e1af8bddfda27888d2a455713b988b825eba3785211c13d4fdad2"
+    },
+    {
+      "path": "20260925-审稿意见\\fresh_hams_comparison.json",
+      "sha256": "73a825b9022ec7c66c5c47376f8a8b99deff682d37baa332b71cb673d7a5287f"
+    },
+    {
+      "path": "20260925-审稿意见\\HAMS_论文审查与真实性证据.md",
+      "sha256": "6e34f5100a410a5af1af84e7c1194beff46219a6f138996c52929faffb5cf91f"
+    }
+  ],
+  "checks": {
+    "source_preserved": true,
+    "all_tables_identical": true,
+    "all_omml_identical": true,
+    "all_embedded_images_identical": true,
+    "tables": 4,
+    "omml_objects": 100,
+    "figures": 8,
+    "candidate_original_hashes_match": true
+  },
+  "execution_scope": "Editorial refinement, supplied-evidence cross-checks and patch applicability dry-run only. No candidate patch installed and no corrected coupled simulation executed in this revision.",
+  "supplied_review_execution_environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "numpy": "2.3.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "review_date": "2026-09-26"
+  },
+  "candidate_patch_preflight": [
+    {
+      "path": "analysis/rocket_recovery/review_integrity.py",
+      "expected_sha256": null,
+      "actual_sha256": null,
+      "matches": true
+    },
+    {
+      "path": "analysis/rocket_recovery/chrono_leg_model.py",
+      "expected_sha256": "f40a2bfb889a2e24c70f6b405ecd5d218d7d2cb74a7bc11f383259faa7fb824f",
+      "actual_sha256": "f40a2bfb889a2e24c70f6b405ecd5d218d7d2cb74a7bc11f383259faa7fb824f",
+      "matches": true
+    },
+    {
+      "path": "analysis/rocket_recovery/chrono_two_way_recovery.py",
+      "expected_sha256": "b30f3b931929e6b025184eb4e3d6b84733cf9b1d99cfc1fa32689ab48a8261fa",
+      "actual_sha256": "b30f3b931929e6b025184eb4e3d6b84733cf9b1d99cfc1fa32689ab48a8261fa",
+      "matches": true
+    },
+    {
+      "path": "analysis/rocket_recovery/chrono_same_platform_multibody.py",
+      "expected_sha256": "dfa6d89a538e58669e207ed5c53fbe4a457f0cdea8634850e96a7b99a59da8f1",
+      "actual_sha256": "dfa6d89a538e58669e207ed5c53fbe4a457f0cdea8634850e96a7b99a59da8f1",
+      "matches": true
+    }
+  ],
+  "changes": [
+    {
+      "old": "Landing on a floating platform depends on the motion at the intended contact points, which can differ substantially from the motion at the platform reference point. We formulate a partitioned calculation that links frequency-domain hydrodynamics, a radiation-memory platform model and a four-foot multibody landing model. Complex deck-point response operators preserve the phase relationships between translation and rotation. Individual feet can contact, lift off and re-contact, and their resultant force and moment are returned to the platform model. The evidence is separated into reproducibility checks, limited submodel comparisons and an unqualified full-scale example. In a reduced comparison with the drop tests of Yang et al., calibration on simultaneous touchdown gives buffer-stroke peak errors below 4.1% in two withheld sequences. Acceleration and force histories are not reproduced adequately, and 127 of 128 multi-start fits are near-optimal, precluding unique parameter identification. For a prescribed 120 m by 50 m barge, the sampled heave response reaches 1.113 m/m. The selected medium-to-fine mesh change is 5.88%, exceeding the 5% criterion. Random-wave screening uses 1000 realizations per condition and bootstrap intervals; 41 of 63 conditions pass a preliminary linear-motion screen. The archived landing calculation satisfies a 2% fixed-point update criterion after four passes, but local contact metrics fail refinement checks. Further implementation review identifies an incorrect transfer of the literature inertia between coordinate systems, a deck-reference mismatch and point interpolation where conservative load transfer was stated. Those landing histories are retained as pre-correction diagnostics, not corrected results. The reproducible subcalculations support the deck-motion analysis, while the full coupled landing requires corrected integration and renewed convergence tests before its loads or touchdown sequence can be interpreted physically.",
+      "new": "Landing on a floating platform depends on motion at the contact points, where platform rotation contributes to both displacement and velocity. A partitioned formulation combines frequency-domain wave-body interaction, finite-band radiation memory and independent four-foot contact. Complex response operators transfer platform motion to the landing footprint, and the contact wrench supplies the platform feedback. A reduced comparison with the drop tests of Yang et al. gives buffer-stroke peak errors below 4.1% for two asymmetric sequences using parameters fitted only to simultaneous touchdown. Acceleration and force histories remain discrepant, while 127 of 128 multi-start fits are near-optimal, indicating poor practical identifiability. For a prescribed 120 m by 50 m barge, the sampled heave response reaches 1.113 m/m. The selected medium-to-fine mesh change is 5.88%, above the 5% criterion. Screening with 1000 random-wave realizations per condition and bootstrap intervals places 41 of 63 conditions within a preliminary linear-motion envelope. These statistics describe finite-record deck-motion extremes, not landing success. The archived full-scale calculation meets a 2% fixed-point update criterion after four passes but fails contact-refinement checks. Its inertia mapping, collision-deck reference and executed load transfer also require correction. The corresponding landing histories are retained solely as pre-correction diagnostics. Independent subproblem reruns support computational reproducibility within the stated scope; corrected coupled integration and renewed convergence tests are required before interpreting the full-scale contact loads or touchdown sequence physically.",
+      "reason_cn": "摘要按方法、分层结果和适用范围组织，保留失败结论及全部关键数值。"
+    },
+    {
+      "old": "This study examines that interface within the existing open-source hydrodynamic and multibody solvers. The work consists of complex-response transfer to the landing center and four-foot footprint, independent foot-contact states, and feedback of vertical force and roll/pitch moments to the same platform operator. These are an implementation and assessment contribution; the boundary-element formulation, radiation-memory relation and rigid-body transformations are established methods. Code checks, the reduced drop-test comparison and the full-scale example are assessed separately. Agreement with a 5.2 t drop test is not used to validate the different full-scale vehicle. Powered descent, guidance, propellant sloshing, dynamic positioning and nonlinear free-surface effects are outside the model. The full-scale example remains conditional on the corrections and reruns described below.",
+      "new": "This study develops and assesses the interface between linear platform hydrodynamics and independent four-foot contact. The formulation transfers complex platform response operators to the landing center and footprint, resolves separate foot-contact states, and returns vertical force and roll/pitch moments to the same platform operator. Its contribution lies in the motion and load interfaces, case construction and numerical assessment; the boundary-element, radiation-memory and rigid-body formulations are established methods. The reduced 5.2 t drop-test comparison and the full-scale example are evaluated separately because they use different vehicle models and parameters. Powered descent, guidance, propellant sloshing, dynamic positioning and nonlinear free-surface effects are outside the present scope. The full-scale example is retained as a diagnostic pending the corrections described in Sections 2.4-2.5.",
+      "reason_cn": "用研究框架界定贡献，软件实现归属留在方法和数据可用性部分。"
+    },
+    {
+      "old": "The archived main calculation transfers the sampled wrench with pointwise linear interpolation (`np.interp`). Although an interval-averaging routine exists elsewhere in the repository, it is not called by that calculation. The earlier statement that the reported contact histories used conservative interval averaging is therefore corrected. The supplied candidate transfer integrates a piecewise-linear fine-grid wrench over cells bounded by target-time midpoints and divides by each cell width. Half-width endpoint cells make the target-grid trapezoidal resultant impulse equal to the source-grid trapezoidal impulse. This is a numerical transfer property, not proof of work conservation, contact convergence or correct physical loading. Corrected landing histories have not yet been produced by a complete Chrono rerun.",
+      "new": "The archived main calculation uses pointwise linear interpolation (`np.interp`) to transfer the sampled wrench. The interval-averaging routine elsewhere in the repository is not on this execution path, so the archived results do not use the conservative transfer previously described. The candidate correction integrates the piecewise-linear fine-grid wrench over control intervals bounded by target-time midpoints and divides each integral by its interval width. With identical source and target endpoints, the half-width endpoint intervals ensure that the target-grid trapezoidal impulse equals the source-grid impulse for each wrench component. This preserves resultant impulse under the stated quadrature; peak-load accuracy, interface work and platform response still require separate checks. The candidate transfer has not yet produced a corrected coupled landing history.",
+      "reason_cn": "补足守恒重采样的同覆盖区间条件，区分算法性质与已执行路径。"
+    },
+    {
+      "old": "Equal-and-opposite arrays are constructed in the wrench reducer. Their zero residual verifies sign assembly, but is not an independent measurement of the deck reaction. An independent reaction audit would require solver-recorded reactions on the second body or an independently derived benchmark. Similarly, a wrench about the platform origin cannot be paired with central-body velocity at the vehicle center of gravity to establish contact work. Forces act on articulated foot bodies. The former mixed-reference contact-work proxy is disabled rather than reported as a verified energy balance. Figure 1 shows the intended interface; it does not certify the legacy implementation.",
+      "new": "The wrench reducer constructs equal-and-opposite arrays from the same foot-force samples. A zero residual therefore checks sign and reference-point assembly rather than independently verifying the deck reaction. An independent comparison requires reactions recorded on the second body or a separate benchmark. Contact power also requires force, moment and velocity to refer to the same point on each body. Pairing a platform-origin moment with the vehicle center-of-gravity velocity does not satisfy that requirement, particularly when the forces act on articulated feet. The mixed-reference work proxy is excluded from the energy evidence; Figure 1 depicts the intended interface rather than certifying the archived implementation.",
+      "reason_cn": "用同点功率关系解释审查发现，删除重复的答辩式强调。"
+    },
+    {
+      "old": "The independent review rebuilt the supplied Fortran source, ran the configured Cylinder case, and ran the medium barge at 0.6, 0.65, 0.775, 0.8 and 1.0 rad/s over seven headings. The selected diagonal hydrodynamic coefficients match the retained medium outputs at file precision, and principal motion amplitudes differ only at near-zero roundoff level. Other very small coupling entries are not bitwise identical. The fresh Cylinder comparison still shows a substantive damping discrepancy against the supplied benchmark, discussed with the detailed numerical evidence. These limited executions do not replace the missing full certification result.",
+      "new": "A separate reproducibility assessment rebuilt the supplied Fortran source, ran the configured Cylinder case, and evaluated the medium barge at 0.6, 0.65, 0.775, 0.8 and 1.0 rad/s for seven headings. At these frequencies, the selected diagonal hydrodynamic coefficients match the archived medium outputs at file precision, and the principal motion amplitudes differ only at roundoff level. Some very small coupling entries differ between runs. The Cylinder comparison retains a substantive damping discrepancy against the supplied benchmark, quantified in Section 4.2. These executions establish reproducibility for the specified outputs and do not complete solver certification.",
+      "reason_cn": "明确复算覆盖范围，将评价放到对应结果节。"
+    },
+    {
+      "old": "The review also independently integrated all three reduced drop-test cases, repeated the simultaneous-case fit, reconstructed 1000 random-phase records for one critical sea condition, and replayed the platform equation with archived contact forcing. Those are the reruns actually completed. PyChrono is absent from the review environment, so a fresh full-scale contact solve and the candidate corrections have not been dynamically verified here. No experimental dataset for the complete present barge-vehicle combination is supplied. Its full-scale use remains an unvalidated numerical example.",
+      "new": "The same assessment integrated the three reduced drop-test cases, repeated the simultaneous-case fit, reconstructed 1000 phase realizations for one critical sea condition, and replayed the platform equation under archived contact forcing. The supplied execution records identify the inputs, environment and comparisons for these checks. That separate review environment lacked PyChrono, and no corrected full-scale contact history is supplied. Platform replay under an existing wrench therefore provides a subproblem check, not a new coupled landing calculation. No experiment for the complete modeled barge-vehicle combination is available for validation.",
+      "reason_cn": "将外部审查环境与当前工作机区分，避免把所给日志写成本轮新运行。"
+    },
+    {
+      "old": "Figure 6 and Table 4 retain the archived, pre-correction contact calculations. Their wave, plume and contact forcing use the same 120 m by 50 m hydrodynamic operator, but the inertia mapping and collision-deck reference do not satisfy the required consistency checks. They must therefore be replaced by corrected reruns before serving as physical contact evidence. The following numbers describe what the archived implementation computed; they are not asserted to survive the candidate changes.",
+      "new": "Figure 6 and Table 4 document the archived pre-correction calculation. Wave, plume and contact forcing share the 120 m by 50 m hydrodynamic operator, but the inertia mapping, collision-deck reference and load-transfer implementation require the corrections identified in Section 2. The values below characterize that archived implementation and provide a baseline for subsequent comparison. They do not constitute corrected physical contact predictions.",
+      "reason_cn": "集中声明旧接触结果身份，保留数据和待重算状态。"
+    },
+    {
+      "old": "The stored multibody response contains 3638 samples rather than all 40,001 nominal contact-grid samples over the 20 s interval. Its median spacing is 0.0055 s, despite the 0.0005 s integration setting. A compact-history integral differs from the archived full-grid positive vertical impulse summary by approximately 0.132%. This loss is small for that particular integral but cannot bound missed peaks or reconstruct omitted event samples. The candidate output keeps raw per-pass histories separately from compact plotting records. Until those histories and corrected dynamics exist, Figure 6 remains a record of an unqualified implementation, not evidence of landing success.",
+      "new": "The stored multibody response contains 3638 samples, compared with 40,001 nominal contact-grid samples over 20 s. Its median spacing is 0.0055 s rather than the 0.0005 s integration step. Integrating the compact history gives a positive vertical impulse approximately 0.132% different from the archived full-grid summary. That comparison assesses one integral and does not bound the error in peaks or event times omitted during compression. The candidate recorder writes all recorded per-pass integration nodes separately from plotting histories. Until corrected dynamics and those records are available, the archived sequence remains a numerical diagnostic.",
+      "reason_cn": "区分积分节点、压缩记录和汇总值，保留不可恢复高频信息的限制。"
+    },
+    {
+      "old": "The immediate revision can remain within the present scientific scope. It requires the coordinate and reference corrections, conservative resultant-load transfer, complete raw contact records, and matched interface closure for the existing production, step and stiffness cases. The corrected outputs must be regenerated before updating Figure 6, Table 4 and any associated numerical claims. The wave and reduced-test sections need provenance clarification and targeted hydrodynamic checks rather than replacement by a new research program.",
+      "new": "A corrected assessment requires consistent inertia axes and deck references, conservative resultant-load transfer, and complete recorded contact histories. Production, step-refinement and stiffness cases must satisfy the same interface-closure criterion, with impulse comparisons restricted to a common time window. Figure 6, Table 4 and the associated contact claims can then be regenerated from one corrected output set. The wave-screening and reduced-test results retain their separate evidence and limitations; they cannot substitute for this coupled calculation.",
+      "reason_cn": "把工作安排式语言改为数值评估要求，保留最小复算顺序。"
+    },
+    {
+      "old": "A partitioned formulation links frequency-domain wave-body response, finite-band radiation memory and independent foot-contact states. Transforming complex response operators to the landing footprint preserves the local phase relationships that a reference-point-only treatment omits. Reducing foot forces to a reference-point wrench provides the required feedback interface. The current evidence supports these formulated operations more strongly than it supports the archived full-scale landing trajectory.",
+      "new": "The partitioned formulation links frequency-domain wave-body response, finite-band radiation memory and independent foot-contact states through local deck kinematics and a reference-point wrench. Transforming complex response operators preserves phase relationships across the landing footprint, while wrench reduction includes the moment of offset contact forces. These interfaces define the proposed calculation; their predictive accuracy must be assessed separately from the reproducibility of each subproblem.",
+      "reason_cn": "结论先陈述方法功能，再说明证据对应的判断。"
+    },
+    {
+      "old": "The archived landing satisfies its final fixed-point update criterion after four passes but fails contact-refinement and stable-standing criteria. More fundamentally, the inertia-frame error, deck-reference mismatch and nonconservative executed load transfer require a corrected complete rerun. Candidate corrections and unit tests are supplied, but no corrected contact history is reported in this revision. The archived peak forces, strokes and touchdown sequence remain diagnostic records and cannot be used as qualified design loads, evidence of successful landing or operational limits.",
+      "new": "The archived landing meets its final update criterion after four passes, but contact-refinement and stable-standing criteria remain unmet. Inertia-axis mapping, collision-deck reference and load transfer introduce additional implementation errors that require a complete corrected rerun. The supplied candidate changes have analytical tests but no corrected contact history. Consequently, the reported contact forces, strokes and touchdown sequence remain pre-correction diagnostics and do not qualify design loads or operational limits.",
+      "reason_cn": "收束结论，保留未修复实现错误及未完成重算的实质限定。"
+    },
+    {
+      "old": "The supplied archive contains case inputs, meshes, locally generated hydrodynamic outputs, deck-point response operators, realization-level wave statistics, digitized reference targets, compact multibody histories, refinement summaries and figure-generation code. The main archived multibody history is downsampled; it must not be described as the complete integration-grid record. The review package adds fresh rerun outputs for the explicitly listed subcalculations, source and output hashes, numerical comparison scripts, a candidate code patch and a separate integrity review.",
+      "new": "The project repository and accompanying review package contain case inputs, meshes, locally generated hydrodynamic outputs, deck-point response operators, realization-level wave statistics, digitized reference targets, compact multibody histories, refinement summaries and figure-generation code. The main archived multibody history is downsampled. The review package separately records the specified subproblem reruns, file hashes, comparison scripts and candidate source changes. File identity checks connect those records to their inputs; they do not establish experimental authenticity or physical accuracy.",
+      "reason_cn": "将数据可用性改成可核查的材料清单，避免自证式表述。"
+    },
+    {
+      "old": "Published absorber curves, drop-test traces and vehicle parameters remain external inputs or comparison targets with attribution. They are distinct from model-generated response files. HAMS and Project Chrono are third-party solver dependencies; using them does not make their source code a new contribution of this work. Hashes establish file identity, not authorship, experimental authenticity or physical correctness. The review environment lacks PyChrono, and the supplied archive is not a self-contained replacement for that runtime. Full corrected contact results, their complete histories and renewed convergence evidence remain outstanding.",
+      "new": "Published absorber curves and vehicle parameters are attributed model inputs; digitized drop-test traces are external comparison targets. Model-generated responses are stored separately. HAMS and Project Chrono are third-party solver dependencies, while the present implementation supplies the case configuration, interfaces and analyses described here. The absence of PyChrono in the separate review environment limits that assessment, not the availability of the source code. No corrected coupled history or renewed contact-convergence evidence is included in this manuscript version.",
+      "reason_cn": "保留第三方求解器和参考材料归属，消除环境范围歧义。"
+    },
+    {
+      "old": "A Partitioned Hydromechanical Framework for Four Leg Reusable Launch Vehicle Landing on a Floating Barge",
+      "new": "A Partitioned Hydromechanical Framework for Four-Leg Reusable Launch Vehicle Landing on a Floating Barge",
+      "reason_cn": "标题复合修饰语统一。"
+    },
+    {
+      "old": "are returned to the present platform equation because horizontal restoring data are unavailable.",
+      "new": "are returned to the present platform equation under the imposed surge, sway and yaw constraints.",
+      "reason_cn": "图1图注与正文一致：缺少恢复力数据不等于水平自由度物理静止。"
+    },
+    {
+      "old": "Failing entries remain failures even when neighboring curves appear smooth.",
+      "new": "The criterion is applied to the selected numerical entries rather than inferred from curve smoothness.",
+      "reason_cn": "保留判据，调整审稿答辩式语气。"
+    },
+    {
+      "old": "The latter is not rounded down to a pass.",
+      "new": "The medium-to-fine comparison therefore does not meet the stated criterion.",
+      "reason_cn": "直接陈述网格比较结论。"
+    },
+    {
+      "old": "### 4.3 Random-wave motion at the actual foot locations",
+      "new": "### 4.3 Random-wave motion at the modeled foot locations",
+      "reason_cn": "支腿布置是模型输入，不是真实型号测量几何。"
+    },
+    {
+      "old": "Actual feet use the 6.926 m-radius layout;",
+      "new": "Modeled feet use the 6.926 m-radius layout;",
+      "reason_cn": "图5与代理几何定义一致。"
+    },
+    {
+      "old": "The source values are unchanged; labels identify their actual meaning. No panel represents a corrected Chrono rerun.",
+      "new": "All panels retain pre-correction values; corrected coupled results remain pending.",
+      "reason_cn": "图6保留明确状态，压缩重复措辞。"
+    },
+    {
+      "old": "The ensemble demonstrates non-uniqueness of the fitted physical parameters.",
+      "new": "The ensemble shows non-uniqueness of the fitted effective model parameters.",
+      "reason_cn": "图S1不将观测映射比等有效系数称为独立物理部件参数。"
+    },
+    {
+      "old": "> **Revision status — 26 September 2026.** Full-text scientific and language revision. Sections, equations, all four tables and eight figures are retained. Figure 6 and Table 4 contain explicitly labeled pre-correction results. No new corrected Chrono landing run is claimed. The separate review document identifies the required reruns before submission.",
+      "new": "> Author working draft, refined 27 September 2026 from the supplied 26 September revision. Figure 6 and Table 4 retain pre-correction contact results; corrected coupled integration remains pending.",
+      "reason_cn": "保留工作稿及待重算标签，区分用户审稿日期与本次小修日期。"
+    }
+  ]
+}

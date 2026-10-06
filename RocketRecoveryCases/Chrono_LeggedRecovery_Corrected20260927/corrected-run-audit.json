@@ -1,0 +1,99 @@
+{
+  "histories": [
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927\\raw\\end526_dt0.0005_kn1e+08\\pass01.json",
+      "sha256": "25bd0189dd53a106361db5ed8739e2eda0dddcb5f2b69620f906509d5503e28a",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 9186749.798786903,
+      "positive_vertical_force_peak_n": 9171790.759485908,
+      "transfer_impulse_residual_6dof": [
+        3.926743374904618e-09,
+        1.3598764780908823e-08,
+        -1.4901161193847656e-08,
+        8.642673492431641e-07,
+        -1.3783574104309082e-06,
+        -1.3496901374310255e-09
+      ],
+      "transfer_max_abs_residual": 1.3783574104309082e-06,
+      "transfer_relative_l1_residual_6dof": [
+        8.109616328711114e-15,
+        5.519626529925609e-15,
+        1.4988841833420274e-15,
+        5.5528593748835635e-15,
+        7.180902653781695e-14,
+        1.3843716059771392e-16
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927\\raw\\end526_dt0.0005_kn1e+08\\pass02.json",
+      "sha256": "5e24e23a6120348e975df2e4340490c8d63d67f46b57b99c91eb6a45b6276e01",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 9459694.995576778,
+      "positive_vertical_force_peak_n": 9445004.599925604,
+      "transfer_impulse_residual_6dof": [
+        2.999286152771674e-09,
+        -6.657501216977835e-10,
+        -8.195638656616211e-08,
+        -5.066394805908203e-07,
+        -9.834766387939453e-07,
+        -2.094930096063763e-08
+      ],
+      "transfer_max_abs_residual": 9.834766387939453e-07,
+      "transfer_relative_l1_residual_6dof": [
+        1.197560832549814e-15,
+        1.3406457312283424e-15,
+        8.245251297389005e-15,
+        3.2653641422695744e-15,
+        4.030093370667049e-14,
+        5.339607356144864e-16
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927\\raw\\end526_dt0.0005_kn1e+08\\pass03.json",
+      "sha256": "4ceac0e82cbb39e5051e2dfc36ddc3f0e8f6c3a9ec1c1f83f832a9e111d1ce7b",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 7088094.787201049,
+      "positive_vertical_force_peak_n": 7087639.501200761,
+      "transfer_impulse_residual_6dof": [
+        3.350123733980581e-09,
+        -4.929461283609271e-09,
+        -1.601874828338623e-07,
+        -1.5497207641601562e-06,
+        -1.0980293154716492e-06,
+        -3.305649443063885e-08
+      ],
+      "transfer_max_abs_residual": 1.5497207641601562e-06,
+      "transfer_relative_l1_residual_6dof": [
+        7.284963588080687e-15,
+        1.9394605003307466e-15,
+        1.6115320241166544e-14,
+        1.0088882427025517e-14,
+        8.260259549804077e-14,
+        4.085514345514837e-15
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    }
+  ],
+  "completed_report_exists": false,
+  "all_histories_complete": true,
+  "interface_closed": null,
+  "contact_step_pass": null,
+  "scope": "Grid retention, file identity and impulse transfer; not independent contact-energy closure"
+}

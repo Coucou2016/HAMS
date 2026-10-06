@@ -1,0 +1,242 @@
+{
+  "scope": "Document preservation, supplied-evidence comparison, and PDF layout checks; no new physics execution.",
+  "docx_sha256": "a4055bca34beae65c7f5be2311c51dc8f22c7d0a9c32bc412377e0829ef635eb",
+  "pdf_sha256": "c65234c49e1568785705e1adc66987eae954c4beb5a71731fc189685d1a3d01d",
+  "pdf_pages": 19,
+  "structure_preserved": true,
+  "table3_against_supplied_independent_checks": [
+    {
+      "case": "Y0_simultaneous",
+      "channel": "acceleration_up_m_s2",
+      "actual": [
+        "0.181",
+        "0.537",
+        "51.9%"
+      ],
+      "evidence_rounded": [
+        "0.181",
+        "0.537",
+        "51.9%"
+      ],
+      "matches": true
+    },
+    {
+      "case": "Y0_simultaneous",
+      "channel": "strut_force_n",
+      "actual": [
+        "0.118",
+        "0.611",
+        "18.2%"
+      ],
+      "evidence_rounded": [
+        "0.118",
+        "0.611",
+        "18.2%"
+      ],
+      "matches": true
+    },
+    {
+      "case": "Y0_simultaneous",
+      "channel": "stroke_m",
+      "actual": [
+        "0.101",
+        "0.911",
+        "1.7%"
+      ],
+      "evidence_rounded": [
+        "0.101",
+        "0.911",
+        "1.7%"
+      ],
+      "matches": true
+    },
+    {
+      "case": "Y1_1-2-1",
+      "channel": "acceleration_up_m_s2",
+      "actual": [
+        "0.232",
+        "0.707",
+        "29.2%"
+      ],
+      "evidence_rounded": [
+        "0.232",
+        "0.707",
+        "29.2%"
+      ],
+      "matches": true
+    },
+    {
+      "case": "Y1_1-2-1",
+      "channel": "strut_force_n",
+      "actual": [
+        "0.305",
+        "-0.071",
+        "6.7%"
+      ],
+      "evidence_rounded": [
+        "0.305",
+        "-0.071",
+        "6.7%"
+      ],
+      "matches": true
+    },
+    {
+      "case": "Y1_1-2-1",
+      "channel": "stroke_m",
+      "actual": [
+        "0.377",
+        "0.332",
+        "4.0%"
+      ],
+      "evidence_rounded": [
+        "0.377",
+        "0.332",
+        "4.0%"
+      ],
+      "matches": true
+    },
+    {
+      "case": "Y2_2-2",
+      "channel": "acceleration_up_m_s2",
+      "actual": [
+        "0.132",
+        "0.801",
+        "39.2%"
+      ],
+      "evidence_rounded": [
+        "0.132",
+        "0.801",
+        "39.2%"
+      ],
+      "matches": true
+    },
+    {
+      "case": "Y2_2-2",
+      "channel": "strut_force_n",
+      "actual": [
+        "0.192",
+        "0.543",
+        "18.7%"
+      ],
+      "evidence_rounded": [
+        "0.192",
+        "0.543",
+        "18.7%"
+      ],
+      "matches": true
+    },
+    {
+      "case": "Y2_2-2",
+      "channel": "stroke_m",
+      "actual": [
+        "0.106",
+        "0.899",
+        "3.0%"
+      ],
+      "evidence_rounded": [
+        "0.106",
+        "0.899",
+        "3.0%"
+      ],
+      "matches": true
+    }
+  ],
+  "page_checks": [
+    {
+      "page": 1,
+      "text_characters": 4226,
+      "text_outside_page": []
+    },
+    {
+      "page": 2,
+      "text_characters": 3880,
+      "text_outside_page": []
+    },
+    {
+      "page": 3,
+      "text_characters": 3362,
+      "text_outside_page": []
+    },
+    {
+      "page": 4,
+      "text_characters": 4098,
+      "text_outside_page": []
+    },
+    {
+      "page": 5,
+      "text_characters": 4004,
+      "text_outside_page": []
+    },
+    {
+      "page": 6,
+      "text_characters": 1746,
+      "text_outside_page": []
+    },
+    {
+      "page": 7,
+      "text_characters": 1325,
+      "text_outside_page": []
+    },
+    {
+      "page": 8,
+      "text_characters": 3698,
+      "text_outside_page": []
+    },
+    {
+      "page": 9,
+      "text_characters": 4525,
+      "text_outside_page": []
+    },
+    {
+      "page": 10,
+      "text_characters": 3467,
+      "text_outside_page": []
+    },
+    {
+      "page": 11,
+      "text_characters": 1267,
+      "text_outside_page": []
+    },
+    {
+      "page": 12,
+      "text_characters": 2492,
+      "text_outside_page": []
+    },
+    {
+      "page": 13,
+      "text_characters": 2471,
+      "text_outside_page": []
+    },
+    {
+      "page": 14,
+      "text_characters": 1696,
+      "text_outside_page": []
+    },
+    {
+      "page": 15,
+      "text_characters": 1537,
+      "text_outside_page": []
+    },
+    {
+      "page": 16,
+      "text_characters": 4320,
+      "text_outside_page": []
+    },
+    {
+      "page": 17,
+      "text_characters": 4567,
+      "text_outside_page": []
+    },
+    {
+      "page": 18,
+      "text_characters": 860,
+      "text_outside_page": []
+    },
+    {
+      "page": 19,
+      "text_characters": 2270,
+      "text_outside_page": []
+    }
+  ],
+  "all_checks_pass": true
+}

@@ -1,0 +1,8 @@
+{
+  "archive_sha256": "e3d25aef5918d5bb55370c9a733724f5d58283e9a9047e64ebf03c9c95777845",
+  "archive_bytes": 392474698,
+  "file_members": 3702,
+  "unchanged_member_count": 3702,
+  "nonmatching": [],
+  "method": "Every ZIP file member checked against extracted size and CRC; full SHA-256 source manifest stored separately. Original archive not modified."
+}

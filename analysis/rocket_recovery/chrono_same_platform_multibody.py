@@ -1,7 +1,14 @@
 from __future__ import annotations
 
+try:
+    from .review_integrity import thies_total_inertia_z_up, allocate_central_body, retain_full_history
+except ImportError:
+    from review_integrity import thies_total_inertia_z_up, allocate_central_body, retain_full_history
+
+
 import argparse
 import copy
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -38,10 +45,11 @@ except ImportError:
 
 
 ROOT = Path(__file__).resolve().parents[2]
-CASE_ROOT = ROCKET_CASES_DIR / "Chrono_LeggedRecovery"
+CASE_ROOT = ROCKET_CASES_DIR / "Chrono_LeggedRecovery_Review20260926"
 WANG_CONFIG_PATH = ROCKET_CASES_DIR / "Paper_WangZhi_2023" / "platform_config.json"
 REPORT_PATH = CASE_ROOT / "chrono-same-platform-multibody-report.json"
 RESPONSE_PATH = CASE_ROOT / "Output" / "RocketRecovery" / "chrono-same-platform-multibody-response.json"
+RESUME = False
 
 
 def landing_config(
@@ -57,47 +65,35 @@ def landing_config(
     config["solver"]["output_step_s"] = float(output_dt_s if output_dt_s is not None else contact_dt_s)
     if contact_stiffness_n_m is not None:
         config["contact"]["normal_stiffness_n_m"] = float(contact_stiffness_n_m)
+    platform = read_json(ROCKET_CASES_DIR / "Barge_120x50" / "platform_config.json")["platform"]
+    config["solver"]["deck_geometry_m"] = {"length": platform["length_m"], "beam": platform["beam_m"], "height": platform["deck_z_m"]}
+    M = float(config["rocket"]["landing_mass_kg"])
+    target_cg = np.array([0.0, 0.0, config["rocket"]["cog_from_base_m"]])
+    radius = float(config["legs"]["footpad_radius_m"])
+    foot_mass = float(config["legs"]["footpad_mass_kg"])
+    az = np.radians(config["legs"]["azimuths_deg"])
+    r = float(config["legs"]["footprint_radius_m"])
+    foot_cg = np.column_stack([r*np.cos(az), r*np.sin(az), np.full(len(az), radius)])
+    child_I = np.array([np.eye(3)*0.4*foot_mass*radius**2 for _ in az])
+    core_mass, core_cg, core_I = allocate_central_body(M, target_cg, thies_total_inertia_z_up(),
+                                                   np.full(len(az), foot_mass), foot_cg, child_I)
+    if np.max(np.abs(core_I-np.diag(np.diag(core_I)))) > 1e-6:
+        raise ValueError("Current symmetric proxy requires diagonal central inertia")
+    config["rocket"]["cog_from_base_m"] = float(core_cg[2])
+    config["rocket"]["inertia_kg_m2"] = dict(zip(("roll_x","pitch_y","yaw_z"), np.diag(core_I).tolist()))
+    config["rocket"]["review_reference_allocation"] = {
+        "total_cg_m":target_cg.tolist(), "total_inertia_z_up":thies_total_inertia_z_up().tolist(),
+        "central_mass_kg":core_mass, "central_cg_m":core_cg.tolist(), "central_inertia":core_I.tolist(),
+        "scope":"reference configuration closure of the assumed four-sphere-foot proxy, not recovered CAD"}
     if not apply_thies_digitized_buffer_law(config, required=True):
         raise RuntimeError("The digitized Thies absorber law was not applied")
     return config
 
 
 def coupling_work_audit(sim: dict[str, Any], force6: dict[str, Any]) -> dict[str, Any]:
-    time = np.asarray(sim["time_s"], dtype=float)
-    platform_wrench = np.asarray(force6["samples_6dof"], dtype=float)
-    rocket_wrench = -platform_wrench
-    deck = sim["deck"]
-    rocket = sim["rocket"]
-    platform_velocity = np.column_stack(
-        [
-            np.asarray(deck["surge_m_s"], dtype=float),
-            np.asarray(deck["sway_m_s"], dtype=float),
-            np.asarray(deck["heave_m_s"], dtype=float),
-            np.asarray(deck["roll_rad_s"], dtype=float),
-            np.asarray(deck["pitch_rad_s"], dtype=float),
-            np.asarray(deck["yaw_rad_s"], dtype=float),
-        ]
-    )
-    rocket_velocity = np.column_stack(
-        [
-            np.gradient(np.asarray(rocket["cg_x_m"], dtype=float), time),
-            np.gradient(np.asarray(rocket["cg_y_m"], dtype=float), time),
-            np.asarray(rocket["vertical_velocity_m_s"], dtype=float),
-            np.asarray(rocket["roll_rate_rad_s"], dtype=float),
-            np.asarray(rocket["pitch_rate_rad_s"], dtype=float),
-            np.asarray(rocket["yaw_rate_rad_s"], dtype=float),
-        ]
-    )
-    platform_work = float(np.trapezoid(np.einsum("ni,ni->n", platform_wrench, platform_velocity), time))
-    rocket_work = float(np.trapezoid(np.einsum("ni,ni->n", rocket_wrench, rocket_velocity), time))
-    pair_work = platform_work + rocket_work
-    return {
-        "platform_contact_work_j": platform_work,
-        "rocket_contact_work_j": rocket_work,
-        "contact_pair_work_j": pair_work,
-        "contact_pair_dissipation_proxy_j": max(0.0, -pair_work),
-        "definition": "Generalized equal-and-opposite contact wrench dotted with recorded platform and rocket generalized velocities; unresolved contact elastic energy is not hidden.",
-    }
+    # A net wrench about the platform origin cannot be dotted with rocket-CG
+    # velocity. Contact forces act on articulated foot bodies, not one rigid core.
+    return {"available": False, "reason": "Independent contact-pair work requires actual contact-point forces, torques and velocities on both sides; the former origin/CG mixed proxy has been disabled.", "contact_pair_work_j": None, "contact_pair_dissipation_proxy_j": None}
 
 
 def absorber_work_audit(sim: dict[str, Any]) -> dict[str, Any]:
@@ -131,42 +127,15 @@ def contact_impulse_audit(sim: dict[str, Any]) -> dict[str, Any]:
         per_leg[leg_id] = impulse
         total_force += force
     return {
+        "projected_normal_impulse_ns": float(sum(np.trapezoid(np.asarray(v),time) for v in sim["forces"].get("leg_contact_normal_force_n", {}).values())) if "leg_contact_normal_force_n" in sim["forces"] else None,
         "per_leg_normal_impulse_ns": per_leg,
         "total_normal_impulse_ns": float(np.trapezoid(total_force, time)),
-        "definition": "Time integral of the recorded non-negative footpad contact-force magnitudes; this is a convergence metric, not a net six-DOF impulse.",
+        "definition": "Legacy key retained for compatibility: time integral of max(world Fz,0), NOT deck-normal impulse; see projected_normal_impulse_ns for the new quantity.",
     }
 
 
 def rocket_energy_audit(sim: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
-    time = np.asarray(sim["time_s"], dtype=float)
-    contact_count = np.sum(np.asarray(list(sim["contact"]["leg_contact"].values()), dtype=int), axis=0)
-    contact_indices = np.flatnonzero(contact_count > 0)
-    first = int(contact_indices[0]) if len(contact_indices) else 0
-    mass = float(config["rocket"]["landing_mass_kg"])
-    inertia = config["rocket"]["inertia_kg_m2"]
-    vz = np.asarray(sim["rocket"]["vertical_velocity_m_s"], dtype=float)
-    rates = np.column_stack(
-        [
-            np.asarray(sim["rocket"]["roll_rate_rad_s"], dtype=float),
-            np.asarray(sim["rocket"]["pitch_rate_rad_s"], dtype=float),
-            np.asarray(sim["rocket"]["yaw_rate_rad_s"], dtype=float),
-        ]
-    )
-    inertia_values = np.asarray([inertia["roll_x"], inertia["pitch_y"], inertia["yaw_z"]], dtype=float)
-    kinetic = 0.5 * mass * vz**2 + 0.5 * np.sum(inertia_values[None, :] * rates**2, axis=1)
-    z = np.asarray(sim["rocket"]["cg_z_m"], dtype=float)
-    gravity_work = mass * float(config["solver"]["gravity_m_s2"]) * float(z[first] - z[-1])
-    return {
-        "first_contact_sample_time_s": float(time[first]),
-        "kinetic_energy_at_first_contact_j": float(kinetic[first]),
-        "final_kinetic_energy_j": float(kinetic[-1]),
-        "kinetic_energy_change_j": float(kinetic[-1] - kinetic[first]),
-        "gravity_work_after_first_contact_j": gravity_work,
-        "nominal_precontact_translational_energy_j": 0.5
-        * mass
-        * float(config["rocket"]["touchdown_vertical_velocity_m_s"]) ** 2,
-        "scope": "Translational vertical plus published rotational inertias; horizontal kinetic energy is omitted and reported through this scope statement.",
-    }
+    return {"available": False, "reason": "Previous proxy mixed total vehicle mass with central-body velocity/inertia and omitted articulated-foot kinetic energy. No closed whole-vehicle energy claim is made."}
 
 
 def run_passes(
@@ -175,9 +144,11 @@ def run_passes(
     retain_response: bool,
     end_s: float = 526.0,
     contact_stiffness_n_m: float | None = None,
+    adaptive: bool = False,
 ) -> dict[str, Any]:
     study = default_study_config()
     study["time_domain"]["end_s"] = float(end_s)
+    study["platform"]["deck_reference_z_m"] = 3.0
     study["plume"]["vehicle_platform_consistency"] = "pre_touchdown_only"
     study["plume"]["cutoff_time_s"] = float(study["time_domain"]["touchdown_reference_s"])
     operator = load_platform_operator(study)
@@ -191,13 +162,42 @@ def run_passes(
     baseline = solve_platform(operator, study, wang_config, wave, platform_time, np.zeros((len(platform_time), 3)))
     current = baseline
     config = landing_config(contact_dt_s, end_s=end_s, contact_stiffness_n_m=contact_stiffness_n_m)
+    run_directory = CASE_ROOT / 'raw' / f"end{end_s:g}_dt{contact_dt_s:g}_kn{config['contact']['normal_stiffness_n_m']:g}"
+    config_path = run_directory / 'run-config.json'
+    if config_path.exists():
+        if read_json(config_path) != config:
+            raise ValueError(f'Checkpoint configuration differs: {config_path}')
+    else:
+        if run_directory.exists() and list(run_directory.glob('pass*.json')):
+            raise ValueError('Cannot resume histories without their recorded configuration')
+        write_json(config_path, config)
     offset = {"x": 0.0, "y": 15.0}
     rows: list[dict[str, Any]] = []
     final_sim: dict[str, Any] | None = None
     final_force6: dict[str, Any] | None = None
     for pass_index in range(1, pass_count + 1):
+        print(f"Running end={end_s:g}, dt={contact_dt_s:g}, pass={pass_index}", flush=True)
         motion = deck_motion_from_arrays(platform_time, current["q_active"], current["qd_active"], offset)
-        sim = ChronoTripodLegModel(config, motion).run()
+        motion.reference_height_m = float(config["solver"]["deck_geometry_m"]["height"])
+        raw_path = CASE_ROOT / "raw" / f"end{end_s:g}_dt{contact_dt_s:g}_kn{config['contact']['normal_stiffness_n_m']:g}" / f"pass{pass_index:02d}.json"
+        if raw_path.exists() and RESUME:
+            previous = read_json(raw_path.with_suffix('.audit.json'))
+            raw = previous['raw_history']
+            if hashlib.sha256(raw_path.read_bytes()).hexdigest() != raw['sha256']:
+                raise ValueError(f'Checkpoint hash mismatch: {raw_path}')
+            sim = read_json(raw_path)
+            expected = round((end_s - config['solver']['start_s']) / contact_dt_s) + 1
+            if len(sim['time_s']) != expected:
+                raise ValueError('Checkpoint does not contain every contact-grid node')
+            # Reconstruct the applied trajectory before accepting an old pass.
+            samples = [motion.sample(t) for t in sim['time_s']]
+            for key in ('heave_m', 'roll_rad', 'pitch_rad', 'heave_m_s', 'roll_rad_s', 'pitch_rad_s'):
+                if not np.allclose(sim['deck'][key], [s[key] for s in samples], rtol=1e-12, atol=1e-12):
+                    raise ValueError(f'Checkpoint deck trajectory differs: {key}')
+            print(f'Verified and replayed checkpoint pass {pass_index}', flush=True)
+        else:
+            sim = ChronoTripodLegModel(config, motion).run()
+            raw = retain_full_history(raw_path, sim)
         force6 = generalized_leg_force_from_chrono_6dof(
             sim,
             platform_time,
@@ -208,6 +208,7 @@ def run_passes(
         rows.append(
             {
                 "pass": pass_index,
+                "raw_history": raw,
                 "trajectory_change": trajectory_difference(current, updated),
                 "contact_summary": sim["summary"],
                 "wrench_summary": force6["summary"],
@@ -223,9 +224,15 @@ def run_passes(
         current = updated
         final_sim = sim
         final_force6 = force6
+        write_json(raw_path.with_suffix('.audit.json'), rows[-1])
+        print(f"Completed pass {pass_index}: peak Fz={sim['summary']['max_leg_contact_force_kn']:.6g} kN", flush=True)
+        if adaptive and pass_index >= 2 and coupling_iteration_summary(rows)["comparisons"][-1]["pass_2_percent"]:
+            break
     if final_sim is None or final_force6 is None:
         raise RuntimeError("No coupling pass was executed")
     result: dict[str, Any] = {
+        "qualification_status": "computed_corrected_proxy_requires_numerical_and_physical_qualification",
+        "run_config": config,
         "contact_dt_s": contact_dt_s,
         "platform_dt_s": float(study["time_domain"]["platform_dt_s"]),
         "passes": rows,
@@ -264,6 +271,7 @@ def run_passes(
             "multibody": compact,
             "platform_wrench_6dof": np.asarray(final_force6["values_6dof"]).tolist(),
         }
+    write_json(raw_path.parent / 'run-result.json', result)
     return result
 
 
@@ -369,30 +377,36 @@ def contact_regularization_summary(runs: dict[str, dict[str, Any]]) -> dict[str,
 
 
 def build_report(skip_convergence: bool = False) -> dict[str, Any]:
-    iterative = run_passes(4, 0.0005, retain_response=True, end_s=526.0)
+    iterative = run_passes(8, 0.0005, retain_response=True, end_s=526.0, adaptive=True)
     algorithm_rows = {
         "prescribed_deck": iterative["passes"][0]["contact_summary"],
         "one_pass_platform_update": iterative["passes"][0],
         "two_pass_platform_update": iterative["passes"][1],
-        "four_pass_platform_update": iterative["passes"][3],
+        "last_platform_update": iterative["passes"][-1],
     }
     convergence_runs: dict[str, dict[str, Any]] = {}
     regularization_runs: dict[str, dict[str, Any]] = {}
     if not skip_convergence:
-        convergence_runs["dt"] = run_passes(2, 0.0005, retain_response=False, end_s=516.0)
-        convergence_runs["dt_over_2"] = run_passes(2, 0.00025, retain_response=False, end_s=516.0)
-        convergence_runs["dt_over_4"] = run_passes(2, 0.000125, retain_response=False, end_s=516.0)
+        convergence_runs["dt"] = run_passes(8, 0.0005, retain_response=False, end_s=516.0, adaptive=True)
+        convergence_runs["dt_over_2"] = run_passes(8, 0.00025, retain_response=False, end_s=516.0, adaptive=True)
+        convergence_runs["dt_over_4"] = run_passes(8, 0.000125, retain_response=False, end_s=516.0, adaptive=True)
         for stiffness_mn_m in (100.0, 250.0, 500.0):
+            if stiffness_mn_m == 100.0:
+                regularization_runs["kn_100_MN_m"] = convergence_runs["dt_over_4"]
+                continue
             regularization_runs[f"kn_{stiffness_mn_m:g}_MN_m"] = run_passes(
-                1,
+                8,
                 0.000125,
                 retain_response=False,
                 end_s=516.0,
                 contact_stiffness_n_m=stiffness_mn_m * 1.0e6,
+                adaptive=True,
             )
     report = {
         "case_id": "Barge120x50_ThiesProxy_ChronoExplicitContact",
-        "status": "computed_multibody_partitioned_case_study_not_full_scale_validation",
+        "status": "corrected_coupled_computation_completed_not_load_qualified",
+        "correction_scope": "inertia frame/reference allocation, deck datum/pose, conservative transfer, raw retention, matched interface tolerance",
+        "all_interface_runs_closed": all(coupling_iteration_summary(x["passes"])["pass"] for x in [iterative,*convergence_runs.values(),*regularization_runs.values()]),
         "same_platform_chain": "120x50x7 HAMS operator + deterministic JONSWAP wave force + Wang plume-force profile truncated at touchdown + four-leg multibody contact",
         "algorithms": algorithm_rows,
         "iterative_run": {key: value for key, value in iterative.items() if key != "response"},
@@ -402,16 +416,16 @@ def build_report(skip_convergence: bool = False) -> dict[str, Any]:
             contact_regularization_summary(regularization_runs) if regularization_runs else {"enabled": False}
         ),
         "validation_hierarchy": {
-            "level_1_code_verification": ["action-reaction wrench residual", "mass closure", "contact coefficient-mode audit", "time-step refinement"],
-            "level_2_submodel_validation": ["HAMS benchmark", "digitized Thies absorber law", "Yang reduced-model comparison"],
+            "level_1_code_verification": ["algebraic wrench assembly identity, not independent reaction verification", "reference-configuration mass closure", "contact coefficient-mode audit", "time-step refinement including failures"],
+            "level_2_submodel_validation": ["limited Yang reduced-model comparison only; HAMS benchmark unresolved and digitized Thies law is an input, not validation"],
             "level_3_literature_trend_cross_check": ["eccentric touchdown excites roll/pitch", "Wang plume force used only as labelled forcing profile"],
-            "level_4_full_coupled_validation": "not available; no public full-scale sea-touchdown experiment exists for this configuration",
+            "level_4_full_coupled_validation": "not available in the supplied evidence; no matched full-scale sea-touchdown experiment has been verified for this configuration",
         },
         "limitations": [
             "Only heave, roll and pitch are returned to the platform because no mooring/DP horizontal restoring matrix is available.",
             "The four-leg geometry and digitized absorber curves are literature-based proxies, not vehicle CAD or qualification data.",
             "The 120x50 barge uses generated homogeneous mass/inertia properties, not as-built inclining-test data.",
-            "Coupling is partitioned replay; four passes diagnose fixed-point sensitivity but do not constitute a monolithic solve.",
+            "Coupling is partitioned replay with adaptive fixed-point stopping; it is not a monolithic solve and remains unqualified if closure or refinement gates fail.",
             "The production response is continued to 526 s to assess post-touchdown settling; time-step refinement uses the shorter 516 s impact window because its acceptance metrics are impact-local.",
         ],
         "output_response": str(RESPONSE_PATH.relative_to(ROOT).as_posix()),
@@ -422,9 +436,16 @@ def build_report(skip_convergence: bool = False) -> dict[str, Any]:
 
 
 def main() -> None:
+    global CASE_ROOT, REPORT_PATH, RESPONSE_PATH, RESUME
     parser = argparse.ArgumentParser(description="Run the actual four-leg multibody model on the same 120x50 HAMS platform operator.")
     parser.add_argument("--skip-convergence", action="store_true")
+    parser.add_argument("--output-dir", type=Path, default=CASE_ROOT)
+    parser.add_argument("--resume", action="store_true", help="Verify retained histories and rebuild their platform feedback before continuing")
     args = parser.parse_args()
+    CASE_ROOT = args.output_dir.resolve()
+    REPORT_PATH = CASE_ROOT / 'chrono-same-platform-multibody-report.json'
+    RESPONSE_PATH = CASE_ROOT / 'Output' / 'RocketRecovery' / 'chrono-same-platform-multibody-response.json'
+    RESUME = args.resume
     report = build_report(skip_convergence=args.skip_convergence)
     print(f"Report: {REPORT_PATH}")
     print(f"Response: {RESPONSE_PATH}")

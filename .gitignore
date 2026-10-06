@@ -284,3 +284,24 @@ SourceCode/*.mod
 !visualization/snapshots/**
 !visualization/vendor/
 !visualization/vendor/**
+
+# --- GitHub 100 MiB plain-Git hard limit: excluded raw histories ---
+# These files cannot be pushed to GitHub without Git LFS. See EXCLUDED_LARGE_FILES.json
+# for SHA256, size and the retained per-run audit summaries.
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn1e+08/pass01.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn1e+08/pass02.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn1e+08/pass03.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn1e+08/pass04.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn1e+08/pass05.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn1e+08/pass06.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn1e+08/pass07.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn1e+08/pass08.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn2.5e+08/pass01.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn2.5e+08/pass02.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn2.5e+08/pass03.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn2.5e+08/pass04.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn2.5e+08/pass05.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn2.5e+08/pass06.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn2.5e+08/pass07.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn5e+08/pass01.json
+/RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn5e+08/pass02.json

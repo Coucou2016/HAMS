@@ -1,6 +1,18 @@
 # 杨少斐 2026 主参考论文复现说明
 
-## 当前入口（2026-09-20）
+## 最新修正重算稿（2026-09-28）
+
+当前版本为 `revision_corrected_20260928/HAMS_manuscript_corrected_20260928.docx` 及同名 PDF。惯量换轴、甲板几何与参考点、主调用路径的守恒传力已落实，并完成六组真实接触计算，共保存 33 轮完整时历、1,920,033 个记录节点。图 6 和表 4 已由新输出生成，不再使用修正前接触结果。重建入口为 `publish_corrected_contact.py`。
+
+独立证据说明见该目录的 `修正重算审查.md`、`publication-evidence.json` 和 `delivery-validation.json`。76 项测试通过，但不等于物理验证通过：0.25 ms 和 0.125 ms 算例在八轮后仍未满足接口条件，行程与触地时间跨度的中细步长差异分别为 5.22% 和 6.55%。本版仍不是已通过数值验收的投稿终稿。
+
+## 历史作者小修稿（2026-09-27）
+
+当前阅读版本位于 `revision_20260927/HAMS_manuscript_refined_20260927.docx` 及同名 PDF，以用户 2026-09-26 的 `HAMS_manuscript_revised` 为底稿。小修 Markdown、22 处差异、说明和结构一致性记录均在该目录。原稿的四张表、八幅图和 100 个公式对象保留。
+
+本轮为论文编辑和证据核对，候选补丁尚未安装、修正后的完整接触运行尚未完成。图 6 和表 4 保留修正前诊断身份。不要使用旧 `build_manuscript_docx.py` 覆盖此稿；重建入口为 `refine_review_20260927.py`。
+
+## 历史入口（2026-09-20）
 
 - 正文以 `manuscript.md`、`Coupled_Hydrodynamic_FourLeg_Sea_Landing_Manuscript.docx` 和 `Coupled_Hydrodynamic_FourLeg_Sea_Landing_Manuscript_Review20260920.pdf` 为准。原无日期 PDF 被阅读器占用，本轮保留并输出独立日期版，避免误认旧版为最新。
 - 本轮交叉审稿逐项判断及未关闭事项见 `GITHUB_REVIEW_ASSESSMENT_CN.md`。

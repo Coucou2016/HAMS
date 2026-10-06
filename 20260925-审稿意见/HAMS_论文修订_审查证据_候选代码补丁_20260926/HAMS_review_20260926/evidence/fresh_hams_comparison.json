@@ -1,0 +1,2574 @@
+{
+  "scope": "Fresh Fortran solver; medium only five anchor frequencies. Comparison is of parsed Hydrostar .rao values; not the original all-format certification comparator.",
+  "compiler": "GNU Fortran (Debian 14.2.0-19) 14.2.0",
+  "binary_sha256": "09e2fefa2b51d744d3d4449229ea398ebd8ac5bcf7db67efedbd38c6f778bfc6",
+  "medium_five_anchors_vs_archived": {
+    "files": 84,
+    "rows": [
+      {
+        "file": "Hydrostar_format/AddedMass_11.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_12.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.2901409e-08,
+        "max_difference_over_file_max": 0.8208700272002799,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_13.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.7826904e-08,
+        "max_difference_over_file_max": 1.645830994629014,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_14.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.3659310000000005e-07,
+        "max_difference_over_file_max": 0.6402153647989977,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_15.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_16.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 9.068172e-07,
+        "max_difference_over_file_max": 1.3817295183206728,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_21.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.4836087e-08,
+        "max_difference_over_file_max": 1.1348306715746839,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_22.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_23.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 8.962524000000001e-08,
+        "max_difference_over_file_max": 0.6425706485268055,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_24.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_25.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 5.865354e-06,
+        "max_difference_over_file_max": 0.6873722168379036,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_26.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 8.881907e-07,
+        "max_difference_over_file_max": 0.7077132145830926,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_31.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.1299460000000002e-08,
+        "max_difference_over_file_max": 0.5075969892300917,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_32.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.3159113e-07,
+        "max_difference_over_file_max": 0.8591192911396371,
+        "count_outside_10pct_plus1e-7": 7
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_33.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_34.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.4046677000000002e-06,
+        "max_difference_over_file_max": 0.23818084118583452,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_35.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.3979853e-05,
+        "max_difference_over_file_max": 1.926060674029127,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_36.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.6211565e-06,
+        "max_difference_over_file_max": 0.8474176121439267,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_41.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 5.922846e-07,
+        "max_difference_over_file_max": 1.2758031597574122,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_42.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_43.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.929981e-06,
+        "max_difference_over_file_max": 1.0001134994344114,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_44.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_45.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.000186706868,
+        "max_difference_over_file_max": 0.668558523395823,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_46.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.4076260000000002e-05,
+        "max_difference_over_file_max": 0.8456278673450537,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_51.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_52.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.64017e-06,
+        "max_difference_over_file_max": 1.0834020848044166,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_53.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 4.866782e-06,
+        "max_difference_over_file_max": 0.5035445245590089,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_54.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 4.96029e-05,
+        "max_difference_over_file_max": 0.5903615074428212,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_55.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_56.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.5891310000000008e-05,
+        "max_difference_over_file_max": 0.1857492547807029,
+        "count_outside_10pct_plus1e-7": 21
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_61.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.94351e-06,
+        "max_difference_over_file_max": 1.4900926789175397,
+        "count_outside_10pct_plus1e-7": 14
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_62.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.82479968e-06,
+        "max_difference_over_file_max": 1.0487824626621194,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_63.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 5.9554880000000005e-06,
+        "max_difference_over_file_max": 1.1859663977833508,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_64.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 9.653897999999999e-05,
+        "max_difference_over_file_max": 2.374160771780093,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_65.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.00013797167,
+        "max_difference_over_file_max": 0.9215060902019113,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_66.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_1.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 6.077147000000001e-09,
+        "max_difference_over_file_max": 1.0596864366555803e-15,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_2.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 5.769868000000001e-08,
+        "max_difference_over_file_max": 4.091837979365886e-15,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_3.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_4.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.545600000000001e-07,
+        "max_difference_over_file_max": 1.7745843445584542e-15,
+        "count_outside_10pct_plus1e-7": 5
+      },
+      {
+        "file": "Hydrostar_format/Excitation_5.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 7.260647e-07,
+        "max_difference_over_file_max": 1.2827556294438619e-15,
+        "count_outside_10pct_plus1e-7": 2
+      },
+      {
+        "file": "Hydrostar_format/Excitation_6.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.301407e-06,
+        "max_difference_over_file_max": 4.204215758391022e-15,
+        "count_outside_10pct_plus1e-7": 10
+      },
+      {
+        "file": "Hydrostar_format/Motion_1.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 8.066448000000001e-16,
+        "max_difference_over_file_max": 2.9270378541569904e-15,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_2.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 4.1782329999999995e-15,
+        "max_difference_over_file_max": 6.4778976936838426e-15,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_3.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_4.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 8.607683000000001e-16,
+        "max_difference_over_file_max": 6.546722411180948e-15,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_5.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 6.70259e-17,
+        "max_difference_over_file_max": 2.2736312855605235e-15,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_6.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 4.229069999999999e-17,
+        "max_difference_over_file_max": 5.8874752128727664e-15,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_11.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_12.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.5138989e-08,
+        "max_difference_over_file_max": 1.2450819678872411,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_13.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 6.454684e-08,
+        "max_difference_over_file_max": 1.6101733010468013,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_14.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 5.8537988e-07,
+        "max_difference_over_file_max": 5.889751018165083,
+        "count_outside_10pct_plus1e-7": 14
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_15.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_16.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 5.871989e-07,
+        "max_difference_over_file_max": 0.8874032480047369,
+        "count_outside_10pct_plus1e-7": 21
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_21.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.43617213e-08,
+        "max_difference_over_file_max": 1.065452065698235,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_22.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_23.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 8.318054000000001e-08,
+        "max_difference_over_file_max": 0.7136346399677417,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_24.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_25.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.05014e-06,
+        "max_difference_over_file_max": 1.2436160574858581,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_26.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 6.650220999999999e-07,
+        "max_difference_over_file_max": 0.41432436844112047,
+        "count_outside_10pct_plus1e-7": 14
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_31.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 5.1852109999999995e-08,
+        "max_difference_over_file_max": 0.7123650270893771,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_32.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.51626417e-07,
+        "max_difference_over_file_max": 1.29300599659238,
+        "count_outside_10pct_plus1e-7": 7
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_33.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_34.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.4347102e-06,
+        "max_difference_over_file_max": 0.623679537597367,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_35.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.6348354e-06,
+        "max_difference_over_file_max": 0.5412766158955495,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_36.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.4624750000000005e-06,
+        "max_difference_over_file_max": 0.5857065690899348,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_41.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 7.622102e-07,
+        "max_difference_over_file_max": 0.839827660238615,
+        "count_outside_10pct_plus1e-7": 21
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_42.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_43.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.6801007e-06,
+        "max_difference_over_file_max": 0.8475803624688788,
+        "count_outside_10pct_plus1e-7": 14
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_44.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_45.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 6.30208e-05,
+        "max_difference_over_file_max": 0.5108661024134915,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_46.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.765027e-05,
+        "max_difference_over_file_max": 0.3589175353552686,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_51.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_52.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.1236133e-06,
+        "max_difference_over_file_max": 0.7352765735412194,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_53.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.0870904e-06,
+        "max_difference_over_file_max": 1.0047156789963942,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_54.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 4.6817400000000003e-05,
+        "max_difference_over_file_max": 0.7954146775240061,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_55.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_56.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.9617960000000004e-05,
+        "max_difference_over_file_max": 0.323073885607387,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_61.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 1.7089767999999998e-07,
+        "max_difference_over_file_max": 0.12359502228573618,
+        "count_outside_10pct_plus1e-7": 7
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_62.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.310248e-06,
+        "max_difference_over_file_max": 3.1730231337999877,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_63.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 3.9603616e-06,
+        "max_difference_over_file_max": 0.8092401887564299,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_64.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 2.369471e-05,
+        "max_difference_over_file_max": 0.529842968230276,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_65.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.000229463,
+        "max_difference_over_file_max": 1.1011181390358216,
+        "count_outside_10pct_plus1e-7": 28
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_66.rao",
+        "field": "amplitudes",
+        "frequency_count": 5,
+        "value_count": 35,
+        "max_absolute_difference": 0.0,
+        "max_difference_over_file_max": 0.0,
+        "count_outside_10pct_plus1e-7": 0
+      }
+    ],
+    "max_file_scaled_amplitude_difference": 5.889751018165083,
+    "files_with_nonzero_amplitude_difference": 62
+  },
+  "cylinder_vs_archived": {
+    "files": 84,
+    "rows": [
+      {
+        "file": "Hydrostar_format/AddedMass_11.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0020000000000095497,
+        "max_difference_over_file_max": 2.01016742685458e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_12.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00030850000000004485,
+        "max_difference_over_file_max": 9.133698997100453e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_13.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0005247999999999919,
+        "max_difference_over_file_max": 0.0007210629523131062,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_14.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0002660000000000995,
+        "max_difference_over_file_max": 0.00010648246001707703,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_15.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0013199999999997658,
+        "max_difference_over_file_max": 1.5360732846597082e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_16.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.5829909999999995e-08,
+        "max_difference_over_file_max": 0.021186626464937065,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_21.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00024930000000000785,
+        "max_difference_over_file_max": 9.176554253570606e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_22.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0013999999999896318,
+        "max_difference_over_file_max": 1.4078837264928738e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_23.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0012449999999999406,
+        "max_difference_over_file_max": 0.00039963868810654094,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_24.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0013399999999990087,
+        "max_difference_over_file_max": 1.5521352980111455e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_25.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00021690000000007537,
+        "max_difference_over_file_max": 0.00010667157155900593,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_26.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 5.733564e-09,
+        "max_difference_over_file_max": 0.0038845389824904673,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_31.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0017415099999999982,
+        "max_difference_over_file_max": 0.008476794694817665,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_32.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0009820000000000384,
+        "max_difference_over_file_max": 0.0008033896169664421,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_33.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.006999999999834472,
+        "max_difference_over_file_max": 2.812512304674826e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_34.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00044399999999988893,
+        "max_difference_over_file_max": 0.0001636211271726376,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_35.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0005213999999999774,
+        "max_difference_over_file_max": 0.0012622839059043547,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_36.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 4.31928e-08,
+        "max_difference_over_file_max": 0.029352266889201183,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_41.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00019879999999999898,
+        "max_difference_over_file_max": 0.00011282966353149978,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_42.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0008200000000044838,
+        "max_difference_over_file_max": 8.751617048069791e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_43.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0010460000000001024,
+        "max_difference_over_file_max": 0.00032365483665954247,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_44.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0014999999999929514,
+        "max_difference_over_file_max": 6.167088632546569e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_45.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00025500000000011624,
+        "max_difference_over_file_max": 7.616300914975089e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_46.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 9.96961e-09,
+        "max_difference_over_file_max": 0.009155965156378431,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_51.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0015000000000071623,
+        "max_difference_over_file_max": 1.599763832205637e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_52.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00025430000000001285,
+        "max_difference_over_file_max": 0.00011619246919278119,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_53.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0004208999999999463,
+        "max_difference_over_file_max": 0.0006029102991517233,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_54.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0003109999999999502,
+        "max_difference_over_file_max": 7.540128759213631e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_55.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.001599999999996271,
+        "max_difference_over_file_max": 6.598768092466355e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_56.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 9.294299999999993e-09,
+        "max_difference_over_file_max": 0.015994348639388457,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_61.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 3.4846400000000015e-08,
+        "max_difference_over_file_max": 0.010294962687614432,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_62.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.60052e-08,
+        "max_difference_over_file_max": 0.004901152897217325,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_63.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 2.6374000000000503e-07,
+        "max_difference_over_file_max": 0.004569741050894985,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_64.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 9.033000000000105e-09,
+        "max_difference_over_file_max": 0.0025068916624829923,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_65.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.0857999999999871e-08,
+        "max_difference_over_file_max": 0.003923042182277977,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_66.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 2.4000000000238972e-12,
+        "max_difference_over_file_max": 5.45514924043615e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_1.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.10499999999956344,
+        "max_difference_over_file_max": 6.830281173374877e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_2.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.030000000000654836,
+        "max_difference_over_file_max": 1.951679029511653e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_3.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.24099999999998545,
+        "max_difference_over_file_max": 8.72381137165049e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_4.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.03340000000002874,
+        "max_difference_over_file_max": 3.242620853161579e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_5.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0667999999999438,
+        "max_difference_over_file_max": 6.496291376167732e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_6.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 4.5729999999999035e-06,
+        "max_difference_over_file_max": 0.0002821881459998089,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_1.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 6.000000000394579e-06,
+        "max_difference_over_file_max": 2.8317595045150416e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_2.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 6.000000000394579e-06,
+        "max_difference_over_file_max": 2.8232464230148124e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_3.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 7.000000000090267e-06,
+        "max_difference_over_file_max": 3.16513361163461e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_4.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 2.6000000000081513e-05,
+        "max_difference_over_file_max": 3.5983688870745364e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_5.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 2.9000000000500847e-05,
+        "max_difference_over_file_max": 4.011631518157799e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_6.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.7610000000000645e-10,
+        "max_difference_over_file_max": 0.00023991198050406101,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_11.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.021000000000185537,
+        "max_difference_over_file_max": 7.127501498535311e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_12.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.003070000000000128,
+        "max_difference_over_file_max": 0.0002836174434890053,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_13.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0018643999999999883,
+        "max_difference_over_file_max": 0.0016786188579017158,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_14.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00032599999999938234,
+        "max_difference_over_file_max": 3.693468825473315e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_15.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0016999999999995907,
+        "max_difference_over_file_max": 6.858912571860588e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_16.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 5.0052000000000216e-09,
+        "max_difference_over_file_max": 0.006996662983722011,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_21.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.002539000000000069,
+        "max_difference_over_file_max": 0.0002903388296452148,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_22.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.004999999999654392,
+        "max_difference_over_file_max": 1.6976401103650749e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_23.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0026120000000000587,
+        "max_difference_over_file_max": 0.0005068696163295962,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_24.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.001599999999996271,
+        "max_difference_over_file_max": 6.414391328369414e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_25.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00027500000000024727,
+        "max_difference_over_file_max": 3.834393787225825e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_26.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.7332400000000034e-08,
+        "max_difference_over_file_max": 0.013502918345533384,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_31.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.018670200000000026,
+        "max_difference_over_file_max": 0.026435542921757472,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_32.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00820299999999996,
+        "max_difference_over_file_max": 0.0019139428038387023,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_33.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.015100000000018099,
+        "max_difference_over_file_max": 9.847096117451792e-06,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_34.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0005948000000000064,
+        "max_difference_over_file_max": 0.00028329839732552906,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_35.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0013878000000000223,
+        "max_difference_over_file_max": 0.0043399658694427135,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_36.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.745329999999994e-08,
+        "max_difference_over_file_max": 0.0027780346598155737,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_41.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0015299999999998093,
+        "max_difference_over_file_max": 0.0002622189308699737,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_42.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0059199999999961506,
+        "max_difference_over_file_max": 1.9330246153692928e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_43.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0017519999999997538,
+        "max_difference_over_file_max": 0.0007411719315819426,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_44.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00046999999999997044,
+        "max_difference_over_file_max": 1.6027810638577658e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_45.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00014219999999998123,
+        "max_difference_over_file_max": 0.00020223410375232612,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_46.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 6.553100000000091e-09,
+        "max_difference_over_file_max": 0.005635780857213947,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_51.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.012700000000023692,
+        "max_difference_over_file_max": 4.140956867540145e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_52.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0018700000000002603,
+        "max_difference_over_file_max": 0.0002596630406875683,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_53.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0011972999999999845,
+        "max_difference_over_file_max": 0.0023638323580278784,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_54.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0001527000000000056,
+        "max_difference_over_file_max": 0.0001791227769919146,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_55.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0008700000000008146,
+        "max_difference_over_file_max": 2.983243430266392e-05,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_56.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 9.702700000000014e-09,
+        "max_difference_over_file_max": 0.020744050946894858,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_61.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 3.8060800000000044e-07,
+        "max_difference_over_file_max": 0.03566383373469143,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_62.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.6279399999999978e-07,
+        "max_difference_over_file_max": 0.036120618022589486,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_63.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.626299999999995e-07,
+        "max_difference_over_file_max": 0.00339636614092569,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_64.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.1623830000000004e-08,
+        "max_difference_over_file_max": 0.011493232400236121,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_65.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 2.7471800000000038e-08,
+        "max_difference_over_file_max": 0.04680299580879126,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_66.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 2.2799999999988796e-13,
+        "max_difference_over_file_max": 2.038701347240805e-05,
+        "count_outside_10pct_plus1e-7": 0
+      }
+    ],
+    "max_file_scaled_amplitude_difference": 0.04680299580879126,
+    "files_with_nonzero_amplitude_difference": 84
+  },
+  "cylinder_vs_benchmark": {
+    "files": 84,
+    "rows": [
+      {
+        "file": "Hydrostar_format/AddedMass_11.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 47.768099999999976,
+        "max_difference_over_file_max": 0.048357441814886354,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_12.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.14882960000000003,
+        "max_difference_over_file_max": 0.04373768836453286,
+        "count_outside_10pct_plus1e-7": 252
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_13.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.009656299999999979,
+        "max_difference_over_file_max": 0.013276162549295954,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_14.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.118174,
+        "max_difference_over_file_max": 0.04801242909803313,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_15.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 5.961320000000008,
+        "max_difference_over_file_max": 0.07322374395346959,
+        "count_outside_10pct_plus1e-7": 72
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_16.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 6.771764999999999e-07,
+        "max_difference_over_file_max": 6.603745893238337,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_21.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.11836680000000002,
+        "max_difference_over_file_max": 0.04325868751267701,
+        "count_outside_10pct_plus1e-7": 180
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_22.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 47.73429999999999,
+        "max_difference_over_file_max": 0.0483499985515552,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_23.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.03863850000000002,
+        "max_difference_over_file_max": 0.012420224922804542,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_24.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 5.968499999999992,
+        "max_difference_over_file_max": 0.07295963315918441,
+        "count_outside_10pct_plus1e-7": 72
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_25.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.09508759999999994,
+        "max_difference_over_file_max": 0.04745565112802965,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_26.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.37643085e-06,
+        "max_difference_over_file_max": 5.3432978324880285,
+        "count_outside_10pct_plus1e-7": 72
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_31.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.031093532000000004,
+        "max_difference_over_file_max": 0.1504585925372499,
+        "count_outside_10pct_plus1e-7": 468
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_32.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.10145414999999999,
+        "max_difference_over_file_max": 0.08250921023739233,
+        "count_outside_10pct_plus1e-7": 468
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_33.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 22.614000000000033,
+        "max_difference_over_file_max": 0.009086021894202942,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_34.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.038407700000000045,
+        "max_difference_over_file_max": 0.014153853977725433,
+        "count_outside_10pct_plus1e-7": 144
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_35.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.01178369999999998,
+        "max_difference_over_file_max": 0.028527761530505874,
+        "count_outside_10pct_plus1e-7": 72
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_36.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 2.1944753e-06,
+        "max_difference_over_file_max": 2.9998013779693857,
+        "count_outside_10pct_plus1e-7": 252
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_41.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.11296579,
+        "max_difference_over_file_max": 0.06369293527289129,
+        "count_outside_10pct_plus1e-7": 288
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_42.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 5.847260000000006,
+        "max_difference_over_file_max": 0.0657027101977489,
+        "count_outside_10pct_plus1e-7": 144
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_43.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.04234500000000008,
+        "max_difference_over_file_max": 0.013102451298610906,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_44.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 7.305199999999985,
+        "max_difference_over_file_max": 0.030913695809944096,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_45.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.044160999999999895,
+        "max_difference_over_file_max": 0.013219339071961116,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_46.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 9.865053e-07,
+        "max_difference_over_file_max": 5.800563413076687,
+        "count_outside_10pct_plus1e-7": 72
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_51.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 5.844370000000005,
+        "max_difference_over_file_max": 0.0656191177122789,
+        "count_outside_10pct_plus1e-7": 144
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_52.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.13898762,
+        "max_difference_over_file_max": 0.06306797200258647,
+        "count_outside_10pct_plus1e-7": 540
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_53.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.012692900000000007,
+        "max_difference_over_file_max": 0.018181706191741243,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_54.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.05190500000000009,
+        "max_difference_over_file_max": 0.012613133648671823,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_55.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 7.297699999999992,
+        "max_difference_over_file_max": 0.030981282681226484,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_56.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 5.0581495e-07,
+        "max_difference_over_file_max": 6.030484281979876,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_61.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.4580471799999999e-06,
+        "max_difference_over_file_max": 0.4281345097548671,
+        "count_outside_10pct_plus1e-7": 72
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_62.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 3.28048462e-06,
+        "max_difference_over_file_max": 2.3642450812228835,
+        "count_outside_10pct_plus1e-7": 108
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_63.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 7.681500000000004e-07,
+        "max_difference_over_file_max": 0.01330949642922923,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_64.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 8.44356e-07,
+        "max_difference_over_file_max": 0.29060799227391265,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_65.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 4.0976499999999996e-07,
+        "max_difference_over_file_max": 0.1700246428160942,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/AddedMass_66.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 3.6157399999999966e-08,
+        "max_difference_over_file_max": 0.08954421786565313,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_1.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 455.6660000000011,
+        "max_difference_over_file_max": 0.02959784972498,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_2.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 455.3089999999993,
+        "max_difference_over_file_max": 0.029577427275916234,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_3.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 38.10199999999986,
+        "max_difference_over_file_max": 0.001378949433212764,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_4.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 62.39609999999993,
+        "max_difference_over_file_max": 0.0609056177230807,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_5.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 62.524299999999926,
+        "max_difference_over_file_max": 0.061133034403055196,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Excitation_6.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 3.916599999999933e-05,
+        "max_difference_over_file_max": 0.0024173185822956274,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_1.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.06088250000000006,
+        "max_difference_over_file_max": 0.028861569705318817,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/Motion_2.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.06200939999999999,
+        "max_difference_over_file_max": 0.02928989387329412,
+        "count_outside_10pct_plus1e-7": 35
+      },
+      {
+        "file": "Hydrostar_format/Motion_3.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.03784300000000007,
+        "max_difference_over_file_max": 0.017175623622235254,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/Motion_4.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.18017100000000053,
+        "max_difference_over_file_max": 0.02456844552024837,
+        "count_outside_10pct_plus1e-7": 1
+      },
+      {
+        "file": "Hydrostar_format/Motion_5.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.1770100000000001,
+        "max_difference_over_file_max": 0.024137349852347778,
+        "count_outside_10pct_plus1e-7": 1
+      },
+      {
+        "file": "Hydrostar_format/Motion_6.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.5344299999999905e-09,
+        "max_difference_over_file_max": 0.002090219031437253,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_11.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 246.33899999999994,
+        "max_difference_over_file_max": 0.08388090184764148,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_12.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.12997999999999976,
+        "max_difference_over_file_max": 0.011920822553264447,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_13.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.0627607,
+        "max_difference_over_file_max": 0.056610838202689084,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_14.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.7982839999999998,
+        "max_difference_over_file_max": 0.09078616274237705,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_15.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 31.730099999999993,
+        "max_difference_over_file_max": 0.13582584895168712,
+        "count_outside_10pct_plus1e-7": 396
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_16.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 6.025299e-07,
+        "max_difference_over_file_max": 3.5342666071492466,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_21.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.10745399999999972,
+        "max_difference_over_file_max": 0.012197724508102043,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_22.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 246.38200000000006,
+        "max_difference_over_file_max": 0.08392606472793741,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_23.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.3337760000000003,
+        "max_difference_over_file_max": 0.06493759666922835,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_24.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 31.880499999999984,
+        "max_difference_over_file_max": 0.13555112701681218,
+        "count_outside_10pct_plus1e-7": 396
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_25.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.6522249999999996,
+        "max_difference_over_file_max": 0.09133863670896618,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_26.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.22342684e-06,
+        "max_difference_over_file_max": 1.5137164896207402,
+        "count_outside_10pct_plus1e-7": 108
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_31.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.03162789999999999,
+        "max_difference_over_file_max": 0.04477268602707828,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_32.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.14873699999999968,
+        "max_difference_over_file_max": 0.034717388594708604,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_33.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 8.234000000000151,
+        "max_difference_over_file_max": 0.005351934892808655,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_34.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.04718100000000014,
+        "max_difference_over_file_max": 0.022810693627645384,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_35.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.007788799999999985,
+        "max_difference_over_file_max": 0.024835736829451317,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_36.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 6.4675594e-06,
+        "max_difference_over_file_max": 3.05997611655575,
+        "count_outside_10pct_plus1e-7": 324
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_41.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.17927000000000026,
+        "max_difference_over_file_max": 0.030808757819481725,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_42.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 29.181100000000015,
+        "max_difference_over_file_max": 0.09635747473683486,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_43.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.02274200000000004,
+        "max_difference_over_file_max": 0.00957590150405068,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_44.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 3.18375,
+        "max_difference_over_file_max": 0.11735739348814372,
+        "count_outside_10pct_plus1e-7": 504
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_45.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.04183639999999997,
+        "max_difference_over_file_max": 0.0595988385204027,
+        "count_outside_10pct_plus1e-7": 612
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_46.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.0570019e-06,
+        "max_difference_over_file_max": 0.9529948960317796,
+        "count_outside_10pct_plus1e-7": 144
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_51.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 29.219300000000004,
+        "max_difference_over_file_max": 0.09634439759733343,
+        "count_outside_10pct_plus1e-7": 36
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_52.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.24945799999999974,
+        "max_difference_over_file_max": 0.03474122343955349,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_53.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.00975940000000003,
+        "max_difference_over_file_max": 0.01917447626000858,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_54.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 0.049903299999999984,
+        "max_difference_over_file_max": 0.0585002580757548,
+        "count_outside_10pct_plus1e-7": 612
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_55.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 3.17737,
+        "max_difference_over_file_max": 0.11782944644038532,
+        "count_outside_10pct_plus1e-7": 504
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_56.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 4.908099299999999e-07,
+        "max_difference_over_file_max": 2.9941218670790515,
+        "count_outside_10pct_plus1e-7": 108
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_61.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 4.622270000000001e-07,
+        "max_difference_over_file_max": 0.04392494234119002,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_62.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 9.432589999999999e-07,
+        "max_difference_over_file_max": 0.2164450798079835,
+        "count_outside_10pct_plus1e-7": 144
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_63.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 3.8055999999999827e-07,
+        "max_difference_over_file_max": 0.007880348577453752,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_64.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 8.624049999999997e-08,
+        "max_difference_over_file_max": 0.0867047606408514,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_65.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 6.557290000000001e-08,
+        "max_difference_over_file_max": 0.1196492317753285,
+        "count_outside_10pct_plus1e-7": 0
+      },
+      {
+        "file": "Hydrostar_format/WaveDamping_66.rao",
+        "field": "amplitudes",
+        "frequency_count": 31,
+        "value_count": 1116,
+        "max_absolute_difference": 1.2435999999999894e-10,
+        "max_difference_over_file_max": 0.011244905838833167,
+        "count_outside_10pct_plus1e-7": 0
+      }
+    ],
+    "max_file_scaled_amplitude_difference": 6.603745893238337,
+    "files_with_nonzero_amplitude_difference": 84
+  },
+  "fresh_medium_motion": {
+    "headings_deg": [
+      0.0,
+      30.0,
+      60.0,
+      90.0,
+      120.0,
+      150.0,
+      180.0
+    ],
+    "rows": [
+      {
+        "frequency_rad_s": 0.6,
+        "amplitudes_by_heading": {
+          "heave": [
+            0.4170255,
+            0.5653821,
+            0.9139202,
+            1.113483,
+            0.9139202,
+            0.5653821,
+            0.4170255
+          ],
+          "roll": [
+            6.406035e-16,
+            0.01127036,
+            0.03074379,
+            0.04304616,
+            0.03074379,
+            0.01127036,
+            2.835905e-16
+          ],
+          "pitch": [
+            0.02887986,
+            0.02777113,
+            0.01938202,
+            1.068364e-16,
+            0.01938202,
+            0.02777113,
+            0.02887986
+          ]
+        }
+      },
+      {
+        "frequency_rad_s": 0.65,
+        "amplitudes_by_heading": {
+          "heave": [
+            0.2686669,
+            0.4194264,
+            0.8344519,
+            1.09008,
+            0.8344519,
+            0.4194264,
+            0.2686669
+          ],
+          "roll": [
+            7.201553e-16,
+            0.01042752,
+            0.03743102,
+            0.05712892,
+            0.03743102,
+            0.01042752,
+            4.294669e-16
+          ],
+          "pitch": [
+            0.02867757,
+            0.02947967,
+            0.02284839,
+            7.336393e-17,
+            0.02284839,
+            0.02947967,
+            0.02867757
+          ]
+        }
+      },
+      {
+        "frequency_rad_s": 0.775,
+        "amplitudes_by_heading": {
+          "heave": [
+            0.1568864,
+            0.1366374,
+            0.3948145,
+            0.618272,
+            0.3948145,
+            0.1366374,
+            0.1568864
+          ],
+          "roll": [
+            2.038448e-15,
+            0.005374565,
+            0.05899459,
+            0.1314808,
+            0.05899459,
+            0.005374565,
+            1.488205e-15
+          ],
+          "pitch": [
+            0.01015009,
+            0.01498345,
+            0.0182336,
+            2.554069e-16,
+            0.0182336,
+            0.01498345,
+            0.01015009
+          ]
+        }
+      },
+      {
+        "frequency_rad_s": 0.8,
+        "amplitudes_by_heading": {
+          "heave": [
+            0.1465052,
+            0.1122554,
+            0.31499,
+            0.5126442,
+            0.31499,
+            0.1122554,
+            0.1465052
+          ],
+          "roll": [
+            2.983677e-16,
+            0.008694576,
+            0.04475894,
+            0.1112071,
+            0.04475894,
+            0.008694576,
+            1.786362e-15
+          ],
+          "pitch": [
+            0.007522261,
+            0.01166249,
+            0.01562954,
+            2.294562e-16,
+            0.01562954,
+            0.01166249,
+            0.007522261
+          ]
+        }
+      },
+      {
+        "frequency_rad_s": 1.0,
+        "amplitudes_by_heading": {
+          "heave": [
+            0.03656384,
+            0.04595981,
+            0.03373416,
+            0.1240869,
+            0.03373416,
+            0.04595981,
+            0.03656384
+          ],
+          "roll": [
+            3.430032e-16,
+            0.002019164,
+            0.001893092,
+            0.01602508,
+            0.001893092,
+            0.002019164,
+            7.515517e-16
+          ],
+          "pitch": [
+            0.002583345,
+            0.001678643,
+            0.003241156,
+            5.073829e-17,
+            0.003241156,
+            0.001678643,
+            0.002583345
+          ]
+        }
+      }
+    ],
+    "sampled_peaks": {
+      "heave_0deg": {
+        "amplitude": 0.4170255,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "heave_30deg": {
+        "amplitude": 0.5653821,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "heave_60deg": {
+        "amplitude": 0.9139202,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "heave_90deg": {
+        "amplitude": 1.113483,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "heave_120deg": {
+        "amplitude": 0.9139202,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "heave_150deg": {
+        "amplitude": 0.5653821,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "heave_180deg": {
+        "amplitude": 0.4170255,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "roll_0deg": {
+        "amplitude": 2.038448e-15,
+        "frequency_rad_s": 0.775,
+        "sampled_peak_only": true
+      },
+      "roll_30deg": {
+        "amplitude": 0.01127036,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "roll_60deg": {
+        "amplitude": 0.05899459,
+        "frequency_rad_s": 0.775,
+        "sampled_peak_only": true
+      },
+      "roll_90deg": {
+        "amplitude": 0.1314808,
+        "frequency_rad_s": 0.775,
+        "sampled_peak_only": true
+      },
+      "roll_120deg": {
+        "amplitude": 0.05899459,
+        "frequency_rad_s": 0.775,
+        "sampled_peak_only": true
+      },
+      "roll_150deg": {
+        "amplitude": 0.01127036,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "roll_180deg": {
+        "amplitude": 1.786362e-15,
+        "frequency_rad_s": 0.8,
+        "sampled_peak_only": true
+      },
+      "pitch_0deg": {
+        "amplitude": 0.02887986,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      },
+      "pitch_30deg": {
+        "amplitude": 0.02947967,
+        "frequency_rad_s": 0.65,
+        "sampled_peak_only": true
+      },
+      "pitch_60deg": {
+        "amplitude": 0.02284839,
+        "frequency_rad_s": 0.65,
+        "sampled_peak_only": true
+      },
+      "pitch_90deg": {
+        "amplitude": 2.554069e-16,
+        "frequency_rad_s": 0.775,
+        "sampled_peak_only": true
+      },
+      "pitch_120deg": {
+        "amplitude": 0.02284839,
+        "frequency_rad_s": 0.65,
+        "sampled_peak_only": true
+      },
+      "pitch_150deg": {
+        "amplitude": 0.02947967,
+        "frequency_rad_s": 0.65,
+        "sampled_peak_only": true
+      },
+      "pitch_180deg": {
+        "amplitude": 0.02887986,
+        "frequency_rad_s": 0.6,
+        "sampled_peak_only": true
+      }
+    }
+  }
+}

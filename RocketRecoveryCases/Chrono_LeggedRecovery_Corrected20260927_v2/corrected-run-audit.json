@@ -1,0 +1,1001 @@
+{
+  "auditor_sha256": "9e47fe08006f58572caff8a3bc0973fac1f7c99e78dfe09da9209ed820063ca4",
+  "histories": [
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn1e+08\\pass01.json",
+      "sha256": "4b3d8226ea5c72b1e54a78a89604c0ca00c66dca3b5df0154f885bd04773a785",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13838448.61047993,
+      "positive_vertical_force_peak_n": 13833812.139253002,
+      "transfer_impulse_residual_6dof": [
+        -3.394234227016568e-09,
+        -5.797119229100645e-09,
+        -9.96515154838562e-08,
+        -8.493661880493164e-07,
+        -1.0542571544647217e-06,
+        6.726986612193286e-08
+      ],
+      "transfer_max_abs_residual": 1.0542571544647217e-06,
+      "transfer_relative_l1_residual_6dof": [
+        5.460419802577854e-14,
+        3.810973866889469e-14,
+        2.549445575539666e-14,
+        1.4154649781656449e-14,
+        9.83769726581767e-14,
+        5.993752898718221e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn1e+08\\pass02.json",
+      "sha256": "e0fb37dcbfce11e4a71bff2d14674d493b7531f23d482984f6cb7fe12a57f216",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13808932.479885293,
+      "positive_vertical_force_peak_n": 13803202.722072102,
+      "transfer_impulse_residual_6dof": [
+        1.72144609678071e-09,
+        1.709850039333105e-10,
+        -3.585591912269592e-08,
+        1.2293457984924316e-06,
+        -3.83937731385231e-07,
+        -1.0437361197546124e-08
+      ],
+      "transfer_max_abs_residual": 1.2293457984924316e-06,
+      "transfer_relative_l1_residual_6dof": [
+        3.138685554673145e-14,
+        1.1245566276545366e-15,
+        9.17925704153871e-15,
+        2.050541301497761e-14,
+        3.8450631931917835e-14,
+        1.0789855057015005e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn1e+08\\pass03.json",
+      "sha256": "a40a30f5a917829e26e194eacac26536edf9fce0f8ae433ceec94135b4d493a8",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 11416346.181964085,
+      "positive_vertical_force_peak_n": 11408544.171354119,
+      "transfer_impulse_residual_6dof": [
+        3.4951881389133632e-09,
+        1.7171259969472885e-09,
+        -1.5832483768463135e-07,
+        -9.238719940185547e-07,
+        -5.287583917379379e-07,
+        -4.028697730973363e-08
+      ],
+      "transfer_max_abs_residual": 9.238719940185547e-07,
+      "transfer_relative_l1_residual_6dof": [
+        5.934732921037321e-14,
+        1.1475993356021141e-14,
+        4.054320617677116e-14,
+        1.538598860989126e-14,
+        5.219641165149115e-14,
+        3.823296994078961e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn1e+08\\pass04.json",
+      "sha256": "a173ee07745d75b2d4569133677f21e8b4c245612fd023cb9a2f3a2ffd67d5ba",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13765822.456014745,
+      "positive_vertical_force_peak_n": 13760228.041430704,
+      "transfer_impulse_residual_6dof": [
+        5.577476258622482e-10,
+        3.487002686597407e-09,
+        -1.7927959561347961e-07,
+        -2.5033950805664062e-06,
+        -6.014015525579453e-07,
+        1.8966602510772645e-08
+      ],
+      "transfer_max_abs_residual": 2.5033950805664062e-06,
+      "transfer_relative_l1_residual_6dof": [
+        9.22212581072299e-15,
+        2.3300482180237546e-14,
+        4.5869245798142676e-14,
+        4.158410296657084e-14,
+        5.69565435735853e-14,
+        1.7419520176394834e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn1e+08\\pass05.json",
+      "sha256": "c9d8fe2c3a9c8c8c1ff2208360b2d298f9cf1724d53f2b6ddcdeb21b19865afe",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 12931735.756394433,
+      "positive_vertical_force_peak_n": 12928996.14987412,
+      "transfer_impulse_residual_6dof": [
+        2.58955878962297e-09,
+        -1.356966095045209e-09,
+        -2.7008354663848877e-08,
+        6.631016731262207e-07,
+        -8.905772119760513e-07,
+        -3.575951268430799e-08
+      ],
+      "transfer_max_abs_residual": 8.905772119760513e-07,
+      "transfer_relative_l1_residual_6dof": [
+        4.4762897358333357e-14,
+        8.775169524670686e-15,
+        6.914315232218063e-15,
+        1.1096015956734827e-14,
+        8.88384481681119e-14,
+        3.566853946714667e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn1e+08\\pass06.json",
+      "sha256": "876db0eec71726c9a6422efc3cc245e00144a2774544df0c1c23eae0a6f37bb8",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13626972.7149227,
+      "positive_vertical_force_peak_n": 13620825.74896288,
+      "transfer_impulse_residual_6dof": [
+        -1.3480985217029229e-09,
+        -1.5061232261359692e-09,
+        -2.2631138563156128e-07,
+        -3.2782554626464844e-06,
+        -6.533227860927582e-07,
+        3.7514837458729744e-08
+      ],
+      "transfer_max_abs_residual": 3.2782554626464844e-06,
+      "transfer_relative_l1_residual_6dof": [
+        2.3267210403888897e-14,
+        9.952417091064512e-15,
+        5.787418037699758e-14,
+        5.458347848483137e-14,
+        6.371397551823537e-14,
+        3.6247937893736885e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn1e+08\\pass07.json",
+      "sha256": "93f9a7d13f72aa895d715ff26eee841954543424c010a0199eb6bf1edea842d3",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13720410.754492734,
+      "positive_vertical_force_peak_n": 13714678.34476738,
+      "transfer_impulse_residual_6dof": [
+        1.7321326595265418e-09,
+        6.875779945403337e-10,
+        -1.7927959561347961e-07,
+        -1.8477439880371094e-06,
+        -1.125270500779152e-06,
+        -2.2579115466214716e-08
+      ],
+      "transfer_max_abs_residual": 1.8477439880371094e-06,
+      "transfer_relative_l1_residual_6dof": [
+        3.012297544852149e-14,
+        4.5382226932078454e-15,
+        4.58760428282305e-14,
+        3.078459672776352e-14,
+        1.1052447808569971e-13,
+        2.2131991595478944e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn1e+08\\pass08.json",
+      "sha256": "be4614b3938488c67a328efc3ed98743532527317aa47870c63404b6c5dc6e2d",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13875934.132555116,
+      "positive_vertical_force_peak_n": 13870281.652366258,
+      "transfer_impulse_residual_6dof": [
+        -1.8167156667914242e-09,
+        1.3915268937125802e-09,
+        -2.4260953068733215e-07,
+        -2.391636371612549e-06,
+        -8.374918252229691e-07,
+        4.039247869513929e-08
+      ],
+      "transfer_max_abs_residual": 2.391636371612549e-06,
+      "transfer_relative_l1_residual_6dof": [
+        2.870519883259318e-14,
+        9.220947067186667e-15,
+        6.209200407585854e-14,
+        3.965776285830014e-14,
+        7.470196725235748e-14,
+        3.594515353280187e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn2.5e+08\\pass01.json",
+      "sha256": "3c032a29a1487f130905c0da706f4838f58049a0d8586abfab4e53a3d7e4174e",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 12496066.590182947,
+      "positive_vertical_force_peak_n": 12500021.806854252,
+      "transfer_impulse_residual_6dof": [
+        5.079527909401804e-10,
+        1.2838427210226655e-08,
+        -3.4458935260772705e-08,
+        1.4156103134155273e-07,
+        -1.2193340808153152e-06,
+        1.3114913599565625e-08
+      ],
+      "transfer_max_abs_residual": 1.2193340808153152e-06,
+      "transfer_relative_l1_residual_6dof": [
+        6.695596659260188e-15,
+        4.8303312068172246e-14,
+        8.815544957438816e-15,
+        2.455212324671411e-15,
+        1.4852218260761427e-13,
+        1.055025275859879e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn2.5e+08\\pass02.json",
+      "sha256": "fc0daf8b85f08f937023fd179f743e89e43ad541b911ec6d8c66fcc2b7ae652c",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 16154634.403822051,
+      "positive_vertical_force_peak_n": 16153555.975716956,
+      "transfer_impulse_residual_6dof": [
+        3.6725396057590842e-09,
+        3.0231603886932135e-09,
+        1.0477378964424133e-07,
+        1.952052116394043e-06,
+        -1.6152625903487206e-06,
+        -2.9554939828813076e-08
+      ],
+      "transfer_max_abs_residual": 1.952052116394043e-06,
+      "transfer_relative_l1_residual_6dof": [
+        4.754421571856539e-14,
+        1.2023909850104415e-14,
+        2.6788693562368606e-14,
+        3.384754489946274e-14,
+        1.9863301350164815e-13,
+        2.3520071662189947e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn2.5e+08\\pass03.json",
+      "sha256": "bb477cd69e69bf8b6b0aaf65fbaa57269c884b72f141ffcd7b0d505a418fe562",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 12225127.113208884,
+      "positive_vertical_force_peak_n": 12215609.186003994,
+      "transfer_impulse_residual_6dof": [
+        -4.993125912733376e-10,
+        -5.435140337795019e-09,
+        -3.3294782042503357e-07,
+        -3.956258296966553e-06,
+        -3.6763958632946014e-07,
+        1.896842150017619e-08
+      ],
+      "transfer_max_abs_residual": 3.956258296966553e-06,
+      "transfer_relative_l1_residual_6dof": [
+        6.941586145395682e-15,
+        2.0261992910807033e-14,
+        8.519787002952181e-14,
+        6.832171891485206e-14,
+        4.537166486650055e-14,
+        1.59774095899436e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn2.5e+08\\pass04.json",
+      "sha256": "2d9b32170a534d863f6b411c0ccc941836fa22e4853fbb2449307248fc208655",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 12665678.874051739,
+      "positive_vertical_force_peak_n": 12656282.960376365,
+      "transfer_impulse_residual_6dof": [
+        -4.4565240386873484e-10,
+        -1.0189978638663888e-08,
+        7.404014468193054e-08,
+        1.7881393432617188e-06,
+        -1.7599668353796005e-06,
+        3.3993273973464966e-08
+      ],
+      "transfer_max_abs_residual": 1.7881393432617188e-06,
+      "transfer_relative_l1_residual_6dof": [
+        6.188852517375382e-15,
+        3.7479681297625124e-14,
+        1.893617626537082e-14,
+        3.116170170605834e-14,
+        2.1763074380237585e-13,
+        2.868505587232619e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn2.5e+08\\pass05.json",
+      "sha256": "e18453b25a834463e1235fd3e2f44457efbd8a400eb13a08cbbe74d755cb8ce3",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 11101362.139761204,
+      "positive_vertical_force_peak_n": 11092002.079125341,
+      "transfer_impulse_residual_6dof": [
+        4.837602318730205e-09,
+        6.424670573323965e-09,
+        1.8812716007232666e-07,
+        3.3229589462280273e-06,
+        -1.686043106019497e-06,
+        -1.1663360055536032e-08
+      ],
+      "transfer_max_abs_residual": 3.3229589462280273e-06,
+      "transfer_relative_l1_residual_6dof": [
+        6.371803722628942e-14,
+        2.6045497207241188e-14,
+        4.810959551871764e-14,
+        5.75798053662801e-14,
+        2.0923652555713582e-13,
+        9.542991713220528e-15
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn2.5e+08\\pass06.json",
+      "sha256": "a4bedeee6bf154ffaf262acb8ec69fefcca891a419936309b29dfa73a3034a8b",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 16166424.710485006,
+      "positive_vertical_force_peak_n": 16164942.465004697,
+      "transfer_impulse_residual_6dof": [
+        4.390130925457925e-09,
+        -6.330083124339581e-10,
+        -2.0442530512809753e-07,
+        -1.259148120880127e-06,
+        -9.300420060753822e-07,
+        -4.204775905236602e-08
+      ],
+      "transfer_max_abs_residual": 1.259148120880127e-06,
+      "transfer_relative_l1_residual_6dof": [
+        5.696722551419015e-14,
+        2.454121066907336e-15,
+        5.2288295868287695e-14,
+        2.1787863986813465e-14,
+        1.1486219934070144e-13,
+        3.377718862066504e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn2.5e+08\\pass07.json",
+      "sha256": "b8915ed82cc457362c71c6eeb90ced505d9145675a8324a28af13b9bc65695fa",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 15870920.08517992,
+      "positive_vertical_force_peak_n": 15869247.298860809,
+      "transfer_impulse_residual_6dof": [
+        -1.6354988474631682e-09,
+        -1.0310031939297915e-08,
+        -2.4866312742233276e-07,
+        -2.5406479835510254e-06,
+        -7.848720997571945e-07,
+        2.9700458981096745e-08
+      ],
+      "transfer_max_abs_residual": 2.5406479835510254e-06,
+      "transfer_relative_l1_residual_6dof": [
+        2.2510933167056695e-14,
+        3.7947150132252437e-14,
+        6.368718302446033e-14,
+        4.426704440172901e-14,
+        9.574320150156601e-14,
+        2.477954553451159e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn5e+08\\pass01.json",
+      "sha256": "45a0028d200355712b12cd76bb702875af98e105c9a5535c7e7ec68d93d39d97",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 17028232.195789393,
+      "positive_vertical_force_peak_n": 17036276.083352722,
+      "transfer_impulse_residual_6dof": [
+        2.7869191399076954e-09,
+        -3.1614035833626986e-09,
+        -3.2223761081695557e-07,
+        -3.7476420402526855e-06,
+        -7.342314347624779e-07,
+        -1.9703009002114413e-08
+      ],
+      "transfer_max_abs_residual": 3.7476420402526855e-06,
+      "transfer_relative_l1_residual_6dof": [
+        3.111006949821092e-14,
+        9.802365117261111e-15,
+        8.236845797005955e-14,
+        6.736546140484116e-14,
+        9.60100471007337e-14,
+        1.3960383111848109e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.000125_kn5e+08\\pass02.json",
+      "sha256": "8f80b25e3cbfcfde52ad36c0f00a66636e67ec31d3d7598821c9e4edec3630bc",
+      "hash_matches": true,
+      "samples": 80001,
+      "expected_samples": 80001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 16910562.719064146,
+      "positive_vertical_force_peak_n": 16922115.54613591,
+      "transfer_impulse_residual_6dof": [
+        6.249194939300651e-09,
+        -7.967173587530851e-10,
+        -2.039596438407898e-07,
+        -2.0712614059448242e-06,
+        -9.28761437535286e-07,
+        -3.975583240389824e-08
+      ],
+      "transfer_max_abs_residual": 2.0712614059448242e-06,
+      "transfer_relative_l1_residual_6dof": [
+        6.939247146795191e-14,
+        2.4680518710548017e-15,
+        5.218302041707435e-14,
+        3.726401512655924e-14,
+        1.2092710049061467e-13,
+        2.7932863357950425e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass01.json",
+      "sha256": "a98b612e256fd93c10a581edbbdd487ee2a775d3e27fb8e9fab6baf7719c501d",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 8555475.849577496,
+      "positive_vertical_force_peak_n": 8544686.495050583,
+      "transfer_impulse_residual_6dof": [
+        2.6859652280109003e-09,
+        -4.18367562815547e-10,
+        -1.0337680578231812e-07,
+        -8.195638656616211e-07,
+        -8.353963494300842e-07,
+        -2.7843270800076425e-08
+      ],
+      "transfer_max_abs_residual": 8.353963494300842e-07,
+      "transfer_relative_l1_residual_6dof": [
+        3.164652331014565e-14,
+        2.2824495237812027e-15,
+        2.641847991146706e-14,
+        1.3802459227894414e-14,
+        8.336033830004776e-14,
+        1.9629502688881673e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass02.json",
+      "sha256": "7feb42aceab172df801531119872977e9c826fb9b6aabc63d72a6aa4e870e05d",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13784858.315423464,
+      "positive_vertical_force_peak_n": 13780448.969018158,
+      "transfer_impulse_residual_6dof": [
+        1.2596501619555056e-10,
+        -1.949956640601158e-09,
+        -2.8777867555618286e-07,
+        -3.121793270111084e-06,
+        -5.788169801235199e-07,
+        1.391163095831871e-08
+      ],
+      "transfer_max_abs_residual": 3.121793270111084e-06,
+      "transfer_relative_l1_residual_6dof": [
+        1.3435847346260481e-15,
+        1.1201765821654522e-14,
+        7.356079216659835e-14,
+        5.2424236225388876e-14,
+        5.654521849555301e-14,
+        8.79859597913902e-15
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass03.json",
+      "sha256": "7361a64431330f0ab987dd4c7740e4778c16804b93875d538cd09dbcf74fd77f",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 12973165.654112723,
+      "positive_vertical_force_peak_n": 12966063.760285351,
+      "transfer_impulse_residual_6dof": [
+        1.179614628199488e-09,
+        -8.265487849712372e-09,
+        -1.8347054719924927e-07,
+        -2.0936131477355957e-06,
+        -7.133930921554565e-07,
+        -2.7295754989609122e-08
+      ],
+      "transfer_max_abs_residual": 2.0936131477355957e-06,
+      "transfer_relative_l1_residual_6dof": [
+        1.237861637760437e-14,
+        4.6209415415682716e-14,
+        4.698326902938881e-14,
+        3.519376169612827e-14,
+        6.839661945062576e-14,
+        1.711233101002329e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass04.json",
+      "sha256": "c92962ebb313f982b772319140f35f1cf13aa5ab4d8b3da26d5c79be49b3ee44",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13784770.323176827,
+      "positive_vertical_force_peak_n": 13780360.712520845,
+      "transfer_impulse_residual_6dof": [
+        1.9758772396016866e-10,
+        -6.9012457970529795e-09,
+        -8.521601557731628e-08,
+        -2.2351741790771484e-08,
+        -4.684552550315857e-07,
+        -1.8457740225130692e-08
+      ],
+      "transfer_max_abs_residual": 4.684552550315857e-07,
+      "transfer_relative_l1_residual_6dof": [
+        2.0905655738225884e-15,
+        3.94239302584468e-14,
+        2.1769800741613857e-14,
+        3.7479423023763434e-16,
+        4.480600793683544e-14,
+        1.1432675711032082e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass05.json",
+      "sha256": "6d40070a8a705c7b45c3d9b6cd08d5dbdc4cd3557117fffb9259097bb7610bff",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 12973165.711050324,
+      "positive_vertical_force_peak_n": 12966063.818759494,
+      "transfer_impulse_residual_6dof": [
+        3.930381353711709e-09,
+        8.549250196665525e-10,
+        -3.711320459842682e-07,
+        -4.753470420837402e-06,
+        -1.0728836059570312e-06,
+        -3.508102963678539e-08
+      ],
+      "transfer_max_abs_residual": 4.753470420837402e-06,
+      "transfer_relative_l1_residual_6dof": [
+        4.652412858313211e-14,
+        4.948327618916818e-15,
+        9.484624678446932e-14,
+        7.969016878284444e-14,
+        9.998592989201649e-14,
+        2.499390726467656e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass06.json",
+      "sha256": "6d70fa778b549e4a1be35e09ffeee909bb07005998bda91d7bab6b0afd580a3a",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13784770.363191199,
+      "positive_vertical_force_peak_n": 13780360.764716405,
+      "transfer_impulse_residual_6dof": [
+        1.4963461580919102e-09,
+        -5.322362994775176e-09,
+        -9.12696123123169e-08,
+        -1.2516975402832031e-06,
+        -6.924383342266083e-07,
+        -1.3835233403369784e-08
+      ],
+      "transfer_max_abs_residual": 1.2516975402832031e-06,
+      "transfer_relative_l1_residual_6dof": [
+        1.6491256698574865e-14,
+        2.997852188461989e-14,
+        2.3289011473759914e-14,
+        2.0992390419236893e-14,
+        6.859062287159265e-14,
+        9.023041413933102e-15
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass07.json",
+      "sha256": "cbed0b8b034742a1c5452775806c21ff1643e62e53b34c1d77a842564ce36c8b",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 12973165.715682045,
+      "positive_vertical_force_peak_n": 12966063.82251662,
+      "transfer_impulse_residual_6dof": [
+        2.2257609089137986e-09,
+        4.3655745685100555e-11,
+        -9.918585419654846e-08,
+        -4.3958425521850586e-07,
+        -1.2845266610383987e-06,
+        -1.9563231035135686e-08
+      ],
+      "transfer_max_abs_residual": 1.2845266610383987e-06,
+      "transfer_relative_l1_residual_6dof": [
+        2.5557327895323887e-14,
+        2.421944736649882e-16,
+        2.5298772314656048e-14,
+        7.370130588679511e-15,
+        1.265324573574898e-13,
+        1.3329975643970499e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.00025_kn1e+08\\pass08.json",
+      "sha256": "85a59a04f3c39ab298ccc043aa7e8383f7c24817feef30cc09bd59a9266feafb",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 13784770.35894403,
+      "positive_vertical_force_peak_n": 13780360.761292823,
+      "transfer_impulse_residual_6dof": [
+        3.1377567211166024e-09,
+        2.2519088815897703e-09,
+        1.816079020500183e-08,
+        9.387731552124023e-07,
+        -1.1585652828216553e-06,
+        -3.410605131648481e-08
+      ],
+      "transfer_max_abs_residual": 1.1585652828216553e-06,
+      "transfer_relative_l1_residual_6dof": [
+        3.540488951452092e-14,
+        1.2330218457410163e-14,
+        4.6539110669212476e-15,
+        1.5800609164472665e-14,
+        1.0943776225589769e-13,
+        2.2203843492203352e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.0005_kn1e+08\\pass01.json",
+      "sha256": "10ddcfbe451be6ebcb0e6ca2d0f90fcd6df5dba6e8758c158e9fdbb6e5273559",
+      "hash_matches": true,
+      "samples": 20001,
+      "expected_samples": 20001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 7068867.796268167,
+      "positive_vertical_force_peak_n": 7068569.740876771,
+      "transfer_impulse_residual_6dof": [
+        3.696641215356067e-09,
+        -4.4674379751086235e-09,
+        -1.2014061212539673e-07,
+        -6.183981895446777e-07,
+        -1.1587981134653091e-06,
+        -4.0490704122930765e-08
+      ],
+      "transfer_max_abs_residual": 1.1587981134653091e-06,
+      "transfer_relative_l1_residual_6dof": [
+        1.7035057720404606e-14,
+        7.246026453025054e-15,
+        3.07339027360333e-14,
+        1.0532679225180635e-14,
+        1.0640771783464547e-13,
+        1.1083423829089608e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.0005_kn1e+08\\pass02.json",
+      "sha256": "6f22fc63b8be85310da64dfe03450cb5fd61b29d8e525dab1475b964da5e0368",
+      "hash_matches": true,
+      "samples": 20001,
+      "expected_samples": 20001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 9987404.124546276,
+      "positive_vertical_force_peak_n": 9973441.327803506,
+      "transfer_impulse_residual_6dof": [
+        6.157279131002724e-09,
+        -1.153239281848073e-09,
+        -1.4016404747962952e-07,
+        -9.685754776000977e-07,
+        -9.154900908470154e-07,
+        -6.170375854708254e-08
+      ],
+      "transfer_max_abs_residual": 9.685754776000977e-07,
+      "transfer_relative_l1_residual_6dof": [
+        2.7189658859558396e-14,
+        1.7978687245738636e-15,
+        3.5851916696087186e-14,
+        1.64327420149552e-14,
+        8.590474043686363e-14,
+        1.6241731999496103e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.0005_kn1e+08\\pass03.json",
+      "sha256": "e8f20554da152ef6ef2fb9a47682331f15fd4da7146685b16f276907c306b627",
+      "hash_matches": true,
+      "samples": 20001,
+      "expected_samples": 20001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 7067068.109522408,
+      "positive_vertical_force_peak_n": 7066757.36482577,
+      "transfer_impulse_residual_6dof": [
+        4.179128154646605e-10,
+        -1.1168594937771559e-09,
+        -1.2619420886039734e-07,
+        -1.519918441772461e-06,
+        -9.110663086175919e-07,
+        2.9154762160032988e-08
+      ],
+      "transfer_max_abs_residual": 1.519918441772461e-06,
+      "transfer_relative_l1_residual_6dof": [
+        1.9962714270294478e-15,
+        1.7779010917471768e-15,
+        3.227615835420315e-14,
+        2.5767523777180843e-14,
+        8.724061340535604e-14,
+        8.263823700889267e-15
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end516_dt0.0005_kn1e+08\\pass04.json",
+      "sha256": "1331b1100f481142919d9e13778e401f47e853d94067a5bb83035c88aadb438d",
+      "hash_matches": true,
+      "samples": 20001,
+      "expected_samples": 20001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 7067113.95555737,
+      "positive_vertical_force_peak_n": 7066801.467157075,
+      "transfer_impulse_residual_6dof": [
+        2.6125235308427364e-09,
+        2.7794158086180687e-09,
+        -4.7963112592697144e-08,
+        3.2782554626464844e-07,
+        -9.830109775066376e-07,
+        -1.8553691916167736e-09
+      ],
+      "transfer_max_abs_residual": 9.830109775066376e-07,
+      "transfer_relative_l1_residual_6dof": [
+        6.375217334502048e-15,
+        7.314830610723143e-15,
+        1.2266828483380712e-14,
+        5.524577021321215e-15,
+        8.213487625621025e-14,
+        2.947293655451565e-16
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end526_dt0.0005_kn1e+08\\pass01.json",
+      "sha256": "b2d8f66f687a114dd8332e738feafc57fc36ef1dcc3d154b65ddf8c8c838a118",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 7068867.796268167,
+      "positive_vertical_force_peak_n": 7068569.740876771,
+      "transfer_impulse_residual_6dof": [
+        2.4706423573661596e-09,
+        2.6302586775273085e-09,
+        -7.636845111846924e-08,
+        -5.960464477539062e-07,
+        -1.2256205081939697e-06,
+        -3.306922735646367e-09
+      ],
+      "transfer_max_abs_residual": 1.2256205081939697e-06,
+      "transfer_relative_l1_residual_6dof": [
+        5.277485135008141e-15,
+        1.0571615781234229e-15,
+        7.681906510135739e-15,
+        3.870479806795215e-15,
+        7.191151809331838e-14,
+        3.744543038000055e-16
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end526_dt0.0005_kn1e+08\\pass02.json",
+      "sha256": "0ee4b61e5cd480ef4d3dc26c309c3847a2cade30d2455282fe3f4944a3b8c6e9",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 9987404.124546276,
+      "positive_vertical_force_peak_n": 9973441.327803506,
+      "transfer_impulse_residual_6dof": [
+        9.535256140225101e-09,
+        -3.939931048080325e-09,
+        -1.8067657947540283e-07,
+        -9.5367431640625e-07,
+        -9.136274456977844e-07,
+        -1.1185238690814003e-07
+      ],
+      "transfer_max_abs_residual": 9.5367431640625e-07,
+      "transfer_relative_l1_residual_6dof": [
+        1.9729297559050955e-14,
+        1.5537272253554083e-15,
+        1.8172081600356717e-14,
+        6.15678034105155e-15,
+        5.3472606731554555e-14,
+        1.2185432832553841e-14
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end526_dt0.0005_kn1e+08\\pass03.json",
+      "sha256": "d27c363705b3d4fe54daaf2a9f0636def5893db6e2ccd1d7f53f4b846dc4194d",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 7067068.109522408,
+      "positive_vertical_force_peak_n": 7066757.36482577,
+      "transfer_impulse_residual_6dof": [
+        5.684796633431688e-09,
+        -7.021299097687006e-09,
+        -1.341104507446289e-07,
+        -1.7583370208740234e-06,
+        -8.344650268554688e-07,
+        -6.005166142131202e-08
+      ],
+      "transfer_max_abs_residual": 1.7583370208740234e-06,
+      "transfer_relative_l1_residual_6dof": [
+        1.2030802087925148e-14,
+        2.8027548858663073e-15,
+        1.348934357855661e-14,
+        1.1343063718370312e-14,
+        5.0972334732247096e-14,
+        6.745727088343241e-15
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    },
+    {
+      "raw": "RocketRecoveryCases\\Chrono_LeggedRecovery_Corrected20260927_v2\\raw\\end526_dt0.0005_kn1e+08\\pass04.json",
+      "sha256": "dbc454a57ca86e8abcf1199ef9d89ede1982335c3df86f4a35ff71330da653db",
+      "hash_matches": true,
+      "samples": 40001,
+      "expected_samples": 40001,
+      "all_grid_nodes": true,
+      "normal_force_peak_n": 7067113.95555737,
+      "positive_vertical_force_peak_n": 7066801.467157075,
+      "transfer_impulse_residual_6dof": [
+        6.213667802512646e-09,
+        7.556081982329488e-09,
+        -1.6763806343078613e-08,
+        8.046627044677734e-07,
+        -1.044943928718567e-06,
+        -5.7451870816294104e-08
+      ],
+      "transfer_max_abs_residual": 1.044943928718567e-06,
+      "transfer_relative_l1_residual_6dof": [
+        4.929049128463857e-15,
+        5.358335110826576e-15,
+        1.6857734356614251e-15,
+        5.135241171322974e-15,
+        4.989855511855646e-14,
+        3.1228212697170185e-15
+      ],
+      "transfer_pass_1e_minus_10": true,
+      "finite_normal_forces": true,
+      "power_audit_available": false
+    }
+  ],
+  "completed_report_exists": true,
+  "all_histories_complete": true,
+  "interface_closed": false,
+  "contact_step_pass": false,
+  "impulse_transfer_pass": true,
+  "scope": "Grid retention, file identity and impulse transfer; not independent contact-energy closure"
+}

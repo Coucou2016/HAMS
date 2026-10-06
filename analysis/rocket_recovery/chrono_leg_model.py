@@ -1,5 +1,11 @@
 from __future__ import annotations
 
+try:
+    from .review_integrity import deck_pose
+except ImportError:
+    from review_integrity import deck_pose
+
+
 import importlib
 import math
 import bisect
@@ -114,9 +120,9 @@ def default_leg_model_config() -> dict[str, Any]:
             "base_diameter_m": rocket["base_diameter_m"],
             "cog_from_base_m": rocket["cog_from_launcher_base_m"],
             "inertia_kg_m2": {
-                "roll_x": rocket["inertia_kg_m2"]["roll_iyy"],
-                "pitch_y": rocket["inertia_kg_m2"]["pitch_ixx"],
-                "yaw_z": rocket["inertia_kg_m2"]["yaw_izz"],
+                "roll_x": rocket["inertia_kg_m2"]["pitch_ixx"],
+                "pitch_y": rocket["inertia_kg_m2"]["yaw_izz"],
+                "yaw_z": rocket["inertia_kg_m2"]["roll_iyy"],
             },
             "touchdown_vertical_velocity_m_s": req["touchdown_vertical_velocity_nominal_m_s"],
             "initial_lateral_velocity_m_s": req["touchdown_lateral_velocity_nominal_m_s"],
@@ -559,6 +565,7 @@ class DeckMotion:
     yaw_rad_s: np.ndarray | None = None
     offset_x_m: float = 0.0
     offset_y_m: float = 0.0
+    reference_height_m: float = 0.0
 
     def _hermite_pair(
         self,
@@ -628,25 +635,16 @@ class DeckMotion:
         }
 
     def deck_xy(self, t: float, x_local_m: float, y_local_m: float) -> tuple[float, float]:
-        row = self.sample(t)
-        yaw = row["yaw_rad"]
-        c = math.cos(yaw)
-        s = math.sin(yaw)
-        return (
-            row["surge_m"] + c * x_local_m - s * y_local_m,
-            row["sway_m"] + s * x_local_m + c * y_local_m,
-        )
+        pose = deck_pose(self.sample(t), self.reference_height_m, 0.0)
+        point = pose["origin"] + pose["R"] @ np.array([x_local_m, y_local_m, self.reference_height_m])
+        return float(point[0]), float(point[1])
 
     def deck_z(self, t: float, x_m: float, y_m: float) -> float:
-        row = self.sample(t)
-        dx = x_m - row["surge_m"]
-        dy = y_m - row["sway_m"]
-        yaw = row["yaw_rad"]
-        c = math.cos(yaw)
-        s = math.sin(yaw)
-        local_x = c * dx + s * dy
-        local_y = -s * dx + c * dy
-        return row["heave_m"] + row["roll_rad"] * local_y - row["pitch_rad"] * local_x
+        pose = deck_pose(self.sample(t), self.reference_height_m, 0.0)
+        n, p = pose["normal"], pose["top"]
+        if abs(n[2]) < 1e-6:
+            raise ValueError("Deck plane is near vertical")
+        return float(p[2] - (n[0]*(x_m-p[0]) + n[1]*(y_m-p[1])) / n[2])
 
 
 def chrono_vec(chrono: Any, x: float, y: float, z: float) -> Any:
@@ -837,7 +835,8 @@ def make_contact_material(chrono: Any, config: dict[str, Any]) -> Any:
     material = material_cls()
     contact = config["contact"]
     foot_mass = float(config["legs"]["footpad_mass_kg"])
-    deck_mass = 180.0 * 54.0 * float(config["solver"]["deck_thickness_m"]) * 1000.0
+    geometry = config['solver'].get('deck_geometry_m', {'length': 180.0, 'beam': 54.0})
+    deck_mass = float(geometry['length']) * float(geometry['beam']) * float(config["solver"]["deck_thickness_m"]) * 1000.0
     reference_effective_mass = foot_mass * deck_mass / (foot_mass + deck_mass)
     damping_rate_s_inv = float(contact["normal_damping_ns_m"]) / reference_effective_mass
     for method, value in [
@@ -861,7 +860,8 @@ def explicit_smc_contact_audit(config: dict[str, Any]) -> dict[str, Any]:
     """Describe the coefficients actually consumed by Chrono's explicit Hooke law."""
 
     foot_mass = float(config["legs"]["footpad_mass_kg"])
-    deck_mass = 180.0 * 54.0 * float(config["solver"]["deck_thickness_m"]) * 1000.0
+    geometry = config['solver'].get('deck_geometry_m', {'length': 180.0, 'beam': 54.0})
+    deck_mass = float(geometry['length']) * float(geometry['beam']) * float(config["solver"]["deck_thickness_m"]) * 1000.0
     effective_mass = foot_mass * deck_mass / (foot_mass + deck_mass)
     desired_damping = float(config["contact"]["normal_damping_ns_m"])
     damping_rate = desired_damping / effective_mass
@@ -896,8 +896,8 @@ def multibody_mass_audit(config: dict[str, Any]) -> dict[str, Any]:
         "reconstructed_total_mass_kg": rocket_body + footpads + rods,
         "mass_residual_kg": rocket_body + footpads + rods - published_total,
         "inertia_scope": (
-            "Published vehicle inertia is retained on the central body because component-level inertias are unavailable; "
-            "the translational mass is closed exactly, but the inertia allocation remains a declared approximation."
+            ("Reference-pose mass/CG/tensor allocation is in config.rocket.review_reference_allocation; " if "review_reference_allocation" in config["rocket"] else "Coordinate-corrected vehicle inertia retained on the central body; ") +
+            "Child properties are assumed; this is not measured component inertia or CAD recovery."
         ),
     }
 
@@ -926,6 +926,10 @@ def make_system(chrono: Any, config: dict[str, Any]) -> Any:
         system.Set_G_acc(gravity)
     if hasattr(system, "SetContactForceModel") and hasattr(system, "Hooke"):
         system.SetContactForceModel(system.Hooke)
+    if config['solver'].get('contact_jacobian', False):
+        if not hasattr(system, 'SetContactStiff'):
+            raise ChronoUnavailableError('Contact Jacobians requested but unavailable')
+        system.SetContactStiff(True)
     if hasattr(system, "SetCollisionSystemType") and hasattr(chrono, "ChCollisionSystem"):
         system.SetCollisionSystemType(chrono.ChCollisionSystem.Type_BULLET)
     if hasattr(system, "SetSolverType") and hasattr(chrono, "ChSolver"):
@@ -1183,7 +1187,8 @@ class ChronoOneWayLegModel:
         material = make_contact_material(chrono, config)
 
         deck_thickness = float(config["solver"]["deck_thickness_m"])
-        deck = make_box_body(chrono, (180.0, 54.0, deck_thickness), 1000.0, material, True)
+        deck_geometry = config["solver"].get("deck_geometry_m", {"length":180.0,"beam":54.0})
+        deck = make_box_body(chrono, (deck_geometry["length"], deck_geometry["beam"], deck_thickness), 1000.0, material, True)
         set_body_fixed(deck, True)
         add_to_system(system, deck)
 
@@ -1283,7 +1288,8 @@ class ChronoOneWayLegModel:
         for step_index in range(step_count + 1):
             t = end if step_index == step_count else start + step_index * dt
             deck_state = self.deck_motion.sample(t)
-            deck.SetPos(chrono_vec(chrono, deck_state["surge_m"], deck_state["sway_m"], deck_state["heave_m"] - 0.5 * deck_thickness))
+            pose = deck_pose(deck_state, self.deck_motion.reference_height_m, deck_thickness)
+            deck.SetPos(chrono_vec(chrono, *pose["center"]))
             deck.SetRot(
                 chrono_quat_from_roll_pitch_yaw(
                     chrono,
@@ -1292,8 +1298,8 @@ class ChronoOneWayLegModel:
                     deck_state["yaw_rad"],
                 )
             )
-            set_body_velocity(deck, chrono, deck_state["surge_m_s"], deck_state["sway_m_s"], deck_state["heave_m_s"])
-            set_body_angular_velocity(deck, chrono, deck_state["roll_rad_s"], deck_state["pitch_rad_s"], deck_state["yaw_rad_s"])
+            set_body_velocity(deck, chrono, *pose["velocity"])
+            set_body_angular_velocity(deck, chrono, *pose["omega"])
             if not first_contact_seen:
                 first_contact_seen = any(body.GetContactForce().z > contact_force_threshold for body in feet.values())
             if first_contact_seen:
@@ -1350,7 +1356,7 @@ class ChronoOneWayLegModel:
                     leg_contact_force_xyz[leg_id]["x"].append(float(cf.x))
                     leg_contact_force_xyz[leg_id]["y"].append(float(cf.y))
                     leg_contact_force_xyz[leg_id]["z"].append(float(cf.z))
-                next_output += output_dt
+                next_output = start + len(time_s) * output_dt
             if step_index < step_count:
                 system.DoStepDynamics(dt)
 
@@ -1501,7 +1507,8 @@ class ChronoTripodLegModel:
         material = make_contact_material(chrono, config)
 
         deck_thickness = float(config["solver"]["deck_thickness_m"])
-        deck = make_box_body(chrono, (180.0, 54.0, deck_thickness), 1000.0, material, True)
+        deck_geometry = config["solver"].get("deck_geometry_m", {"length":180.0,"beam":54.0})
+        deck = make_box_body(chrono, (deck_geometry["length"], deck_geometry["beam"], deck_thickness), 1000.0, material, True)
         set_body_fixed(deck, True)
         add_to_system(system, deck)
 
@@ -1644,6 +1651,8 @@ class ChronoTripodLegModel:
 
         set_system_gravity(system, chrono, 0.0)
         first_contact_seen = False
+        normal_force_samples = {leg["id"]: [] for leg in leg_rows}
+        foot_kinematics = {leg["id"]: {"velocity_world_m_s": [], "omega_world_rad_s": []} for leg in leg_rows}
         time_s: list[float] = []
         rocket_x: list[float] = []
         rocket_y: list[float] = []
@@ -1719,7 +1728,8 @@ class ChronoTripodLegModel:
         for step_index in range(step_count + 1):
             t = end if step_index == step_count else start + step_index * dt
             deck_state = self.deck_motion.sample(t)
-            deck.SetPos(chrono_vec(chrono, deck_state["surge_m"], deck_state["sway_m"], deck_state["heave_m"] - 0.5 * deck_thickness))
+            pose = deck_pose(deck_state, self.deck_motion.reference_height_m, deck_thickness)
+            deck.SetPos(chrono_vec(chrono, *pose["center"]))
             deck.SetRot(
                 chrono_quat_from_roll_pitch_yaw(
                     chrono,
@@ -1728,8 +1738,8 @@ class ChronoTripodLegModel:
                     deck_state["yaw_rad"],
                 )
             )
-            set_body_velocity(deck, chrono, deck_state["surge_m_s"], deck_state["sway_m_s"], deck_state["heave_m_s"])
-            set_body_angular_velocity(deck, chrono, deck_state["roll_rad_s"], deck_state["pitch_rad_s"], deck_state["yaw_rad_s"])
+            set_body_velocity(deck, chrono, *pose["velocity"])
+            set_body_angular_velocity(deck, chrono, *pose["omega"])
             if not first_contact_seen:
                 first_contact_seen = any(body.GetContactForce().z > contact_force_threshold for body in feet.values())
             if first_contact_seen:
@@ -1776,7 +1786,9 @@ class ChronoTripodLegModel:
                 deck_roll_rate.append(deck_state["roll_rad_s"])
                 deck_pitch_rate.append(deck_state["pitch_rad_s"])
                 deck_yaw_rate.append(deck_state["yaw_rad_s"])
-                base_gap = rp[2] - cg - self.deck_motion.deck_z(t, rp[0], rp[1])
+                normal, top = pose['normal'], pose['top']
+                deck_z_at_rocket = top[2] - (normal[0]*(rp[0]-top[0]) + normal[1]*(rp[1]-top[1])) / normal[2]
+                base_gap = rp[2] - cg - deck_z_at_rocket
                 base_clearance.append(base_gap)
                 nozzle_clearance.append(nozzle_clearance_from_base(config, base_gap))
                 lock_state.append(1 if lock_link is not None else 0)
@@ -1809,8 +1821,10 @@ class ChronoTripodLegModel:
                     fp = body_pos(feet[leg_id])
                     vertices.append((fp[0], fp[1]))
                     cf = feet[leg_id].GetContactForce()
-                    local_deck_z = self.deck_motion.deck_z(t, fp[0], fp[1])
-                    penetration = max(0.0, local_deck_z - (fp[2] - foot_radius))
+                    normal_force_samples[leg_id].append(float(max(0.0, np.dot([cf.x,cf.y,cf.z], pose["normal"]))))
+                    foot_kinematics[leg_id]["velocity_world_m_s"].append(list(body_vel(feet[leg_id])))
+                    foot_kinematics[leg_id]["omega_world_rad_s"].append(list(body_ang_vel(feet[leg_id])))
+                    penetration = max(0.0, foot_radius - float(np.dot(np.asarray(fp)-pose["top"], pose["normal"])))
                     stroke = max(0.0, float(config["legs"]["damper_rest_length_m"]) - float(springs[leg_id].GetLength()))
                     foot_position[leg_id]["x_m"].append(fp[0])
                     foot_position[leg_id]["y_m"].append(fp[1])
@@ -1855,7 +1869,7 @@ class ChronoTripodLegModel:
                             brace_force[leg_id][brace_id].append(0.0)
                 margin = support_polygon_margin((rp[0], rp[1]), vertices)
                 support_margin.append(float(margin) if margin is not None else float("nan"))
-                next_output += output_dt
+                next_output = start + len(time_s) * output_dt
             if step_index < step_count:
                 system.DoStepDynamics(dt)
 
@@ -1926,11 +1940,13 @@ class ChronoTripodLegModel:
             "forces": {
                 "leg_tsda_force_n": leg_force,
                 "leg_contact_force_n": leg_contact_force,
+                "leg_contact_normal_force_n": normal_force_samples,
                 "leg_contact_force_xyz_n": leg_contact_force_xyz,
                 "lock_reaction_force_xyz_n": lock_reaction_force,
                 "lock_reaction_torque_xyz_nm": lock_reaction_torque,
             },
-            "feet": {"position_m": foot_position},
+            "feet": {"position_m": foot_position, "kinematics": foot_kinematics},
+            "force_definition": {"leg_contact_force_n": "max(world Fz,0), not deck-normal force", "leg_contact_normal_force_n":"max(F dot deck_normal,0)"},
             "mechanism": {
                 "anchor_position_m": anchors,
                 "brace_model": proxy.get("brace_model", "elastic_tsda"),

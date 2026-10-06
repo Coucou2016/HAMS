@@ -1,0 +1,588 @@
+--- /dev/null
++++ b/analysis/rocket_recovery/review_integrity.py
+@@ -0,0 +1,97 @@
++"""Auditable coordinate/transfer utilities (2026-09-26 review).
++Unit tests validate these operations, not a full coupled landing or material law.
++"""
++from __future__ import annotations
++import hashlib,json
++from pathlib import Path
++import numpy as np
++
++
++def conservative_resample(time_s, values, target_time_s):
++    """Voronoi-bin means preserving trapezoidal impulse, including endpoints.
++
++    Input is piecewise linear. Output node weights equal the widths of the
++    Voronoi cells [t0,midpoints,tN], hence trapezoid(output)==integral(input).
++    This preserves resultant impulse, NOT contact work or peak forces.
++    """
++    t=np.asarray(time_s,dtype=float); y=np.asarray(values,dtype=float); q=np.asarray(target_time_s,dtype=float)
++    scalar=y.ndim==1
++    if scalar:y=y[:,None]
++    if t.ndim!=1 or q.ndim!=1 or len(t)<2 or len(q)<2 or y.ndim!=2 or len(y)!=len(t):
++        raise ValueError('Require at least two times and matching one- or two-dimensional values')
++    if not all(np.all(np.isfinite(x)) for x in (t,y,q)) or np.any(np.diff(t)<=0) or np.any(np.diff(q)<=0):
++        raise ValueError('All data must be finite and time strictly increasing')
++    if not np.allclose([t[0],t[-1]],[q[0],q[-1]],atol=1e-9,rtol=0):
++        raise ValueError('Full-interval conservation requires matching endpoints')
++    edges=np.r_[t[0],.5*(q[:-1]+q[1:]),t[-1]]
++    dt=np.diff(t); slope=np.diff(y,axis=0)/dt[:,None]
++    cum=np.vstack([np.zeros(y.shape[1]),np.cumsum(.5*(y[:-1]+y[1:])*dt[:,None],axis=0)])
++    ix=np.clip(np.searchsorted(t,edges,side='right')-1,0,len(t)-2)
++    u=edges-t[ix]
++    integral=cum[ix]+y[ix]*u[:,None]+.5*slope[ix]*u[:,None]**2
++    result=np.diff(integral,axis=0)/np.diff(edges)[:,None]
++    return result[:,0] if scalar else result
++
++
++def thies_total_inertia_z_up():
++    """Table 3 is Y-up (Figure 7); R is a proper coordinate rotation."""
++    R=np.array([[1.,0,0],[0,0,-1],[0,1,0]])
++    return R@np.diag([2.57e7,3.76e5,2.57e7])@R.T
++
++
++def allocate_central_body(total_mass, total_cg, total_inertia, child_masses, child_cg, child_inertia):
++    """Close reference-configuration mass, CG and inertia about total CG.
++
++    All tensors are in the same axes. Assumed child properties remain assumptions.
++    Moving articulated children change the composite inertia after this pose.
++    """
++    M=float(total_mass);g=np.asarray(total_cg,float);I=np.asarray(total_inertia,float)
++    m=np.asarray(child_masses,float);r=np.asarray(child_cg,float);J=np.asarray(child_inertia,float)
++    if g.shape!=(3,) or I.shape!=(3,3) or r.shape!=(len(m),3) or J.shape!=(len(m),3,3):raise ValueError('Shape mismatch')
++    if not all(np.all(np.isfinite(x)) for x in (M,g,I,m,r,J)) or np.any(m<=0) or M<=sum(m):raise ValueError('Invalid mass/inertia inputs')
++    core_mass=M-sum(m);core_cg=(M*g-np.sum(m[:,None]*r,axis=0))/core_mass
++    pa=lambda d:np.dot(d,d)*np.eye(3)-np.outer(d,d)
++    core_I=I-sum((j+mi*pa(ri-g) for mi,ri,j in zip(m,r,J)),np.zeros((3,3)))-core_mass*pa(core_cg-g)
++    if not np.allclose(core_I,core_I.T,atol=1e-6) or np.linalg.eigvalsh(core_I).min()<=0:raise ValueError('Residual central inertia is not symmetric positive definite')
++    eig=np.linalg.eigvalsh(core_I)
++    if eig[-1]>eig[0]+eig[1]+1e-6:raise ValueError('Residual central inertia violates triangle inequality')
++    return float(core_mass),core_cg,core_I
++
++
++def rotation_xyz_and_omega(angles, rates):
++    """R=Rx(roll) Ry(pitch) Rz(yaw), matching existing Chrono quaternion.
++    Convert Euler derivatives to spatial angular velocity; never equate them.
++    """
++    a,b,c=np.asarray(angles,float);ad,bd,cd=np.asarray(rates,float)
++    ca,sa=np.cos(a),np.sin(a);cb,sb=np.cos(b),np.sin(b);cc,sc=np.cos(c),np.sin(c)
++    rx=np.array([[1,0,0],[0,ca,-sa],[0,sa,ca]])
++    ry=np.array([[cb,0,sb],[0,1,0],[-sb,0,cb]])
++    rz=np.array([[cc,-sc,0],[sc,cc,0],[0,0,1]])
++    return rx@ry@rz,np.array([ad,0.,0.])+rx@np.array([0.,bd,0.])+rx@ry@np.array([0.,0.,cd])
++
++
++def deck_pose(row, reference_height_m, thickness_m):
++    angles=[row[k] for k in ('roll_rad','pitch_rad','yaw_rad')]
++    rates=[row[k] for k in ('roll_rad_s','pitch_rad_s','yaw_rad_s')]
++    R,w=rotation_xyz_and_omega(angles,rates)
++    origin=np.array([row[k] for k in ('surge_m','sway_m','heave_m')])
++    v=np.array([row[k] for k in ('surge_m_s','sway_m_s','heave_m_s')])
++    offset=R@np.array([0.,0.,reference_height_m-.5*thickness_m])
++    return {'center':origin+offset,'velocity':v+np.cross(w,offset),'omega':w,'R':R,'normal':R[:,2],'origin':origin,'top':origin+R@np.array([0.,0.,reference_height_m])}
++
++
++def contact_power(force, contact_point, body_cg, cg_velocity, angular_velocity):
++    f,p,c,v,w=[np.asarray(x,float) for x in (force,contact_point,body_cg,cg_velocity,angular_velocity)]
++    if any(x.shape[-1]!=3 for x in (f,p,c,v,w)):raise ValueError('Last axis must contain XYZ')
++    return np.sum(f*(v+np.cross(w,p-c)),axis=-1)
++
++
++def retain_full_history(path: Path, sim: dict):
++    """Write every actually recorded solver sample, never upsample compact data."""
++    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
++    if path.exists():raise FileExistsError(path)
++    t=np.asarray(sim['time_s'],float)
++    if len(t)<2 or np.any(np.diff(t)<=0):raise ValueError('Invalid history time')
++    data=json.dumps(sim,ensure_ascii=False,allow_nan=False,separators=(',',':')).encode('utf-8')
++    path.write_bytes(data)
++    return {'path':str(path),'sha256':hashlib.sha256(data).hexdigest(),'samples':len(t),'start_s':float(t[0]),'end_s':float(t[-1]),'sample_dt_median_s':float(np.median(np.diff(t))),'representation':'all recorded integration-grid samples; no resampling'}
+--- a/analysis/rocket_recovery/chrono_leg_model.py
++++ b/analysis/rocket_recovery/chrono_leg_model.py
+@@ -1,4 +1,10 @@
+ from __future__ import annotations
++
++try:
++    from .review_integrity import deck_pose
++except ImportError:
++    from review_integrity import deck_pose
++
+ 
+ import importlib
+ import math
+@@ -114,9 +120,9 @@
+             "base_diameter_m": rocket["base_diameter_m"],
+             "cog_from_base_m": rocket["cog_from_launcher_base_m"],
+             "inertia_kg_m2": {
+-                "roll_x": rocket["inertia_kg_m2"]["roll_iyy"],
+-                "pitch_y": rocket["inertia_kg_m2"]["pitch_ixx"],
+-                "yaw_z": rocket["inertia_kg_m2"]["yaw_izz"],
++                "roll_x": rocket["inertia_kg_m2"]["pitch_ixx"],
++                "pitch_y": rocket["inertia_kg_m2"]["yaw_izz"],
++                "yaw_z": rocket["inertia_kg_m2"]["roll_iyy"],
+             },
+             "touchdown_vertical_velocity_m_s": req["touchdown_vertical_velocity_nominal_m_s"],
+             "initial_lateral_velocity_m_s": req["touchdown_lateral_velocity_nominal_m_s"],
+@@ -559,6 +565,7 @@
+     yaw_rad_s: np.ndarray | None = None
+     offset_x_m: float = 0.0
+     offset_y_m: float = 0.0
++    reference_height_m: float = 0.0
+ 
+     def _hermite_pair(
+         self,
+@@ -628,25 +635,16 @@
+         }
+ 
+     def deck_xy(self, t: float, x_local_m: float, y_local_m: float) -> tuple[float, float]:
+-        row = self.sample(t)
+-        yaw = row["yaw_rad"]
+-        c = math.cos(yaw)
+-        s = math.sin(yaw)
+-        return (
+-            row["surge_m"] + c * x_local_m - s * y_local_m,
+-            row["sway_m"] + s * x_local_m + c * y_local_m,
+-        )
++        pose = deck_pose(self.sample(t), self.reference_height_m, 0.0)
++        point = pose["origin"] + pose["R"] @ np.array([x_local_m, y_local_m, self.reference_height_m])
++        return float(point[0]), float(point[1])
+ 
+     def deck_z(self, t: float, x_m: float, y_m: float) -> float:
+-        row = self.sample(t)
+-        dx = x_m - row["surge_m"]
+-        dy = y_m - row["sway_m"]
+-        yaw = row["yaw_rad"]
+-        c = math.cos(yaw)
+-        s = math.sin(yaw)
+-        local_x = c * dx + s * dy
+-        local_y = -s * dx + c * dy
+-        return row["heave_m"] + row["roll_rad"] * local_y - row["pitch_rad"] * local_x
++        pose = deck_pose(self.sample(t), self.reference_height_m, 0.0)
++        n, p = pose["normal"], pose["top"]
++        if abs(n[2]) < 1e-6:
++            raise ValueError("Deck plane is near vertical")
++        return float(p[2] - (n[0]*(x_m-p[0]) + n[1]*(y_m-p[1])) / n[2])
+ 
+ 
+ def chrono_vec(chrono: Any, x: float, y: float, z: float) -> Any:
+@@ -896,8 +894,8 @@
+         "reconstructed_total_mass_kg": rocket_body + footpads + rods,
+         "mass_residual_kg": rocket_body + footpads + rods - published_total,
+         "inertia_scope": (
+-            "Published vehicle inertia is retained on the central body because component-level inertias are unavailable; "
+-            "the translational mass is closed exactly, but the inertia allocation remains a declared approximation."
++            ("Reference-pose mass/CG/tensor allocation is in config.rocket.review_reference_allocation; " if "review_reference_allocation" in config["rocket"] else "Coordinate-corrected vehicle inertia retained on the central body; ") +
++            "Child properties are assumed; this is not measured component inertia or CAD recovery."
+         ),
+     }
+ 
+@@ -1183,7 +1181,8 @@
+         material = make_contact_material(chrono, config)
+ 
+         deck_thickness = float(config["solver"]["deck_thickness_m"])
+-        deck = make_box_body(chrono, (180.0, 54.0, deck_thickness), 1000.0, material, True)
++        deck_geometry = config["solver"].get("deck_geometry_m", {"length":180.0,"beam":54.0})
++        deck = make_box_body(chrono, (deck_geometry["length"], deck_geometry["beam"], deck_thickness), 1000.0, material, True)
+         set_body_fixed(deck, True)
+         add_to_system(system, deck)
+ 
+@@ -1283,7 +1282,8 @@
+         for step_index in range(step_count + 1):
+             t = end if step_index == step_count else start + step_index * dt
+             deck_state = self.deck_motion.sample(t)
+-            deck.SetPos(chrono_vec(chrono, deck_state["surge_m"], deck_state["sway_m"], deck_state["heave_m"] - 0.5 * deck_thickness))
++            pose = deck_pose(deck_state, self.deck_motion.reference_height_m, deck_thickness)
++            deck.SetPos(chrono_vec(chrono, *pose["center"]))
+             deck.SetRot(
+                 chrono_quat_from_roll_pitch_yaw(
+                     chrono,
+@@ -1292,8 +1292,8 @@
+                     deck_state["yaw_rad"],
+                 )
+             )
+-            set_body_velocity(deck, chrono, deck_state["surge_m_s"], deck_state["sway_m_s"], deck_state["heave_m_s"])
+-            set_body_angular_velocity(deck, chrono, deck_state["roll_rad_s"], deck_state["pitch_rad_s"], deck_state["yaw_rad_s"])
++            set_body_velocity(deck, chrono, *pose["velocity"])
++            set_body_angular_velocity(deck, chrono, *pose["omega"])
+             if not first_contact_seen:
+                 first_contact_seen = any(body.GetContactForce().z > contact_force_threshold for body in feet.values())
+             if first_contact_seen:
+@@ -1501,7 +1501,8 @@
+         material = make_contact_material(chrono, config)
+ 
+         deck_thickness = float(config["solver"]["deck_thickness_m"])
+-        deck = make_box_body(chrono, (180.0, 54.0, deck_thickness), 1000.0, material, True)
++        deck_geometry = config["solver"].get("deck_geometry_m", {"length":180.0,"beam":54.0})
++        deck = make_box_body(chrono, (deck_geometry["length"], deck_geometry["beam"], deck_thickness), 1000.0, material, True)
+         set_body_fixed(deck, True)
+         add_to_system(system, deck)
+ 
+@@ -1644,6 +1645,8 @@
+ 
+         set_system_gravity(system, chrono, 0.0)
+         first_contact_seen = False
++        normal_force_samples = {leg["id"]: [] for leg in leg_rows}
++        foot_kinematics = {leg["id"]: {"velocity_world_m_s": [], "omega_world_rad_s": []} for leg in leg_rows}
+         time_s: list[float] = []
+         rocket_x: list[float] = []
+         rocket_y: list[float] = []
+@@ -1719,7 +1722,8 @@
+         for step_index in range(step_count + 1):
+             t = end if step_index == step_count else start + step_index * dt
+             deck_state = self.deck_motion.sample(t)
+-            deck.SetPos(chrono_vec(chrono, deck_state["surge_m"], deck_state["sway_m"], deck_state["heave_m"] - 0.5 * deck_thickness))
++            pose = deck_pose(deck_state, self.deck_motion.reference_height_m, deck_thickness)
++            deck.SetPos(chrono_vec(chrono, *pose["center"]))
+             deck.SetRot(
+                 chrono_quat_from_roll_pitch_yaw(
+                     chrono,
+@@ -1728,8 +1732,8 @@
+                     deck_state["yaw_rad"],
+                 )
+             )
+-            set_body_velocity(deck, chrono, deck_state["surge_m_s"], deck_state["sway_m_s"], deck_state["heave_m_s"])
+-            set_body_angular_velocity(deck, chrono, deck_state["roll_rad_s"], deck_state["pitch_rad_s"], deck_state["yaw_rad_s"])
++            set_body_velocity(deck, chrono, *pose["velocity"])
++            set_body_angular_velocity(deck, chrono, *pose["omega"])
+             if not first_contact_seen:
+                 first_contact_seen = any(body.GetContactForce().z > contact_force_threshold for body in feet.values())
+             if first_contact_seen:
+@@ -1809,8 +1813,11 @@
+                     fp = body_pos(feet[leg_id])
+                     vertices.append((fp[0], fp[1]))
+                     cf = feet[leg_id].GetContactForce()
++                    normal_force_samples[leg_id].append(float(max(0.0, np.dot([cf.x,cf.y,cf.z], pose["normal"]))))
++                    foot_kinematics[leg_id]["velocity_world_m_s"].append(list(body_vel(feet[leg_id])))
++                    foot_kinematics[leg_id]["omega_world_rad_s"].append(list(body_ang_vel(feet[leg_id])))
+                     local_deck_z = self.deck_motion.deck_z(t, fp[0], fp[1])
+-                    penetration = max(0.0, local_deck_z - (fp[2] - foot_radius))
++                    penetration = max(0.0, foot_radius - float(np.dot(np.asarray(fp)-pose["top"], pose["normal"])))
+                     stroke = max(0.0, float(config["legs"]["damper_rest_length_m"]) - float(springs[leg_id].GetLength()))
+                     foot_position[leg_id]["x_m"].append(fp[0])
+                     foot_position[leg_id]["y_m"].append(fp[1])
+@@ -1926,11 +1933,13 @@
+             "forces": {
+                 "leg_tsda_force_n": leg_force,
+                 "leg_contact_force_n": leg_contact_force,
++                "leg_contact_normal_force_n": normal_force_samples,
+                 "leg_contact_force_xyz_n": leg_contact_force_xyz,
+                 "lock_reaction_force_xyz_n": lock_reaction_force,
+                 "lock_reaction_torque_xyz_nm": lock_reaction_torque,
+             },
+-            "feet": {"position_m": foot_position},
++            "feet": {"position_m": foot_position, "kinematics": foot_kinematics},
++            "force_definition": {"leg_contact_force_n": "max(world Fz,0), not deck-normal force", "leg_contact_normal_force_n":"max(F dot deck_normal,0)"},
+             "mechanism": {
+                 "anchor_position_m": anchors,
+                 "brace_model": proxy.get("brace_model", "elastic_tsda"),
+--- a/analysis/rocket_recovery/chrono_two_way_recovery.py
++++ b/analysis/rocket_recovery/chrono_two_way_recovery.py
+@@ -1,4 +1,10 @@
+ from __future__ import annotations
++
++try:
++    from .review_integrity import conservative_resample
++except ImportError:
++    from review_integrity import conservative_resample
++
+ 
+ import argparse
+ import copy
+@@ -708,6 +714,8 @@
+     contact_platform_samples = np.zeros((sample_count, 6), dtype=float)
+     contact_rocket_samples = np.zeros((sample_count, 6), dtype=float)
+     deck_normal = _deck_normal_from_rpy(sim, sample_count)
++    reference = np.column_stack([np.asarray(sim.get("deck", {}).get(k, np.zeros(sample_count)))
++                                 for k in ("surge_m", "sway_m", "heave_m")])
+ 
+     for leg_id, xyz in sim["forces"]["leg_contact_force_xyz_n"].items():
+         rocket_force = np.column_stack(
+@@ -728,8 +736,8 @@
+             raise ValueError(f"Chrono force and position arrays for {leg_id} must match time_s.")
+         contact_point = position - max(float(footpad_radius_m), 0.0) * deck_normal
+         platform_force = -rocket_force
+-        rocket_moment = np.cross(contact_point, rocket_force)
+-        platform_moment = np.cross(contact_point, platform_force)
++        rocket_moment = np.cross(contact_point - reference, rocket_force)
++        platform_moment = np.cross(contact_point - reference, platform_force)
+         rocket_generalized = np.column_stack([rocket_force, rocket_moment])
+         platform_generalized = np.column_stack([platform_force, platform_moment])
+         contact_rocket_samples += rocket_generalized
+@@ -769,8 +777,8 @@
+             raise ValueError("Chrono lock force, torque and point arrays must match time_s.")
+         platform_force = -rocket_force
+         platform_torque = -rocket_torque
+-        rocket_moment = np.cross(position, rocket_force) + rocket_torque
+-        platform_moment = np.cross(position, platform_force) + platform_torque
++        rocket_moment = np.cross(position - reference, rocket_force) + rocket_torque
++        platform_moment = np.cross(position - reference, platform_force) + platform_torque
+         lock_rocket_samples = np.column_stack([rocket_force, rocket_moment])
+         lock_samples = np.column_stack([platform_force, platform_moment])
+         rocket_samples += lock_rocket_samples
+@@ -796,12 +804,14 @@
+         "max_lock_pitch_platform_moment_nm": float(np.max(np.abs(lock_samples[:, 4]))) if sample_count else 0.0,
+         "max_lock_yaw_platform_moment_nm": float(np.max(np.abs(lock_samples[:, 5]))) if sample_count else 0.0,
+         "contact_application_point": "Chrono spherical footpad center minus radius along the prescribed deck normal.",
+-        "coordinate_frame": "Chrono world axes aligned with the HAMS reference axes; moments are about XR=(0,0,0).",
++        "coordinate_frame": "Chrono world axes aligned with the HAMS reference axes; moments are about the moving platform reference point; HAMS forces use linearized spatial axes.",
+         "sign_convention": "Chrono contact and lock reactions act on the rocket/footpads. Platform generalized load is the equal and opposite [Fx,Fy,Fz,Mx,My,Mz].",
+     }
+-    target = np.column_stack(
+-        [np.interp(target_time_s, chrono_time, platform_samples[:, column]) for column in range(6)]
+-    )
++    target = conservative_resample(chrono_time, platform_samples, target_time_s)
++    audit["resampling"] = "Voronoi-bin means; trapezoidal resultant impulse preserved, not work"
++    audit["check_scope"] = "algebraic assembly identity; not independent reaction measurement"
++    audit["impulse_residual_6dof"] = (np.trapezoid(target, target_time_s, axis=0)
++                                      - np.trapezoid(platform_samples, chrono_time, axis=0)).tolist()
+     return {
+         "time_s": target_time_s,
+         "values_6dof": target,
+--- a/analysis/rocket_recovery/chrono_same_platform_multibody.py
++++ b/analysis/rocket_recovery/chrono_same_platform_multibody.py
+@@ -1,4 +1,10 @@
+ from __future__ import annotations
++
++try:
++    from .review_integrity import thies_total_inertia_z_up, allocate_central_body, retain_full_history
++except ImportError:
++    from review_integrity import thies_total_inertia_z_up, allocate_central_body, retain_full_history
++
+ 
+ import argparse
+ import copy
+@@ -38,7 +44,7 @@
+ 
+ 
+ ROOT = Path(__file__).resolve().parents[2]
+-CASE_ROOT = ROCKET_CASES_DIR / "Chrono_LeggedRecovery"
++CASE_ROOT = ROCKET_CASES_DIR / "Chrono_LeggedRecovery_Review20260926"
+ WANG_CONFIG_PATH = ROCKET_CASES_DIR / "Paper_WangZhi_2023" / "platform_config.json"
+ REPORT_PATH = CASE_ROOT / "chrono-same-platform-multibody-report.json"
+ RESPONSE_PATH = CASE_ROOT / "Output" / "RocketRecovery" / "chrono-same-platform-multibody-response.json"
+@@ -57,47 +63,35 @@
+     config["solver"]["output_step_s"] = float(output_dt_s if output_dt_s is not None else contact_dt_s)
+     if contact_stiffness_n_m is not None:
+         config["contact"]["normal_stiffness_n_m"] = float(contact_stiffness_n_m)
++    platform = read_json(ROCKET_CASES_DIR / "Barge_120x50" / "platform_config.json")["platform"]
++    config["solver"]["deck_geometry_m"] = {"length": platform["length_m"], "beam": platform["beam_m"], "height": platform["deck_z_m"]}
++    M = float(config["rocket"]["landing_mass_kg"])
++    target_cg = np.array([0.0, 0.0, config["rocket"]["cog_from_base_m"]])
++    radius = float(config["legs"]["footpad_radius_m"])
++    foot_mass = float(config["legs"]["footpad_mass_kg"])
++    az = np.radians(config["legs"]["azimuths_deg"])
++    r = float(config["legs"]["footprint_radius_m"])
++    foot_cg = np.column_stack([r*np.cos(az), r*np.sin(az), np.full(len(az), radius)])
++    child_I = np.array([np.eye(3)*0.4*foot_mass*radius**2 for _ in az])
++    core_mass, core_cg, core_I = allocate_central_body(M, target_cg, thies_total_inertia_z_up(),
++                                                   np.full(len(az), foot_mass), foot_cg, child_I)
++    if np.max(np.abs(core_I-np.diag(np.diag(core_I)))) > 1e-6:
++        raise ValueError("Current symmetric proxy requires diagonal central inertia")
++    config["rocket"]["cog_from_base_m"] = float(core_cg[2])
++    config["rocket"]["inertia_kg_m2"] = dict(zip(("roll_x","pitch_y","yaw_z"), np.diag(core_I).tolist()))
++    config["rocket"]["review_reference_allocation"] = {
++        "total_cg_m":target_cg.tolist(), "total_inertia_z_up":thies_total_inertia_z_up().tolist(),
++        "central_mass_kg":core_mass, "central_cg_m":core_cg.tolist(), "central_inertia":core_I.tolist(),
++        "scope":"reference configuration closure of the assumed four-sphere-foot proxy, not recovered CAD"}
+     if not apply_thies_digitized_buffer_law(config, required=True):
+         raise RuntimeError("The digitized Thies absorber law was not applied")
+     return config
+ 
+ 
+ def coupling_work_audit(sim: dict[str, Any], force6: dict[str, Any]) -> dict[str, Any]:
+-    time = np.asarray(sim["time_s"], dtype=float)
+-    platform_wrench = np.asarray(force6["samples_6dof"], dtype=float)
+-    rocket_wrench = -platform_wrench
+-    deck = sim["deck"]
+-    rocket = sim["rocket"]
+-    platform_velocity = np.column_stack(
+-        [
+-            np.asarray(deck["surge_m_s"], dtype=float),
+-            np.asarray(deck["sway_m_s"], dtype=float),
+-            np.asarray(deck["heave_m_s"], dtype=float),
+-            np.asarray(deck["roll_rad_s"], dtype=float),
+-            np.asarray(deck["pitch_rad_s"], dtype=float),
+-            np.asarray(deck["yaw_rad_s"], dtype=float),
+-        ]
+-    )
+-    rocket_velocity = np.column_stack(
+-        [
+-            np.gradient(np.asarray(rocket["cg_x_m"], dtype=float), time),
+-            np.gradient(np.asarray(rocket["cg_y_m"], dtype=float), time),
+-            np.asarray(rocket["vertical_velocity_m_s"], dtype=float),
+-            np.asarray(rocket["roll_rate_rad_s"], dtype=float),
+-            np.asarray(rocket["pitch_rate_rad_s"], dtype=float),
+-            np.asarray(rocket["yaw_rate_rad_s"], dtype=float),
+-        ]
+-    )
+-    platform_work = float(np.trapezoid(np.einsum("ni,ni->n", platform_wrench, platform_velocity), time))
+-    rocket_work = float(np.trapezoid(np.einsum("ni,ni->n", rocket_wrench, rocket_velocity), time))
+-    pair_work = platform_work + rocket_work
+-    return {
+-        "platform_contact_work_j": platform_work,
+-        "rocket_contact_work_j": rocket_work,
+-        "contact_pair_work_j": pair_work,
+-        "contact_pair_dissipation_proxy_j": max(0.0, -pair_work),
+-        "definition": "Generalized equal-and-opposite contact wrench dotted with recorded platform and rocket generalized velocities; unresolved contact elastic energy is not hidden.",
+-    }
++    # A net wrench about the platform origin cannot be dotted with rocket-CG
++    # velocity. Contact forces act on articulated foot bodies, not one rigid core.
++    return {"available": False, "reason": "Independent contact-pair work requires actual contact-point forces, torques and velocities on both sides; the former origin/CG mixed proxy has been disabled.", "contact_pair_work_j": None, "contact_pair_dissipation_proxy_j": None}
+ 
+ 
+ def absorber_work_audit(sim: dict[str, Any]) -> dict[str, Any]:
+@@ -131,42 +125,15 @@
+         per_leg[leg_id] = impulse
+         total_force += force
+     return {
++        "projected_normal_impulse_ns": float(sum(np.trapezoid(np.asarray(v),time) for v in sim["forces"].get("leg_contact_normal_force_n", {}).values())) if "leg_contact_normal_force_n" in sim["forces"] else None,
+         "per_leg_normal_impulse_ns": per_leg,
+         "total_normal_impulse_ns": float(np.trapezoid(total_force, time)),
+-        "definition": "Time integral of the recorded non-negative footpad contact-force magnitudes; this is a convergence metric, not a net six-DOF impulse.",
++        "definition": "Legacy key retained for compatibility: time integral of max(world Fz,0), NOT deck-normal impulse; see projected_normal_impulse_ns for the new quantity.",
+     }
+ 
+ 
+ def rocket_energy_audit(sim: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
+-    time = np.asarray(sim["time_s"], dtype=float)
+-    contact_count = np.sum(np.asarray(list(sim["contact"]["leg_contact"].values()), dtype=int), axis=0)
+-    contact_indices = np.flatnonzero(contact_count > 0)
+-    first = int(contact_indices[0]) if len(contact_indices) else 0
+-    mass = float(config["rocket"]["landing_mass_kg"])
+-    inertia = config["rocket"]["inertia_kg_m2"]
+-    vz = np.asarray(sim["rocket"]["vertical_velocity_m_s"], dtype=float)
+-    rates = np.column_stack(
+-        [
+-            np.asarray(sim["rocket"]["roll_rate_rad_s"], dtype=float),
+-            np.asarray(sim["rocket"]["pitch_rate_rad_s"], dtype=float),
+-            np.asarray(sim["rocket"]["yaw_rate_rad_s"], dtype=float),
+-        ]
+-    )
+-    inertia_values = np.asarray([inertia["roll_x"], inertia["pitch_y"], inertia["yaw_z"]], dtype=float)
+-    kinetic = 0.5 * mass * vz**2 + 0.5 * np.sum(inertia_values[None, :] * rates**2, axis=1)
+-    z = np.asarray(sim["rocket"]["cg_z_m"], dtype=float)
+-    gravity_work = mass * float(config["solver"]["gravity_m_s2"]) * float(z[first] - z[-1])
+-    return {
+-        "first_contact_sample_time_s": float(time[first]),
+-        "kinetic_energy_at_first_contact_j": float(kinetic[first]),
+-        "final_kinetic_energy_j": float(kinetic[-1]),
+-        "kinetic_energy_change_j": float(kinetic[-1] - kinetic[first]),
+-        "gravity_work_after_first_contact_j": gravity_work,
+-        "nominal_precontact_translational_energy_j": 0.5
+-        * mass
+-        * float(config["rocket"]["touchdown_vertical_velocity_m_s"]) ** 2,
+-        "scope": "Translational vertical plus published rotational inertias; horizontal kinetic energy is omitted and reported through this scope statement.",
+-    }
++    return {"available": False, "reason": "Previous proxy mixed total vehicle mass with central-body velocity/inertia and omitted articulated-foot kinetic energy. No closed whole-vehicle energy claim is made."}
+ 
+ 
+ def run_passes(
+@@ -175,9 +142,11 @@
+     retain_response: bool,
+     end_s: float = 526.0,
+     contact_stiffness_n_m: float | None = None,
++    adaptive: bool = False,
+ ) -> dict[str, Any]:
+     study = default_study_config()
+     study["time_domain"]["end_s"] = float(end_s)
++    study["platform"]["deck_reference_z_m"] = 3.0
+     study["plume"]["vehicle_platform_consistency"] = "pre_touchdown_only"
+     study["plume"]["cutoff_time_s"] = float(study["time_domain"]["touchdown_reference_s"])
+     operator = load_platform_operator(study)
+@@ -197,7 +166,10 @@
+     final_force6: dict[str, Any] | None = None
+     for pass_index in range(1, pass_count + 1):
+         motion = deck_motion_from_arrays(platform_time, current["q_active"], current["qd_active"], offset)
++        motion.reference_height_m = float(config["solver"]["deck_geometry_m"]["height"])
+         sim = ChronoTripodLegModel(config, motion).run()
++        raw_path = CASE_ROOT / "raw" / f"end{end_s:g}_dt{contact_dt_s:g}_kn{config['contact']['normal_stiffness_n_m']:g}" / f"pass{pass_index:02d}.json"
++        raw = retain_full_history(raw_path, sim)
+         force6 = generalized_leg_force_from_chrono_6dof(
+             sim,
+             platform_time,
+@@ -208,6 +180,7 @@
+         rows.append(
+             {
+                 "pass": pass_index,
++                "raw_history": raw,
+                 "trajectory_change": trajectory_difference(current, updated),
+                 "contact_summary": sim["summary"],
+                 "wrench_summary": force6["summary"],
+@@ -223,9 +196,13 @@
+         current = updated
+         final_sim = sim
+         final_force6 = force6
++        if adaptive and pass_index >= 2 and coupling_iteration_summary(rows)["comparisons"][-1]["pass_2_percent"]:
++            break
+     if final_sim is None or final_force6 is None:
+         raise RuntimeError("No coupling pass was executed")
+     result: dict[str, Any] = {
++        "qualification_status": "candidate_fix_requires_solver_and_physical_validation",
++        "run_config": config,
+         "contact_dt_s": contact_dt_s,
+         "platform_dt_s": float(study["time_domain"]["platform_dt_s"]),
+         "passes": rows,
+@@ -369,30 +346,36 @@
+ 
+ 
+ def build_report(skip_convergence: bool = False) -> dict[str, Any]:
+-    iterative = run_passes(4, 0.0005, retain_response=True, end_s=526.0)
++    iterative = run_passes(8, 0.0005, retain_response=True, end_s=526.0, adaptive=True)
+     algorithm_rows = {
+         "prescribed_deck": iterative["passes"][0]["contact_summary"],
+         "one_pass_platform_update": iterative["passes"][0],
+         "two_pass_platform_update": iterative["passes"][1],
+-        "four_pass_platform_update": iterative["passes"][3],
++        "last_platform_update": iterative["passes"][-1],
+     }
+     convergence_runs: dict[str, dict[str, Any]] = {}
+     regularization_runs: dict[str, dict[str, Any]] = {}
+     if not skip_convergence:
+-        convergence_runs["dt"] = run_passes(2, 0.0005, retain_response=False, end_s=516.0)
+-        convergence_runs["dt_over_2"] = run_passes(2, 0.00025, retain_response=False, end_s=516.0)
+-        convergence_runs["dt_over_4"] = run_passes(2, 0.000125, retain_response=False, end_s=516.0)
++        convergence_runs["dt"] = run_passes(8, 0.0005, retain_response=False, end_s=516.0, adaptive=True)
++        convergence_runs["dt_over_2"] = run_passes(8, 0.00025, retain_response=False, end_s=516.0, adaptive=True)
++        convergence_runs["dt_over_4"] = run_passes(8, 0.000125, retain_response=False, end_s=516.0, adaptive=True)
+         for stiffness_mn_m in (100.0, 250.0, 500.0):
++            if stiffness_mn_m == 100.0:
++                regularization_runs["kn_100_MN_m"] = convergence_runs["dt_over_4"]
++                continue
+             regularization_runs[f"kn_{stiffness_mn_m:g}_MN_m"] = run_passes(
+-                1,
++                8,
+                 0.000125,
+                 retain_response=False,
+                 end_s=516.0,
+                 contact_stiffness_n_m=stiffness_mn_m * 1.0e6,
++                adaptive=True,
+             )
+     report = {
+         "case_id": "Barge120x50_ThiesProxy_ChronoExplicitContact",
+-        "status": "computed_multibody_partitioned_case_study_not_full_scale_validation",
++        "status": "candidate_correction_outputs_unqualified_until_all_gates_close",
++        "correction_scope": "inertia frame/reference allocation, deck datum/pose, conservative transfer, raw retention, matched interface tolerance",
++        "all_interface_runs_closed": all(coupling_iteration_summary(x["passes"])["pass"] for x in [iterative,*convergence_runs.values(),*regularization_runs.values()]),
+         "same_platform_chain": "120x50x7 HAMS operator + deterministic JONSWAP wave force + Wang plume-force profile truncated at touchdown + four-leg multibody contact",
+         "algorithms": algorithm_rows,
+         "iterative_run": {key: value for key, value in iterative.items() if key != "response"},
+@@ -403,15 +386,15 @@
+         ),
+         "validation_hierarchy": {
+             "level_1_code_verification": ["action-reaction wrench residual", "mass closure", "contact coefficient-mode audit", "time-step refinement"],
+-            "level_2_submodel_validation": ["HAMS benchmark", "digitized Thies absorber law", "Yang reduced-model comparison"],
++            "level_2_submodel_validation": ["limited Yang reduced-model comparison only; HAMS benchmark unresolved and digitized Thies law is an input, not validation"],
+             "level_3_literature_trend_cross_check": ["eccentric touchdown excites roll/pitch", "Wang plume force used only as labelled forcing profile"],
+-            "level_4_full_coupled_validation": "not available; no public full-scale sea-touchdown experiment exists for this configuration",
++            "level_4_full_coupled_validation": "not available in the supplied evidence; no matched full-scale sea-touchdown experiment has been verified for this configuration",
+         },
+         "limitations": [
+             "Only heave, roll and pitch are returned to the platform because no mooring/DP horizontal restoring matrix is available.",
+             "The four-leg geometry and digitized absorber curves are literature-based proxies, not vehicle CAD or qualification data.",
+             "The 120x50 barge uses generated homogeneous mass/inertia properties, not as-built inclining-test data.",
+-            "Coupling is partitioned replay; four passes diagnose fixed-point sensitivity but do not constitute a monolithic solve.",
++            "Coupling is partitioned replay with adaptive fixed-point stopping; it is not a monolithic solve and remains unqualified if closure or refinement gates fail.",
+             "The production response is continued to 526 s to assess post-touchdown settling; time-step refinement uses the shorter 516 s impact window because its acceptance metrics are impact-local.",
+         ],
+         "output_response": str(RESPONSE_PATH.relative_to(ROOT).as_posix()),

@@ -1,0 +1,112 @@
+{
+  "pdf_pages": 20,
+  "native_math_objects": 100,
+  "only_figure6_replaced": true,
+  "tables1_and3_preserved": true,
+  "table4_matches_corrected_report": true,
+  "page_checks": [
+    {
+      "page": 1,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 2,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 3,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 4,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 5,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 6,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 7,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 8,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 9,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 10,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 11,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 12,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 13,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 14,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 15,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 16,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 17,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 18,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 19,
+      "nonblank": true,
+      "outside_page": []
+    },
+    {
+      "page": 20,
+      "nonblank": true,
+      "outside_page": []
+    }
+  ],
+  "automated_checks_pass": true,
+  "pdf_sha256": "a0833d174512b24cb3def6abddb5696f09b4b8ae73d2f3757e79ded60de1a37e",
+  "scope": "Publication consistency and page bounds; scientific numerical failures remain reported"
+}

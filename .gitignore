@@ -305,3 +305,6 @@ SourceCode/*.mod
 /RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn2.5e+08/pass07.json
 /RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn5e+08/pass01.json
 /RocketRecoveryCases/Chrono_LeggedRecovery_Corrected20260927_v2/raw/end516_dt0.000125_kn5e+08/pass02.json
+
+# flattening scratch
+tmp/flat_migration/
